@@ -92,20 +92,6 @@ public class SimpleCharacterController : MonoBehaviour
         if (_move.magnitude > 1f)
             _move.Normalize();
 
-/*         if (_move != Vector3.zero)
-        {
-            Quaternion _targetRotation = Quaternion.LookRotation(_move);
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                _targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
-        }
-
-        float speed = isWalking || _isCrouch ? walkSpeed:runSpeed;
-        // Move forward in facing direction
-        Vector3 _worldMove = transform.forward * _move.magnitude * speed; */
-
         float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
 
         // Camera forward (flattened)
@@ -154,10 +140,6 @@ public class SimpleCharacterController : MonoBehaviour
         _verticalVelocity += gravity * Time.deltaTime;
 
         // Combine horizontal + vertical
-        //Vector3 _velocity = _worldMove;
-        /* _velocity.y = _verticalVelocity;
-
-        _controller.Move(_velocity * Time.deltaTime); */
         Vector3 _velocity = worldMove;
         _velocity.y = _verticalVelocity;
         _controller.Move(_velocity * Time.deltaTime);
