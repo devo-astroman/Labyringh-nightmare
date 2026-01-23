@@ -99,7 +99,7 @@ public class SimpleCharacterController : MonoBehaviour
             );
         }
 
-        float speed = isWalking? walkSpeed:runSpeed;
+        float speed = isWalking || _isCrouch ? walkSpeed:runSpeed;
         // Move forward in facing direction
         Vector3 _worldMove = transform.forward * _move.magnitude * speed;
         
