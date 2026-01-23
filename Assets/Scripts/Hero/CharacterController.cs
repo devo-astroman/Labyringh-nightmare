@@ -3,8 +3,12 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class SimpleCharacterController : MonoBehaviour
 {
-    [Header("Movement")]
-    public float moveSpeed = 5f;
+    [Header("Movement - Run")]
+    public float runSpeed = 5f;
+    [Header("Movement - Walk")]
+    public KeyCode walkKey = KeyCode.LeftShift;    
+    public float walkSpeed = 2f;
+    public bool isWalking = false;
 
     [Header("Jump")]
     public float jumpHeight = 1.5f;
@@ -33,9 +37,19 @@ public class SimpleCharacterController : MonoBehaviour
 
     void Update()
     {
-        bool _crouchKeyDown = Input.GetKeyDown(crouchKey);
 
-        if (_crouchKeyDown)
+        bool walkKeyDown = Input.GetKeyDown(walkKey);
+
+        if (walkKeyDown)
+        {
+            isWalking = !isWalking;
+            
+        }
+
+/////
+        bool crouchKeyDown = Input.GetKeyDown(crouchKey);
+
+        if (crouchKeyDown)
         {
             _isCrouch = !_isCrouch;
 
@@ -69,8 +83,9 @@ public class SimpleCharacterController : MonoBehaviour
             );
         }
 
+        float speed = isWalking? walkSpeed:runSpeed;
         // Move forward in facing direction
-        Vector3 _worldMove = transform.forward * _move.magnitude * moveSpeed;
+        Vector3 _worldMove = transform.forward * _move.magnitude * speed;
         
 
         // Ground check
