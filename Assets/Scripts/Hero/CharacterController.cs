@@ -30,6 +30,22 @@ public class SimpleCharacterController : MonoBehaviour
     private CharacterController _controller;
     private float _verticalVelocity;
 
+    
+    public Vector3 GetVelocity() => _controller != null ? _controller.velocity : Vector3.zero;
+
+    public float GetHorizontalSpeed()
+    {
+        Vector3 v = GetVelocity();
+        v.y = 0f;
+        return v.magnitude;
+    }
+
+    public float GetVerticalSpeed() => GetVelocity().y;
+    public bool IsGrounded() => _controller != null && _controller.isGrounded;
+    public bool IsCrouching() => _isCrouch;
+
+
+
     void Start()
     {
         _controller = GetComponent<CharacterController>();
