@@ -14,8 +14,9 @@ public class CharacterAnimatorController : MonoBehaviour
     [SerializeField] private string _speedParam = "Speed";
     [SerializeField] private string _isMovingParam = "IsMoving";
     [SerializeField] private string _isJumpingParam = "Jump";       
-    [SerializeField] private string _isCrouchingParam = "Crouch";   // bool
-    [SerializeField] private string _isFallingParam = "FreeFall";   // bool
+    [SerializeField] private string _isCrouchingParam = "Crouch";   
+    [SerializeField] private string _isFallingParam = "FreeFall";   
+    [SerializeField] private string _isGrounded = "Grounded";
 
     [Header("Tuning")]
     [SerializeField] private float _idleThreshold = 0.05f;
@@ -63,7 +64,10 @@ public class CharacterAnimatorController : MonoBehaviour
             _animator.SetBool(_isCrouchingParam, isCrouching);
 
         // --- Jump / Fall ---
-        bool grounded = _simpleCharacterController.IsGrounded();
+        bool grounded = _simpleCharacterController.IsGrounded();        
+        if (!string.IsNullOrEmpty(_isGrounded))
+            _animator.SetBool(_isGrounded, grounded);
+
         float vY = _simpleCharacterController.GetVerticalSpeed();
 
         // Jump start: was grounded last frame, now not grounded, and moving upward
