@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class SimpleCharacterController : MonoBehaviour
 {
+    [Header("Camera")]
+    public Transform cameraTarget; // assign the same PlayerCameraRoot/CinemachineCameraTarget
+    
     [Header("Movement - Run")]
     public float runSpeed = 5f;
     [Header("Movement - Walk")]
@@ -89,7 +92,7 @@ public class SimpleCharacterController : MonoBehaviour
         if (_move.magnitude > 1f)
             _move.Normalize();
 
-        if (_move != Vector3.zero)
+/*         if (_move != Vector3.zero)
         {
             Quaternion _targetRotation = Quaternion.LookRotation(_move);
             transform.rotation = Quaternion.Slerp(
@@ -101,7 +104,37 @@ public class SimpleCharacterController : MonoBehaviour
 
         float speed = isWalking || _isCrouch ? walkSpeed:runSpeed;
         // Move forward in facing direction
-        Vector3 _worldMove = transform.forward * _move.magnitude * speed;
+        Vector3 _worldMove = transform.forward * _move.magnitude * speed; */
+
+        float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
+
+        // Camera forward (flattened)
+        Vector3 camForward = cameraTarget != null ? cameraTarget.forward : Vector3.forward;
+        Vector3 camRight   = cameraTarget != null ? cameraTarget.right   : Vector3.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        // Move direction relative to camera
+        Vector3 moveDir = camForward * _z + camRight * _x;
+        if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
+
+        // Player always faces camera yaw (forward)
+        if (cameraTarget != null)
+        {
+            Vector3 faceDir = camForward; // already flattened
+            if (faceDir.sqrMagnitude > 0.0001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(faceDir);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+            }
+        }
+
+        // Move in the intended direction (not necessarily transform.forward)
+        Vector3 worldMove = moveDir * speed;
+
         
 
         // Ground check and is not crouching
@@ -121,9 +154,12 @@ public class SimpleCharacterController : MonoBehaviour
         _verticalVelocity += gravity * Time.deltaTime;
 
         // Combine horizontal + vertical
-        Vector3 _velocity = _worldMove;
-        _velocity.y = _verticalVelocity;
+        //Vector3 _velocity = _worldMove;
+        /* _velocity.y = _verticalVelocity;
 
+        _controller.Move(_velocity * Time.deltaTime); */
+        Vector3 _velocity = worldMove;
+        _velocity.y = _verticalVelocity;
         _controller.Move(_velocity * Time.deltaTime);
     }
 
