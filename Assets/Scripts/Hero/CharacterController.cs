@@ -1,0 +1,97 @@
+using UnityEngine;
+
+[RequireComponent(typeof(CharacterController))]
+public class SimpleCharacterController : MonoBehaviour
+{
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+
+    [Header("Jump")]
+    public float jumpHeight = 1.5f;
+    public float gravity = -20f;
+
+    [Header("Crouch")]
+    public KeyCode crouchKey = KeyCode.LeftControl;
+    private bool _isCrouch = false;
+    public float standHeight = 1.5f;
+    public float standCenter = 0;    
+    public float crouchHeight = .7f;
+    public float crouchCenter = -.36f;
+    public float ceilingCheckRadius = 0.25f;
+    public LayerMask ceilingMask = ~0; // everything by default
+
+    private CharacterController _controller;
+    private float _verticalVelocity;
+
+    void Start()
+    {
+        _controller = GetComponent<CharacterController>();
+    }
+
+    void Update()
+    {
+        bool _crouchKeyDown = Input.GetKeyDown(crouchKey);
+
+        if (_crouchKeyDown)
+        {
+            _isCrouch = !_isCrouch;
+
+            if (!_isCrouch && IsCeilingBlocked())
+            {
+                // try to stand up but there is a blocking ceiling
+                _isCrouch = true;
+            }
+
+            _controller.height = _isCrouch ? crouchHeight : standHeight;
+            float centerY = _isCrouch ? crouchCenter : standCenter;
+
+            _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
+        }
+
+        float _x = Input.GetAxis("Horizontal");
+        float _z = Input.GetAxis("Vertical");
+
+        Vector3 _move = new Vector3(_x, 0f, _z);
+
+        if (_move.magnitude > 1f)
+            _move.Normalize();
+
+        // Move relative to facing direction
+        Vector3 _worldMove = transform.TransformDirection(_move) * moveSpeed;
+
+        // Ground check
+        if (_controller.isGrounded)
+        {
+            if (_verticalVelocity < 0)
+                _verticalVelocity = -2f; // keeps grounded
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // Jump velocity formula
+                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+        }
+
+        // Apply gravity
+        _verticalVelocity += gravity * Time.deltaTime;
+
+        // Combine horizontal + vertical
+        Vector3 _velocity = _worldMove;
+        _velocity.y = _verticalVelocity;
+
+        _controller.Move(_velocity * Time.deltaTime);
+    }
+
+    private bool IsCeilingBlocked()
+    {
+        // Check point just above the character's head (based on stand height)
+        Vector3 _origin = transform.position + Vector3.up * (standHeight - 0.05f);
+
+        return Physics.CheckSphere(
+            _origin,
+            ceilingCheckRadius,
+            ceilingMask,
+            QueryTriggerInteraction.Ignore
+        );
+    }
+}
