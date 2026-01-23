@@ -20,6 +20,9 @@ public class SimpleCharacterController : MonoBehaviour
     public float ceilingCheckRadius = 0.25f;
     public LayerMask ceilingMask = ~0; // everything by default
 
+    [Header("Rotation")]
+    public float rotationSpeed = 10f;
+
     private CharacterController _controller;
     private float _verticalVelocity;
 
@@ -56,8 +59,19 @@ public class SimpleCharacterController : MonoBehaviour
         if (_move.magnitude > 1f)
             _move.Normalize();
 
-        // Move relative to facing direction
-        Vector3 _worldMove = transform.TransformDirection(_move) * moveSpeed;
+        if (_move != Vector3.zero)
+        {
+            Quaternion _targetRotation = Quaternion.LookRotation(_move);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                _targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
+
+        // Move forward in facing direction
+        Vector3 _worldMove = transform.forward * _move.magnitude * moveSpeed;
+        
 
         // Ground check
         if (_controller.isGrounded)
