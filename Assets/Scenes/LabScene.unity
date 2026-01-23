@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 846838156}
   - component: {fileID: 846838155}
   - component: {fileID: 846838158}
+  - component: {fileID: 846838159}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -736,14 +737,30 @@ MonoBehaviour:
   _animator: {fileID: 1883833951}
   _speedParam: Speed
   _isMovingParam: IsMoving
-  _isRunningParam: IsRunning
   _isJumpingParam: Jump
   _isCrouchingParam: Crouch
   _isFallingParam: FreeFall
   _idleThreshold: 0.05
-  _runThreshold: 4
   _speedDamp: 8
-  _fallThreshold: -0.2
+  _fallThreshold: -0.6
+--- !u!114 &846838159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846838154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d9b99b06af9b344a195b337259c8d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkDistance: 2.4
+  _nearFloorThreshold: 0.35
+  _groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  _drawDebugRay: 1
 --- !u!1 &1273934654
 GameObject:
   m_ObjectHideFlags: 0

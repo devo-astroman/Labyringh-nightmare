@@ -7,11 +7,13 @@ public class CharacterAnimatorController : MonoBehaviour
     [SerializeField] private Animator _animator;
 
     private SimpleCharacterController _simpleCharacterController;
+    private GroundDistanceChecker _groundChecker;
+
 
     [Header("Animator Params")]
     [SerializeField] private string _speedParam = "Speed";
     [SerializeField] private string _isMovingParam = "IsMoving";
-    [SerializeField] private string _isJumpingParam = "Jump";       // recommend Trigger
+    [SerializeField] private string _isJumpingParam = "Jump";       
     [SerializeField] private string _isCrouchingParam = "Crouch";   // bool
     [SerializeField] private string _isFallingParam = "FreeFall";   // bool
 
@@ -33,6 +35,9 @@ public class CharacterAnimatorController : MonoBehaviour
 
         if (_animator == null)
             _animator = GetComponentInChildren<Animator>();
+
+        _groundChecker = GetComponent<GroundDistanceChecker>();
+
 
         _wasGrounded = _simpleCharacterController.IsGrounded();
     }
@@ -64,8 +69,11 @@ public class CharacterAnimatorController : MonoBehaviour
         // Jump start: was grounded last frame, now not grounded, and moving upward
         bool jumpStarted = _wasGrounded && !grounded && vY > 0.1f;
 
+        bool nearFloor = _groundChecker != null && _groundChecker.NearFloor;
+        bool isFalling = !grounded && vY < _fallThreshold && !nearFloor;
+
         // Falling: airborne and going downward
-        bool isFalling = !grounded && vY < _fallThreshold;
+        //bool isFalling = !grounded && vY < _fallThreshold;
 
         // Jump parameter: recommend Trigger
         if (jumpStarted && !string.IsNullOrEmpty(_isJumpingParam))
