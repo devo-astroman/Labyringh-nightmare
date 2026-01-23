@@ -104,8 +104,8 @@ public class SimpleCharacterController : MonoBehaviour
         Vector3 _worldMove = transform.forward * _move.magnitude * speed;
         
 
-        // Ground check
-        if (_controller.isGrounded)
+        // Ground check and is not crouching
+        if (_controller.isGrounded && !_isCrouch)
         {
             if (_verticalVelocity < 0)
                 _verticalVelocity = -2f; // keeps grounded

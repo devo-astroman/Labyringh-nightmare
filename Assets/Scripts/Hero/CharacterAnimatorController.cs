@@ -11,14 +11,12 @@ public class CharacterAnimatorController : MonoBehaviour
     [Header("Animator Params")]
     [SerializeField] private string _speedParam = "Speed";
     [SerializeField] private string _isMovingParam = "IsMoving";
-    [SerializeField] private string _isRunningParam = "IsRunning";
     [SerializeField] private string _isJumpingParam = "Jump";       // recommend Trigger
     [SerializeField] private string _isCrouchingParam = "Crouch";   // bool
     [SerializeField] private string _isFallingParam = "FreeFall";   // bool
 
     [Header("Tuning")]
     [SerializeField] private float _idleThreshold = 0.05f;
-    [SerializeField] private float _runThreshold = 4.0f;
     [SerializeField] private float _speedDamp = 8f;
 
     [Tooltip("Vertical speed below which we consider 'falling' (negative = going down)")]
@@ -50,13 +48,9 @@ public class CharacterAnimatorController : MonoBehaviour
         _animator.SetFloat(_speedParam, _smoothedSpeed);
 
         bool isMoving = _smoothedSpeed > _idleThreshold;
-        bool isRunning = _smoothedSpeed >= _runThreshold;
 
         if (!string.IsNullOrEmpty(_isMovingParam))
             _animator.SetBool(_isMovingParam, isMoving);
-
-        if (!string.IsNullOrEmpty(_isRunningParam))
-            _animator.SetBool(_isRunningParam, isRunning);
 
         // --- Crouch ---
         bool isCrouching = _simpleCharacterController.IsCrouching();
