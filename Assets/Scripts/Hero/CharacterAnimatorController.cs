@@ -12,7 +12,7 @@ public class CharacterAnimatorController : MonoBehaviour
 
     [Header("Animator Params")]
     [SerializeField] private string _speedParam = "Speed";
-    [SerializeField] private string _isMovingParam = "IsMoving";
+    //[SerializeField] private string _isMovingParam = "IsMoving";
     [SerializeField] private string _isJumpingParam = "Jump";       
     [SerializeField] private string _isCrouchingParam = "Crouch";   
     [SerializeField] private string _isFallingParam = "FreeFall";   
@@ -39,7 +39,6 @@ public class CharacterAnimatorController : MonoBehaviour
 
         _groundChecker = GetComponent<GroundDistanceChecker>();
 
-
         _wasGrounded = _simpleCharacterController.IsGrounded();
     }
 
@@ -55,8 +54,8 @@ public class CharacterAnimatorController : MonoBehaviour
 
         bool isMoving = _smoothedSpeed > _idleThreshold;
 
-        if (!string.IsNullOrEmpty(_isMovingParam))
-            _animator.SetBool(_isMovingParam, isMoving);
+        //if (!string.IsNullOrEmpty(_isMovingParam))
+        //    _animator.SetBool(_isMovingParam, isMoving);
 
         // --- Crouch ---
         bool isCrouching = _simpleCharacterController.IsCrouching();

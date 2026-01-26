@@ -9,7 +9,7 @@ public class GunShootController : MonoBehaviour
     [Tooltip("Animator of the character")]
     public Animator _animator;
 
-    [SerializeField] int aimLayerIndex = 1; // your AimLayer index
+    //[SerializeField] int aimLayerIndex = 1; // your AimLayer index
 
     [SerializeField] ThirdPersonController _thirdPersonController; // your AimLayer index
     [SerializeField] AimController _aimController; // your AimLayer index

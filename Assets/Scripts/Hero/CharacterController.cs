@@ -12,6 +12,7 @@ public class SimpleCharacterController : MonoBehaviour
     public KeyCode walkKey = KeyCode.LeftShift;    
     public float walkSpeed = 2f;
     public bool isWalking = false;
+    
 
     [Header("Jump")]
     public float jumpHeight = 1.5f;
