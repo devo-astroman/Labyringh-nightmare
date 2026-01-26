@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterAnimatorLayerController : MonoBehaviour
+public class LayerCharacterAnimatorController : MonoBehaviour
 {
     [Header("Animator")]
     [SerializeField] private Animator _animator;
