@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3011463122815363958}
   - component: {fileID: 646754600272062119}
+  - component: {fileID: 5292960079023637284}
   m_Layer: 0
   m_Name: Animator
   m_TagString: Untagged
@@ -54,6 +55,22 @@ MonoBehaviour:
   _idleThreshold: 0.05
   _speedDamp: 8
   _fallThreshold: -0.6
+--- !u!114 &5292960079023637284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244978759535600554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eceb8410b24fbc4fa7a095f82798548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 4980657914550387216}
+  _baseLayerName: Base Layer
+  _walkLayerName: Walk
+  _runLayerName: Run
 --- !u!1 &2435053706517500325
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,6 +82,7 @@ GameObject:
   - component: {fileID: 1484743981201241890}
   - component: {fileID: 3762478675217881393}
   - component: {fileID: 7887771674934090535}
+  - component: {fileID: 612121071389122839}
   m_Layer: 0
   m_Name: SimpleCharacterController
   m_TagString: Untagged
@@ -136,6 +154,22 @@ MonoBehaviour:
     m_Bits: 4294967295
   _drawDebugRay: 1
   _controller: {fileID: 7761438407197574316}
+--- !u!114 &612121071389122839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2435053706517500325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e12949d540f8b498772301bca0bc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkKey: 304
+  crouchKey: 306
+  interactKey: 101
+  aimKey: 113
 --- !u!1 &7807459546817546693
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +214,7 @@ PrefabInstance:
     - target: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
       propertyPath: m_Name
-      value: PlayerHero (1) Variant
+      value: PlayerHero - last
       objectReference: {fileID: 0}
     - target: {fileID: 2692149087735219462, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
@@ -261,7 +295,15 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5180737074399432878}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2496203246063805316}
+    - targetCorrespondingSourceObject: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 7951279231315962526}
   m_SourcePrefab: {fileID: 100100000, guid: 31c71d4774be96c43ae3536a1cbabfb1, type: 3}
 --- !u!4 &1211426299497730361 stripped
 Transform:
@@ -269,6 +311,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2161137574285141043}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1941447209536027709 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+    type: 3}
+  m_PrefabInstance: {fileID: 2161137574285141043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2496203246063805316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941447209536027709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413d2887b8e04d2459e9749908d318e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputHeroController: {fileID: 612121071389122839}
+  _animator: {fileID: 4980657914550387216}
+  _heroFSM: {fileID: 7951279231315962526}
+--- !u!114 &7951279231315962526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941447209536027709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5cd0e545b3cc1408965f8f277496a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &4980657914550387216 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 6405032159777678883, guid: 31c71d4774be96c43ae3536a1cbabfb1,
