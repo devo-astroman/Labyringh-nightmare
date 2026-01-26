@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class SimpleCharacterController : MonoBehaviour
 {
     [Header("Camera")]
@@ -31,7 +30,7 @@ public class SimpleCharacterController : MonoBehaviour
     [Header("Rotation")]
     public float rotationSpeed = 10f;
 
-    private CharacterController _controller;
+    [SerializeField] private CharacterController _controller;
     private float _verticalVelocity;
 
     
@@ -52,7 +51,6 @@ public class SimpleCharacterController : MonoBehaviour
 
     void Start()
     {
-        _controller = GetComponent<CharacterController>();
     }
 
     void Update()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+
 public class GroundDistanceChecker : MonoBehaviour
 {
     [Header("Settings")]
@@ -11,14 +11,13 @@ public class GroundDistanceChecker : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool _drawDebugRay = true;
 
-    private CharacterController _controller;
+    [SerializeField] private CharacterController _controller;
 
     public bool NearFloor { get; private set; }
     public float CurrentDistance { get; private set; }
 
     private void Awake()
     {
-        _controller = GetComponent<CharacterController>();
     }
 
     private void Update()

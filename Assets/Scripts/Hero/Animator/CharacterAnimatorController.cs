@@ -1,12 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SimpleCharacterController))]
 public class CharacterAnimatorController : MonoBehaviour
 {
     [Header("Refs")]
     [SerializeField] private Animator _animator;
 
-    private SimpleCharacterController _simpleCharacterController;
+    [SerializeField] private SimpleCharacterController _simpleCharacterController;
     private GroundDistanceChecker _groundChecker;
 
 
@@ -32,8 +31,6 @@ public class CharacterAnimatorController : MonoBehaviour
 
     void Start()
     {
-        _simpleCharacterController = GetComponent<SimpleCharacterController>();
-
         if (_animator == null)
             _animator = GetComponentInChildren<Animator>();
 
