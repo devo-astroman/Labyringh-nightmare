@@ -2,15 +2,7 @@ using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using System;
 
-/* public struct Dependencies
-{
-    public int id;
-    public InputHeroController inputHeroController;
-    public AnimatorHeroController animatorHeroController;    
-    public Animator animator;
-    public SimpleCharacterController simpleCharacterController;
-    public Action GoCrouch;
-} */
+
 
 public class DependenciesHeroFSM
 {
@@ -54,13 +46,6 @@ public class HeroFSM : AbstractFiniteStateMachine
         STATE_AIM
     }
 
-    /*  public void Setup(InputHeroController inputHC, AnimatorHeroController animatorHC)
-     {
-         Debug.Log("Setup 0");
-         deps.inputHeroController = inputHC;
-         deps.animatorHeroController = animatorHC;
-     } */
-
     private void Awake()
     {
         dependencies.id = 0;
@@ -90,20 +75,15 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     public void GoRun()
     {
-        Debug.Log("SHOULD GO TO RUN");
-        //Inputs of the player are enabled
         TransitionToState(States.STATE_RUN);
     }
     public void GoWalk()
     {
-        //Inputs of the player are disabled
         TransitionToState(States.STATE_WALK);
     }
 
     public void GoCrouch()
     {
-        //Inputs of the player are disabled
-        //animation of the character runs
         TransitionToState(States.STATE_CROUCH);
     }
 
@@ -123,15 +103,11 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public void Setup(ref DependenciesHeroFSM deps)
         {
-            Debug.Log("Setup-1-RUN");
             _dependencies = deps;
         }
 
         public override void OnEnter()
         {
-            Debug.Log("RUN STATE ");
-
-
             _dependencies.animatorHeroController.SetRunMode();
             _dependencies.simpleCharacterController.ApplyRun();
 
@@ -143,11 +119,8 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
-            Debug.Log("RUN STATE ");
             _dependencies.lastState = "RUN_STATE";
 
-            //Put the animator in Run Layer
-            //unsubscribe to jump
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.jumpKeyPressed -= HandleJumpKeyPressed;
@@ -155,19 +128,16 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         private void HandleCrouchKeyPressed()
         {
-            //should go to crouch state
             _dependencies.GoCrouch?.Invoke();
         }
 
         private void HandleWalkKeyPressed()
         {
-            //should go to crouch state
-            Debug.Log("0-gowalk");
             _dependencies.GoWalk?.Invoke();
         }
 
         private void HandleJumpKeyPressed()
-        {   //in the future go to jump state   
+        {   
             _dependencies.simpleCharacterController.ApplyJump();
         }
     }
@@ -183,7 +153,6 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-            Debug.Log("WALK STATE");
             //Put the animator in Walk Layer
             _dependencies.animatorHeroController.SetWalkMode();
             _dependencies.simpleCharacterController.ApplyWalk();
@@ -195,9 +164,7 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
-            Debug.Log("WALK STATE");
             //Put the animator in Walk Layer
-
             _dependencies.lastState = "WALK_STATE";
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
@@ -213,7 +180,6 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleWalkKeyPressed()
         {
             //should go to crouch state
-            Debug.Log("1-gorun");
             _dependencies.GoRun?.Invoke();
         }
 
@@ -235,7 +201,6 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-            Debug.Log("CROUCH STATE");
             //Put the animator in Crouch Layer
             _dependencies.animatorHeroController.SetCrouchMode();
             _dependencies.simpleCharacterController.ApplyCrouch();
@@ -246,7 +211,6 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
-            Debug.Log("Crouch STATE");
             //Put the animator in Walk Layer
             _dependencies.lastState = "CROUCH_STATE";
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
@@ -284,7 +248,6 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-            Debug.Log("AIM STATE");
             //Put the animator in Aim Layer
         }
     }
