@@ -8,18 +8,22 @@ public class SimpleCharacterController : MonoBehaviour
     [Header("Movement - Run")]
     public float runSpeed = 5f;
     [Header("Movement - Walk")]
-    public KeyCode walkKey = KeyCode.LeftShift;    
+    //public KeyCode walkKey = KeyCode.LeftShift;    
     public float walkSpeed = 2f;
     public bool isWalking = false;
+
+    private float _currentSpeed = 0;
     
 
     [Header("Jump")]
     public float jumpHeight = 1.5f;
     public float gravity = -20f;
+    private bool _shouldMakeJump = false;
 
     [Header("Crouch")]
-    public KeyCode crouchKey = KeyCode.LeftControl;
+    //public KeyCode crouchKey = KeyCode.LeftControl;
     private bool _isCrouch = false;
+    public float crouchSpeed = 2f;
     public float standHeight = 1.5f;
     public float standCenter = 0;    
     public float crouchHeight = .7f;
@@ -58,22 +62,24 @@ public class SimpleCharacterController : MonoBehaviour
 
         if (_playerRootToRotate == null && _controller != null)
             _playerRootToRotate = _controller.transform; // rotate the object that is actually moving
+
+        _currentSpeed = runSpeed;
     }
 
 
     void Update()
     {
 
-        bool walkKeyDown = Input.GetKeyDown(walkKey);
+        /* bool walkKeyDown = Input.GetKeyDown(walkKey);
 
         if (walkKeyDown)
         {
             isWalking = !isWalking;
             
-        }
+        } */
 
 /////
-        bool crouchKeyDown = Input.GetKeyDown(crouchKey);
+/*         bool crouchKeyDown = Input.GetKeyDown(crouchKey);
 
         if (crouchKeyDown)
         {
@@ -89,7 +95,7 @@ public class SimpleCharacterController : MonoBehaviour
             float centerY = _isCrouch ? crouchCenter : standCenter;
 
             _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
-        }
+        } */
 
         float _x = Input.GetAxis("Horizontal");
         float _z = Input.GetAxis("Vertical");
@@ -99,7 +105,8 @@ public class SimpleCharacterController : MonoBehaviour
         if (_move.magnitude > 1f)
             _move.Normalize();
 
-        float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
+        //float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
+        float speed = _currentSpeed;
 
         // Camera forward (flattened)
         Vector3 camForward = cameraTarget != null ? cameraTarget.forward : Vector3.forward;
@@ -133,19 +140,25 @@ public class SimpleCharacterController : MonoBehaviour
         // Move in the intended direction (not necessarily transform.forward)
         Vector3 worldMove = moveDir * speed;
 
-        
+
 
         // Ground check and is not crouching
-        if (_controller.isGrounded && !_isCrouch)
-        {
-            if (_verticalVelocity < 0)
-                _verticalVelocity = -2f; // keeps grounded
+        /*         if (_controller.isGrounded && !_isCrouch)
+                {
+                    if (_verticalVelocity < 0)
+                        _verticalVelocity = -2f; // keeps grounded
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                // Jump velocity formula
-                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        // Jump velocity formula
+                        _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    }
+                } */
+
+        if (_shouldMakeJump)
+        {
+            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            _shouldMakeJump = false;
         }
 
         // Apply gravity
@@ -157,7 +170,7 @@ public class SimpleCharacterController : MonoBehaviour
         _controller.Move(_velocity * Time.deltaTime);
     }
 
-    private bool IsCeilingBlocked()
+    public bool IsCeilingBlocked()
     {
         // Check point just above the character's head (based on stand height)
         Vector3 _origin = transform.position + Vector3.up * (standHeight - 0.05f);
@@ -169,4 +182,50 @@ public class SimpleCharacterController : MonoBehaviour
             QueryTriggerInteraction.Ignore
         );
     }
+
+    public void ApplyRun()
+    {
+        _currentSpeed = runSpeed;
+
+        RemoveCrouchSetup();
+        _isCrouch = false;
+    }
+
+    public void ApplyWalk()
+    {
+        _currentSpeed = walkSpeed;
+
+        RemoveCrouchSetup();
+        _isCrouch = false;
+    }
+
+    public void ApplyCrouch()
+    {
+        _currentSpeed = crouchSpeed;
+        
+        AddCrouchSetup();
+        _isCrouch = true;
+    }
+
+    public void ApplyJump()
+    {
+        _shouldMakeJump = true;
+    }
+
+    private void AddCrouchSetup()
+    {
+        _controller.height = crouchHeight;
+        float centerY = crouchCenter;
+        _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
+    }
+
+    private void RemoveCrouchSetup()
+    {
+        _controller.height = standHeight;
+        float centerY = standCenter;
+        _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
+    }
+
+
+
 }

@@ -5,20 +5,24 @@ public struct Dependencies
 {
     public int id;
     public InputHeroController inputHeroController;
-    public AnimatorHeroController animatorHeroController;
-    
+    public AnimatorHeroController animatorHeroController;    
     public Animator animator;
+    public SimpleCharacterController simpleCharacterController;
 }
 
 public class HeroFSM : AbstractFiniteStateMachine{    
     [SerializeField] private InputHeroController _inputHeroController;
     [SerializeField] private AnimatorHeroController _animatorHeroController;
+    [SerializeField] private SimpleCharacterController _simpleCharacterController;
+
+    
     public Dependencies deps = new Dependencies
     {
         id=0,
         inputHeroController=null,
         animatorHeroController=null,
-        animator=null
+        animator=null,
+        simpleCharacterController = null,
 
     };
 
@@ -42,6 +46,8 @@ public class HeroFSM : AbstractFiniteStateMachine{
         deps.id = 0;
         deps.inputHeroController = _inputHeroController;
         deps.animatorHeroController = _animatorHeroController;
+        deps.simpleCharacterController = _simpleCharacterController;
+        
 
         RunState run = AbstractState.Create<RunState, States>(States.STATE_RUN, this);
         run.Setup(ref deps);
@@ -76,6 +82,11 @@ public class HeroFSM : AbstractFiniteStateMachine{
         TransitionToState(States.STATE_CROUCH);        
     }
 
+    public bool CanStandUp()
+    {   
+        return _simpleCharacterController.IsCeilingBlocked();
+    }
+
 
     private void OnDestroy()
     {
@@ -94,6 +105,8 @@ public class HeroFSM : AbstractFiniteStateMachine{
         {
             Debug.Log("RUN STATE ");
             _dependencies.animatorHeroController.SetRunMode();
+            _dependencies.simpleCharacterController.ApplyRun();
+
             //Put the animator in Run Layer
         }
     }
@@ -112,6 +125,7 @@ public class HeroFSM : AbstractFiniteStateMachine{
             Debug.Log("WALK STATE");
             //Put the animator in Walk Layer
             _dependencies.animatorHeroController.SetWalkMode();
+            _dependencies.simpleCharacterController.ApplyWalk();
         }
     }
 
@@ -129,6 +143,7 @@ public class HeroFSM : AbstractFiniteStateMachine{
             Debug.Log("CROUCH STATE");
             //Put the animator in Crouch Layer
             _dependencies.animatorHeroController.SetCrouchMode();
+            _dependencies.simpleCharacterController.ApplyCrouch();
         }
     }
 

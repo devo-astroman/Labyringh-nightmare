@@ -136,12 +136,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTarget: {fileID: 1211426299497730361}
   runSpeed: 5
-  walkKey: 304
   walkSpeed: 2
   isWalking: 0
   jumpHeight: 1.5
   gravity: -20
-  crouchKey: 306
+  crouchSpeed: 2
   standHeight: 1.5
   standCenter: 0
   crouchHeight: 0.7
@@ -186,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkKey: 304
   crouchKey: 306
+  spaceKey: 32
   interactKey: 101
   aimKey: 113
 --- !u!1 &4313167579421188510
@@ -234,6 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHeroController: {fileID: 612121071389122839}
   _animatorHeroController: {fileID: 4537468810137382026}
+  _simpleCharacterController: {fileID: 0}
 --- !u!1 &7807459546817546693
 GameObject:
   m_ObjectHideFlags: 0
@@ -396,6 +397,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHeroController: {fileID: 612121071389122839}
+  _simpleCharacterController: {fileID: 3762478675217881393}
   _heroFSM: {fileID: 1044229388807808024}
 --- !u!95 &4980657914550387216 stripped
 Animator:

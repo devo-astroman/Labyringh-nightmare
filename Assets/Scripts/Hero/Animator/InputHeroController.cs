@@ -9,6 +9,9 @@ public class InputHeroController : MonoBehaviour
     [Header("Crouch - Stand Switch key")]
     public KeyCode crouchKey = KeyCode.LeftControl;
 
+    [Header("Jump key")]
+    public KeyCode spaceKey = KeyCode.Space;
+
     [Header("Interact key")]
     public KeyCode interactKey = KeyCode.E;
 
@@ -18,6 +21,7 @@ public class InputHeroController : MonoBehaviour
 
     public Action walkKeyPressed;
     public Action crouchKeyPressed;
+    public Action spaceKeyPressed;
     public Action interactKeyPressed;
     public Action aimKeyPressed;
     
@@ -46,6 +50,11 @@ public class InputHeroController : MonoBehaviour
         if (Input.GetKeyDown(aimKey))
         {
             aimKeyPressed?.Invoke();
+        }
+
+        if (Input.GetKeyDown(spaceKey))
+        {
+            spaceKeyPressed?.Invoke();
         }
 
     }

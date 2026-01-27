@@ -46,7 +46,7 @@ public class CharacterAnimatorController : MonoBehaviour
         // --- Speed / locomotion ---
         float speed = _simpleCharacterController.GetHorizontalSpeed();
         _smoothedSpeed = Mathf.Lerp(_smoothedSpeed, speed, Time.deltaTime * _speedDamp);
-
+        
         _animator.SetFloat(_speedParam, _smoothedSpeed);
 
         bool isMoving = _smoothedSpeed > _idleThreshold;

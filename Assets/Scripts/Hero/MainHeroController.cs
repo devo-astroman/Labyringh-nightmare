@@ -3,7 +3,7 @@ using UnityEngine;
 public class MainHeroController : MonoBehaviour
 {
     [SerializeField] private InputHeroController _inputHeroController;
-   // [SerializeField] private AnimatorHeroController _animatorHeroController;
+    [SerializeField] private SimpleCharacterController _simpleCharacterController;
 
     [SerializeField] private HeroFSM _heroFSM;
 
@@ -12,11 +12,11 @@ public class MainHeroController : MonoBehaviour
     void Start()
     {
         //_heroFSM.Setup(_inputHeroController,_animatorHeroController);
-
-         _inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
+        _inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
         _inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
+        _inputHeroController.spaceKeyPressed += HandleSpaceKeyPressed;
         _inputHeroController.interactKeyPressed += HandleInteractKeyPressed;
-        _inputHeroController.aimKeyPressed += HandleAimKeyPressed; 
+        _inputHeroController.aimKeyPressed += HandleAimKeyPressed;
         //heroFSM.SetInputController(_inputHeroController);
     }
 
@@ -24,6 +24,7 @@ public class MainHeroController : MonoBehaviour
     {
          _inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
         _inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
+        _inputHeroController.spaceKeyPressed -= HandleSpaceKeyPressed;        
         _inputHeroController.interactKeyPressed -= HandleInteractKeyPressed;
         _inputHeroController.aimKeyPressed -= HandleAimKeyPressed; 
     }
@@ -48,8 +49,16 @@ public class MainHeroController : MonoBehaviour
 
         if(heroCurrentState == "Crouch")
         {
-            _heroFSM.GoRun();
-            heroCurrentState = "Run";
+            if (_heroFSM.CanStandUp())
+            {
+                _heroFSM.GoRun();
+                heroCurrentState = "Run";
+            }
+            else
+            {
+                Debug.Log("Player can't standup");
+            }
+
         }
         else
         {
@@ -58,6 +67,18 @@ public class MainHeroController : MonoBehaviour
         }
 
     }
+
+    private void HandleSpaceKeyPressed(){
+        //_heroFSM.CrouchPressed();
+        Debug.Log("HandleCrouchKeyPressed");
+
+        if(heroCurrentState != "Crouch")
+        {
+            _simpleCharacterController.ApplyJump();
+        }
+    }
+
+    
     private void HandleInteractKeyPressed(){
         //_heroFSM.InteractPressed();
         Debug.Log("HandleInteractKeyPressed");
