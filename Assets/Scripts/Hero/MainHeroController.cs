@@ -31,7 +31,16 @@ public class MainHeroController : MonoBehaviour
     private void HandleWalkKeyPressed(){
         //_heroFSM.WalkPressed();
         Debug.Log("HandleWalkKeyPressed");
-        _heroFSM.GoWalk();
+        if(heroCurrentState == "Walk")
+        {
+            _heroFSM.GoRun();
+            heroCurrentState = "Run";
+        }
+        else
+        {
+            _heroFSM.GoWalk();
+            heroCurrentState = "Walk";            
+        }
     }
     private void HandleCrouchKeyPressed(){
         //_heroFSM.CrouchPressed();
