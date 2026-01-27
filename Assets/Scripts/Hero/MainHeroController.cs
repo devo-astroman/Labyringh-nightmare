@@ -3,13 +3,15 @@ using UnityEngine;
 public class MainHeroController : MonoBehaviour
 {
     [SerializeField] private InputHeroController _inputHeroController;
-    [SerializeField] private Animator _animator;
+   // [SerializeField] private AnimatorHeroController _animatorHeroController;
 
     [SerializeField] private HeroFSM _heroFSM;
 
+    private string heroCurrentState = "Run";
+
     void Start()
     {
-        _heroFSM.Setup(_inputHeroController,_animator);
+        //_heroFSM.Setup(_inputHeroController,_animatorHeroController);
 
          _inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
         _inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
@@ -34,7 +36,18 @@ public class MainHeroController : MonoBehaviour
     private void HandleCrouchKeyPressed(){
         //_heroFSM.CrouchPressed();
         Debug.Log("HandleCrouchKeyPressed");
-        _heroFSM.GoCrouch();
+
+        if(heroCurrentState == "Crouch")
+        {
+            _heroFSM.GoRun();
+            heroCurrentState = "Run";
+        }
+        else
+        {
+            _heroFSM.GoCrouch();
+            heroCurrentState = "Crouch";
+        }
+
     }
     private void HandleInteractKeyPressed(){
         //_heroFSM.InteractPressed();

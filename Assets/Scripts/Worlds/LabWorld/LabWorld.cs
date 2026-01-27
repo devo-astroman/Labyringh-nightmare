@@ -31,7 +31,7 @@ public class LabWorld : MonoBehaviour
             Debug.Log("Should spawn the player");
             _defaultCamera.SetActive(false);
             var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
-        }, 2f);
+        }, 1f);
     }
 
 }

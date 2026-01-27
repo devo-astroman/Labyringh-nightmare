@@ -5,16 +5,19 @@ public struct Dependencies
 {
     public int id;
     public InputHeroController inputHeroController;
+    public AnimatorHeroController animatorHeroController;
+    
     public Animator animator;
 }
 
-public class HeroFSM : AbstractFiniteStateMachine{
-    
-
+public class HeroFSM : AbstractFiniteStateMachine{    
+    [SerializeField] private InputHeroController _inputHeroController;
+    [SerializeField] private AnimatorHeroController _animatorHeroController;
     public Dependencies deps = new Dependencies
     {
         id=0,
         inputHeroController=null,
+        animatorHeroController=null,
         animator=null
 
     };
@@ -27,15 +30,18 @@ public class HeroFSM : AbstractFiniteStateMachine{
         STATE_AIM
     }
 
-    public void Setup(InputHeroController inputHC, Animator anim)
+   /*  public void Setup(InputHeroController inputHC, AnimatorHeroController animatorHC)
     {
+        Debug.Log("Setup 0");
         deps.inputHeroController = inputHC;
-        deps.animator = anim;
-    }
+        deps.animatorHeroController = animatorHC;
+    } */
 
     private void Awake()
     {
         deps.id = 0;
+        deps.inputHeroController = _inputHeroController;
+        deps.animatorHeroController = _animatorHeroController;
 
         RunState run = AbstractState.Create<RunState, States>(States.STATE_RUN, this);
         run.Setup(ref deps);
@@ -43,26 +49,24 @@ public class HeroFSM : AbstractFiniteStateMachine{
         WalkState walk = AbstractState.Create<WalkState, States>(States.STATE_WALK, this);
         walk.Setup(ref deps);
 
-        AimState aim = AbstractState.Create<AimState, States>(States.STATE_AIM, this);
-        aim.Setup(ref deps);
-
         CrouchState crouch = AbstractState.Create<CrouchState, States>(States.STATE_CROUCH, this);
         crouch.Setup(ref deps);
 
-        Init(States.STATE_RUN, run, walk, aim, crouch);
-    }
+        AimState aim = AbstractState.Create<AimState, States>(States.STATE_AIM, this);
+        aim.Setup(ref deps);
 
-    public void GoWalk()
-    {   
-        //Inputs of the player are disabled
-        TransitionToState(States.STATE_WALK);
+        Init(States.STATE_RUN, run, walk, aim, crouch);
     }
 
     public void GoRun()
     {   
         //Inputs of the player are enabled
         TransitionToState(States.STATE_RUN);
-        
+    }
+    public void GoWalk()
+    {   
+        //Inputs of the player are disabled
+        TransitionToState(States.STATE_WALK);
     }
 
     public void GoCrouch()
@@ -79,34 +83,52 @@ public class HeroFSM : AbstractFiniteStateMachine{
 
     public class RunState : AbstractState
     {
-        private Dependencies deps;
+        private Dependencies _dependencies;
 
-        public void Setup(ref Dependencies dependencies)
-        {
-            deps = dependencies;
+        public void Setup(ref Dependencies deps)
+        {   Debug.Log("Setup-1-RUN");
+            _dependencies = deps;
         }
 
         public override void OnEnter()
         {
             Debug.Log("RUN STATE ");
-
+            _dependencies.animatorHeroController.SetRunMode();
             //Put the animator in Run Layer
         }
     }
 
     public class WalkState : AbstractState
     {
-        private Dependencies deps;
+        private Dependencies _dependencies;
 
-        public void Setup(ref Dependencies dependencies)
+        public void Setup(ref Dependencies deps)
         {
-            deps = dependencies;
+            _dependencies = deps;
         }
 
         public override void OnEnter()
         {
             Debug.Log("WALK STATE");
             //Put the animator in Walk Layer
+            _dependencies.animatorHeroController.SetWalkMode();
+        }
+    }
+
+    public class CrouchState : AbstractState
+    {
+        private Dependencies _dependencies;
+
+        public void Setup(ref Dependencies deps)
+        {
+            _dependencies = deps;
+        }
+
+        public override void OnEnter()
+        {
+            Debug.Log("CROUCH STATE");
+            //Put the animator in Crouch Layer
+            _dependencies.animatorHeroController.SetCrouchMode();
         }
     }
 
@@ -123,22 +145,6 @@ public class HeroFSM : AbstractFiniteStateMachine{
         {
             Debug.Log("AIM STATE");
             //Put the animator in Aim Layer
-        }
-    }
-
-    public class CrouchState : AbstractState
-    {
-        private Dependencies deps;
-
-        public void Setup(ref Dependencies dependencies)
-        {
-            deps = dependencies;
-        }
-
-        public override void OnEnter()
-        {
-            Debug.Log("CROUCH STATE");
-            //Put the animator in Crouch Layer
         }
     }
 }
