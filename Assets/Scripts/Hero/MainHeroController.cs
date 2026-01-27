@@ -32,7 +32,7 @@ public class MainHeroController : MonoBehaviour
     private void HandleWalkKeyPressed(){
         //_heroFSM.WalkPressed();
         Debug.Log("HandleWalkKeyPressed");
-        if(heroCurrentState == "Walk")
+       /*  if(heroCurrentState == "Walk")
         {
             _heroFSM.GoRun();
             heroCurrentState = "Run";
@@ -41,13 +41,13 @@ public class MainHeroController : MonoBehaviour
         {
             _heroFSM.GoWalk();
             heroCurrentState = "Walk";            
-        }
+        } */
     }
     private void HandleCrouchKeyPressed(){
         //_heroFSM.CrouchPressed();
         Debug.Log("HandleCrouchKeyPressed");
 
-        if(heroCurrentState == "Crouch")
+       /*  if(heroCurrentState == "Crouch")
         {
             if (_heroFSM.CanStandUp())
             {
@@ -64,7 +64,7 @@ public class MainHeroController : MonoBehaviour
         {
             _heroFSM.GoCrouch();
             heroCurrentState = "Crouch";
-        }
+        } */
 
     }
 
@@ -72,10 +72,10 @@ public class MainHeroController : MonoBehaviour
         //_heroFSM.CrouchPressed();
         Debug.Log("HandleCrouchKeyPressed");
 
-        if(heroCurrentState != "Crouch")
+        /* if(heroCurrentState != "Crouch")
         {
             _simpleCharacterController.ApplyJump();
-        }
+        } */
     }
 
     

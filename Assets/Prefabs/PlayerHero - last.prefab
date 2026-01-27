@@ -234,7 +234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputHeroController: {fileID: 612121071389122839}
   _animatorHeroController: {fileID: 4537468810137382026}
-  _simpleCharacterController: {fileID: 0}
+  _simpleCharacterController: {fileID: 3762478675217881393}
 --- !u!1 &7807459546817546693
 GameObject:
   m_ObjectHideFlags: 0
