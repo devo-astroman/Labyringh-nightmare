@@ -33,6 +33,8 @@ public class SimpleCharacterController : MonoBehaviour
     [SerializeField] private CharacterController _controller;
     private float _verticalVelocity;
 
+    [SerializeField] private Transform _playerRootToRotate;
+
     
     public Vector3 GetVelocity() => _controller != null ? _controller.velocity : Vector3.zero;
 
@@ -51,7 +53,13 @@ public class SimpleCharacterController : MonoBehaviour
 
     void Start()
     {
+        if (_controller == null)
+            Debug.LogError("CharacterController reference missing", this);
+
+        if (_playerRootToRotate == null && _controller != null)
+            _playerRootToRotate = _controller.transform; // rotate the object that is actually moving
     }
+
 
     void Update()
     {
@@ -113,7 +121,12 @@ public class SimpleCharacterController : MonoBehaviour
             if (faceDir.sqrMagnitude > 0.0001f)
             {
                 Quaternion targetRot = Quaternion.LookRotation(faceDir);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+                _playerRootToRotate.rotation = Quaternion.Slerp(
+                    _playerRootToRotate.rotation,
+                    targetRot,
+                    rotationSpeed * Time.deltaTime
+                );
+
             }
         }
 

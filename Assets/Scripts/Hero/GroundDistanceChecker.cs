@@ -41,6 +41,7 @@ public class GroundDistanceChecker : MonoBehaviour
             // No ground detected (falling into void)
             CurrentDistance = Mathf.Infinity;
             NearFloor = false;
+            Debug.Log("NO GROUND DETECTED");
         }
 
         if (_drawDebugRay)

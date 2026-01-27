@@ -55,7 +55,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244978759535600554}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c65d6c76755d7d47b4002e088ec2802, type: 3}
   m_Name: 
@@ -69,7 +69,7 @@ MonoBehaviour:
   _isGrounded: Grounded
   _idleThreshold: 0.05
   _speedDamp: 8
-  _fallThreshold: -0.6
+  _fallThreshold: -8
 --- !u!114 &5292960079023637284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,6 +87,7 @@ MonoBehaviour:
   _runLayerName: Run
   _walkLayerName: Walk
   _crouchLayerName: Crouch
+  _layerBlendTime: 0.2
 --- !u!1 &2435053706517500325
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +152,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   rotationSpeed: 10
   _controller: {fileID: 7761438407197574316}
+  _playerRootToRotate: {fileID: 7260720706514412309}
 --- !u!114 &7887771674934090535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkDistance: 1.5
-  _nearFloorThreshold: 0.35
+  _nearFloorThreshold: 1.5
   _groundMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -278,6 +280,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerHero - last
+      objectReference: {fileID: 0}
+    - target: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2692149087735219462, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}

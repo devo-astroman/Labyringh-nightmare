@@ -55,9 +55,9 @@ public class CharacterAnimatorController : MonoBehaviour
         //    _animator.SetBool(_isMovingParam, isMoving);
 
         // --- Crouch ---
-        bool isCrouching = _simpleCharacterController.IsCrouching();
+        /* bool isCrouching = _simpleCharacterController.IsCrouching();
         if (!string.IsNullOrEmpty(_isCrouchingParam))
-            _animator.SetBool(_isCrouchingParam, isCrouching);
+            _animator.SetBool(_isCrouchingParam, isCrouching); */
 
         // --- Jump / Fall ---
         bool grounded = _simpleCharacterController.IsGrounded();        
@@ -71,6 +71,8 @@ public class CharacterAnimatorController : MonoBehaviour
 
         bool nearFloor = _groundChecker != null && _groundChecker.NearFloor;
         bool isFalling = !grounded && vY < _fallThreshold && !nearFloor;
+
+        
 
         // Falling: airborne and going downward
         //bool isFalling = !grounded && vY < _fallThreshold;
