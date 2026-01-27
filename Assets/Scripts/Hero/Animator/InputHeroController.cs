@@ -21,7 +21,7 @@ public class InputHeroController : MonoBehaviour
 
     public Action walkKeyPressed;
     public Action crouchKeyPressed;
-    public Action spaceKeyPressed;
+    public Action jumpKeyPressed;
     public Action interactKeyPressed;
     public Action aimKeyPressed;
     
@@ -54,7 +54,7 @@ public class InputHeroController : MonoBehaviour
 
         if (Input.GetKeyDown(spaceKey))
         {
-            spaceKeyPressed?.Invoke();
+            jumpKeyPressed?.Invoke();
         }
 
     }

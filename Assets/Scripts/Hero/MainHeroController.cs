@@ -14,7 +14,7 @@ public class MainHeroController : MonoBehaviour
         //_heroFSM.Setup(_inputHeroController,_animatorHeroController);
         _inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
         _inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
-        _inputHeroController.spaceKeyPressed += HandleSpaceKeyPressed;
+        _inputHeroController.jumpKeyPressed += HandleSpaceKeyPressed;
         _inputHeroController.interactKeyPressed += HandleInteractKeyPressed;
         _inputHeroController.aimKeyPressed += HandleAimKeyPressed;
         //heroFSM.SetInputController(_inputHeroController);
@@ -24,7 +24,7 @@ public class MainHeroController : MonoBehaviour
     {
          _inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
         _inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
-        _inputHeroController.spaceKeyPressed -= HandleSpaceKeyPressed;        
+        _inputHeroController.jumpKeyPressed -= HandleSpaceKeyPressed;
         _inputHeroController.interactKeyPressed -= HandleInteractKeyPressed;
         _inputHeroController.aimKeyPressed -= HandleAimKeyPressed; 
     }
