@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class LayerHeroAnimatorController : MonoBehaviour
 {
@@ -7,17 +8,20 @@ public class LayerHeroAnimatorController : MonoBehaviour
 
     [Header("Layer Names")]
     [SerializeField] private string _baseLayerName = "Base Layer";
-    private int _baseLayerIndex;
-
     [SerializeField] private string _runLayerName = "Run";
-    private int _runLayerIndex;
-
     [SerializeField] private string _walkLayerName = "Walk";
-    private int _walkLayerIndex;
-
     [SerializeField] private string _crouchLayerName = "Crouch";
+
+    [Header("Blend Settings")]
+    [SerializeField] private float _layerBlendTime = 0.2f;
+
+    private int _baseLayerIndex;
+    private int _runLayerIndex;
+    private int _walkLayerIndex;
     private int _crouchLayerIndex;
 
+    private int _currentLayer = -1;
+    private Coroutine _blendRoutine;
 
     private void Awake()
     {
@@ -29,14 +33,12 @@ public class LayerHeroAnimatorController : MonoBehaviour
         _walkLayerIndex = _animator.GetLayerIndex(_walkLayerName);
         _crouchLayerIndex = _animator.GetLayerIndex(_crouchLayerName);
 
-        // Safety check
         ValidateLayer(_baseLayerIndex, _baseLayerName);
         ValidateLayer(_runLayerIndex, _runLayerName);
         ValidateLayer(_walkLayerIndex, _walkLayerName);
         ValidateLayer(_crouchLayerIndex, _crouchLayerName);
 
-        // Default state
-        SetBase();
+        SetBaseInstant();
     }
 
     private void ValidateLayer(int index, string name)
@@ -46,43 +48,84 @@ public class LayerHeroAnimatorController : MonoBehaviour
     }
 
     // -------------------------
-    // PUBLIC API
+    // PUBLIC API (Smooth)
     // -------------------------
 
-    public void SetBase()
-    {
-        SetExclusiveLayer(_baseLayerIndex);
-    }
+    public void SetBase()   => BlendToLayer(_baseLayerIndex);
+    public void SetRun()    => BlendToLayer(_runLayerIndex);
+    public void SetWalk()   => BlendToLayer(_walkLayerIndex);
+    public void SetCrouch() => BlendToLayer(_crouchLayerIndex);
 
-    public void SetRun()
-    {
-        SetExclusiveLayer(_runLayerIndex);
-    }
+    // -------------------------
+    // PUBLIC API (Instant)
+    // -------------------------
 
-    public void SetWalk()
-    {
-        SetExclusiveLayer(_walkLayerIndex);
-    }
-
-    public void SetCrouch()
-    {
-        Debug.Log("SetExclusiveLayer - Crouch");
-        SetExclusiveLayer(_crouchLayerIndex);
-    }
+    public void SetBaseInstant()   => SetExclusiveLayerInstant(_baseLayerIndex);
+    public void SetRunInstant()    => SetExclusiveLayerInstant(_runLayerIndex);
+    public void SetWalkInstant()   => SetExclusiveLayerInstant(_walkLayerIndex);
+    public void SetCrouchInstant() => SetExclusiveLayerInstant(_crouchLayerIndex);
 
     // -------------------------
     // INTERNAL
     // -------------------------
 
-    private void SetExclusiveLayer(int activeLayer)
+    private void BlendToLayer(int targetLayer)
+    {
+        if (targetLayer == -1) return;
+        if (_currentLayer == targetLayer) return;
+
+        if (_blendRoutine != null)
+            StopCoroutine(_blendRoutine);
+
+        _blendRoutine = StartCoroutine(BlendRoutine(targetLayer));
+    }
+
+    private IEnumerator BlendRoutine(int targetLayer)
+    {
+        float timer = 0f;
+
+        float startBase   = _animator.GetLayerWeight(_baseLayerIndex);
+        float startRun    = _animator.GetLayerWeight(_runLayerIndex);
+        float startWalk   = _animator.GetLayerWeight(_walkLayerIndex);
+        float startCrouch = _animator.GetLayerWeight(_crouchLayerIndex);
+
+        while (timer < _layerBlendTime)
+        {
+            timer += Time.deltaTime;
+            float t = timer / _layerBlendTime;
+
+            SetLayerWeight(_baseLayerIndex,   Mathf.Lerp(startBase,   targetLayer == _baseLayerIndex ? 1f : 0f, t));
+            SetLayerWeight(_runLayerIndex,    Mathf.Lerp(startRun,    targetLayer == _runLayerIndex ? 1f : 0f, t));
+            SetLayerWeight(_walkLayerIndex,   Mathf.Lerp(startWalk,   targetLayer == _walkLayerIndex ? 1f : 0f, t));
+            SetLayerWeight(_crouchLayerIndex, Mathf.Lerp(startCrouch, targetLayer == _crouchLayerIndex ? 1f : 0f, t));
+
+            yield return null;
+        }
+
+        // Snap final values for precision
+        SetExclusiveLayerInstant(targetLayer);
+
+        _currentLayer = targetLayer;
+        _blendRoutine = null;
+    }
+
+    private void SetExclusiveLayerInstant(int activeLayer)
     {
         if (activeLayer == -1) return;
 
-        _animator.SetLayerWeight(_baseLayerIndex, 0f);
-        _animator.SetLayerWeight(_runLayerIndex, 0f);
-        _animator.SetLayerWeight(_walkLayerIndex, 0f);
-        _animator.SetLayerWeight(_crouchLayerIndex, 0f);
+        SetLayerWeight(_baseLayerIndex,   0f);
+        SetLayerWeight(_runLayerIndex,    0f);
+        SetLayerWeight(_walkLayerIndex,   0f);
+        SetLayerWeight(_crouchLayerIndex, 0f);
 
-        _animator.SetLayerWeight(activeLayer, 1f);
+        SetLayerWeight(activeLayer, 1f);
+
+        _currentLayer = activeLayer;
+    }
+
+    private void SetLayerWeight(int index, float value)
+    {
+        if (index != -1)
+            _animator.SetLayerWeight(index, value);
     }
 }
