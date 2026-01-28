@@ -13,6 +13,7 @@ public class SimpleCharacterController : MonoBehaviour
     public bool isWalking = false;
 
     private float _currentSpeed = 0;
+    private bool _usingRunSpeed = false;
     
 
     [Header("Jump")]
@@ -64,6 +65,7 @@ public class SimpleCharacterController : MonoBehaviour
             _playerRootToRotate = _controller.transform; // rotate the object that is actually moving
 
         _currentSpeed = runSpeed;
+        _usingRunSpeed = true;
     }
 
 
@@ -189,6 +191,7 @@ public class SimpleCharacterController : MonoBehaviour
 
         RemoveCrouchSetup();
         _isCrouch = false;
+        _usingRunSpeed = true;
     }
 
     public void ApplyWalk()
@@ -197,6 +200,12 @@ public class SimpleCharacterController : MonoBehaviour
 
         RemoveCrouchSetup();
         _isCrouch = false;
+        _usingRunSpeed = false;
+    }
+
+    public bool GetUsingRunSpeed()
+    {
+        return _usingRunSpeed;
     }
 
     public void ApplyCrouch()

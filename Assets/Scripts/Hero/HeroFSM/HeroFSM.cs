@@ -168,11 +168,12 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             //Put the animator in Walk Layer
             _dependencies.animatorHeroController.SetWalkMode();
-            _dependencies.simpleCharacterController.ApplyWalk();
+            _dependencies.simpleCharacterController.ApplyWalk();            
 
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
             _dependencies.inputHeroController.jumpKeyPressed += HandleJumpKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
         }
 
         public override void OnExit()
@@ -182,6 +183,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.jumpKeyPressed -= HandleJumpKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
         }
 
         private void HandleCrouchKeyPressed()
@@ -199,6 +201,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleJumpKeyPressed()
         {   //in the future go to jump state   
             _dependencies.simpleCharacterController.ApplyJump();
+        }
+
+        private void HandleAimKeyPressed()
+        {   //in the future go to jump state   
+            _dependencies.GoAim?.Invoke();
         }
         
     }
@@ -220,6 +227,7 @@ public class HeroFSM : AbstractFiniteStateMachine
 
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
         }
 
         public override void OnExit()
@@ -228,7 +236,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.lastState = "CROUCH_STATE";
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
-
+            _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
         }
 
         private void HandleCrouchKeyPressed()
@@ -238,6 +246,8 @@ public class HeroFSM : AbstractFiniteStateMachine
                 _dependencies.GoWalk?.Invoke();
             else if(_dependencies.lastState == "RUN_STATE")
                 _dependencies.GoRun?.Invoke();
+            else if(_dependencies.lastState == "AIM_STATE")
+                _dependencies.GoAim?.Invoke();
         }
 
         private void HandleWalkKeyPressed()
@@ -247,6 +257,14 @@ public class HeroFSM : AbstractFiniteStateMachine
                 _dependencies.GoWalk?.Invoke();
             else if(_dependencies.lastState == "RUN_STATE")
                 _dependencies.GoRun?.Invoke();
+            else if(_dependencies.lastState == "AIM_STATE")
+                _dependencies.GoAim?.Invoke();
+        }
+
+        private void HandleAimKeyPressed()
+        {
+            //should go to aim
+            _dependencies.GoAim?.Invoke();
         }
     }
 
@@ -264,6 +282,46 @@ public class HeroFSM : AbstractFiniteStateMachine
             Debug.Log("AIM STATE");
             //Put the animator in Aim Layer
             _dependencies.animatorHeroController.SetAimMode();
+
+            _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
+            _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
         }
+
+        public override void OnExit()
+        {
+            _dependencies.lastState = "AIM_STATE";
+            _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
+            _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
+        }
+
+        private void HandleWalkKeyPressed()
+        {
+            if (_dependencies.simpleCharacterController.GetUsingRunSpeed())
+            {
+                _dependencies.simpleCharacterController.ApplyWalk();
+            }
+            else
+            {
+                _dependencies.simpleCharacterController.ApplyRun();
+            }
+           
+        }
+        private void HandleAimKeyPressed()
+        {
+            if(_dependencies.lastState == "WALK_STATE" || _dependencies.lastState == "CROUCH_STATE")
+                _dependencies.GoWalk?.Invoke();
+            else if(_dependencies.lastState == "RUN_STATE")
+                _dependencies.GoRun?.Invoke();            
+        }
+
+        private void HandleCrouchKeyPressed()
+        {
+            _dependencies.GoCrouch?.Invoke();
+        }
+
+        
+        
     }
 }
