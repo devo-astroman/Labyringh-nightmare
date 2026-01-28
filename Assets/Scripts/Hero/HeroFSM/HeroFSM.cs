@@ -9,6 +9,7 @@ public class DependenciesHeroFSM
     public AnimatorHeroController animatorHeroController;
     public Animator animator;
     public SimpleCharacterController simpleCharacterController;
+    public Hud hud;
     public string lastState;
 
     public Action GoRun;
@@ -23,6 +24,7 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private InputHeroController _inputHeroController;
     [SerializeField] private AnimatorHeroController _animatorHeroController;
     [SerializeField] private SimpleCharacterController _simpleCharacterController;
+    [SerializeField] private Hud _hud;
 
 
     public DependenciesHeroFSM dependencies = new DependenciesHeroFSM
@@ -30,6 +32,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         id = 0,
         inputHeroController = null,
         animatorHeroController = null,
+        hud = null,
         animator = null,
         simpleCharacterController = null,
         lastState = "",
@@ -53,6 +56,8 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.inputHeroController = _inputHeroController;
         dependencies.animatorHeroController = _animatorHeroController;
         dependencies.simpleCharacterController = _simpleCharacterController;
+        dependencies.hud = _hud;
+
         dependencies.lastState = "";
 
         dependencies.GoRun = GoRun;
@@ -293,6 +298,35 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
             _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
+
+            /* Vector3 velocity = _dependencies.simpleCharacterController.GetVelocity();
+
+            if (velocity.Equals(Vector3.zero))
+            {
+                _dependencies.hud.SetSmallCrosshair();
+            }
+            else
+            {
+                if (_dependencies.simpleCharacterController.GetUsingRunSpeed())
+                {
+                    _dependencies.hud.SetBigCrosshair();
+                }
+                else
+                {
+                    _dependencies.hud.SetMedCrosshair();
+                }
+
+
+            } */
+
+
+        }
+
+
+        public override void OnUpdate()
+        {
+            float speed = _dependencies.simpleCharacterController.GetHorizontalSpeed();
+            _dependencies.hud.SetCurrentSpeed(speed);
         }
 
         public override void OnExit()
@@ -301,6 +335,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
+
+            _dependencies.hud.HideCrosshair();
         }
 
         private void HandleWalkKeyPressed()
