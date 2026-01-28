@@ -15,6 +15,7 @@ public class DependenciesHeroFSM
     public Action GoWalk;
     public Action GoCrouch;
     public Action GoAim;
+    public Func<bool> CanStandUp;
 }
 
 public class HeroFSM : AbstractFiniteStateMachine
@@ -58,6 +59,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.GoWalk = GoWalk;
         dependencies.GoCrouch = GoCrouch;
         dependencies.GoAim = GoAim;
+        
 
         RunState run = AbstractState.Create<RunState, States>(States.STATE_RUN, this);
         run.Setup(ref dependencies);
@@ -91,11 +93,6 @@ public class HeroFSM : AbstractFiniteStateMachine
     public void GoAim()
     {
         TransitionToState(States.STATE_AIM);
-    }
-
-    public bool CanStandUp()
-    {
-        return _simpleCharacterController.IsCeilingBlocked();
     }
 
 
@@ -241,6 +238,10 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         private void HandleCrouchKeyPressed()
         {
+            Debug.Log("IS CEILING BLOCKED? " +  _dependencies.simpleCharacterController.IsCeilingBlocked());
+            if(_dependencies.simpleCharacterController.IsCeilingBlocked())
+                return;
+
             //should go to crouch state
             if(_dependencies.lastState == "WALK_STATE")
                 _dependencies.GoWalk?.Invoke();
@@ -252,6 +253,9 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         private void HandleWalkKeyPressed()
         {
+            if(_dependencies.simpleCharacterController.IsCeilingBlocked())
+                return;
+
             //should go to crouch state
             if(_dependencies.lastState == "WALK_STATE")
                 _dependencies.GoWalk?.Invoke();
@@ -263,6 +267,9 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         private void HandleAimKeyPressed()
         {
+            if(_dependencies.simpleCharacterController.IsCeilingBlocked())
+                return;
+
             //should go to aim
             _dependencies.GoAim?.Invoke();
         }

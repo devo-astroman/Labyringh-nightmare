@@ -157,11 +157,18 @@ public class SimpleCharacterController : MonoBehaviour
                     }
                 } */
 
-        if (_shouldMakeJump)
+        if (_controller.isGrounded)
         {
-            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            _shouldMakeJump = false;
+            if (_verticalVelocity < 0)
+                _verticalVelocity = -2f; // keeps grounded
+
+            if (_shouldMakeJump)
+            {
+                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                _shouldMakeJump = false;
+            }    
         }
+        
 
         // Apply gravity
         _verticalVelocity += gravity * Time.deltaTime;
@@ -175,7 +182,7 @@ public class SimpleCharacterController : MonoBehaviour
     public bool IsCeilingBlocked()
     {
         // Check point just above the character's head (based on stand height)
-        Vector3 _origin = transform.position + Vector3.up * (standHeight - 0.05f);
+        Vector3 _origin = transform.position + Vector3.up * (crouchHeight - 0.05f);
 
         return Physics.CheckSphere(
             _origin,
