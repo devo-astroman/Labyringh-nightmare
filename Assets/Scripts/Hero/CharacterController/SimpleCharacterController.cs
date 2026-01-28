@@ -209,7 +209,8 @@ public class SimpleCharacterController : MonoBehaviour
 
     public void ApplyJump()
     {
-        _shouldMakeJump = true;
+        _shouldMakeJump = true && _controller.isGrounded;
+        
     }
 
     private void AddCrouchSetup()

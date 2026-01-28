@@ -87,6 +87,7 @@ MonoBehaviour:
   _runLayerName: Run
   _walkLayerName: Walk
   _crouchLayerName: Crouch
+  _aimLayerName: Aim
   _layerBlendTime: 0.2
 --- !u!1 &2435053706517500325
 GameObject:

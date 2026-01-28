@@ -11,6 +11,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     [SerializeField] private string _runLayerName = "Run";
     [SerializeField] private string _walkLayerName = "Walk";
     [SerializeField] private string _crouchLayerName = "Crouch";
+    [SerializeField] private string _aimLayerName = "Aim";
 
     [Header("Blend Settings")]
     [SerializeField] private float _layerBlendTime = 0.2f;
@@ -19,6 +20,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     private int _runLayerIndex;
     private int _walkLayerIndex;
     private int _crouchLayerIndex;
+    private int _aimLayerIndex;
 
     private int _currentLayer = -1;
     private Coroutine _blendRoutine;
@@ -32,11 +34,13 @@ public class LayerHeroAnimatorController : MonoBehaviour
         _runLayerIndex = _animator.GetLayerIndex(_runLayerName);
         _walkLayerIndex = _animator.GetLayerIndex(_walkLayerName);
         _crouchLayerIndex = _animator.GetLayerIndex(_crouchLayerName);
+        _aimLayerIndex = _animator.GetLayerIndex(_aimLayerName);
 
         ValidateLayer(_baseLayerIndex, _baseLayerName);
         ValidateLayer(_runLayerIndex, _runLayerName);
         ValidateLayer(_walkLayerIndex, _walkLayerName);
         ValidateLayer(_crouchLayerIndex, _crouchLayerName);
+        ValidateLayer(_aimLayerIndex, _aimLayerName);
 
         SetBaseInstant();
     }
@@ -55,6 +59,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     public void SetRun()    => BlendToLayer(_runLayerIndex);
     public void SetWalk()   => BlendToLayer(_walkLayerIndex);
     public void SetCrouch() => BlendToLayer(_crouchLayerIndex);
+    public void SetAim() => BlendToLayer(_aimLayerIndex);
 
     // -------------------------
     // PUBLIC API (Instant)
@@ -64,6 +69,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     public void SetRunInstant()    => SetExclusiveLayerInstant(_runLayerIndex);
     public void SetWalkInstant()   => SetExclusiveLayerInstant(_walkLayerIndex);
     public void SetCrouchInstant() => SetExclusiveLayerInstant(_crouchLayerIndex);
+    public void SetAimInstant() => SetExclusiveLayerInstant(_aimLayerIndex);
 
     // -------------------------
     // INTERNAL
@@ -88,6 +94,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
         float startRun    = _animator.GetLayerWeight(_runLayerIndex);
         float startWalk   = _animator.GetLayerWeight(_walkLayerIndex);
         float startCrouch = _animator.GetLayerWeight(_crouchLayerIndex);
+        float startAim = _animator.GetLayerWeight(_aimLayerIndex);
 
         while (timer < _layerBlendTime)
         {
@@ -98,6 +105,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
             SetLayerWeight(_runLayerIndex,    Mathf.Lerp(startRun,    targetLayer == _runLayerIndex ? 1f : 0f, t));
             SetLayerWeight(_walkLayerIndex,   Mathf.Lerp(startWalk,   targetLayer == _walkLayerIndex ? 1f : 0f, t));
             SetLayerWeight(_crouchLayerIndex, Mathf.Lerp(startCrouch, targetLayer == _crouchLayerIndex ? 1f : 0f, t));
+            SetLayerWeight(_aimLayerIndex, Mathf.Lerp(startAim, targetLayer == _aimLayerIndex ? 1f : 0f, t));
 
             yield return null;
         }
@@ -117,6 +125,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
         SetLayerWeight(_runLayerIndex,    0f);
         SetLayerWeight(_walkLayerIndex,   0f);
         SetLayerWeight(_crouchLayerIndex, 0f);
+        SetLayerWeight(_aimLayerIndex, 0f);
 
         SetLayerWeight(activeLayer, 1f);
 

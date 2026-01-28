@@ -4,12 +4,11 @@ public class AnimatorHeroController : MonoBehaviour
 {
     [SerializeField] private LayerHeroAnimatorController _layerHeroAnimatorController;
     [SerializeField] private Animator _animator;
-
     
     private string _runModeParamName = "RunMode";
     private string _walkModeParamName = "WalkMode";
     private string _crouchModeParamName = "CrouchMode";
-    
+    private string _aimModeParamName = "AimMode";    
 
     public void SetBaseMode()
     {
@@ -35,6 +34,12 @@ public class AnimatorHeroController : MonoBehaviour
         _layerHeroAnimatorController.SetCrouch();
     }
 
+    public void SetAimMode()
+    {
+        SetModeTrue(_aimModeParamName);
+        _layerHeroAnimatorController.SetAim();
+    }
+
     private void SetModeTrue(string paramName)
     {
         SetBaseModeTrue();
@@ -45,5 +50,6 @@ public class AnimatorHeroController : MonoBehaviour
         _animator.SetBool(_runModeParamName,false);
         _animator.SetBool(_walkModeParamName,false);
         _animator.SetBool(_crouchModeParamName,false);
+        _animator.SetBool(_aimModeParamName,false);
     }
 }

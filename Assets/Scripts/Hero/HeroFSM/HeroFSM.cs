@@ -2,8 +2,6 @@ using UnityEngine;
 using KevinCastejon.FiniteStateMachine;
 using System;
 
-
-
 public class DependenciesHeroFSM
 {
     public int id;
@@ -16,6 +14,7 @@ public class DependenciesHeroFSM
     public Action GoRun;
     public Action GoWalk;
     public Action GoCrouch;
+    public Action GoAim;
 }
 
 public class HeroFSM : AbstractFiniteStateMachine
@@ -35,7 +34,8 @@ public class HeroFSM : AbstractFiniteStateMachine
         lastState = "",
         GoRun = null,
         GoWalk = null,
-        GoCrouch = null,        
+        GoCrouch = null,
+        GoAim = null,
     };
 
     public enum States
@@ -57,6 +57,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.GoRun = GoRun;
         dependencies.GoWalk = GoWalk;
         dependencies.GoCrouch = GoCrouch;
+        dependencies.GoAim = GoAim;
 
         RunState run = AbstractState.Create<RunState, States>(States.STATE_RUN, this);
         run.Setup(ref dependencies);
@@ -87,6 +88,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         TransitionToState(States.STATE_CROUCH);
     }
 
+    public void GoAim()
+    {
+        TransitionToState(States.STATE_AIM);
+    }
+
     public bool CanStandUp()
     {
         return _simpleCharacterController.IsCeilingBlocked();
@@ -115,6 +121,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
             _dependencies.inputHeroController.jumpKeyPressed += HandleJumpKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
         }
 
         public override void OnExit()
@@ -124,6 +131,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.jumpKeyPressed -= HandleJumpKeyPressed;
+            _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
         }
 
         private void HandleCrouchKeyPressed()
@@ -139,6 +147,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleJumpKeyPressed()
         {   
             _dependencies.simpleCharacterController.ApplyJump();
+        }
+
+        private void HandleAimKeyPressed()
+        {   Debug.Log(" -HandleAimKeyPressed- ");
+            _dependencies.GoAim?.Invoke();
         }
     }
 
@@ -239,16 +252,18 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     public class AimState : AbstractState
     {
-        private DependenciesHeroFSM deps;
+        private DependenciesHeroFSM _dependencies;
 
-        public void Setup(ref DependenciesHeroFSM dependencies)
+        public void Setup(ref DependenciesHeroFSM deps)
         {
-            deps = dependencies;
+            _dependencies = deps;
         }
 
         public override void OnEnter()
         {
+            Debug.Log("AIM STATE");
             //Put the animator in Aim Layer
+            _dependencies.animatorHeroController.SetAimMode();
         }
     }
 }
