@@ -9,6 +9,8 @@ public class DependenciesHeroFSM
     public AnimatorHeroController animatorHeroController;
     public Animator animator;
     public SimpleCharacterController simpleCharacterController;
+    public CameraAimToMaskBridge cameraAimToMaskBridge;
+    
     public Hud hud;
     public string lastState;
 
@@ -24,6 +26,7 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private InputHeroController _inputHeroController;
     [SerializeField] private AnimatorHeroController _animatorHeroController;
     [SerializeField] private SimpleCharacterController _simpleCharacterController;
+    [SerializeField] private CameraAimToMaskBridge _cameraAimToMaskBridge;
     [SerializeField] private Hud _hud;
 
 
@@ -56,6 +59,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.inputHeroController = _inputHeroController;
         dependencies.animatorHeroController = _animatorHeroController;
         dependencies.simpleCharacterController = _simpleCharacterController;
+        dependencies.cameraAimToMaskBridge = _cameraAimToMaskBridge;
         dependencies.hud = _hud;
 
         dependencies.lastState = "";
@@ -299,6 +303,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
 
+            _dependencies.cameraAimToMaskBridge.enabled = true;
+
             /* Vector3 velocity = _dependencies.simpleCharacterController.GetVelocity();
 
             if (velocity.Equals(Vector3.zero))
@@ -335,6 +341,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
+
+            _dependencies.cameraAimToMaskBridge.enabled = false;
 
             _dependencies.hud.HideCrosshair();
         }

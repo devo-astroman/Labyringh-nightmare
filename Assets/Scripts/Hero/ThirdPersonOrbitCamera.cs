@@ -41,4 +41,15 @@ public class ThirdPersonOrbitCamera : MonoBehaviour
     }
 
     public float GetYaw() => _yaw;
+    public float GetPitch() => _pitch;
+
+    public float GetPitchNormalized()
+    {
+        if (_pitch > 0f)
+            return _pitch / _topClamp;
+
+        return _pitch / Mathf.Abs(_bottomClamp);
+    }
+
+
 }
