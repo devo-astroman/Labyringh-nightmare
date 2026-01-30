@@ -4,6 +4,8 @@ public class AnimatorHeroController : MonoBehaviour
 {
     [SerializeField] private LayerHeroAnimatorController _layerHeroAnimatorController;
     [SerializeField] private Animator _animator;
+
+    [SerializeField] private GameObject _pistol;
     
     private string _runModeParamName = "RunMode";
     private string _walkModeParamName = "WalkMode";
@@ -18,24 +20,28 @@ public class AnimatorHeroController : MonoBehaviour
 
     public void SetRunMode()
     {
+        _pistol.SetActive(false);
         SetModeTrue(_runModeParamName);
         _layerHeroAnimatorController.SetRun();
     }
 
     public void SetWalkMode()
     {
+        _pistol.SetActive(false);
         SetModeTrue(_walkModeParamName);
         _layerHeroAnimatorController.SetWalk();
     }
 
     public void SetCrouchMode()
     {
+        _pistol.SetActive(false);
         SetModeTrue(_crouchModeParamName);
         _layerHeroAnimatorController.SetCrouch();
     }
 
     public void SetAimMode()
     {
+        _pistol.SetActive(true);
         SetModeTrue(_aimModeParamName);
         _layerHeroAnimatorController.SetAim();
     }

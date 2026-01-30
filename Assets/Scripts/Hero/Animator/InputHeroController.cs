@@ -24,6 +24,7 @@ public class InputHeroController : MonoBehaviour
     public Action jumpKeyPressed;
     public Action interactKeyPressed;
     public Action aimKeyPressed;
+    public Action fireKeyPressed;
     
 
     void Start()
@@ -55,6 +56,11 @@ public class InputHeroController : MonoBehaviour
         if (Input.GetKeyDown(spaceKey))
         {
             jumpKeyPressed?.Invoke();
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            fireKeyPressed?.Invoke();
         }
 
     }

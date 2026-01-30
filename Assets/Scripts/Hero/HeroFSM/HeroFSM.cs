@@ -10,6 +10,7 @@ public class DependenciesHeroFSM
     public Animator animator;
     public SimpleCharacterController simpleCharacterController;
     public CameraAimToMaskBridge cameraAimToMaskBridge;
+    public GunFireController gunFireController;
     
     public Hud hud;
     public string lastState;
@@ -27,6 +28,8 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private AnimatorHeroController _animatorHeroController;
     [SerializeField] private SimpleCharacterController _simpleCharacterController;
     [SerializeField] private CameraAimToMaskBridge _cameraAimToMaskBridge;
+    [SerializeField] private GunFireController _gunFireController;
+
     [SerializeField] private Hud _hud;
 
 
@@ -38,6 +41,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         hud = null,
         animator = null,
         simpleCharacterController = null,
+        gunFireController = null,
         lastState = "",
         GoRun = null,
         GoWalk = null,
@@ -60,6 +64,9 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.animatorHeroController = _animatorHeroController;
         dependencies.simpleCharacterController = _simpleCharacterController;
         dependencies.cameraAimToMaskBridge = _cameraAimToMaskBridge;
+        dependencies.gunFireController = _gunFireController;
+
+        
         dependencies.hud = _hud;
 
         dependencies.lastState = "";
@@ -83,6 +90,9 @@ public class HeroFSM : AbstractFiniteStateMachine
         aim.Setup(ref dependencies);
 
         Init(States.STATE_RUN, run, walk, aim, crouch);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void GoRun()
@@ -302,8 +312,10 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.walkKeyPressed += HandleWalkKeyPressed;
             _dependencies.inputHeroController.aimKeyPressed += HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed += HandleCrouchKeyPressed;
+            _dependencies.inputHeroController.fireKeyPressed += HandleFireKeyPressed;
 
             _dependencies.cameraAimToMaskBridge.enabled = true;
+
 
             /* Vector3 velocity = _dependencies.simpleCharacterController.GetVelocity();
 
@@ -341,6 +353,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
             _dependencies.inputHeroController.aimKeyPressed -= HandleAimKeyPressed;
             _dependencies.inputHeroController.crouchKeyPressed -= HandleCrouchKeyPressed;
+            _dependencies.inputHeroController.fireKeyPressed -= HandleFireKeyPressed;
 
             _dependencies.cameraAimToMaskBridge.enabled = false;
 
@@ -371,6 +384,15 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             _dependencies.GoCrouch?.Invoke();
         }
+
+        private void HandleFireKeyPressed()
+        {
+            Debug.Log("Fire!");
+            _dependencies.gunFireController.Fire();
+
+        }
+
+        
 
         
         
