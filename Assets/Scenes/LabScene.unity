@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2056421499}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6776d37eecb725542bb69303d5258ba9, type: 3}
   m_Name: 
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   _cameraOrbit: {fileID: 2134128394}
   _maskController: {fileID: 2056421505}
   _deadZone: 0.05
-  _maxWeight: 1
+  _maxWeight: 0.25
 --- !u!114 &2056421505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1302,6 +1302,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1044229388807808024, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _cameraAimToMaskBridge
+      value: 
+      objectReference: {fileID: 2056421504}
     - target: {fileID: 1941447209536027709, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_Name
@@ -1362,6 +1367,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4980657914550387216, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 8b3bdb89090572b49b9209428f68df0a, type: 3}
     - target: {fileID: 8806296335226149575, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1372,7 +1382,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7928179315836862327, guid: dfddffa4c995e884683a8b4f610c7819, type: 3}
+    - {fileID: 6831378048405873833, guid: dfddffa4c995e884683a8b4f610c7819, type: 3}
+    - {fileID: 7572631473553247330, guid: dfddffa4c995e884683a8b4f610c7819, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
