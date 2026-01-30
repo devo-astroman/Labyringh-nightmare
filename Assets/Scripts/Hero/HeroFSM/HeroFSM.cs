@@ -326,6 +326,12 @@ public class HeroFSM : AbstractFiniteStateMachine
 
             _dependencies.cameraAimToMaskBridge.enabled = true;
 
+            /* 
+                small: 0
+                med: 0.005
+            
+             */
+
 
             /* Vector3 velocity = _dependencies.simpleCharacterController.GetVelocity();
 
@@ -355,6 +361,17 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             float speed = _dependencies.simpleCharacterController.GetHorizontalSpeed();
             _dependencies.hud.SetCurrentSpeed(speed);
+
+            if (speed  == 0)
+                _dependencies.gunFireController.SetSpread(0);
+
+            else if(speed < 2.5)
+                _dependencies.gunFireController.SetSpread(0.005f);
+
+            else
+                _dependencies.gunFireController.SetSpread(0.01f);
+
+
         }
 
         public override void OnExit()

@@ -14,6 +14,10 @@ public class GunFireController : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool _drawDebugRay = true;
 
+    [SerializeField, Range(0f, 0.25f)]
+    private float _spreadRadiusViewport = 0.01f;
+
+
     public Action<Vector3,Vector3> onFireAction;
 
     // ----------------------------------------------------
@@ -28,8 +32,13 @@ public class GunFireController : MonoBehaviour
             return;
         }
 
-        // Ray from camera center
-        Ray cameraRay = _aimCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        // Ray from a random point inside a circle around screen center
+        // Spread is expressed in VIEWPORT units:
+        // 0.0 = exact center, 0.05 = 5% of screen width/height radius
+        Vector2 offset = UnityEngine.Random.insideUnitCircle * _spreadRadiusViewport; // NEW serialized float
+        Vector3 viewportPoint = new Vector3(0.5f + offset.x, 0.5f + offset.y, 0f);
+
+        Ray cameraRay = _aimCamera.ViewportPointToRay(viewportPoint);
 
         Vector3 targetPoint;
 
@@ -59,6 +68,10 @@ public class GunFireController : MonoBehaviour
             Debug.DrawRay(_fireOrigin.position, fireDirection * _maxDistance, Color.red, 0.5f);
         }
     }
+
+    public void SetSpread(float radiusViewport) => _spreadRadiusViewport = Mathf.Clamp(radiusViewport, 0f, 0.25f);
+
+
 
     // ----------------------------------------------------
     // HIT HANDLING
