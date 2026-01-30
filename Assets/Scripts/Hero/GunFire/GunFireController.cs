@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class GunFireController : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GunFireController : MonoBehaviour
 
     [Header("Debug")]
     [SerializeField] private bool _drawDebugRay = true;
+
+    public Action<Vector3,Vector3> onFireAction;
 
     // ----------------------------------------------------
     // PUBLIC API
@@ -67,5 +70,7 @@ public class GunFireController : MonoBehaviour
 
         // Example:
         // hit.collider.GetComponent<IDamageable>()?.TakeDamage(10);
+
+        onFireAction?.Invoke(hit.point,hit.normal);
     }
 }

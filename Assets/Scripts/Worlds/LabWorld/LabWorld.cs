@@ -7,10 +7,14 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private GameObject _playerHeroPrefab;
     [SerializeField] private GameObject _defaultCamera;
 
+    [SerializeField] private HeroFSM _heroFSM;
+    [SerializeField] private FireContact _fireContact;
+
     private SetTimeoutUtility _timeoutToStart;
 
     void Start()
-    {
+    {   
+
         Debug.Log("LabWorld");
         _timeoutToStart = new SetTimeoutUtility(this);
         SpawnPlayer();
@@ -31,7 +35,16 @@ public class LabWorld : MonoBehaviour
             Debug.Log("Should spawn the player");
             _defaultCamera.SetActive(false);
             var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
-        }, 1f);
+
+            _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+            _heroFSM.onFireAction+= HandleOnFireAction;
+
+        }, .25f);
+    }
+
+    private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal)
+    {
+        _fireContact.OnHit(hitPoint,hitNormal);
     }
 
 }

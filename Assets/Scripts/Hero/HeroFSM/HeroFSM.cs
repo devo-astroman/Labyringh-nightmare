@@ -32,6 +32,8 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     [SerializeField] private Hud _hud;
 
+    public Action<Vector3,Vector3> onFireAction;
+
 
     public DependenciesHeroFSM dependencies = new DependenciesHeroFSM
     {
@@ -65,6 +67,8 @@ public class HeroFSM : AbstractFiniteStateMachine
         dependencies.simpleCharacterController = _simpleCharacterController;
         dependencies.cameraAimToMaskBridge = _cameraAimToMaskBridge;
         dependencies.gunFireController = _gunFireController;
+
+        _gunFireController.onFireAction += HandleOnFireAction;
 
         
         dependencies.hud = _hud;
@@ -114,9 +118,15 @@ public class HeroFSM : AbstractFiniteStateMachine
         TransitionToState(States.STATE_AIM);
     }
 
+    public void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal)
+    {
+        onFireAction?.Invoke(hitPoint,hitNormal);
+    }
+
 
     private void OnDestroy()
     {
+        _gunFireController.onFireAction -= HandleOnFireAction;
     }
 
     public class RunState : AbstractState
@@ -391,10 +401,6 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.gunFireController.Fire();
 
         }
-
-        
-
-        
         
     }
 }
