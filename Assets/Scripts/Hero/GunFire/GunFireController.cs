@@ -18,7 +18,7 @@ public class GunFireController : MonoBehaviour
     private float _spreadRadiusViewport = 0.01f;
 
 
-    public Action<Vector3,Vector3> onFireAction;
+    public Action<Vector3,Vector3,RaycastHit> onFireAction;
 
     // ----------------------------------------------------
     // PUBLIC API
@@ -84,6 +84,6 @@ public class GunFireController : MonoBehaviour
         // Example:
         // hit.collider.GetComponent<IDamageable>()?.TakeDamage(10);
 
-        onFireAction?.Invoke(hit.point,hit.normal);
+        onFireAction?.Invoke(hit.point,hit.normal, hit);
     }
 }

@@ -6,7 +6,7 @@ public class PlayerHero : MonoBehaviour
 {
 
     [SerializeField] private HeroFSM _heroFSM;
-    public Action<Vector3,Vector3> onFireAction;
+    public Action<Vector3,Vector3,RaycastHit> onFireAction;
 
     void Start()
     {
@@ -22,9 +22,9 @@ public class PlayerHero : MonoBehaviour
         _heroFSM.onFireAction -= HandleOnFireAction;        
     }
 
-    private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal)
+    private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal, RaycastHit hit)
     {
-        onFireAction?.Invoke(hitPoint,hitNormal);
+        onFireAction?.Invoke(hitPoint,hitNormal,hit);
     }
 
 }

@@ -48,9 +48,16 @@ public class LabWorld : MonoBehaviour
         }, .25f);
     }
 
-    private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal)
+    private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
     {
         _fireContact.OnHit(hitPoint,hitNormal);
+
+        // Layer check (FAST)
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            _enemyManager.ProcessDamage(0);
+        }
+
     }
 
 }

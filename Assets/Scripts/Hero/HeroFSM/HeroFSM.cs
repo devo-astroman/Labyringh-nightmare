@@ -32,7 +32,7 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     [SerializeField] private Hud _hud;
 
-    public Action<Vector3,Vector3> onFireAction;
+    public Action<Vector3,Vector3,RaycastHit> onFireAction;
 
 
     public DependenciesHeroFSM dependencies = new DependenciesHeroFSM
@@ -118,9 +118,9 @@ public class HeroFSM : AbstractFiniteStateMachine
         TransitionToState(States.STATE_AIM);
     }
 
-    public void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal)
+    public void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal, RaycastHit hit)
     {
-        onFireAction?.Invoke(hitPoint,hitNormal);
+        onFireAction?.Invoke(hitPoint,hitNormal,hit);
     }
 
 
