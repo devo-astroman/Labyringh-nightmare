@@ -10,7 +10,11 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private HeroFSM _heroFSM;
     [SerializeField] private FireContact _fireContact;
 
+    [SerializeField] private EnemyManager _enemyManager;
+
     private SetTimeoutUtility _timeoutToStart;
+
+
 
     void Start()
     {   
@@ -38,6 +42,8 @@ public class LabWorld : MonoBehaviour
 
             _heroFSM = hero.GetComponentInChildren<HeroFSM>();
             _heroFSM.onFireAction+= HandleOnFireAction;
+
+            _enemyManager.WakeUpEnemyT(_heroFSM.transform);
 
         }, .25f);
     }
