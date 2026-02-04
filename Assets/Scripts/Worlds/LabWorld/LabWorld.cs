@@ -43,7 +43,7 @@ public class LabWorld : MonoBehaviour
             _heroFSM = hero.GetComponentInChildren<HeroFSM>();
             _heroFSM.onFireAction+= HandleOnFireAction;
 
-            _enemyManager.WakeUpEnemyT(_heroFSM.transform);
+            //_enemyManager.WakeUpEnemyT(_heroFSM.transform);
 
         }, .25f);
     }
