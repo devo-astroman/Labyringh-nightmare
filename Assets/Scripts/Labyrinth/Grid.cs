@@ -27,30 +27,38 @@ public class Grid : MonoBehaviour
             return;
         }
 
-        // Get size of one grid unit (X = width, Y = depth/Z)
-        Vector2 dimensions = _gridUnit.GetDimensions();
+        _grid = new GridUnit[widthGrid][];
+        Vector3 origin = position;
+
+        // 1) Create the first tile to measure real runtime size
+        _grid[0] = new GridUnit[heightGrid];
+        GridUnit first = Instantiate(_gridUnit, origin, Quaternion.identity, transform);
+        first.name = "GridUnit_0_0";
+        _grid[0][0] = first;
+
+        Vector2 dimensions = first.GetDimensions();   // IMPORTANT: measured from instance
         float stepX = dimensions.x;
         float stepZ = dimensions.y;
 
-        _grid = new GridUnit[widthGrid][];
-
-        Vector3 origin = position;
-
+        // 2) Fill the rest
         for (int x = 0; x < widthGrid; x++)
         {
-            _grid[x] = new GridUnit[heightGrid];
+            if (_grid[x] == null)
+                _grid[x] = new GridUnit[heightGrid];
 
             for (int y = 0; y < heightGrid; y++)
             {
-                Vector3 spawnPos = origin + new Vector3(x * stepX, 0f, y * stepZ);
+                if (x == 0 && y == 0) continue;
+
+                Vector3 spawnPos = origin + new Vector3(-x * stepX, 0f,-y * stepZ);
 
                 GridUnit instance = Instantiate(_gridUnit, spawnPos, Quaternion.identity, transform);
                 instance.name = $"GridUnit_{x}_{y}";
-
                 _grid[x][y] = instance;
             }
         }
     }
+
 
     public void PlaceObjectAt(GameObject objectToPlace, int x, int y)
     {

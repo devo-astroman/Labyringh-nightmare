@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _floor: {fileID: 7456812493258536713}
-  _center: {fileID: 2912977301339320426}
+  _centerTransform: {fileID: 2912977301339320426}
 --- !u!1001 &3552959159555322256
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -41,7 +41,26 @@ public class Room : MonoBehaviour
             int entranceId = idsToOpen[i];
             entrances[entranceId].SetActive(false);
         }
+    }
 
+    public void OpenRoom1x1EntranceNorth()
+    {
+        _nEntrances[0].SetActive(false);
+    }
+
+    public void OpenRoom1x1EntranceEast()
+    {
+        _eEntrances[0].SetActive(false);
+    }
+
+    public void OpenRoom1x1EntranceSouth()
+    {
+        _sEntrances[0].SetActive(false);
+    }
+
+    public void OpenRoom1x1EntranceWest()
+    {
+        _wEntrances[0].SetActive(false);
     }
 
     public void CloseAllEntrances()
