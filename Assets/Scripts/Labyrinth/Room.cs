@@ -36,10 +36,12 @@ public class Room : MonoBehaviour
             break;
         }
 
-        for(int id = 0; id < idsToOpen.Length; id++)
+        for (int i = 0; i < idsToOpen.Length; i++)
         {
-            entrances[id].SetActive(false);
+            int entranceId = idsToOpen[i];
+            entrances[entranceId].SetActive(false);
         }
+
     }
 
     public void CloseAllEntrances()

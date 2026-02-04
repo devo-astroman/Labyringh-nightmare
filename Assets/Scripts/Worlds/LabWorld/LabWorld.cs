@@ -11,13 +11,17 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private FireContact _fireContact;
 
     [SerializeField] private EnemyManager _enemyManager;
+    [SerializeField] private LabyrinthCreator _labyrinthCreator;
 
     private SetTimeoutUtility _timeoutToStart;
+
+    
 
 
 
     void Start()
     {   
+        //_labyrinthCreator.GenerateLabyrinth();
 
         Debug.Log("LabWorld");
         _timeoutToStart = new SetTimeoutUtility(this);
