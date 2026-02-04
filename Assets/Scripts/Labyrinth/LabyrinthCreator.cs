@@ -56,10 +56,19 @@ public class LabyrinthCreator : MonoBehaviour
 
         _grid.GenerateGrid(_gridW, _gridH, _gridPosition.position);
 
-        //CreateLabyrinth();
-        CreateTestLabyrinth();
+        CreateLabyrinth();
+        //CreateTestLabyrinth();
     }
 
+    public Vector3[] GetStartAndEndPositions()
+    {
+        
+        Vector3 startRoomPosition = _grid.GetPositionOfRoom(0,0);
+        Vector3 endRoomPosition = _grid.GetPositionOfRoom(_gridW-1,_gridH-1);
+
+        return new Vector3[]{startRoomPosition,endRoomPosition};
+
+    }
 
     private void CreateTestLabyrinth()
     {

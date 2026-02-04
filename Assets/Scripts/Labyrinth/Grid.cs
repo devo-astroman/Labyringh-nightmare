@@ -66,5 +66,10 @@ public class Grid : MonoBehaviour
         objectToPlace.transform.position = position;
     }
 
+    public Vector3 GetPositionOfRoom(int x, int y)
+    {
+        return _grid[x][y].GetCenter();
+    }
+
 }
 

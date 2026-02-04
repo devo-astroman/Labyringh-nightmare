@@ -14,7 +14,7 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private LabyrinthCreator _labyrinthCreator;
 
     private SetTimeoutUtility _timeoutToStart;
-
+    private Vector3 _heroSpawnPoint;
     
 
 
@@ -22,6 +22,10 @@ public class LabWorld : MonoBehaviour
     void Start()
     {   
         _labyrinthCreator.GenerateLabyrinth();
+        Vector3[] positionsRoom = _labyrinthCreator.GetStartAndEndPositions();
+
+        _heroSpawnPoint = new Vector3(positionsRoom[0].x,_spawnPoint.position.y,positionsRoom[0].z)  ;
+
 
         Debug.Log("LabWorld");
         _timeoutToStart = new SetTimeoutUtility(this);
@@ -42,7 +46,11 @@ public class LabWorld : MonoBehaviour
         _timeoutToStart.SetTimeout(() => {
             Debug.Log("Should spawn the player");
             _defaultCamera.SetActive(false);
-            var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
+           // var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
+
+           var hero = Instantiate(_playerHeroPrefab, _heroSpawnPoint, _spawnPoint.rotation);
+
+           
 
             _heroFSM = hero.GetComponentInChildren<HeroFSM>();
             _heroFSM.onFireAction+= HandleOnFireAction;

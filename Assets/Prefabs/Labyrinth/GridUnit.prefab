@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7771477468908184078}
   - component: {fileID: 2877871300403257917}
+  - component: {fileID: 1830225464374725408}
   m_Layer: 0
   m_Name: GridUnit
   m_TagString: Untagged
@@ -79,6 +80,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _floor: {fileID: 7456812493258536713}
   _centerTransform: {fileID: 2912977301339320426}
+--- !u!65 &1830225464374725408
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8691007245764445163}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.9984684, y: 0.41673928, z: 3.9141693}
+  m_Center: {x: 0.01720047, y: 0.000000029802322, z: 0.014564514}
 --- !u!1001 &3552959159555322256
 PrefabInstance:
   m_ObjectHideFlags: 0
