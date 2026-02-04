@@ -10,10 +10,8 @@ public class Grid : MonoBehaviour
 
     void Start()
     {
-        GenerateGrid(20,20,originGrid.position);
-    }
-
-    
+        //GenerateGrid(20,20,originGrid.position);
+    }    
 
     public void GenerateGrid(int widthGrid, int heightGrid, Vector3 position)
     {
@@ -52,6 +50,12 @@ public class Grid : MonoBehaviour
                 _grid[x][y] = instance;
             }
         }
+    }
+
+    public void PlaceObjectAt(GameObject objectToPlace, int x, int y)
+    {
+        Vector3 position = _grid[x][y].GetCenter();
+        objectToPlace.transform.position = position;
     }
 
 }

@@ -445,16 +445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3021b4f6310ee4191eb51ba91e6596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nSize: 20
-  _positionToPlaceTheLabyrinth: {fileID: 151787702}
-  _ARoom4x4:
-  - {x: 10, y: 5}
-  _BRoom4x4:
-  - {x: 8, y: 12}
-  _CRoom4x4:
-  - {x: 15, y: 13}
-  _roomFactory: {fileID: 1753987324}
-  _cellSize: 1
+  _gridW: 20
+  _gridH: 20
+  _gridPosition: {fileID: 151787702}
+  _grid: {fileID: 1476819339}
 --- !u!4 &151787702
 Transform:
   m_ObjectHideFlags: 0
@@ -467,7 +461,8 @@ Transform:
   m_LocalPosition: {x: -3.676234, y: -4.0182743, z: -167}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1476819338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &190114047
@@ -3435,6 +3430,53 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.020000005, y: 0.020000005, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0.0000000018626451}
+--- !u!1 &1476819337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476819338}
+  - component: {fileID: 1476819339}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1476819338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476819337}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 151787702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1476819339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476819337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00119d8f2c406b444bdbcae629782501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridUnit: {fileID: 2877871300403257917, guid: 24eb4ecf6f711d0448c4ad618dfba4e1,
+    type: 3}
+  originGrid: {fileID: 1476819338}
 --- !u!1 &1483416580 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -466329591000292508, guid: 461f649d61d70074ba519bc7ac5eff63,

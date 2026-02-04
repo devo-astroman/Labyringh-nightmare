@@ -21,7 +21,7 @@ public class LabWorld : MonoBehaviour
 
     void Start()
     {   
-        //_labyrinthCreator.GenerateLabyrinth();
+        _labyrinthCreator.GenerateLabyrinth();
 
         Debug.Log("LabWorld");
         _timeoutToStart = new SetTimeoutUtility(this);

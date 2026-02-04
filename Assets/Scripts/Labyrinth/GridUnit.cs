@@ -3,6 +3,7 @@ using UnityEngine;
 public class GridUnit : MonoBehaviour
 {
     [SerializeField] private GameObject  _floor;
+    [SerializeField] private Transform  _centerTransform;
     
     public Vector2 GetDimensions()
     {
@@ -24,6 +25,11 @@ public class GridUnit : MonoBehaviour
 
         // X = width, Z = depth (Unity ground plane convention)
         return new Vector2(b.size.x, b.size.z);
+    }
+
+    public Vector3 GetCenter()
+    {
+        return _centerTransform.position;
     }
 
 
