@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,10 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private bool _addExtraLoops = false;
     [SerializeField, Range(0f, 0.3f)] private float _loopChance = 0.08f;
 
+    [SerializeField] private GameObject _roomsParentGO;
+
+    [SerializeField] private NavMeshMazeBaker _navMeshMazeBaker;
+
     // doors[x,y] bitmask: N=1, E=2, S=4, W=8
     private int[,] _doors;
     private System.Random _rng;
@@ -26,138 +31,105 @@ public class LabyrinthCreator : MonoBehaviour
     private const int DIR_S = 1 << 2;
     private const int DIR_W = 1 << 3;
 
+    private Coroutine _generateRoutine;
+
     public void GenerateLabyrinth()
+    {
+        if (_generateRoutine != null)
+            StopCoroutine(_generateRoutine);
+
+        _generateRoutine = StartCoroutine(GenerateLabyrinthRoutine());
+    }
+
+    private IEnumerator GenerateLabyrinthRoutine()
     {
         if (_grid == null)
         {
             Debug.LogError("LabyrinthCreator: Grid reference missing.");
-            return;
+            yield break;
         }
 
         if (_roomGOPrefab == null)
         {
             Debug.LogError("LabyrinthCreator: Room prefab missing.");
-            return;
+            yield break;
         }
 
         if (_gridW <= 0 || _gridH <= 0)
         {
             Debug.LogError("LabyrinthCreator: Invalid grid size.");
-            return;
+            yield break;
         }
 
         if (_gridPosition == null)
         {
             Debug.LogError("LabyrinthCreator: Grid position missing.");
-            return;
+            yield break;
+        }
+
+        if (_roomsParentGO == null)
+        {
+            Debug.LogError("LabyrinthCreator: RoomsParentGO missing.");
+            yield break;
+        }
+
+        // Optional: clear old rooms under parent
+        for (int i = _roomsParentGO.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(_roomsParentGO.transform.GetChild(i).gameObject);
         }
 
         _rng = new System.Random(_seed);
 
         _grid.GenerateGrid(_gridW, _gridH, _gridPosition.position);
 
+        // Wait a frame so transforms/colliders settle before placing rooms/navmesh
+        yield return null;
+
         CreateLabyrinth();
-        //CreateTestLabyrinth();
+
+        // Wait a frame so newly instantiated rooms/doors are fully registered
+        yield return null;
+
+        if (_navMeshMazeBaker != null)
+            _navMeshMazeBaker.Rebuild();
+
+        _generateRoutine = null;
+    }
+
+    public void GenerateLabyrinthTest()
+    {
+        if (_generateRoutine != null)
+            StopCoroutine(_generateRoutine);
+
+        _generateRoutine = StartCoroutine(GenerateLabyrinthRoutineTest());
+    }
+
+    private IEnumerator GenerateLabyrinthRoutineTest()
+    {
+
+
+
+        // Wait a frame so newly instantiated rooms/doors are fully registered
+        yield return null;
+
+        if (_navMeshMazeBaker != null)
+            _navMeshMazeBaker.Rebuild();
+
+        _generateRoutine = null;
     }
 
     public Vector3[] GetStartAndEndPositions()
     {
-        
-        Vector3 startRoomPosition = _grid.GetPositionOfRoom(0,0);
-        Vector3 endRoomPosition = _grid.GetPositionOfRoom(_gridW-1,_gridH-1);
-
-        return new Vector3[]{startRoomPosition,endRoomPosition};
-
+        Vector3 startRoomPosition = _grid.GetPositionOfRoom(0, 0);
+        Vector3 endRoomPosition = _grid.GetPositionOfRoom(_gridW - 1, _gridH - 1);
+        return new Vector3[] { startRoomPosition, endRoomPosition };
     }
 
-    private void CreateTestLabyrinth()
+    public Vector3 GetRoomPosition(int x, int y)
     {
-        if (_roomGOPrefab == null)
-        {
-            Debug.LogError("LabyrinthCreator: Room prefab missing.");
-            return;
-        }
-
-        // Helper to place a 1x1 room at (x,y) and open the specified sides (index 0)
-        void PlaceTestRoom(int x, int y, bool openN, bool openE, bool openS, bool openW)
-        {
-            GameObject roomGO = Instantiate(_roomGOPrefab);
-            roomGO.name = $"TestRoom_{x}_{y}";
-
-            Room room = roomGO.GetComponent<Room>();
-            if (room != null)
-            {
-                room.CloseAllEntrances();
-
-                if (openN) room.OpenRoom1x1EntranceNorth();
-                if (openE) room.OpenRoom1x1EntranceEast();
-                if (openS) room.OpenRoom1x1EntranceSouth();
-                if (openW) room.OpenRoom1x1EntranceWest();
-            }
-
-            _grid.PlaceObjectAt(roomGO, x, y);
-        }
-
-        // We build a "snake" path that fills the grid:
-        // Row 0: (0,0) -> (W-1,0)
-        // Up to row 1, then (W-1,1) -> (0,1)
-        // Up to row 2, then (0,2) -> (W-1,2)
-        // ... until last cell in the last row.
-        //
-        // This matches your description and is perfect to validate OpenEntrances correctness.
-        for (int y = 0; y < _gridH; y++)
-        {
-            bool leftToRight = (y % 2 == 0);
-
-            for (int i = 0; i < _gridW; i++)
-            {
-                int x = leftToRight ? i : (_gridW - 1 - i);
-
-                bool openN = false;
-                bool openE = false;
-                bool openS = false;
-                bool openW = false;
-
-                // Horizontal connections inside the row
-                if (leftToRight)
-                {
-                    if (x > 0) openW = true;                 // connected to previous (x-1)
-                    if (x < _gridW - 1) openE = true;        // connected to next (x+1)
-                }
-                else
-                {
-                    if (x < _gridW - 1) openE = true;        // connected to previous (x+1) in the snake direction
-                    if (x > 0) openW = true;                 // connected to next (x-1) in the snake direction
-                }
-
-                // Vertical connection at the end of each row to go up to the next row
-                // Row 0 ends at x=W-1, Row 1 ends at x=0, Row 2 ends at x=W-1, etc.
-                bool isRowEndCell = leftToRight ? (x == _gridW - 1) : (x == 0);
-
-                if (isRowEndCell && y < _gridH - 1)
-                {
-                    openN = true; // this cell goes up
-                }
-
-                // And the cell above must have its South openOUTH open; we handle it here too
-                // because we are placing every cell anyway.
-                if (y > 0)
-                {
-                    // If the cell below (same x, y-1) ended the previous row, then this cell should open South.
-                    bool prevRowLeftToRight = ((y - 1) % 2 == 0);
-                    bool belowWasEnd = prevRowLeftToRight ? (x == _gridW - 1) : (x == 0);
-
-                    if (belowWasEnd)
-                        openS = true;
-                }
-
-                PlaceTestRoom(x, y, openN, openE, openS, openW);
-            }
-        }
-
-        Debug.Log("CreateTestLabyrinth: Snake path generated for entrance validation.");
+        return _grid.GetPositionOfRoom(x, y);
     }
-
 
     private void CreateLabyrinth()
     {
@@ -191,16 +163,18 @@ public class LabyrinthCreator : MonoBehaviour
             stack.Push(pick.n);
         }
 
-        // 2) Optional loops (less "perfect", more labyrinth)
+        // 2) Optional loops
         if (_addExtraLoops)
             AddRandomLoops();
 
         // 3) Place a room prefab at every grid cell and open entrances based on door mask
+        Transform parent = _roomsParentGO.transform;
+
         for (int y = 0; y < _gridH; y++)
         {
             for (int x = 0; x < _gridW; x++)
             {
-                GameObject roomGO = Instantiate(_roomGOPrefab);
+                GameObject roomGO = Instantiate(_roomGOPrefab, parent);
                 roomGO.name = $"Room_{x}_{y}";
 
                 Room room = roomGO.GetComponent<Room>();
@@ -210,14 +184,12 @@ public class LabyrinthCreator : MonoBehaviour
 
                     int mask = _doors[x, y];
 
-                    // For 1x1 rooms, entrance index per side is always 0
                     if ((mask & DIR_N) != 0) room.OpenEntrances(RoomSides.NORTH_SIDE, new[] { 0 });
-                    if ((mask & DIR_E) != 0) room.OpenEntrances(RoomSides.EAST_SIDE,  new[] { 0 });
+                    if ((mask & DIR_E) != 0) room.OpenEntrances(RoomSides.EAST_SIDE, new[] { 0 });
                     if ((mask & DIR_S) != 0) room.OpenEntrances(RoomSides.SOUTH_SIDE, new[] { 0 });
-                    if ((mask & DIR_W) != 0) room.OpenEntrances(RoomSides.WEST_SIDE,  new[] { 0 });
+                    if ((mask & DIR_W) != 0) room.OpenEntrances(RoomSides.WEST_SIDE, new[] { 0 });
                 }
 
-                // Place into your grid cell (assumes Grid has this method)
                 _grid.PlaceObjectAt(roomGO, x, y);
             }
         }
@@ -260,7 +232,6 @@ public class LabyrinthCreator : MonoBehaviour
             {
                 if (_rng.NextDouble() > _loopChance) continue;
 
-                // Try to add one extra connection from (x,y) to a random neighbor
                 var dirs = new List<int> { 0, 1, 2, 3 };
                 Shuffle(dirs);
 

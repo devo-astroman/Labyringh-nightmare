@@ -11,6 +11,8 @@ public class EnemyT : MonoBehaviour
     [SerializeField] private float _scanCoolDown;
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
+
+
     private bool _follow = true;
     
     private SetIntervalUtility _intervalToMove;
@@ -44,6 +46,9 @@ public class EnemyT : MonoBehaviour
             if (_follow)
             {
                 Vector3 position = new Vector3(_target.position.x,0,_target.position.z);
+                Debug.Log("Target position " + position);
+
+                NavDebug.LogAgentState(_navMeshAgent,"AG-");
                 _navMeshAgent.SetDestination(position);
             }
         }, .25f);

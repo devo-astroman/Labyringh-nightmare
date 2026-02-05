@@ -14,21 +14,33 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private LabyrinthCreator _labyrinthCreator;
 
     private SetTimeoutUtility _timeoutToStart;
+    private SetTimeoutUtility _timeoutToSpawnEnemies;
     private Vector3 _heroSpawnPoint;
+
+    [SerializeField] private Transform _enemySpawnPointTransform;
+    private Vector3 _enemySpawnPoint;
     
 
 
 
     void Start()
     {   
+        _timeoutToStart = new SetTimeoutUtility(this);
+        _timeoutToSpawnEnemies = new SetTimeoutUtility(this);
+
+        //_labyrinthCreator.GenerateLabyrinthTest();
+
         _labyrinthCreator.GenerateLabyrinth();
         Vector3[] positionsRoom = _labyrinthCreator.GetStartAndEndPositions();
 
-        _heroSpawnPoint = new Vector3(positionsRoom[0].x,_spawnPoint.position.y,positionsRoom[0].z)  ;
+        _heroSpawnPoint = new Vector3(positionsRoom[0].x,_spawnPoint.position.y,positionsRoom[0].z);
+
+        Vector3 enemyRoom = _labyrinthCreator.GetRoomPosition(5,5);
+        _enemySpawnPoint = new Vector3(enemyRoom.x,_enemySpawnPointTransform.position.y,enemyRoom.z);
 
 
         Debug.Log("LabWorld");
-        _timeoutToStart = new SetTimeoutUtility(this);
+        
         SpawnPlayer();
     }
 
@@ -38,7 +50,8 @@ public class LabWorld : MonoBehaviour
 
     void OnDestroy()
     {
-        _timeoutToStart.Dispose();
+        if(_timeoutToStart != null)
+            _timeoutToStart.Dispose();
     }
 
     private void SpawnPlayer()
@@ -50,15 +63,19 @@ public class LabWorld : MonoBehaviour
 
            var hero = Instantiate(_playerHeroPrefab, _heroSpawnPoint, _spawnPoint.rotation);
 
-           
-
             _heroFSM = hero.GetComponentInChildren<HeroFSM>();
             _heroFSM.onFireAction+= HandleOnFireAction;
 
-            //_enemyManager.WakeUpEnemyT(_heroFSM.transform);
-
         }, .25f);
+
+
+        _timeoutToSpawnEnemies.SetTimeout(() => {
+            Debug.Log("Should spawn the enemy");
+            _enemyManager.WakeUpEnemyT(_enemySpawnPoint,  _heroFSM.transform);
+
+        }, 2f);
     }
+    
 
     private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
     {

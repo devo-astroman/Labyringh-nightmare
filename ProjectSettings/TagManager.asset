@@ -11,8 +11,8 @@ TagManager:
   - Movable
   - Water
   - UI
-  - 
-  - 
+  - Wall
+  - GridHelper
   - 
   - 
   - 
