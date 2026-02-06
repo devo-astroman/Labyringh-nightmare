@@ -12,8 +12,7 @@ public class CharacterAnimatorController : MonoBehaviour
     [Header("Animator Params")]
     [SerializeField] private string _speedParam = "Speed";
     //[SerializeField] private string _isMovingParam = "IsMoving";
-    [SerializeField] private string _isJumpingParam = "Jump";       
-    [SerializeField] private string _isCrouchingParam = "CrouchMode";   
+    [SerializeField] private string _isJumpingParam = "Jump";           
     [SerializeField] private string _isFallingParam = "FreeFall";   
     [SerializeField] private string _isGrounded = "Grounded";
 

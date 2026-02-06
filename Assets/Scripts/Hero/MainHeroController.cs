@@ -6,8 +6,7 @@ public class MainHeroController : MonoBehaviour
     [SerializeField] private SimpleCharacterController _simpleCharacterController;
 
     [SerializeField] private HeroFSM _heroFSM;
-
-    private string heroCurrentState = "Run";
+    
 
     void Start()
     {

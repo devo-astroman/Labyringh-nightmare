@@ -8,10 +8,15 @@ public class EnemyHealth : MonoBehaviour
 {   
     private float _life = 100;
 
-    public Action OnDead;
+    public Action DeadAction;
 
     void Start()
     {
+    }
+
+    public void SetLife(float life)
+    {
+        _life = life;
     }
 
     public void MakeDamage(int damageAmount)
@@ -21,8 +26,13 @@ public class EnemyHealth : MonoBehaviour
         if(_life <= 0)
         {
             _life = 0;
-            OnDead?.Invoke();
+            DeadAction?.Invoke();
         }
+    }
+
+    public float GetLife()
+    {
+        return _life;
     }
 
     void OnDestroy()

@@ -6,14 +6,16 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyT _enemyT;
-    private EnemyHealth _enemyHealth;
+    //private EnemyHealth _enemyHealth;
 
     private SetTimeoutUtility _timeout;
+    public Action<int> EnemyDeadAction;
 
     void Start()
     {
         _timeout = new SetTimeoutUtility(this);
         _enemyT.SetId(0);
+        _enemyT.EnemyDeadAction += OnEnemyDeadAction;
     }
 
     void Update()
@@ -23,7 +25,7 @@ public class EnemyManager : MonoBehaviour
 
     void OnDestroy()
     {
-        
+        _enemyT.EnemyDeadAction -= OnEnemyDeadAction;
     }
 
     public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
@@ -33,9 +35,9 @@ public class EnemyManager : MonoBehaviour
 
 
         _enemyT.SetTarget(target);
-        _enemyHealth = _enemyT.GetComponent<EnemyHealth>();
+        //_enemyHealth = _enemyT.GetComponent<EnemyHealth>();
 
-        _enemyHealth.OnDead += HandleOnDead;
+        //_enemyHealth.DeadAction += HandleOnDead;
 
         
         //_enemyT.StartFollow();
@@ -49,14 +51,18 @@ public class EnemyManager : MonoBehaviour
     {
         if(enemyId == 0)
         {
-            _enemyHealth.MakeDamage(20);
+            //_enemyHealth.MakeDamage(20);
+            _enemyT.MakeHit(1);
+            
         }
     }
 
-    private void HandleOnDead()
+    private void OnEnemyDeadAction(int id)
     {
         Debug.Log("Enemy is Dead");
         _enemyT.StopEnemy();
+        _enemyT.DeactivateEnemyCollisions();
+        EnemyDeadAction.Invoke(id);
     }
 
 

@@ -38,6 +38,9 @@ public class LabWorld : MonoBehaviour
         Vector3 enemyRoom = _labyrinthCreator.GetRoomPosition(5,5);
         _enemySpawnPoint = new Vector3(enemyRoom.x,_enemySpawnPointTransform.position.y,enemyRoom.z);
 
+        /* 
+        Add _enemyManager.EnemyDeadAction += OnEnemyDeadAction(int id)
+         */
 
         Debug.Log("LabWorld");
         
@@ -79,13 +82,28 @@ public class LabWorld : MonoBehaviour
 
     private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
     {
-        _fireContact.OnHit(hitPoint,hitNormal);
+
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyCollider"))
+        {
+            //Here should detect who is the enemy using the id of the EnemyT
+            _enemyManager.ProcessDamage(0);
+
+        }
+        else
+        {
+            _fireContact.OnHit(hitPoint,hitNormal);    
+        }
+
+
+        /* 
+
+        
 
         // Layer check (FAST)
         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             _enemyManager.ProcessDamage(0);
-        }
+        } */
 
     }
 
