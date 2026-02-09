@@ -439,6 +439,7 @@ Transform:
   - {fileID: 1533283174}
   - {fileID: 1021590818}
   - {fileID: 17216103}
+  - {fileID: 1054194435}
   m_Father: {fileID: 1374036354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &151787700
@@ -615,6 +616,7 @@ MonoBehaviour:
   _hitCoolDown: 0
   _enemyAnimator: {fileID: 0}
   _enemyCollidersManager: {fileID: 0}
+  _enemySoundManager: {fileID: 0}
 --- !u!195 &182257491
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1361,6 +1363,18 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5493290949f728a4c982ed6a7c24c028, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &432955475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
+    type: 3}
+  m_PrefabInstance: {fileID: 5142948473014672013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41a8306424cb32479dc6e6821e7e77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &469425419
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2485,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2057883675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1054194434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1054194435}
+  - component: {fileID: 1054194436}
+  m_Layer: 9
+  m_Name: EnemySoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1054194435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054194434}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 105639427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1054194436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054194434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83dac361a59a2074399357301d1b9a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioSource: {fileID: 1374036355}
+  _idleSound: {fileID: 8300000, guid: c111b3ad80ad1994b8a43f0b98da99cb, type: 3}
+  _receiveHitSound: {fileID: 8300000, guid: ec965568f88191040a06b41599c5c7ad, type: 3}
+  _dieSound: {fileID: 8300000, guid: 2ca622cb812fb404193c66a189cba6a0, type: 3}
+  _volume: 1
+  _loopIdle: 1
 --- !u!4 &1057331868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8242984413839997294, guid: 7e779c62ff9ca11489f03072e00b9c13,
@@ -3084,6 +3148,7 @@ GameObject:
   - component: {fileID: 1374036351}
   - component: {fileID: 1374036350}
   - component: {fileID: 1374036349}
+  - component: {fileID: 1374036355}
   m_Layer: 9
   m_Name: Enemy1
   m_TagString: Untagged
@@ -3113,6 +3178,7 @@ MonoBehaviour:
   _hitCoolDown: 1
   _enemyAnimator: {fileID: 1188221547}
   _enemyCollidersManager: {fileID: 17216102}
+  _enemySoundManager: {fileID: 1054194436}
 --- !u!195 &1374036350
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3225,6 +3291,102 @@ Transform:
   - {fileID: 105639427}
   m_Father: {fileID: 469425421}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1374036355
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374036348}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1434536536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4415,6 +4577,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1044229388807808024, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _heroSoundManager
+      value: 
+      objectReference: {fileID: 432955475}
     - target: {fileID: 1941447209536027709, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_Name

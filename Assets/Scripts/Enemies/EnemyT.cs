@@ -21,6 +21,8 @@ public class EnemyT : MonoBehaviour
     [SerializeField] private EnemyAnimator _enemyAnimator;
 
     [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
+
+    [SerializeField] private EnemySoundManager _enemySoundManager;
    
 
     public Action<int> EnemyDeadAction;
@@ -33,6 +35,7 @@ public class EnemyT : MonoBehaviour
 
     void Start()
     {
+        _enemySoundManager.PlayIdle();
         _timeoutHitCoolDown = new SetTimeoutUtility(this);
 
         _enemyHealth.SetLife(_enemyLife);
@@ -104,7 +107,8 @@ public class EnemyT : MonoBehaviour
         _navMeshAgent.isStopped = true;
         if(currentEnemyLife > 0)
         {
-            _enemyAnimator.TriggerReceiveHit();    
+            _enemyAnimator.TriggerReceiveHit();
+            _enemySoundManager.PlayReceiveHit();
             _timeoutHitCoolDown.SetTimeout(() =>
             {
                 _enemyHitManager.AllowHits();
@@ -116,6 +120,7 @@ public class EnemyT : MonoBehaviour
         {
             //play dead animation
             Debug.Log("Enemy is dead");
+            _enemySoundManager.PlayDie();
 
         }
     }
