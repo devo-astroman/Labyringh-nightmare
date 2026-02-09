@@ -87,6 +87,7 @@ public class LabWorld : MonoBehaviour
         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyCollider"))
         {
             //Here should detect who is the enemy using the id of the EnemyT
+            _vFXsManager.ShowBloodVFXs(hitPoint,hitNormal);
             _enemyManager.ProcessDamage(0);
         }
         else
