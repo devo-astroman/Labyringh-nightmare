@@ -8,7 +8,8 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private GameObject _defaultCamera;
 
     [SerializeField] private HeroFSM _heroFSM;
-    [SerializeField] private FireContact _fireContact;
+    [SerializeField] private VFXsManager _vFXsManager;
+    
 
     [SerializeField] private EnemyManager _enemyManager;
     [SerializeField] private LabyrinthCreator _labyrinthCreator;
@@ -87,23 +88,11 @@ public class LabWorld : MonoBehaviour
         {
             //Here should detect who is the enemy using the id of the EnemyT
             _enemyManager.ProcessDamage(0);
-
         }
         else
         {
-            _fireContact.OnHit(hitPoint,hitNormal);    
+            _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
         }
-
-
-        /* 
-
-        
-
-        // Layer check (FAST)
-        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            _enemyManager.ProcessDamage(0);
-        } */
 
     }
 

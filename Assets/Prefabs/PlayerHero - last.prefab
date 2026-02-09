@@ -67,7 +67,6 @@ MonoBehaviour:
   _simpleCharacterController: {fileID: 3762478675217881393}
   _speedParam: Speed
   _isJumpingParam: Jump
-  _isCrouchingParam: Crouch
   _isFallingParam: FreeFall
   _isGrounded: Grounded
   _idleThreshold: 0.05
@@ -941,6 +940,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3591799690890815507, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4841379531528978586, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
