@@ -30,6 +30,7 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private CameraAimToMaskBridge _cameraAimToMaskBridge;
     [SerializeField] private GunFireController _gunFireController;
     [SerializeField] private HeroSoundManager _heroSoundManager;
+    [SerializeField] private HeroVfxsManager _heroVfxsManager;
 
     [SerializeField] private Hud _hud;
 
@@ -122,6 +123,7 @@ public class HeroFSM : AbstractFiniteStateMachine
     public void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal, RaycastHit hit)
     {
         _heroSoundManager.PlayGunFire();
+        _heroVfxsManager.ShowGunFireVfxs();
         onFireAction?.Invoke(hitPoint,hitNormal,hit);
     }
 

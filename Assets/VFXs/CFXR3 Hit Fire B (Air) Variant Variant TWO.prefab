@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7030354756593769336
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1131673501839443456, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: animatedLights.Array.data[0].intensityStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131673501839443456, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: animatedLights.Array.data[0].intensityDuration
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115269, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Hit Fire B (Air) Variant Variant TWO
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5471206
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.899487
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.423388
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7834771023877115272, guid: 0f87cbd4db8161e41839bf0d99d86533,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f87cbd4db8161e41839bf0d99d86533, type: 3}

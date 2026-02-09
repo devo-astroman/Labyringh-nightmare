@@ -1363,18 +1363,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 5493290949f728a4c982ed6a7c24c028, type: 2}
   m_BuildHeightMesh: 0
---- !u!114 &432955475 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142948473014672013}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41a8306424cb32479dc6e6821e7e77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &469425419
 GameObject:
   m_ObjectHideFlags: 0
@@ -4577,11 +4565,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1044229388807808024, guid: dfddffa4c995e884683a8b4f610c7819,
-        type: 3}
-      propertyPath: _heroSoundManager
-      value: 
-      objectReference: {fileID: 432955475}
     - target: {fileID: 1941447209536027709, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_Name
@@ -4642,11 +4625,90 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8342614399195687024, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _vfxScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8342614399195687024, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _gunFireVFXs
+      value: 
+      objectReference: {fileID: 948681564500776701, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfddffa4c995e884683a8b4f610c7819, type: 3}
+--- !u!1001 &7142872648539386948
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5471206
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.899487
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.423388
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776688, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 948681564500776701, guid: de1a661cd663ffd4bae80ffe1e18631b,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Hit Fire B (Air) Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: de1a661cd663ffd4bae80ffe1e18631b, type: 3}
 --- !u!1001 &8505469349077343839
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4735,3 +4797,4 @@ SceneRoots:
   - {fileID: 5142948473014672013}
   - {fileID: 1259718442}
   - {fileID: 151787702}
+  - {fileID: 7142872648539386948}

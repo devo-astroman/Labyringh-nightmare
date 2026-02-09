@@ -123,6 +123,54 @@ MonoBehaviour:
   _maskController: {fileID: 6211640598120995720}
   _deadZone: 0.05
   _maxWeight: 0.25
+--- !u!1 &328278946365310004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8039716762121518393}
+  - component: {fileID: 8342614399195687024}
+  m_Layer: 0
+  m_Name: VFXsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8039716762121518393
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328278946365310004}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5180737074399432878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8342614399195687024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328278946365310004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ac9606eed53aa47b38c42dc4b4a625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gunFireVFXs: {fileID: 948681564500776701, guid: de1a661cd663ffd4bae80ffe1e18631b,
+    type: 3}
+  _originBullet: {fileID: 5411390122213642128}
+  _vfxScale: 0.25
 --- !u!1 &790270311147365309
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +530,7 @@ MonoBehaviour:
   _cameraAimToMaskBridge: {fileID: 398728643058987365}
   _gunFireController: {fileID: 542254830767979702}
   _heroSoundManager: {fileID: 1582966243562841592}
+  _heroVfxsManager: {fileID: 8342614399195687024}
   _hud: {fileID: 5054659221501645061}
 --- !u!1 &5644334407140853016
 GameObject:
@@ -819,6 +868,7 @@ Transform:
   - {fileID: 1873512805188892979}
   - {fileID: 5971116960348166265}
   - {fileID: 7584673870897841861}
+  - {fileID: 8039716762121518393}
   m_Father: {fileID: 7260720706514412309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &67990088940916703
