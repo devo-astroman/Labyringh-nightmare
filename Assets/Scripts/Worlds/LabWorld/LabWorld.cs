@@ -75,7 +75,16 @@ public class LabWorld : MonoBehaviour
 
         _timeoutToSpawnEnemies.SetTimeout(() => {
             Debug.Log("Should spawn the enemy");
-            _enemyManager.WakeUpEnemyT(_enemySpawnPoint,  _heroFSM.transform);
+           // _enemyManager.WakeUpEnemyT(_enemySpawnPoint,  _heroFSM.transform);
+
+           Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(5,5);
+           _enemyManager.WakeUpEnemyB1(enemySpawnPosition);
+
+            Vector3 patrolPoint1 = _labyrinthCreator.GetRoomPosition(0,0);
+            Vector3 patrolPoint2 = _labyrinthCreator.GetRoomPosition(5,5);
+            Vector3 patrolPoint3 = _labyrinthCreator.GetRoomPosition(9,9);
+
+            _enemyManager.SetPatrolPoints(new Vector3[]{patrolPoint1,patrolPoint2,patrolPoint3});
 
         }, 2f);
     }

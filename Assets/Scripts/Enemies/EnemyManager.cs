@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyT _enemyT;
-    //private EnemyHealth _enemyHealth;
+    [SerializeField] private GameObject _enemyB1Pref;
+    private GameObject _enemyB1GO;
 
     private SetTimeoutUtility _timeout;
     public Action<int> EnemyDeadAction;
@@ -14,8 +15,8 @@ public class EnemyManager : MonoBehaviour
     void Start()
     {
         _timeout = new SetTimeoutUtility(this);
-        _enemyT.SetId(0);
-        _enemyT.EnemyDeadAction += OnEnemyDeadAction;
+        /* _enemyT.SetId(0);
+        _enemyT.EnemyDeadAction += OnEnemyDeadAction; */
     }
 
     void Update()
@@ -25,7 +26,17 @@ public class EnemyManager : MonoBehaviour
 
     void OnDestroy()
     {
-        _enemyT.EnemyDeadAction -= OnEnemyDeadAction;
+       // _enemyT.EnemyDeadAction -= OnEnemyDeadAction;
+    }
+
+    public void SetPatrolPoints(Vector3[] patrolPoints)
+    {
+        _enemyB1GO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
+    }
+
+    public void WakeUpEnemyB1(Vector3 enemyPosition)
+    {
+        _enemyB1GO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
     }
 
     public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
