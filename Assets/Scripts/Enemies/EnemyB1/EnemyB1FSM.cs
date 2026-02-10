@@ -165,8 +165,9 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         private void HandleDetectedHeroAction(GameObject hero)
         {
-            _dependencies.heroDetected = hero;
-            _dependencies.fsm.GoToFollow();
+            Debug.Log("HeroDetected!!!!");
+           /*  _dependencies.heroDetected = hero;
+            _dependencies.fsm.GoToFollow(); */
         }
     }
 

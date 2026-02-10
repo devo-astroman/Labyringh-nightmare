@@ -10,7 +10,8 @@ public class EnemyNavigatorManager : MonoBehaviour
     private Vector3[] _patrolPoints;
     private int _iPatrolPoint = -1;
 
-    private bool _follow = true;
+    [SerializeField]  private bool _follow = true;
+    [SerializeField]  private bool _patrolling = false;
     private SetIntervalUtility _intervalToMove;
 
     void Start()
@@ -19,6 +20,11 @@ public class EnemyNavigatorManager : MonoBehaviour
 
     void Update()
     {
+
+        if (_patrolling && HasReachedDestination(_navMeshAgent))
+        {
+            PatrolToNextPoint();
+        }
     }
 
     public void ExecutePatrol()
@@ -29,6 +35,8 @@ public class EnemyNavigatorManager : MonoBehaviour
         }
 
         _navMeshAgent.isStopped = false;
+        _patrolling = true;
+        _follow = false;
     }
 
     public void SetPatrolPoints(Vector3[] patrolPoints)
@@ -46,6 +54,7 @@ public class EnemyNavigatorManager : MonoBehaviour
     {
         _targetToFollow = target;
         _follow = true;
+        _patrolling = false;
         _intervalToMove.SetInterval(() => {
             if (_follow)
             {
@@ -70,6 +79,23 @@ public class EnemyNavigatorManager : MonoBehaviour
             _iPatrolPoint=0;
 
         return _patrolPoints[_iPatrolPoint];
+    }
+
+    private bool HasReachedDestination(NavMeshAgent agent)
+    {
+        if (!agent.isOnNavMesh)
+            return false;
+
+        if (agent.pathPending)
+            return false;
+
+        if (agent.remainingDistance > agent.stoppingDistance)
+            return false;
+
+        if (agent.hasPath && agent.velocity.sqrMagnitude > 0.01f)
+            return false;
+
+        return true;
     }
 
     void OnDestroy()

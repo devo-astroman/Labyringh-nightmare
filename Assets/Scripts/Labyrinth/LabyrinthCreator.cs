@@ -22,6 +22,10 @@ public class LabyrinthCreator : MonoBehaviour
 
     [SerializeField] private NavMeshMazeBaker _navMeshMazeBaker;
 
+    [SerializeField] private LabyrinthDebugger _labyrinthDebugger;
+
+    
+
     // doors[x,y] bitmask: N=1, E=2, S=4, W=8
     private int[,] _doors;
     private System.Random _rng;
@@ -103,6 +107,11 @@ public class LabyrinthCreator : MonoBehaviour
             StopCoroutine(_generateRoutine);
 
         _generateRoutine = StartCoroutine(GenerateLabyrinthRoutineTest());
+    }
+
+    public void ShowDebug(Vector3[] positions)
+    {
+        _labyrinthDebugger.ShowRoomMarksAt(positions);
     }
 
     private IEnumerator GenerateLabyrinthRoutineTest()

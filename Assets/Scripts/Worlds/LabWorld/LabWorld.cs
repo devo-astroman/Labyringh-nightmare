@@ -80,11 +80,13 @@ public class LabWorld : MonoBehaviour
            Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(5,5);
            _enemyManager.WakeUpEnemyB1(enemySpawnPosition);
 
-            Vector3 patrolPoint1 = _labyrinthCreator.GetRoomPosition(0,0);
+            Vector3 patrolPoint1 = _labyrinthCreator.GetRoomPosition(5,6);
             Vector3 patrolPoint2 = _labyrinthCreator.GetRoomPosition(5,5);
-            Vector3 patrolPoint3 = _labyrinthCreator.GetRoomPosition(9,9);
+            Vector3 patrolPoint3 = _labyrinthCreator.GetRoomPosition(3,3);
 
             _enemyManager.SetPatrolPoints(new Vector3[]{patrolPoint1,patrolPoint2,patrolPoint3});
+
+            _labyrinthCreator.ShowDebug(new Vector3[]{patrolPoint1,patrolPoint2,patrolPoint3});
 
         }, 2f);
     }
