@@ -1049,6 +1049,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3591799690890815507, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      propertyPath: m_TagString
+      value: HeroTag
+      objectReference: {fileID: 0}
     - target: {fileID: 4841379531528978586, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
       propertyPath: m_Enabled

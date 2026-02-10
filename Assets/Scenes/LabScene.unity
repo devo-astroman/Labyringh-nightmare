@@ -4498,6 +4498,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3181025564171717664, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: m_TagString
+      value: HeroTag
+      objectReference: {fileID: 0}
     - target: {fileID: 4080692788949836085, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_LocalPosition.x
