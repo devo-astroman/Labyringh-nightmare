@@ -61,7 +61,6 @@ public class LabWorld : MonoBehaviour
     private void SpawnPlayer()
     {
         _timeoutToStart.SetTimeout(() => {
-            Debug.Log("Should spawn the player");
             _defaultCamera.SetActive(false);
            // var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
 
@@ -74,9 +73,6 @@ public class LabWorld : MonoBehaviour
 
 
         _timeoutToSpawnEnemies.SetTimeout(() => {
-            Debug.Log("Should spawn the enemy");
-           // _enemyManager.WakeUpEnemyT(_enemySpawnPoint,  _heroFSM.transform);
-
            Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
            _enemyManager.WakeUpEnemyB1(enemySpawnPosition);
 
@@ -94,7 +90,6 @@ public class LabWorld : MonoBehaviour
 
     private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
     {
-
         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyCollider"))
         {
             //Here should detect who is the enemy using the id of the EnemyT

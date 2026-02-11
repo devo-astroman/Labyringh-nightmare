@@ -295,7 +295,7 @@ MonoBehaviour:
   _maxDistance: 100
   _hitMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 328
   _drawDebugRay: 1
   _spreadRadiusViewport: 0.01
 --- !u!1 &1361628848659359533

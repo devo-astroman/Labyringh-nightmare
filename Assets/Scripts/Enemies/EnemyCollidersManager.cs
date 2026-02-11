@@ -35,6 +35,25 @@ public class EnemyCollidersManager : MonoBehaviour
     }
 
 
+    public void DeactivatePainColliders()
+    {
+        for(int i = 0; i < _colliders.Length; i++)
+        {
+            _colliders[i].GetComponent<CapsuleCollider>().enabled = false;
+        }
+        _baseCollider.GetComponent<CapsuleCollider>().enabled = false;
+    }
+
+    public void ActivatePainColliders()
+    {
+        for(int i = 0; i < _colliders.Length; i++)
+        {
+            _colliders[i].GetComponent<CapsuleCollider>().enabled = true;
+        }
+        _baseCollider.GetComponent<CapsuleCollider>().enabled = true;
+    }
+
+
 
 
 

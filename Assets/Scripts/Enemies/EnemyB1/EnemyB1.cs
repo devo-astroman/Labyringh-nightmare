@@ -49,6 +49,7 @@ public class EnemyB1 : MonoBehaviour
 
     public void ExecutePatrol()
     {
+        _enemyCollidersManager.ActivatePainColliders();
         _enemyNavigatorManager.ExecutePatrol();
     }
 
@@ -67,7 +68,7 @@ public class EnemyB1 : MonoBehaviour
     public void PlayReceiveHitAnimation()
     {
         _life -= 1;
-
+        _enemyCollidersManager.DeactivatePainColliders();
         _enemyNavigatorManager.StopNavigation();
         _enemySoundManager.PlayReceiveHit();
         _enemyAnimator.PlayGetHurtAnimation();
@@ -75,8 +76,8 @@ public class EnemyB1 : MonoBehaviour
 
     public void ExecuteDieEnemy()
     {
+        _enemyCollidersManager.DeactivatePainColliders();
         _enemyNavigatorManager.StopNavigation();
-        _enemyCollidersManager.RemoveCollisions();
         _enemySoundManager.PlayDie();
         _enemyAnimator.PlayDieAnimation();
     }
