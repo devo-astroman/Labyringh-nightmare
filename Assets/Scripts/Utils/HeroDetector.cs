@@ -10,6 +10,7 @@ public class HeroDetector : MonoBehaviour
 
     // Action to notify detection
     public Action<GameObject> detectedAction;
+    public Action undetectedAction;
 
     private int _heroLayer;
 
@@ -28,6 +29,14 @@ public class HeroDetector : MonoBehaviour
         if (IsHero(other.gameObject))
         {
             detectedAction?.Invoke(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (IsHero(other.gameObject))
+        {
+            undetectedAction?.Invoke();
         }
     }
 

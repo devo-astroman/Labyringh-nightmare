@@ -182,25 +182,36 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
            Debug.Log("Patrol");
            _dependencies.enemyB1.PlayPatrolAnimation();
-           _dependencies.enemyB1.detectedHeroAction += HandleDetectedHeroAction;
+           
+           
            _dependencies.enemyB1.ExecutePatrol();
 
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+           _dependencies.enemyB1.farDetectedHeroAction += HandleDetectedHero;
+           _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.PATROL_STATE);
-           _dependencies.enemyB1.detectedHeroAction -= HandleDetectedHeroAction;
+           
            _dependencies.enemyB1.StopPatrol();
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+           _dependencies.enemyB1.farDetectedHeroAction += HandleDetectedHero;
+           _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
         }
 
-        private void HandleDetectedHeroAction(GameObject hero)
+        private void HandleDetectedHero(GameObject hero)
         {
             Debug.Log("HeroDetected!!!!");
-           /*  _dependencies.heroDetected = hero;
-            _dependencies.fsm.GoToFollow(); */
+            _dependencies.heroDetected = hero;
+            _dependencies.fsm.GoToFollow();
+        }
+
+        private void HandleNearDetectedHero(GameObject hero)
+        {
+            Debug.Log("NearHeroDetected!!!!");            
+            _dependencies.fsm.GoToAttack();
         }
 
         private void HandleReceiveDamage(int damageValue)
@@ -225,16 +236,31 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Follow");
+           Debug.Log("*Follow*");
 
            _dependencies.enemyB1.PlayPatrolAnimation(); //follow and patrol has the same animation
+
+            if (_dependencies.heroDetected)
+            {
+                _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
+                _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
+            }
+            else
+            {
+                _dependencies.fsm.GoLastState();
+            }
            
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.FOLLOW_STATE);
+           _dependencies.enemyB1.farUndetectedHeroAction -= HandleUndetectedHero;
+        }
 
+        private void HandleUndetectedHero()
+        {
+            _dependencies.fsm.GoToPatrol();
         }
     }
 
@@ -250,12 +276,21 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Attack");           
+           Debug.Log("Attack");
+            _dependencies.enemyB1.tailAttackAnimationEndsAction += HandleTailAttackAnimationEnds;
+
+           _dependencies.enemyB1.ExecuteAttack();
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.ATTACK_STATE);
+           _dependencies.enemyB1.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEnds;
+        }
+
+        private void HandleTailAttackAnimationEnds()
+        {
+            _dependencies.fsm.GoToFollow();
         }
     }
 
@@ -310,7 +345,6 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Die");
            _dependencies.enemyB1.ExecuteDieEnemy();
         }
 

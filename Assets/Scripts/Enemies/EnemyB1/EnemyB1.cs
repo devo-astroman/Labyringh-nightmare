@@ -7,18 +7,21 @@ using UnityEditorInternal;
 public class EnemyB1 : MonoBehaviour
 {
     [SerializeField] private EnemyAnimator _enemyAnimator;
-    [SerializeField] private HeroDetector _heroDetector;
+    [SerializeField] private HeroDetectorManager _heroDetectorManager;
     [SerializeField] private EnemyNavigatorManager _enemyNavigatorManager;
     [SerializeField] private EnemySoundManager _enemySoundManager;
     [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
     
-
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
     public Action getHurtAnimationEndsAction;
     public Action dieAnimationEndsAction;
 
-    public Action<GameObject> detectedHeroAction;
+    public Action<GameObject> farDetectedHeroAction;
+    public Action farUndetectedHeroAction;
+
+    public Action<GameObject> nearDetectedHeroAction;
+    public Action nearUndetectedHeroAction;
 
     private int _life = 5;
 
@@ -29,7 +32,18 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction += HandleDieAnimationEndsAction;
 
-        _heroDetector.detectedAction += HandleDetectedAction;
+        _heroDetectorManager.DetectionInfoAction += HandleDetectionInfo;
+
+
+        /* _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
+        _heroDetectorManager.FarHeroUndetectionAction += HanldeFarHeroUndetection;
+
+        _heroDetectorManager.NearHeroDetectionAction += HandleNearHeroDetection;
+        _heroDetectorManager.NearHeroUndetectionAction += HandleNearHeroUndetection; */
+
+
+        /* _heroDetectorManager.detectedAction += HandleDetectedAction;
+        _heroDetectorManager.undetectedAction += HandleUndetectedAction; */
         
         _enemyCollidersManager.HideColliderVisibility();
 
@@ -82,9 +96,22 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.PlayDieAnimation();
     }
 
+    public void ExecuteAttack()
+    {
+        _enemyNavigatorManager.StopNavigation();
+        _enemyAnimator.PlayAttackAnimation();
+        //_enemySoundManager.PlayAttack(); todo
+    }
+
     public int GetCurrentLife()
     {
         return _life;
+    }
+
+    public void StartFollow(Transform target)
+    {
+        _enemyNavigatorManager.StartFollow(target);
+        _enemyNavigatorManager.ResumeNavigation();
     }
 
     void OnDestroy()
@@ -94,7 +121,18 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction -= HandleDieAnimationEndsAction;
 
-        _heroDetector.detectedAction -= HandleDetectedAction;
+        _heroDetectorManager.DetectionInfoAction -= HandleDetectionInfo;
+
+        /* _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
+        _heroDetectorManager.FarHeroUndetectionAction += HanldeFarHeroUndetection;
+
+        _heroDetectorManager.NearHeroDetectionAction += HandleNearHeroDetection;
+        _heroDetectorManager.NearHeroUndetectionAction += HandleNearHeroUndetection; */
+
+        /* _heroDetectorManager.detectedAction -= HandleDetectedAction;
+        _heroDetectorManager.undetectedAction -= HandleUndetectedAction; */
+
+        
     }
 
     private void HandleWakeUpAnimationEndsAction()
@@ -117,8 +155,25 @@ public class EnemyB1 : MonoBehaviour
         dieAnimationEndsAction?.Invoke();
     }
 
-    private void HandleDetectedAction(GameObject heroGO)
+    private void HandleDetectionInfo(int type, GameObject heroGO)
     {
-        detectedHeroAction?.Invoke(heroGO);
+        if(type == 0){ //far detection
+            farDetectedHeroAction?.Invoke(heroGO);
+        }else if (type == 1)
+        {
+            farUndetectedHeroAction?.Invoke();
+        }else if (type == 2)
+        {
+            nearDetectedHeroAction?.Invoke(heroGO);
+        }else if (type == 3)
+        {
+            nearUndetectedHeroAction?.Invoke();
+        }
     }
+
+
+
+
+
+    
 }

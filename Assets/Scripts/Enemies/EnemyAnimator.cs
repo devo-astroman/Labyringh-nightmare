@@ -63,6 +63,14 @@ public class EnemyAnimator : MonoBehaviour
         _animator.SetBool("Die",true);
     }
 
+    public void PlayAttackAnimation()
+    {
+        _animator.SetBool("Follow&Patrol",false);
+        _animator.SetBool("Attack",true);
+        _animator.SetBool("ReceiveHit",false);
+        _animator.SetBool("Die",false);
+    }
+
 /*     public void PlayPatroAnimation()
     {
         _animator.SetBool("Follow&Patrol",true);

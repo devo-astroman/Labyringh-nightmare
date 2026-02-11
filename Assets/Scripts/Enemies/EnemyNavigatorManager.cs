@@ -16,6 +16,7 @@ public class EnemyNavigatorManager : MonoBehaviour
 
     void Start()
     {
+        _intervalToMove = new SetIntervalUtility(this);
     }
 
     void Update()
@@ -64,6 +65,11 @@ public class EnemyNavigatorManager : MonoBehaviour
                 _navMeshAgent.SetDestination(position);
             }
         }, .25f);
+    }
+
+    public void ResumeNavigation()
+    {
+        _navMeshAgent.isStopped = false;
     }
 
     public void StopNavigation()

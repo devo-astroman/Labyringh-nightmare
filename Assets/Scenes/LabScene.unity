@@ -3235,6 +3235,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688176000}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1712508107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 451162926480876881, guid: 9467f416dca22da4f98eab3b5475de1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5862841396867903051}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4141e0c91a41a6f4ba29ab448baa9a27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1779747997
 GameObject:
   m_ObjectHideFlags: 0
@@ -4612,6 +4624,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5043248302293334266, guid: 9467f416dca22da4f98eab3b5475de1d,
+        type: 3}
+      propertyPath: _heroDetectorManager
+      value: 
+      objectReference: {fileID: 1712508107}
     - target: {fileID: 8430986554457817177, guid: 9467f416dca22da4f98eab3b5475de1d,
         type: 3}
       propertyPath: m_Name
