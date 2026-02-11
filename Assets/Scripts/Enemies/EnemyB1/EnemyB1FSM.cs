@@ -7,7 +7,7 @@ using UnityEngine.Video;
 
 
 public class DependenciesEnemyB1FSM
-{
+{    
     public int id;
     public EnemyB1 enemyB1;
     public SetTimeoutUtility idleTimeout;
@@ -18,6 +18,8 @@ public class DependenciesEnemyB1FSM
 public class EnemyB1FSM : AbstractFiniteStateMachine
 {
     [SerializeField] private EnemyB1 _enemyB1;
+
+    public Action<int> ReceiveDamageAction;
 
     public enum States
     {
@@ -32,7 +34,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
     public DependenciesEnemyB1FSM dependencies = new DependenciesEnemyB1FSM
     {
-        id = 0,
+        id = 0,        
         idleTimeout = null,
         enemyB1 = null,
         fsm = null,
@@ -40,6 +42,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         
     };
 
+    private States _currentState;
+    private States _lastState;
 
     private void Awake()
     {        
@@ -66,8 +70,6 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         die.Setup(ref dependencies);
 
         Init(States.IDLE_STATE, idle, patrol, follow, attack, receiveHit, die);
-
-
     }
 
     
@@ -101,11 +103,35 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         TransitionToState(States.DIE_STATE);
     }
 
+    public void GoLastState()
+    {
+        TransitionToState(_lastState);
+    }
+
     public void SetPatrolPoints(Vector3[] patrolPoints)
     {
         _enemyB1.SetPatrolPoints(patrolPoints);
     }
 
+    public void ReceiveDamage(int damageValue)
+    {
+        ReceiveDamageAction?.Invoke(damageValue);
+    }
+
+    public States GetLastState()
+    {
+        return _lastState;
+    }
+
+    public void SetLastState(States state)
+    {
+        _lastState = state;
+    }
+
+    public void SetCurrentState(States state)
+    {
+        _currentState = state;
+    }
 
     public class IdleState : AbstractState
     {
@@ -120,6 +146,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("Idle");
+           
            _dependencies.enemyB1.wakeUpAnimationEndsAction += HandleWakeUpAnimationEndsAction;
 
            _dependencies.enemyB1.gameObject.SetActive(true); //this will automatically run the idle wakeup animation
@@ -127,6 +154,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
+            _dependencies.fsm.SetLastState(States.IDLE_STATE);
+
             if(_dependencies.idleTimeout != null)
                 _dependencies.idleTimeout.Dispose();
 
@@ -155,12 +184,16 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            _dependencies.enemyB1.PlayPatrolAnimation();
            _dependencies.enemyB1.detectedHeroAction += HandleDetectedHeroAction;
            _dependencies.enemyB1.ExecutePatrol();
+
+           _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
         }
 
         public override void OnExit()
         {
+           _dependencies.fsm.SetLastState(States.PATROL_STATE);
            _dependencies.enemyB1.detectedHeroAction -= HandleDetectedHeroAction;
            _dependencies.enemyB1.StopPatrol();
+           _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
         }
 
         private void HandleDetectedHeroAction(GameObject hero)
@@ -169,6 +202,15 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            /*  _dependencies.heroDetected = hero;
             _dependencies.fsm.GoToFollow(); */
         }
+
+        private void HandleReceiveDamage(int damageValue)
+        {
+           Debug.Log("DAMAGE!!!!");
+           _dependencies.fsm.GoToReceiveHit();
+           
+        }
+
+        
     }
 
     public class FollowState : AbstractState
@@ -191,7 +233,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
-           
+           _dependencies.fsm.SetLastState(States.FOLLOW_STATE);
+
         }
     }
 
@@ -212,7 +255,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
-           
+           _dependencies.fsm.SetLastState(States.ATTACK_STATE);
         }
     }
 
@@ -228,12 +271,30 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("ReceiveHit");           
+           Debug.Log("ReceiveHit");
+           _dependencies.enemyB1.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
+           _dependencies.enemyB1.PlayReceiveHitAnimation();
         }
 
         public override void OnExit()
         {
-           
+           _dependencies.fsm.SetLastState(States.RECEIVE_HIT_STATE);
+           _dependencies.enemyB1.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
+        }
+
+        private void HandleGetHurtAnimationEndsAction()
+        {
+            int life = _dependencies.enemyB1.GetCurrentLife();
+
+            if(life > 0)
+            {
+                _dependencies.fsm.GoLastState();
+            }
+            else
+            {
+                _dependencies.fsm.GoToDie();
+            }
+
         }
     }
 
@@ -249,12 +310,13 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Die");           
+           Debug.Log("Die");
+           _dependencies.enemyB1.ExecuteDieEnemy();
         }
 
         public override void OnExit()
         {
-           
+           _dependencies.fsm.SetLastState(States.DIE_STATE);
         }
     }
 

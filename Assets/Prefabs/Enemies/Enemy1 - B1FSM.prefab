@@ -2227,6 +2227,7 @@ MonoBehaviour:
   _heroDetector: {fileID: 7594295081345093137}
   _enemyNavigatorManager: {fileID: 8575663941401472954}
   _enemySoundManager: {fileID: 2577205484398598973}
+  _enemyCollidersManager: {fileID: 6229169713371735587}
 --- !u!1 &8921417775419405336
 GameObject:
   m_ObjectHideFlags: 0

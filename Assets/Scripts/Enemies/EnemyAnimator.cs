@@ -47,6 +47,22 @@ public class EnemyAnimator : MonoBehaviour
         _animator.SetBool("Die",false);
     }
 
+    public void PlayGetHurtAnimation()
+    {
+        _animator.SetBool("Follow&Patrol",false);
+        _animator.SetBool("Attack",false);
+        _animator.SetBool("ReceiveHit",true);
+        _animator.SetBool("Die",false);
+    }
+
+    public void PlayDieAnimation()
+    {
+        _animator.SetBool("Follow&Patrol",false);
+        _animator.SetBool("Attack",false);
+        _animator.SetBool("ReceiveHit",false);
+        _animator.SetBool("Die",true);
+    }
+
 /*     public void PlayPatroAnimation()
     {
         _animator.SetBool("Follow&Patrol",true);

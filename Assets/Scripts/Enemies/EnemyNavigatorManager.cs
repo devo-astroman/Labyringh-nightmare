@@ -68,7 +68,7 @@ public class EnemyNavigatorManager : MonoBehaviour
 
     public void StopNavigation()
     {
-        _navMeshAgent.isStopped = false;
+        _navMeshAgent.isStopped = true;
         _follow = false;
     }
 

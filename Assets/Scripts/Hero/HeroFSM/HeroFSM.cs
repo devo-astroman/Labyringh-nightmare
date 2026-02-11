@@ -417,8 +417,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         }
 
         private void HandleFireKeyPressed()
-        {
-            Debug.Log("Fire!");
+        {            
             _dependencies.gunFireController.Fire();
 
         }

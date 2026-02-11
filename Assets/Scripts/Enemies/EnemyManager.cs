@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyT _enemyT;
     [SerializeField] private GameObject _enemyB1Pref;
-    private GameObject _enemyB1GO;
+    private GameObject _enemyB1FSMGO;
 
     private SetTimeoutUtility _timeout;
     public Action<int> EnemyDeadAction;
@@ -31,12 +31,12 @@ public class EnemyManager : MonoBehaviour
 
     public void SetPatrolPoints(Vector3[] patrolPoints)
     {
-        _enemyB1GO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
+        _enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
     }
 
     public void WakeUpEnemyB1(Vector3 enemyPosition)
     {
-        _enemyB1GO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
+        _enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
     }
 
     public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
@@ -63,8 +63,9 @@ public class EnemyManager : MonoBehaviour
         if(enemyId == 0)
         {
             //_enemyHealth.MakeDamage(20);
-            _enemyT.MakeHit(1);
-            
+            //_enemyT.MakeHit(1);
+            Debug.Log("Should Make Damage");
+            _enemyB1FSMGO.GetComponent<EnemyB1FSM>().ReceiveDamage(0);
         }
     }
 

@@ -10,6 +10,7 @@ public class EnemyB1 : MonoBehaviour
     [SerializeField] private HeroDetector _heroDetector;
     [SerializeField] private EnemyNavigatorManager _enemyNavigatorManager;
     [SerializeField] private EnemySoundManager _enemySoundManager;
+    [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
     
 
     public Action wakeUpAnimationEndsAction;
@@ -19,7 +20,7 @@ public class EnemyB1 : MonoBehaviour
 
     public Action<GameObject> detectedHeroAction;
 
-    
+    private int _life = 5;
 
     void Start()
     {
@@ -29,6 +30,8 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.dieAnimationEndsAction += HandleDieAnimationEndsAction;
 
         _heroDetector.detectedAction += HandleDetectedAction;
+        
+        _enemyCollidersManager.HideColliderVisibility();
 
         _enemySoundManager.PlayWakeUp();
     }
@@ -52,6 +55,35 @@ public class EnemyB1 : MonoBehaviour
     public void StopPatrol()
     {
         _enemyNavigatorManager.StopNavigation();
+    }
+
+    public void StopNavigation()
+    {
+        _enemyNavigatorManager.StopNavigation();
+    }
+
+
+
+    public void PlayReceiveHitAnimation()
+    {
+        _life -= 1;
+
+        _enemyNavigatorManager.StopNavigation();
+        _enemySoundManager.PlayReceiveHit();
+        _enemyAnimator.PlayGetHurtAnimation();
+    }
+
+    public void ExecuteDieEnemy()
+    {
+        _enemyNavigatorManager.StopNavigation();
+        _enemyCollidersManager.RemoveCollisions();
+        _enemySoundManager.PlayDie();
+        _enemyAnimator.PlayDieAnimation();
+    }
+
+    public int GetCurrentLife()
+    {
+        return _life;
     }
 
     void OnDestroy()
