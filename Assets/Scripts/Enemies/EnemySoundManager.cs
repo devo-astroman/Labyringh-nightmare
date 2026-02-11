@@ -8,6 +8,7 @@ public class EnemySoundManager : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] private AudioClip _idleSound;
     [SerializeField] private AudioClip _receiveHitSound;
+    [SerializeField] private AudioClip _wakeUpSound;
     [SerializeField] private AudioClip _dieSound;
 
     [Header("Settings")]
@@ -44,6 +45,7 @@ public class EnemySoundManager : MonoBehaviour
         _audioSource.loop = _loopIdle;
         _audioSource.clip = _idleSound;
         _audioSource.volume = .25f;
+        _audioSource.pitch = .5f;
         _audioSource.Play();
     }
 
@@ -54,7 +56,19 @@ public class EnemySoundManager : MonoBehaviour
 
         _audioSource.loop = false;
         _audioSource.volume = 1f;
+        _audioSource.pitch = 1f;
         _audioSource.PlayOneShot(_receiveHitSound, _volume);
+    }
+
+    public void PlayWakeUp()
+    {
+        if (_isDead || _audioSource == null || _wakeUpSound == null)
+            return;
+
+        _audioSource.loop = false;
+        _audioSource.volume = 1f;
+        _audioSource.pitch = 1f;
+        _audioSource.PlayOneShot(_wakeUpSound, _volume);
     }
 
     public void PlayDie()
@@ -67,6 +81,7 @@ public class EnemySoundManager : MonoBehaviour
         _audioSource.Stop();
         _audioSource.loop = false;
         _audioSource.volume = 1f;
+        _audioSource.pitch = 1f;
         _audioSource.PlayOneShot(_dieSound, _volume);
     }
 }

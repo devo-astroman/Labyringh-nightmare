@@ -9,6 +9,7 @@ public class EnemyB1 : MonoBehaviour
     [SerializeField] private EnemyAnimator _enemyAnimator;
     [SerializeField] private HeroDetector _heroDetector;
     [SerializeField] private EnemyNavigatorManager _enemyNavigatorManager;
+    [SerializeField] private EnemySoundManager _enemySoundManager;
     
 
     public Action wakeUpAnimationEndsAction;
@@ -28,6 +29,8 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.dieAnimationEndsAction += HandleDieAnimationEndsAction;
 
         _heroDetector.detectedAction += HandleDetectedAction;
+
+        _enemySoundManager.PlayWakeUp();
     }
 
     public void SetPatrolPoints(Vector3[] patrolPoints)
@@ -38,6 +41,7 @@ public class EnemyB1 : MonoBehaviour
     public void PlayPatrolAnimation()
     {
         _enemyAnimator.PlayPatrolAnimation();
+        _enemySoundManager.PlayIdle();
     }
 
     public void ExecutePatrol()

@@ -556,6 +556,7 @@ MonoBehaviour:
   _audioSource: {fileID: 975678311871034425}
   _idleSound: {fileID: 8300000, guid: c111b3ad80ad1994b8a43f0b98da99cb, type: 3}
   _receiveHitSound: {fileID: 8300000, guid: ec965568f88191040a06b41599c5c7ad, type: 3}
+  _wakeUpSound: {fileID: 8300000, guid: 452ddda897fe0e448aeb6f2e0cd116f6, type: 3}
   _dieSound: {fileID: 8300000, guid: 2ca622cb812fb404193c66a189cba6a0, type: 3}
   _volume: 1
   _loopIdle: 1
@@ -2225,6 +2226,7 @@ MonoBehaviour:
   _enemyAnimator: {fileID: 9129636452269912051}
   _heroDetector: {fileID: 7594295081345093137}
   _enemyNavigatorManager: {fileID: 8575663941401472954}
+  _enemySoundManager: {fileID: 2577205484398598973}
 --- !u!1 &8921417775419405336
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,6 +2380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _targetToFollow: {fileID: 0}
   _navMeshAgent: {fileID: 5268713790202479994}
+  _follow: 1
+  _patrolling: 0
 --- !u!1001 &5535649724440353553
 PrefabInstance:
   m_ObjectHideFlags: 0
