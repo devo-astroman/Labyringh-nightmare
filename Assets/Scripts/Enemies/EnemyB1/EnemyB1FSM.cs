@@ -197,7 +197,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            
            _dependencies.enemyB1.StopPatrol();
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
-           _dependencies.enemyB1.farDetectedHeroAction += HandleDetectedHero;
+           _dependencies.enemyB1.farDetectedHeroAction -= HandleDetectedHero;
            _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
         }
 
@@ -237,13 +237,12 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*Follow*");
-
            _dependencies.enemyB1.PlayPatrolAnimation(); //follow and patrol has the same animation
 
             if (_dependencies.heroDetected)
             {
-                _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
+                _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
             }
             else
             {
