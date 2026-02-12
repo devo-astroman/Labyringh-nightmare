@@ -18,6 +18,7 @@ public class EnemyAnimator : MonoBehaviour
     public Action attackDamageStartAction;
     public Action attackDamageEndsAction;    
 
+    private bool _checkEndOfAttackAnimation = false;
 
     void Start()
     {
@@ -31,7 +32,8 @@ public class EnemyAnimator : MonoBehaviour
 
     void Update()
     {
-        if (IsAnimationFinished(_animator, "Attack_TailAttack_Event"))
+
+        if (_checkEndOfAttackAnimation && IsAnimationFinished(_animator, "Attack_TailAttack_Event"))
         {
             tailAttackAnimationEndsAction_Check?.Invoke();
         }
@@ -92,6 +94,16 @@ public class EnemyAnimator : MonoBehaviour
         _animator.SetBool("ReceiveHit",false);
         _animator.SetBool("Die",false);
     } */
+
+    public void CheckEndOfAttackAnimation()
+    {
+        _checkEndOfAttackAnimation = true;
+    }
+
+    public void IgnoreEndOfAttackAnimation()
+    {
+        _checkEndOfAttackAnimation = false;
+    }
 
     void OnDestroy()
     {

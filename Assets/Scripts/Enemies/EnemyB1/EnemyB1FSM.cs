@@ -288,6 +288,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
            Debug.Log("*Attack*");
             _dependencies.enemyB1.StopNavigation();
+
+            _dependencies.enemyB1.CheckEndOfAttackAnimation();
             
             _dependencies.enemyB1.attackTouchedHeroAction += HandleAttackTouchedHero;
             _dependencies.enemyB1.attackDamageStartAction += HandleAttackDamageStart;
@@ -301,6 +303,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
            _dependencies.fsm.SetLastState(States.ATTACK_STATE);
 
+           _dependencies.enemyB1.IgnoreEndOfAttackAnimation();
            _dependencies.enemyB1.IgnoreAttackHitHero();
 
            _dependencies.enemyB1.attackTouchedHeroAction -= HandleAttackTouchedHero;

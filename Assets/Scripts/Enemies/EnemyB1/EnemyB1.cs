@@ -136,6 +136,16 @@ public class EnemyB1 : MonoBehaviour
         _enemyAttackManager.EndAttackHitCheck();
     }
 
+    public void CheckEndOfAttackAnimation()
+    {
+        _enemyAnimator.CheckEndOfAttackAnimation();
+    }
+
+    public void IgnoreEndOfAttackAnimation()
+    {
+        _enemyAnimator.IgnoreEndOfAttackAnimation();
+    }
+
     void OnDestroy()
     {
         _enemyAnimator.wakeUpAnimationEndsAction -= HandleWakeUpAnimationEndsAction;
