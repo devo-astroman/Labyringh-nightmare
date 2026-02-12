@@ -35,6 +35,9 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private Hud _hud;
 
     public Action<Vector3,Vector3,RaycastHit> onFireAction;
+    public Action receiveHitFromEnemyAction;
+
+    
 
 
     public DependenciesHeroFSM dependencies = new DependenciesHeroFSM
@@ -125,6 +128,12 @@ public class HeroFSM : AbstractFiniteStateMachine
         _heroSoundManager.PlayGunFire();
         _heroVfxsManager.ShowGunFireVfxs();
         onFireAction?.Invoke(hitPoint,hitNormal,hit);
+    }
+
+    public void TriggerReceiveHitFromEnemy()
+    {
+        Debug.Log("-TriggerReceiveHitFromEnemy-");
+        receiveHitFromEnemyAction?.Invoke();
     }
 
 

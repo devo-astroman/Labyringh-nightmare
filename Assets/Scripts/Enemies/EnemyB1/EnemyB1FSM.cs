@@ -42,7 +42,6 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         
     };
 
-    private States _currentState;
     private States _lastState;
 
     private void Awake()
@@ -60,7 +59,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         FollowState follow = AbstractState.Create<FollowState, States>(States.FOLLOW_STATE, this);
         follow.Setup(ref dependencies);
 
-        FollowState attack = AbstractState.Create<FollowState, States>(States.FOLLOW_STATE, this);
+        AttackState attack = AbstractState.Create<AttackState, States>(States.ATTACK_STATE, this);
         attack.Setup(ref dependencies);
 
         ReceiveHitState receiveHit = AbstractState.Create<ReceiveHitState, States>(States.RECEIVE_HIT_STATE, this);
@@ -128,10 +127,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         _lastState = state;
     }
 
-    public void SetCurrentState(States state)
-    {
-        _currentState = state;
-    }
+    
 
     public class IdleState : AbstractState
     {
@@ -241,7 +237,9 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
             if (_dependencies.heroDetected)
             {
+                _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
+                _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
                 _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
             }
             else
@@ -254,12 +252,25 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.FOLLOW_STATE);
+           _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
            _dependencies.enemyB1.farUndetectedHeroAction -= HandleUndetectedHero;
+           _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
         }
 
         private void HandleUndetectedHero()
         {
             _dependencies.fsm.GoToPatrol();
+        }
+
+        private void HandleReceiveDamage(int damageValue)
+        {
+            _dependencies.fsm.GoToReceiveHit();
+        }
+
+        private void HandleNearDetectedHero(GameObject heroGO)
+        {
+            //Should attack
+            _dependencies.fsm.GoToAttack();
         }
     }
 
@@ -275,21 +286,48 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Attack");
+           Debug.Log("*Attack*");
+            _dependencies.enemyB1.StopNavigation();
+            
+            _dependencies.enemyB1.attackTouchedHeroAction += HandleAttackTouchedHero;
+            _dependencies.enemyB1.attackDamageStartAction += HandleAttackDamageStart;
+            _dependencies.enemyB1.attackDamageEndAction += HandleAttackDamageEnd;
             _dependencies.enemyB1.tailAttackAnimationEndsAction += HandleTailAttackAnimationEnds;
 
-           _dependencies.enemyB1.ExecuteAttack();
+            _dependencies.enemyB1.ExecuteAttack();
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.ATTACK_STATE);
+
+           _dependencies.enemyB1.IgnoreAttackHitHero();
+
+           _dependencies.enemyB1.attackTouchedHeroAction -= HandleAttackTouchedHero;
+           _dependencies.enemyB1.attackDamageStartAction -= HandleAttackDamageStart;
+            _dependencies.enemyB1.attackDamageEndAction -= HandleAttackDamageEnd;
            _dependencies.enemyB1.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEnds;
         }
 
         private void HandleTailAttackAnimationEnds()
-        {
+        {            
             _dependencies.fsm.GoToFollow();
+        }
+
+        private void HandleAttackDamageStart()
+        {
+            _dependencies.enemyB1.NotifyAttackHitHero();
+        }
+
+        private void HandleAttackDamageEnd()
+        {
+            _dependencies.enemyB1.IgnoreAttackHitHero();
+        }
+
+        private void HandleAttackTouchedHero(GameObject heroGO)
+        {
+            Debug.Log("Name of heroGO " + heroGO.name);
+            Debug.Log("Name of GO " + heroGO);
         }
     }
 

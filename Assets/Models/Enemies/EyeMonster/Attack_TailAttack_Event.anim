@@ -21501,6 +21501,20 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.41666666
+    functionName: OnFireEvent5
+    data: Attack_Start_Damage
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: OnFireEvent6
+    data: Attack_End_Damage
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.875
     functionName: OnFireEvent2
     data: 

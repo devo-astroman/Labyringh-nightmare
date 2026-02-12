@@ -11,6 +11,7 @@ public class EnemyB1 : MonoBehaviour
     [SerializeField] private EnemyNavigatorManager _enemyNavigatorManager;
     [SerializeField] private EnemySoundManager _enemySoundManager;
     [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
+    [SerializeField] private EnemyAttackManager _enemyAttackManager;
     
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
@@ -23,16 +24,27 @@ public class EnemyB1 : MonoBehaviour
     public Action<GameObject> nearDetectedHeroAction;
     public Action nearUndetectedHeroAction;
 
+    public Action<GameObject> attackTouchedHeroAction;
+
+    public Action attackDamageStartAction;
+    public Action attackDamageEndAction;
+
     private int _life = 5;
 
     void Start()
     {
         _enemyAnimator.wakeUpAnimationEndsAction += HandleWakeUpAnimationEndsAction;
-        _enemyAnimator.tailAttackAnimationEndsAction += HandleTailAttackAnimationEndsAction;
+        //_enemyAnimator.tailAttackAnimationEndsAction += HandleTailAttackAnimationEndsAction;
+        _enemyAnimator.tailAttackAnimationEndsAction_Check += HandleTailAttackAnimationEndsAction;
         _enemyAnimator.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction += HandleDieAnimationEndsAction;
 
         _heroDetectorManager.DetectionInfoAction += HandleDetectionInfo;
+
+        _enemyAttackManager.attackTouchedHeroAction += HandleAttackTouchedHero;
+
+        _enemyAnimator.attackDamageStartAction += HandleAttackDamageStart;
+        _enemyAnimator.attackDamageEndsAction += HandleAttackDamageEnds;
 
 
         /* _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
@@ -114,14 +126,30 @@ public class EnemyB1 : MonoBehaviour
         _enemyNavigatorManager.ResumeNavigation();
     }
 
+    public void NotifyAttackHitHero()
+    {
+        _enemyAttackManager.StartAttackHitCheck();
+    }
+
+    public void IgnoreAttackHitHero()
+    {
+        _enemyAttackManager.EndAttackHitCheck();
+    }
+
     void OnDestroy()
     {
         _enemyAnimator.wakeUpAnimationEndsAction -= HandleWakeUpAnimationEndsAction;
-        _enemyAnimator.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEndsAction;
+        //_enemyAnimator.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEndsAction;
+        _enemyAnimator.tailAttackAnimationEndsAction_Check -= HandleTailAttackAnimationEndsAction;
         _enemyAnimator.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction -= HandleDieAnimationEndsAction;
 
         _heroDetectorManager.DetectionInfoAction -= HandleDetectionInfo;
+
+        _enemyAttackManager.attackTouchedHeroAction -= HandleAttackTouchedHero;
+
+        _enemyAnimator.attackDamageStartAction -= HandleAttackDamageStart;
+        _enemyAnimator.attackDamageEndsAction -= HandleAttackDamageEnds;
 
         /* _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
         _heroDetectorManager.FarHeroUndetectionAction += HanldeFarHeroUndetection;
@@ -142,6 +170,7 @@ public class EnemyB1 : MonoBehaviour
 
     private void HandleTailAttackAnimationEndsAction()
     {
+        Debug.Log("End Check!!!");
         tailAttackAnimationEndsAction?.Invoke();
     }
 
@@ -154,6 +183,26 @@ public class EnemyB1 : MonoBehaviour
     {
         dieAnimationEndsAction?.Invoke();
     }
+
+    private void HandleAttackTouchedHero(GameObject heroGO)
+    {
+        attackTouchedHeroAction?.Invoke(heroGO);
+    }
+
+    private void HandleAttackDamageStart()
+    {
+        attackDamageStartAction?.Invoke();
+    }
+
+    private void HandleAttackDamageEnds()
+    {
+        attackDamageEndAction?.Invoke();
+    }
+    
+
+    
+
+
 
     private void HandleDetectionInfo(int type, GameObject heroGO)
     {

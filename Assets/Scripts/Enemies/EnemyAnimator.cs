@@ -12,8 +12,12 @@ public class EnemyAnimator : MonoBehaviour
     
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
+    public Action tailAttackAnimationEndsAction_Check;
     public Action getHurtAnimationEndsAction;
     public Action dieAnimationEndsAction;
+    public Action attackDamageStartAction;
+    public Action attackDamageEndsAction;    
+
 
     void Start()
     {
@@ -21,6 +25,16 @@ public class EnemyAnimator : MonoBehaviour
         _animatorEventHandler.FireEvent2Action += HandleFireEvent2Action;
         _animatorEventHandler.FireEvent3Action += HandleFireEvent3Action;
         _animatorEventHandler.FireEvent4Action += HandleFireEvent4Action;
+        _animatorEventHandler.FireEvent5Action += HandleFireEvent5Action;
+        _animatorEventHandler.FireEvent6Action += HandleFireEvent6Action;
+    }
+
+    void Update()
+    {
+        if (IsAnimationFinished(_animator, "Attack_TailAttack_Event"))
+        {
+            tailAttackAnimationEndsAction_Check?.Invoke();
+        }
     }
 
 
@@ -83,8 +97,10 @@ public class EnemyAnimator : MonoBehaviour
     {
         _animatorEventHandler.FireEvent1Action -= HandleFireEvent1Action;
         _animatorEventHandler.FireEvent2Action -= HandleFireEvent2Action;
-        _animatorEventHandler.FireEvent3Action += HandleFireEvent3Action;
-        _animatorEventHandler.FireEvent4Action += HandleFireEvent4Action;
+        _animatorEventHandler.FireEvent3Action -= HandleFireEvent3Action;
+        _animatorEventHandler.FireEvent4Action -= HandleFireEvent4Action;
+        _animatorEventHandler.FireEvent5Action -= HandleFireEvent5Action;
+        _animatorEventHandler.FireEvent6Action -= HandleFireEvent6Action;
     }
 
     private void HandleFireEvent1Action(int id)
@@ -94,6 +110,7 @@ public class EnemyAnimator : MonoBehaviour
 
     private void HandleFireEvent2Action(int id)
     {
+        Debug.Log("Animation Attack endssss");
         tailAttackAnimationEndsAction?.Invoke();
     }
 
@@ -106,5 +123,26 @@ public class EnemyAnimator : MonoBehaviour
     {
         dieAnimationEndsAction?.Invoke();
     }
+
+    private void HandleFireEvent5Action(int id)
+    {
+        Debug.Log("Anim5 Event");
+        attackDamageStartAction?.Invoke();
+    }
+
+    private void HandleFireEvent6Action(int id)
+    {
+        Debug.Log("Anim6 Event");
+        attackDamageEndsAction?.Invoke();
+    }
+
+    private bool IsAnimationFinished(Animator animator, string stateName, int layer = 0)
+    {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(layer);
+        return state.IsName(stateName)
+            && state.normalizedTime >= 1f
+            && !animator.IsInTransition(layer);
+    }
+
 
 }
