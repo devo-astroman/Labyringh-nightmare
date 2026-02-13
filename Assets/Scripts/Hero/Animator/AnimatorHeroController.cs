@@ -10,7 +10,8 @@ public class AnimatorHeroController : MonoBehaviour
     private string _runModeParamName = "RunMode";
     private string _walkModeParamName = "WalkMode";
     private string _crouchModeParamName = "CrouchMode";
-    private string _aimModeParamName = "AimMode";    
+    private string _aimModeParamName = "AimMode";
+    
 
     public void SetBaseMode()
     {

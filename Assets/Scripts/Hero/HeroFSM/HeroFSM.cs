@@ -37,6 +37,7 @@ public class HeroFSM : AbstractFiniteStateMachine
     [SerializeField] private HeroMovementController _heroMovementController;
 
     [SerializeField] private Hud _hud;
+    [SerializeField] private HeroHurtController _heroHurtController;
 
     [SerializeField] private States lastState;
 
@@ -166,6 +167,9 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.CrouchPressedAction += HandleChangeToCrouch;
             _dependencies.fsm._heroMovementController.ChangeToAimAction += HandleChangeToAim;
             _dependencies.fsm._heroMovementController.RunWalkSwitchPressedAction += HandleChangeToWalk;
+
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
+
         }
 
         public override void OnExit()
@@ -181,6 +185,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.DisableChangeToAim();
             _dependencies.fsm._heroMovementController.DisableJump();
             _dependencies.fsm._heroMovementController.IgnoreWalkRunSwitchPressed();
+
+            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
         }
 
         private void HandleChangeToCrouch()
@@ -195,6 +201,13 @@ public class HeroFSM : AbstractFiniteStateMachine
         {   
             _dependencies.fsm.GoWalk();
         }
+
+        private void HandleReceiveHitFromEnemy()
+        {   
+            Debug.Log("Show the hurt!!"); //continue here
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
+        }
+        
     }
 
     public class WalkState : AbstractState

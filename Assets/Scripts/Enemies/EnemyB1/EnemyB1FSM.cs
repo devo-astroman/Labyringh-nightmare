@@ -334,7 +334,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
             GameObject parentGO = heroGO.transform.parent?.gameObject;
             if (parentGO)
             {
-                parentGO.GetComponent<PlayerHero>().HitToHero();
+                parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();
             }
 
 
