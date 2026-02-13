@@ -5,17 +5,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject _bigCrosshair;
     [SerializeField] private GameObject _medCrosshair;
     [SerializeField] private GameObject _smallCrosshair;
-
-    void Start()
-    {
-        
-    }
-
-    void OnDestroy()
-    {
-        
-    }
-
+    
     public void SetCurrentSpeed(float speed){
 
         if (speed  == 0)

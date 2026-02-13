@@ -17,6 +17,12 @@ public class PlayerHero : MonoBehaviour
     {
     }
 
+    public void HitToHero()
+    {
+        Debug.Log("HIT TO HERO!!!");
+        _heroFSM.TriggerReceiveHitFromEnemy();
+    }
+
     void OnDestroy()
     {
         _heroFSM.onFireAction -= HandleOnFireAction;        

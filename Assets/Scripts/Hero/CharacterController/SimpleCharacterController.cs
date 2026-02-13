@@ -32,6 +32,9 @@ public class SimpleCharacterController : MonoBehaviour
     public float ceilingCheckRadius = 0.25f;
     public LayerMask ceilingMask = ~0; // everything by default
 
+    [Header("Aim")]
+    private bool _isAim = false;
+
     [Header("Rotation")]
     public float rotationSpeed = 10f;
 
@@ -53,6 +56,8 @@ public class SimpleCharacterController : MonoBehaviour
     public float GetVerticalSpeed() => GetVelocity().y;
     public bool IsGrounded() => _controller != null && _controller.isGrounded;
     public bool IsCrouching() => _isCrouch;
+    
+    public bool IsAim() => _isAim;
 
 
 
@@ -241,6 +246,16 @@ public class SimpleCharacterController : MonoBehaviour
         _controller.height = standHeight;
         float centerY = standCenter;
         _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
+    }
+
+    public void ApplyAim()
+    {
+        _isAim = true;
+    }
+
+    public void ExitAim()
+    {
+        _isAim = false;
     }
 
 

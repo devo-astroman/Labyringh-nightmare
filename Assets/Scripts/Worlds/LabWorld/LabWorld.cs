@@ -46,6 +46,7 @@ public class LabWorld : MonoBehaviour
         Debug.Log("LabWorld");
         
         SpawnPlayer();
+        //SpawnEnemy();
     }
 
     void Update()
@@ -70,8 +71,10 @@ public class LabWorld : MonoBehaviour
             _heroFSM.onFireAction+= HandleOnFireAction;
 
         }, .25f);
+    }
 
-
+    private void SpawnEnemy()
+    {
         _timeoutToSpawnEnemies.SetTimeout(() => {
            Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
            _enemyManager.WakeUpEnemyB1(enemySpawnPosition);

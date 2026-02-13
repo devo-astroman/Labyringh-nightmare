@@ -331,6 +331,13 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
             Debug.Log("Name of heroGO " + heroGO.name);
             Debug.Log("Name of GO " + heroGO);
+            GameObject parentGO = heroGO.transform.parent?.gameObject;
+            if (parentGO)
+            {
+                parentGO.GetComponent<PlayerHero>().HitToHero();
+            }
+
+
         }
     }
 

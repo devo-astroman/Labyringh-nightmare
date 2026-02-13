@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6211640598120995720}
   - component: {fileID: 398728643058987365}
   m_Layer: 0
-  m_Name: Animator
+  m_Name: AnimatorHeroController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 7887771674934090535}
   - component: {fileID: 612121071389122839}
   m_Layer: 0
-  m_Name: SimpleCharacterController
+  m_Name: InputHeroController SimpleCharacterController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -480,58 +480,6 @@ MonoBehaviour:
   _fireGunSound: {fileID: 8300000, guid: aed61b4fcbd42ea45a51fa2e8d3cc0e1, type: 3}
   _volume: 1
   _loopIdle: 1
---- !u!1 &4313167579421188510
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5204817731091602647}
-  - component: {fileID: 1044229388807808024}
-  m_Layer: 0
-  m_Name: FSM
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5204817731091602647
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4313167579421188510}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5180737074399432878}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1044229388807808024
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4313167579421188510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5cd0e545b3cc1408965f8f277496a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputHeroController: {fileID: 612121071389122839}
-  _animatorHeroController: {fileID: 4537468810137382026}
-  _simpleCharacterController: {fileID: 3762478675217881393}
-  _cameraAimToMaskBridge: {fileID: 398728643058987365}
-  _gunFireController: {fileID: 542254830767979702}
-  _heroSoundManager: {fileID: 1582966243562841592}
-  _heroVfxsManager: {fileID: 8342614399195687024}
-  _hud: {fileID: 5054659221501645061}
 --- !u!1 &5644334407140853016
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,6 +584,55 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &6063296869579611716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3890556758203910624}
+  - component: {fileID: 5955450096167556001}
+  m_Layer: 0
+  m_Name: HeroMovementController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3890556758203910624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063296869579611716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5180737074399432878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5955450096167556001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6063296869579611716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dfcab82eeab63d4f85a5f19a4385895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputHeroController: {fileID: 612121071389122839}
+  _simpleCharacterController: {fileID: 3762478675217881393}
+  _animatorHeroController: {fileID: 4537468810137382026}
+  _hud: {fileID: 5054659221501645061}
+  _gunFireController: {fileID: 542254830767979702}
 --- !u!1 &6537224998054628539
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,11 +861,11 @@ Transform:
   m_Children:
   - {fileID: 3011463122815363958}
   - {fileID: 1484743981201241890}
-  - {fileID: 5204817731091602647}
   - {fileID: 1873512805188892979}
   - {fileID: 5971116960348166265}
   - {fileID: 7584673870897841861}
   - {fileID: 8039716762121518393}
+  - {fileID: 3890556758203910624}
   m_Father: {fileID: 7260720706514412309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &67990088940916703
@@ -989,11 +986,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1827599247388395910, guid: 31c71d4774be96c43ae3536a1cbabfb1,
-        type: 3}
-      propertyPath: _heroFSM
-      value: 
-      objectReference: {fileID: 1044229388807808024}
     - target: {fileID: 2692149087735219462, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1085,6 +1077,7 @@ PrefabInstance:
     - {fileID: 8357390328408169284, guid: 31c71d4774be96c43ae3536a1cbabfb1, type: 3}
     - {fileID: 4841379531528978586, guid: 31c71d4774be96c43ae3536a1cbabfb1, type: 3}
     - {fileID: 8424690193496696913, guid: 31c71d4774be96c43ae3536a1cbabfb1, type: 3}
+    - {fileID: 1827599247388395910, guid: 31c71d4774be96c43ae3536a1cbabfb1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2692149087735219462, guid: 31c71d4774be96c43ae3536a1cbabfb1,
@@ -1106,8 +1099,8 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 507922553664346126, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 2496203246063805316}
+      insertIndex: -1
+      addedObject: {fileID: 3131021993541478570}
     - targetCorrespondingSourceObject: {fileID: 3591799690890815507, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
       insertIndex: -1
@@ -1125,21 +1118,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2161137574285141043}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2496203246063805316
+--- !u!114 &3131021993541478570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941447209536027709}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413d2887b8e04d2459e9749908d318e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a5cd0e545b3cc1408965f8f277496a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inputHeroController: {fileID: 612121071389122839}
+  _animatorHeroController: {fileID: 4537468810137382026}
   _simpleCharacterController: {fileID: 3762478675217881393}
-  _heroFSM: {fileID: 1044229388807808024}
+  _cameraAimToMaskBridge: {fileID: 398728643058987365}
+  _gunFireController: {fileID: 542254830767979702}
+  _heroSoundManager: {fileID: 1582966243562841592}
+  _heroVfxsManager: {fileID: 8342614399195687024}
+  _heroMovementController: {fileID: 5955450096167556001}
+  _hud: {fileID: 5054659221501645061}
+  lastState: 0
 --- !u!1 &3181025564171717664 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3591799690890815507, guid: 31c71d4774be96c43ae3536a1cbabfb1,

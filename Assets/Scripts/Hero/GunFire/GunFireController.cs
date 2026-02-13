@@ -71,6 +71,22 @@ public class GunFireController : MonoBehaviour
 
     public void SetSpread(float radiusViewport) => _spreadRadiusViewport = Mathf.Clamp(radiusViewport, 0f, 0.25f);
 
+    public void SetSpreedFromSpeedValue(float speedValue)
+    {
+        if (speedValue  == 0)
+            SetSpreadToMin();
+
+        else if(speedValue < 2.5)
+            SetSpreadToMed();
+
+        else
+            SetSpreadToMax();
+    }
+
+    public void SetSpreadToMin() => _spreadRadiusViewport = Mathf.Clamp(0, 0f, 0.25f);
+    public void SetSpreadToMed() => _spreadRadiusViewport = Mathf.Clamp(0.005f, 0f, 0.25f);
+    public void SetSpreadToMax() => _spreadRadiusViewport = Mathf.Clamp(0.01f, 0f, 0.25f);
+
 
 
     // ----------------------------------------------------
