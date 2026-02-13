@@ -5,7 +5,8 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject _bigCrosshair;
     [SerializeField] private GameObject _medCrosshair;
     [SerializeField] private GameObject _smallCrosshair;
-    
+    [SerializeField] private GameObject _hurtScreen;
+
     public void SetCurrentSpeed(float speed){
 
         if (speed  == 0)
@@ -41,6 +42,16 @@ public class Hud : MonoBehaviour
         _bigCrosshair.SetActive(false);
         _medCrosshair.SetActive(false);
         _smallCrosshair.SetActive(false);
+    }
+
+    public void ShowHurtScreen()
+    {
+        _hurtScreen.SetActive(true);
+    }
+
+    public void HideHurtScreen()
+    {
+        _hurtScreen.SetActive(false);
     }
 
 }
