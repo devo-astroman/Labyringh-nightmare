@@ -8,6 +8,7 @@ public class HeroHurtController : MonoBehaviour
     #region Fields
 	[SerializeField] private Animator _animator;
     [SerializeField] private Hud _hud;
+    [SerializeField] private HeroSoundManager _heroSoundManager;
 
     #endregion
 
@@ -20,15 +21,15 @@ public class HeroHurtController : MonoBehaviour
     {
         Debug.Log("Make player get hurt");
         _animator.SetTrigger(_ReceiveHitParam);
-        //animate hurt
 
-        //show screen red
+
+
         _hud.ShowHurtScreen();
         _timeout.SetTimeout(() => {
             _hud.HideHurtScreen();
         }, .8f); 
 
-        //play sound
+        _heroSoundManager.PlayReceiveHit();
     }
 
     #region Unity Callbacks

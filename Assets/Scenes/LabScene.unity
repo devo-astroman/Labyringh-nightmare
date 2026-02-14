@@ -1407,6 +1407,18 @@ Transform:
   - {fileID: 1576409762}
   m_Father: {fileID: 2057883675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &587800976 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
+    type: 3}
+  m_PrefabInstance: {fileID: 5142948473014672013}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41a8306424cb32479dc6e6821e7e77c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631640314
 GameObject:
   m_ObjectHideFlags: 0
@@ -4597,6 +4609,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _receiveHitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e2820431dcd1d6498ae45b593743234, type: 3}
     - target: {fileID: 1941447209536027709, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_Name
@@ -4657,6 +4674,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4746746736813446663, guid: dfddffa4c995e884683a8b4f610c7819,
+        type: 3}
+      propertyPath: _heroSoundManager
+      value: 
+      objectReference: {fileID: 587800976}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

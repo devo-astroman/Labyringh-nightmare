@@ -75,12 +75,6 @@ public class HeroFSM : AbstractFiniteStateMachine
     private void Awake()
     {
         dependencies.id = 0;
-        /* dependencies.inputHeroController = _inputHeroController;
-        dependencies.animatorHeroController = _animatorHeroController;
-        dependencies.simpleCharacterController = _simpleCharacterController;
-        dependencies.cameraAimToMaskBridge = _cameraAimToMaskBridge;
-        dependencies.gunFireController = _gunFireController; */
-
         _gunFireController.onFireAction += HandleOnFireAction;
         
 
@@ -201,10 +195,9 @@ public class HeroFSM : AbstractFiniteStateMachine
         {   
             _dependencies.fsm.GoWalk();
         }
-
+           
         private void HandleReceiveHitFromEnemy()
         {   
-            Debug.Log("Show the hurt!!"); //continue here
             _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
         
@@ -230,6 +223,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.CrouchPressedAction += HandleChangeToCrouch;
             _dependencies.fsm._heroMovementController.ChangeToAimAction += HandleChangeToAim;
             _dependencies.fsm._heroMovementController.RunWalkSwitchPressedAction += HandleChangeToRun;
+
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;        
         }
 
         public override void OnExit()
@@ -244,6 +239,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.DisableChangeToAim();
             _dependencies.fsm._heroMovementController.DisableJump();
             _dependencies.fsm._heroMovementController.IgnoreWalkRunSwitchPressed();
+
+            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
         }
 
         private void HandleChangeToCrouch()
@@ -259,6 +256,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleChangeToRun()
         {   
             _dependencies.fsm.GoRun();
+        }
+        
+        private void HandleReceiveHitFromEnemy()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
     }
 
@@ -279,6 +281,8 @@ public class HeroFSM : AbstractFiniteStateMachine
 
             _dependencies.fsm._heroMovementController.CrouchPressedAction += HandleExitFromCrouch;
             _dependencies.fsm._heroMovementController.ChangeToAimAction += HandleChangeToAim;
+
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
         }
 
         public override void OnExit()
@@ -291,6 +295,8 @@ public class HeroFSM : AbstractFiniteStateMachine
 
             _dependencies.fsm._heroMovementController.CrouchPressedAction -= HandleExitFromCrouch;
             _dependencies.fsm._heroMovementController.ChangeToAimAction -= HandleChangeToAim;
+
+            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;        
         }
         private void HandleExitFromCrouch()
         {
@@ -300,6 +306,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleChangeToAim()
         {
             _dependencies.fsm.GoAim();
+        }
+
+        private void HandleReceiveHitFromEnemy()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
     }
 
@@ -327,6 +338,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.ExitFromAimAction += HandleExitFromAim;
             _dependencies.fsm._heroMovementController.RunWalkSwitchPressedAction += HandleChangeMoveSpeed;
             _dependencies.fsm._heroMovementController.CrouchPressedAction += HandleChangeToCrouch;
+
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;        
         }
 
 
@@ -348,6 +361,9 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.ExitFromAimAction -= HandleExitFromAim;
             _dependencies.fsm._heroMovementController.RunWalkSwitchPressedAction -= HandleChangeMoveSpeed;
             _dependencies.fsm._heroMovementController.CrouchPressedAction -= HandleChangeToCrouch;
+
+            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
+
            
         }
         private void HandleExitFromAim()
@@ -370,6 +386,11 @@ public class HeroFSM : AbstractFiniteStateMachine
         private void HandleChangeToCrouch()
         {
             _dependencies.fsm.GoCrouch();
+        }
+        
+        private void HandleReceiveHitFromEnemy()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
         
     }

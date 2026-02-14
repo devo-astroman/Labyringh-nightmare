@@ -475,7 +475,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 2299795489061211403}
   _idleSound: {fileID: 0}
-  _receiveHitSound: {fileID: 0}
+  _receiveHitSound: {fileID: 8300000, guid: 5e2820431dcd1d6498ae45b593743234, type: 3}
   _dieSound: {fileID: 0}
   _fireGunSound: {fileID: 8300000, guid: aed61b4fcbd42ea45a51fa2e8d3cc0e1, type: 3}
   _volume: 1
@@ -526,6 +526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 4980657914550387216}
   _hud: {fileID: 5054659221501645061}
+  _heroSoundManager: {fileID: 1582966243562841592}
 --- !u!1 &5644334407140853016
 GameObject:
   m_ObjectHideFlags: 0

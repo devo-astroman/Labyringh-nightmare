@@ -52,7 +52,6 @@ public class HeroSoundManager : MonoBehaviour
     {
         if (_isDead || _audioSource == null || _receiveHitSound == null)
             return;
-
         _audioSource.loop = false;
         _audioSource.volume = 1f;
         _audioSource.PlayOneShot(_receiveHitSound, _volume);
