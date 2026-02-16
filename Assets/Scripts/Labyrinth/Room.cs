@@ -16,6 +16,8 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject[] _sEntrances;
     [SerializeField] private GameObject[] _wEntrances;
 
+    [SerializeField] private RoomPositions _roomPositions;
+
 
     public void OpenEntrances(RoomSides side, int[] idsToOpen)
     {
@@ -69,7 +71,12 @@ public class Room : MonoBehaviour
         CloseAllSideEntrances(_eEntrances);
         CloseAllSideEntrances(_sEntrances);
         CloseAllSideEntrances(_wEntrances);
-    } 
+    }
+    
+    public RoomPositions GetRoomPositions()
+    {
+        return _roomPositions;
+    }
 
     private void CloseAllSideEntrances(GameObject[] entrances)
     {

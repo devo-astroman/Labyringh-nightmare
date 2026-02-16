@@ -347,6 +347,7 @@ MonoBehaviour:
   _roomsParentGO: {fileID: 1105754063}
   _navMeshMazeBaker: {fileID: 151787704}
   _labyrinthDebugger: {fileID: 1194533038}
+  _labyrinthObjectsManager: {fileID: 1140435463}
 --- !u!4 &151787702
 Transform:
   m_ObjectHideFlags: 0
@@ -362,6 +363,7 @@ Transform:
   m_Children:
   - {fileID: 418592779}
   - {fileID: 1194533037}
+  - {fileID: 1140435464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &151787704
@@ -1407,18 +1409,6 @@ Transform:
   - {fileID: 1576409762}
   m_Father: {fileID: 2057883675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &587800976 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
-    type: 3}
-  m_PrefabInstance: {fileID: 5142948473014672013}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41a8306424cb32479dc6e6821e7e77c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &631640314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2271,6 +2261,53 @@ MonoBehaviour:
   _dieSound: {fileID: 8300000, guid: 2ca622cb812fb404193c66a189cba6a0, type: 3}
   _volume: 1
   _loopIdle: 1
+--- !u!1 &1140435462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1140435464}
+  - component: {fileID: 1140435463}
+  m_Layer: 0
+  m_Name: LabyrinthObjectsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1140435463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140435462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43716820746158547aff8adfc026d26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _roomPositionsGOPrefab: {fileID: 3470414871322908987, guid: 2f97a8d23d09ecb4f9f41da879da4aa1,
+    type: 3}
+  _allRoomPositions: []
+--- !u!4 &1140435464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1140435462}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 151787702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1194533036
 GameObject:
   m_ObjectHideFlags: 0
@@ -4609,11 +4646,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1582966243562841592, guid: dfddffa4c995e884683a8b4f610c7819,
-        type: 3}
-      propertyPath: _receiveHitSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 5e2820431dcd1d6498ae45b593743234, type: 3}
     - target: {fileID: 1941447209536027709, guid: dfddffa4c995e884683a8b4f610c7819,
         type: 3}
       propertyPath: m_Name
@@ -4674,11 +4706,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4746746736813446663, guid: dfddffa4c995e884683a8b4f610c7819,
-        type: 3}
-      propertyPath: _heroSoundManager
-      value: 
-      objectReference: {fileID: 587800976}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -234,10 +234,11 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
            Debug.Log("*Follow*");
            _dependencies.enemyB1.PlayPatrolAnimation(); //follow and patrol has the same animation
+           _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
 
             if (_dependencies.heroDetected)
             {
-                _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+                
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
                 _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
                 _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
@@ -308,7 +309,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
            _dependencies.enemyB1.attackTouchedHeroAction -= HandleAttackTouchedHero;
            _dependencies.enemyB1.attackDamageStartAction -= HandleAttackDamageStart;
-            _dependencies.enemyB1.attackDamageEndAction -= HandleAttackDamageEnd;
+           _dependencies.enemyB1.attackDamageEndAction -= HandleAttackDamageEnd;
            _dependencies.enemyB1.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEnds;
         }
 
@@ -329,15 +330,11 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         private void HandleAttackTouchedHero(GameObject heroGO)
         {
-            Debug.Log("Name of heroGO " + heroGO.name);
-            Debug.Log("Name of GO " + heroGO);
             GameObject parentGO = heroGO.transform.parent?.gameObject;
             if (parentGO)
             {
                 parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();
             }
-
-
         }
     }
 

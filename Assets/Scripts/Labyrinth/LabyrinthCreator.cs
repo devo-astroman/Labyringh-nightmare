@@ -23,6 +23,9 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private NavMeshMazeBaker _navMeshMazeBaker;
 
     [SerializeField] private LabyrinthDebugger _labyrinthDebugger;
+    [SerializeField] private LabyrinthObjectsManager _labyrinthObjectsManager;
+
+    
 
     
 
@@ -187,11 +190,12 @@ public class LabyrinthCreator : MonoBehaviour
                 roomGO.name = $"Room_{x}_{y}";
 
                 Room room = roomGO.GetComponent<Room>();
+                int mask = 0;
                 if (room != null)
                 {
                     room.CloseAllEntrances();
 
-                    int mask = _doors[x, y];
+                    mask = _doors[x, y];
 
                     if ((mask & DIR_N) != 0) room.OpenEntrances(RoomSides.NORTH_SIDE, new[] { 0 });
                     if ((mask & DIR_E) != 0) room.OpenEntrances(RoomSides.EAST_SIDE, new[] { 0 });
@@ -200,8 +204,31 @@ public class LabyrinthCreator : MonoBehaviour
                 }
 
                 _grid.PlaceObjectAt(roomGO, x, y);
+                ApplyFunction(roomGO, x, y, mask);
             }
         }
+    }
+
+    private void ApplyFunction(GameObject roomGO, int x, int y, int mask)
+    {
+
+        _labyrinthObjectsManager.ProcessRoom(roomGO,x,y,mask);
+
+        // Example: store coords on a component
+/*         var room = roomGO.GetComponent<Room>();
+        if (room != null)
+        {
+            room.GridX = x;
+            room.GridY = y;
+            room.DoorMask = mask;
+        }
+
+        // Example: spawn something depending on mask, distance, etc.
+         */
+
+        _labyrinthObjectsManager.ProcessRoom(roomGO, x, y, mask);
+
+
     }
 
     // -------------------------

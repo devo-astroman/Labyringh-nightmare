@@ -95,7 +95,7 @@ public class GunFireController : MonoBehaviour
 
     private void OnHit(RaycastHit hit)
     {
-        //Debug.Log($"Hit: {hit.collider.name}");
+        Debug.Log($"Hit: {hit.collider.name}");
 
         // Example:
         // hit.collider.GetComponent<IDamageable>()?.TakeDamage(10);
