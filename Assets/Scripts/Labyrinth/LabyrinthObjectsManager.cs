@@ -32,6 +32,10 @@ public class LabyrinthObjectsManager : MonoBehaviour
         if(_iLayer == roomPositionGO.LAYER_BELOW)
         {
             Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
+
+            /* GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            cube.transform.position = position; */
+
             GameObject box = _objectsFactory.GetBox2Empties(position);
             //should save that box in a list or something similar
         }
