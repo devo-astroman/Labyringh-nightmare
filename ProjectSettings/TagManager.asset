@@ -19,7 +19,7 @@ TagManager:
   - NavEnemyBase
   - HeroCollider
   - HeroDetector
-  - 
+  - BoxCollider
   - 
   - 
   - 

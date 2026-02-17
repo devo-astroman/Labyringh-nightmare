@@ -19,10 +19,8 @@ public class HeroHurtController : MonoBehaviour
     #endregion
     public void MakePlayerGetHurt()
     {
-        Debug.Log("Make player get hurt");
+
         _animator.SetTrigger(_ReceiveHitParam);
-
-
 
         _hud.ShowHurtScreen();
         _timeout.SetTimeout(() => {

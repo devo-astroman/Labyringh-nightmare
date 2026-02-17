@@ -114,6 +114,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
     public void ReceiveDamage(int damageValue)
     {
+        Debug.Log("ReceiveDamage call!");
         ReceiveDamageAction?.Invoke(damageValue);
     }
 
@@ -181,6 +182,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            
            
            _dependencies.enemyB1.ExecutePatrol();
+           _dependencies.enemyB1.AllowReceiveDamage();
 
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
            _dependencies.enemyB1.farDetectedHeroAction += HandleDetectedHero;
@@ -192,6 +194,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            _dependencies.fsm.SetLastState(States.PATROL_STATE);
            
            _dependencies.enemyB1.StopPatrol();
+           _dependencies.enemyB1.BlockReceiveDamage();
+
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
            _dependencies.enemyB1.farDetectedHeroAction -= HandleDetectedHero;
            _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
@@ -212,7 +216,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         private void HandleReceiveDamage(int damageValue)
         {
-           Debug.Log("DAMAGE!!!!");
+           Debug.Log("Patrol DAMAGE!!!!");
            _dependencies.fsm.GoToReceiveHit();
            
         }
@@ -235,12 +239,14 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            Debug.Log("*Follow*");
            _dependencies.enemyB1.PlayPatrolAnimation(); //follow and patrol has the same animation
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+           _dependencies.enemyB1.AllowReceiveDamage();
 
             if (_dependencies.heroDetected)
             {
                 
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
                 _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
+
                 _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
             }
             else
@@ -254,6 +260,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
            _dependencies.fsm.SetLastState(States.FOLLOW_STATE);
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+           _dependencies.enemyB1.BlockReceiveDamage();
            _dependencies.enemyB1.farUndetectedHeroAction -= HandleUndetectedHero;
            _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
         }
@@ -265,6 +272,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         private void HandleReceiveDamage(int damageValue)
         {
+            Debug.Log("Patrol - OnExit - HandleReceiveDamage");
             _dependencies.fsm.GoToReceiveHit();
         }
 
@@ -291,26 +299,31 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
             _dependencies.enemyB1.StopNavigation();
 
             _dependencies.enemyB1.CheckEndOfAttackAnimation();
+            _dependencies.enemyB1.AllowReceiveDamage();
             
             _dependencies.enemyB1.attackTouchedHeroAction += HandleAttackTouchedHero;
             _dependencies.enemyB1.attackDamageStartAction += HandleAttackDamageStart;
             _dependencies.enemyB1.attackDamageEndAction += HandleAttackDamageEnd;
             _dependencies.enemyB1.tailAttackAnimationEndsAction += HandleTailAttackAnimationEnds;
+            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
 
             _dependencies.enemyB1.ExecuteAttack();
         }
 
         public override void OnExit()
         {
+            Debug.Log("Attack - OnExit");
            _dependencies.fsm.SetLastState(States.ATTACK_STATE);
 
            _dependencies.enemyB1.IgnoreEndOfAttackAnimation();
            _dependencies.enemyB1.IgnoreAttackHitHero();
+           _dependencies.enemyB1.BlockReceiveDamage();
 
            _dependencies.enemyB1.attackTouchedHeroAction -= HandleAttackTouchedHero;
            _dependencies.enemyB1.attackDamageStartAction -= HandleAttackDamageStart;
            _dependencies.enemyB1.attackDamageEndAction -= HandleAttackDamageEnd;
            _dependencies.enemyB1.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEnds;
+           _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
         }
 
         private void HandleTailAttackAnimationEnds()
@@ -336,6 +349,14 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
                 parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();
             }
         }
+
+        private void HandleReceiveDamage(int damageValue)
+        {
+            Debug.Log("Attack - HandleReceiveDamage-> Go to ReceiveHit");
+            _dependencies.fsm.GoToReceiveHit();
+        }
+
+        
     }
 
     public class ReceiveHitState : AbstractState
@@ -350,14 +371,18 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("ReceiveHit");
+           Debug.Log("*ReceiveHit*");
+           _dependencies.enemyB1.BlockReceiveDamage(); //This way will not receive more damage in this state
+
            _dependencies.enemyB1.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
+           _dependencies.enemyB1.CheckEndOfReceiveHitAnimation();
            _dependencies.enemyB1.PlayReceiveHitAnimation();
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.SetLastState(States.RECEIVE_HIT_STATE);
+           _dependencies.enemyB1.IgnoreEndOfReceiveHitAnimation();
            _dependencies.enemyB1.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
         }
 
@@ -389,6 +414,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
+            _dependencies.enemyB1.BlockReceiveDamage(); //this way will not receive more damage
            _dependencies.enemyB1.ExecuteDieEnemy();
         }
 

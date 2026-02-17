@@ -13,12 +13,14 @@ public class EnemyAnimator : MonoBehaviour
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
     public Action tailAttackAnimationEndsAction_Check;
+    public Action receiveHitAnimationEndsAction_Check;
     public Action getHurtAnimationEndsAction;
     public Action dieAnimationEndsAction;
     public Action attackDamageStartAction;
     public Action attackDamageEndsAction;    
 
     private bool _checkEndOfAttackAnimation = false;
+    private bool _checkEndOfReceiveHitAnimation = false;
 
     void Start()
     {
@@ -36,6 +38,11 @@ public class EnemyAnimator : MonoBehaviour
         if (_checkEndOfAttackAnimation && IsAnimationFinished(_animator, "Attack_TailAttack_Event"))
         {
             tailAttackAnimationEndsAction_Check?.Invoke();
+        }
+
+        if (_checkEndOfReceiveHitAnimation && IsAnimationFinished(_animator, "ReceiveHit_GetHurt_Event"))
+        {
+            receiveHitAnimationEndsAction_Check?.Invoke();
         }
     }
 
@@ -105,6 +112,16 @@ public class EnemyAnimator : MonoBehaviour
         _checkEndOfAttackAnimation = false;
     }
 
+    public void CheckEndOfReceiveHitAnimation()
+    {
+        _checkEndOfReceiveHitAnimation = true;
+    }
+
+    public void IgnoreEndOfReceiveHitAnimation()
+    {
+        _checkEndOfReceiveHitAnimation = false;
+    }
+
     void OnDestroy()
     {
         _animatorEventHandler.FireEvent1Action -= HandleFireEvent1Action;
@@ -122,7 +139,7 @@ public class EnemyAnimator : MonoBehaviour
 
     private void HandleFireEvent2Action(int id)
     {
-        Debug.Log("Animation Attack endssss");
+        
         tailAttackAnimationEndsAction?.Invoke();
     }
 
@@ -138,13 +155,13 @@ public class EnemyAnimator : MonoBehaviour
 
     private void HandleFireEvent5Action(int id)
     {
-        Debug.Log("Anim5 Event");
+        
         attackDamageStartAction?.Invoke();
     }
 
     private void HandleFireEvent6Action(int id)
     {
-        Debug.Log("Anim6 Event");
+        
         attackDamageEndsAction?.Invoke();
     }
 

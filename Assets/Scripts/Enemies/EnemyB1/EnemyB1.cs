@@ -36,7 +36,8 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.wakeUpAnimationEndsAction += HandleWakeUpAnimationEndsAction;
         //_enemyAnimator.tailAttackAnimationEndsAction += HandleTailAttackAnimationEndsAction;
         _enemyAnimator.tailAttackAnimationEndsAction_Check += HandleTailAttackAnimationEndsAction;
-        _enemyAnimator.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
+        //_enemyAnimator.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;
+        _enemyAnimator.receiveHitAnimationEndsAction_Check += HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction += HandleDieAnimationEndsAction;
 
         _heroDetectorManager.DetectionInfoAction += HandleDetectionInfo;
@@ -73,9 +74,19 @@ public class EnemyB1 : MonoBehaviour
         _enemySoundManager.PlayIdle();
     }
 
-    public void ExecutePatrol()
+    public void AllowReceiveDamage()
     {
         _enemyCollidersManager.ActivatePainColliders();
+    }
+
+    public void BlockReceiveDamage()
+    {
+        _enemyCollidersManager.DeactivatePainColliders();
+    }
+
+    public void ExecutePatrol()
+    {
+        //_enemyCollidersManager.ActivatePainColliders();
         _enemyNavigatorManager.ExecutePatrol();
     }
 
@@ -94,7 +105,7 @@ public class EnemyB1 : MonoBehaviour
     public void PlayReceiveHitAnimation()
     {
         _life -= 1;
-        _enemyCollidersManager.DeactivatePainColliders();
+        //_enemyCollidersManager.DeactivatePainColliders();
         _enemyNavigatorManager.StopNavigation();
         _enemySoundManager.PlayReceiveHit();
         _enemyAnimator.PlayGetHurtAnimation();
@@ -102,7 +113,7 @@ public class EnemyB1 : MonoBehaviour
 
     public void ExecuteDieEnemy()
     {
-        _enemyCollidersManager.DeactivatePainColliders();
+        //_enemyCollidersManager.DeactivatePainColliders();
         _enemyNavigatorManager.StopNavigation();
         _enemySoundManager.PlayDie();
         _enemyAnimator.PlayDieAnimation();
@@ -135,7 +146,7 @@ public class EnemyB1 : MonoBehaviour
     {
         _enemyAttackManager.EndAttackHitCheck();
     }
-
+//End of animation Attack
     public void CheckEndOfAttackAnimation()
     {
         _enemyAnimator.CheckEndOfAttackAnimation();
@@ -145,13 +156,25 @@ public class EnemyB1 : MonoBehaviour
     {
         _enemyAnimator.IgnoreEndOfAttackAnimation();
     }
+//
+//End of animation ReceiveHit
+    public void CheckEndOfReceiveHitAnimation()
+    {
+        _enemyAnimator.CheckEndOfReceiveHitAnimation();
+    }
 
+    public void IgnoreEndOfReceiveHitAnimation()
+    {
+        _enemyAnimator.IgnoreEndOfReceiveHitAnimation();
+    }
+//
     void OnDestroy()
     {
         _enemyAnimator.wakeUpAnimationEndsAction -= HandleWakeUpAnimationEndsAction;
         //_enemyAnimator.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEndsAction;
         _enemyAnimator.tailAttackAnimationEndsAction_Check -= HandleTailAttackAnimationEndsAction;
-        _enemyAnimator.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
+        //_enemyAnimator.getHurtAnimationEndsAction -= HandleGetHurtAnimationEndsAction;
+        _enemyAnimator.receiveHitAnimationEndsAction_Check -= HandleGetHurtAnimationEndsAction;
         _enemyAnimator.dieAnimationEndsAction -= HandleDieAnimationEndsAction;
 
         _heroDetectorManager.DetectionInfoAction -= HandleDetectionInfo;

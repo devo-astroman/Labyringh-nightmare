@@ -26,48 +26,34 @@ public class GunFireController : MonoBehaviour
 
     public void Fire()
     {
-        if (_fireOrigin == null || _aimCamera == null)
-        {
-            Debug.LogWarning("GunFireController: Missing references");
-            return;
-        }
+        if (_fireOrigin == null || _aimCamera == null) return;
 
-        // Ray from a random point inside a circle around screen center
-        // Spread is expressed in VIEWPORT units:
-        // 0.0 = exact center, 0.05 = 5% of screen width/height radius
-        Vector2 offset = UnityEngine.Random.insideUnitCircle * _spreadRadiusViewport; // NEW serialized float
-        Vector3 viewportPoint = new Vector3(0.5f + offset.x, 0.5f + offset.y, 0f);
-
-        Ray cameraRay = _aimCamera.ViewportPointToRay(viewportPoint);
+        Vector2 offset = UnityEngine.Random.insideUnitCircle * _spreadRadiusViewport;
+        Ray cameraRay = _aimCamera.ViewportPointToRay(new Vector3(0.5f + offset.x, 0.5f + offset.y, 0f));
 
         Vector3 targetPoint;
-
-        // Check what camera is aiming at
-        if (Physics.Raycast(cameraRay, out RaycastHit hit, _maxDistance, _hitMask))
-        {
-            targetPoint = hit.point;
-        }
+        if (Physics.Raycast(cameraRay, out RaycastHit camHit, _maxDistance, _hitMask, QueryTriggerInteraction.Ignore))
+            targetPoint = camHit.point;
         else
-        {
-            // Nothing hit → shoot forward into space
             targetPoint = cameraRay.origin + cameraRay.direction * _maxDistance;
-        }
 
-        // Direction from muzzle to target
-        Vector3 fireDirection = (targetPoint - _fireOrigin.position).normalized;
+        Vector3 fireDir = (targetPoint - _fireOrigin.position).normalized;
 
-        // Shoot ray from muzzle
-        if (Physics.Raycast(_fireOrigin.position, fireDirection, out RaycastHit fireHit, _maxDistance, _hitMask))
+        // spherecast makes close-range much more reliable
+        const float bulletRadius = 0.05f;
+        if (Physics.SphereCast(_fireOrigin.position, bulletRadius, fireDir, out RaycastHit hit,
+                            _maxDistance, _hitMask, QueryTriggerInteraction.Ignore))
         {
-            OnHit(fireHit);
+            OnHit(hit);
         }
 
-        // Debug visualization
         if (_drawDebugRay)
         {
-            Debug.DrawRay(_fireOrigin.position, fireDirection * _maxDistance, Color.red, 0.5f);
+            Debug.DrawRay(cameraRay.origin, cameraRay.direction * _maxDistance, Color.green, 0.5f);
+            Debug.DrawRay(_fireOrigin.position, fireDir * _maxDistance, Color.red, 0.5f);
         }
     }
+
 
     public void SetSpread(float radiusViewport) => _spreadRadiusViewport = Mathf.Clamp(radiusViewport, 0f, 0.25f);
 
@@ -95,7 +81,15 @@ public class GunFireController : MonoBehaviour
 
     private void OnHit(RaycastHit hit)
     {
+        Debug.Log("____________");
+        Debug.Log("____________");
+        Debug.Log("____________");
+        Debug.Log("____________");
         Debug.Log($"Hit: {hit.collider.name}");
+        Debug.Log("____________");
+        Debug.Log("____________");
+        Debug.Log("____________");
+        Debug.Log("____________");
 
         // Example:
         // hit.collider.GetComponent<IDamageable>()?.TakeDamage(10);
