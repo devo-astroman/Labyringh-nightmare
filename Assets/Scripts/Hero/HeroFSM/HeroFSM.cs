@@ -38,8 +38,13 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     [SerializeField] private Hud _hud;
     [SerializeField] private HeroHurtController _heroHurtController;
+    [SerializeField] private HeroStealthManager _heroStealthManager;
+
+    
 
     [SerializeField] private States lastState;
+
+    [SerializeField] private bool isPlayerHidden = false;
 
     public Action<Vector3,Vector3,RaycastHit> onFireAction;
     public Action receiveHitFromEnemyAction;
@@ -133,6 +138,24 @@ public class HeroFSM : AbstractFiniteStateMachine
     {
         Debug.Log("-TriggerReceiveHitFromEnemy-");
         receiveHitFromEnemyAction?.Invoke();
+    }
+
+    public bool IsHidden()
+    {
+        isPlayerHidden =_heroStealthManager.IsHidden;
+        return _heroStealthManager.IsHidden;
+    }
+
+    public void SetHiddenStealth()
+    {
+        isPlayerHidden =true;
+        _heroStealthManager.SetHidden(true);
+    }
+
+    public void SetShowStealth()
+    {
+        isPlayerHidden =false;
+        _heroStealthManager.SetHidden(false);
     }
 
 

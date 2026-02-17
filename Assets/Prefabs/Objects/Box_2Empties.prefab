@@ -325,6 +325,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444735180681536385}
   - component: {fileID: 5691271202739473286}
+  - component: {fileID: 6230500777926683726}
   - component: {fileID: 1600487600949118497}
   m_Layer: 0
   m_Name: InnerBox
@@ -369,6 +370,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.32445467, y: 0.45796156, z: 0.49267387}
   m_Center: {x: -0.006675422, y: -0.07876921, z: 0.0053400993}
+--- !u!114 &6230500777926683726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308922518836033890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd8c7932da5b8904fa48625cccc2c8b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _heroDetector: {fileID: 1600487600949118497}
 --- !u!114 &1600487600949118497
 MonoBehaviour:
   m_ObjectHideFlags: 0

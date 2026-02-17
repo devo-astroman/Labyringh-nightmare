@@ -33,8 +33,31 @@ public class HeroDetectorManager : MonoBehaviour
 
     private void HandleFarDetected(GameObject go)
     {
-        FarHeroDetectionAction?.Invoke(go);
-        DetectionInfoAction?.Invoke(0,go);
+        Debug.Log("FAR __ HandleFarDetected ");
+
+        GameObject heroFSMGO = go.transform.parent.gameObject;
+        if (heroFSMGO)
+        {
+            HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+
+            if (heroFSM)
+            {
+
+                Debug.Log("FAR __ HandleFarDetected hidden " + heroFSM.IsHidden());
+
+                if (!heroFSM.IsHidden())
+                {
+                    FarHeroDetectionAction?.Invoke(go);
+                    DetectionInfoAction?.Invoke(0,go);
+                }
+                else
+                {
+                    Debug.Log("Ignore ");
+                    //ignore cause the hero is hidden
+                }
+            }
+        }
+        
     }
 
     private void HandleFarUndetected()
@@ -45,8 +68,27 @@ public class HeroDetectorManager : MonoBehaviour
 
     private void HandleNearDetected(GameObject go)
     {
-        NearHeroDetectionAction?.Invoke(go);
-        DetectionInfoAction?.Invoke(2,go);
+        GameObject heroFSMGO = go.transform.parent.gameObject;
+        if (heroFSMGO)
+        {
+            HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+
+            if (heroFSM)
+            {
+                Debug.Log("NEAR __ HandleFarDetected hidden " + heroFSM.IsHidden());
+
+                if (!heroFSM.IsHidden())
+                {
+                    NearHeroDetectionAction?.Invoke(go);
+                    DetectionInfoAction?.Invoke(2,go);
+                }
+                else
+                {
+                    Debug.Log("Ignore ");
+                    //ignore cause the hero is hidden
+                }
+            }
+        }
     }
 
     private void HandleFaNeardetected()

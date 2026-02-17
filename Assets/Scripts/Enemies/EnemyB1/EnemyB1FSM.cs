@@ -142,7 +142,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("Idle");
+           //Debug.Log("Idle");
            
            _dependencies.enemyB1.wakeUpAnimationEndsAction += HandleWakeUpAnimationEndsAction;
 
