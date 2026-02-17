@@ -243,11 +243,15 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
             if (_dependencies.heroDetected)
             {
-                
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
                 _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
 
                 _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
+
+                GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;
+                HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+                heroFSM.hideStealthChangeAction += HandleHideStealthChange;
+
             }
             else
             {
@@ -263,6 +267,13 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            _dependencies.enemyB1.BlockReceiveDamage();
            _dependencies.enemyB1.farUndetectedHeroAction -= HandleUndetectedHero;
            _dependencies.enemyB1.nearDetectedHeroAction -= HandleNearDetectedHero;
+            if (_dependencies.heroDetected)
+            {
+                GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;
+                HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+                heroFSM.hideStealthChangeAction -= HandleHideStealthChange;
+            }
+           
         }
 
         private void HandleUndetectedHero()
@@ -281,6 +292,17 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
             //Should attack
             _dependencies.fsm.GoToAttack();
         }
+
+        private void HandleHideStealthChange(bool stealthValue)
+        {
+            Debug.Log("FOLLOW stealthValue " + stealthValue);
+            if (stealthValue)
+            {
+                _dependencies.fsm.GoToPatrol();
+            }
+        }
+
+        
     }
 
     public class AttackState : AbstractState
@@ -307,6 +329,13 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
             _dependencies.enemyB1.tailAttackAnimationEndsAction += HandleTailAttackAnimationEnds;
             _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
 
+            if (_dependencies.heroDetected)
+            {
+                GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;
+                HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+                heroFSM.hideStealthChangeAction += HandleHideStealthChange;    
+            }
+
             _dependencies.enemyB1.ExecuteAttack();
         }
 
@@ -324,6 +353,13 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            _dependencies.enemyB1.attackDamageEndAction -= HandleAttackDamageEnd;
            _dependencies.enemyB1.tailAttackAnimationEndsAction -= HandleTailAttackAnimationEnds;
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+
+            if (_dependencies.heroDetected)
+            {
+                GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;
+                HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
+                heroFSM.hideStealthChangeAction -= HandleHideStealthChange;
+            }
         }
 
         private void HandleTailAttackAnimationEnds()
@@ -354,6 +390,14 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
             Debug.Log("Attack - HandleReceiveDamage-> Go to ReceiveHit");
             _dependencies.fsm.GoToReceiveHit();
+        }
+
+        private void HandleHideStealthChange(bool stealthValue)
+        {
+            if (stealthValue)
+            {
+                _dependencies.fsm.GoToPatrol();
+            }
         }
 
         

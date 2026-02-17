@@ -49,6 +49,8 @@ public class HeroFSM : AbstractFiniteStateMachine
     public Action<Vector3,Vector3,RaycastHit> onFireAction;
     public Action receiveHitFromEnemyAction;
 
+    public Action<bool> hideStealthChangeAction;
+
     
 
 
@@ -150,12 +152,14 @@ public class HeroFSM : AbstractFiniteStateMachine
     {
         isPlayerHidden =true;
         _heroStealthManager.SetHidden(true);
+        hideStealthChangeAction?.Invoke(true);
     }
 
     public void SetShowStealth()
     {
         isPlayerHidden =false;
         _heroStealthManager.SetHidden(false);
+        hideStealthChangeAction?.Invoke(false);
     }
 
 
