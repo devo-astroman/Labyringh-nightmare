@@ -30,6 +30,7 @@ public class EnemyB1 : MonoBehaviour
     public Action attackDamageEndAction;
 
     private int _life = 5;
+    private int _id = 0;
 
     void Start()
     {
@@ -61,6 +62,16 @@ public class EnemyB1 : MonoBehaviour
         _enemyCollidersManager.HideColliderVisibility();
 
         _enemySoundManager.PlayWakeUp();
+    }
+
+    public void SetId(int id)
+    {
+        _id=id;
+    }
+
+    public int GetId()
+    {
+        return _id;
     }
 
     public void SetPatrolPoints(Vector3[] patrolPoints)
@@ -100,11 +111,13 @@ public class EnemyB1 : MonoBehaviour
         _enemyNavigatorManager.StopNavigation();
     }
 
-
+    public void DecreaseLife()
+    {
+        _life -= 1;
+    }
 
     public void PlayReceiveHitAnimation()
     {
-        _life -= 1;
         //_enemyCollidersManager.DeactivatePainColliders();
         _enemyNavigatorManager.StopNavigation();
         _enemySoundManager.PlayReceiveHit();

@@ -33,8 +33,6 @@ public class HeroDetectorManager : MonoBehaviour
 
     private void HandleFarDetected(GameObject go)
     {
-        Debug.Log("FAR __ HandleFarDetected ");
-
         GameObject heroFSMGO = go.transform.parent.gameObject;
         if (heroFSMGO)
         {
@@ -42,8 +40,6 @@ public class HeroDetectorManager : MonoBehaviour
 
             if (heroFSM)
             {
-
-                Debug.Log("FAR __ HandleFarDetected hidden " + heroFSM.IsHidden());
 
                 if (!heroFSM.IsHidden())
                 {
@@ -75,8 +71,6 @@ public class HeroDetectorManager : MonoBehaviour
 
             if (heroFSM)
             {
-                Debug.Log("NEAR __ HandleFarDetected hidden " + heroFSM.IsHidden());
-
                 if (!heroFSM.IsHidden())
                 {
                     NearHeroDetectionAction?.Invoke(go);

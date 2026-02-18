@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyT _enemyT;
     [SerializeField] private GameObject _enemyB1Pref;
+    [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemyB1FSMGO;
 
     private SetTimeoutUtility _timeout;
@@ -29,15 +30,26 @@ public class EnemyManager : MonoBehaviour
        // _enemyT.EnemyDeadAction -= OnEnemyDeadAction;
     }
 
+    public void WakeUpEnemyB1(Vector3 enemyPosition, Vector3[] patrolPoints)
+    {
+        GameObject enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
+        enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
+
+        _enemyPool.AddEnemy(enemyB1FSMGO);
+    }
+
+    /* public void WakeUpEnemyB1(Vector3 enemyPosition)
+    {
+        GameObject enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
+        _enemyPool.AddEnemy(enemyB1FSMGO);
+    }
+
     public void SetPatrolPoints(Vector3[] patrolPoints)
     {
         _enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
-    }
+    } */
 
-    public void WakeUpEnemyB1(Vector3 enemyPosition)
-    {
-        _enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
-    }
+
 
     public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
     {

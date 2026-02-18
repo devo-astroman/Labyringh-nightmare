@@ -41,7 +41,6 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         heroDetected = null,
         
     };
-
     private States _lastState;
 
     private void Awake()
@@ -71,7 +70,15 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         Init(States.IDLE_STATE, idle, patrol, follow, attack, receiveHit, die);
     }
 
-    
+    public void SetId(int id)
+    {
+        _enemyB1.SetId(id);
+    }
+
+    public int GetId()
+    {
+        return _enemyB1.GetId();
+    }
 
     public void GoToIdle()
     {
@@ -388,7 +395,6 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
         private void HandleReceiveDamage(int damageValue)
         {
-            Debug.Log("Attack - HandleReceiveDamage-> Go to ReceiveHit");
             _dependencies.fsm.GoToReceiveHit();
         }
 
@@ -416,6 +422,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*ReceiveHit*");
+           _dependencies.enemyB1.DecreaseLife();
            _dependencies.enemyB1.BlockReceiveDamage(); //This way will not receive more damage in this state
 
            _dependencies.enemyB1.getHurtAnimationEndsAction += HandleGetHurtAnimationEndsAction;

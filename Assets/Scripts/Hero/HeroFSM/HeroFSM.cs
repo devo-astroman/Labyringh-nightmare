@@ -138,7 +138,6 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     public void TriggerReceiveHitFromEnemy()
     {
-        Debug.Log("-TriggerReceiveHitFromEnemy-");
         receiveHitFromEnemyAction?.Invoke();
     }
 

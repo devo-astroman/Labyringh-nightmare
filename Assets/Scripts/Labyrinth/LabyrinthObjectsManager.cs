@@ -11,6 +11,9 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
     [SerializeField] private ObjectsFactory _objectsFactory;
 
+
+    [SerializeField] private List<AmmoOnBox> _allAmmoOnBox = new List<AmmoOnBox>();
+
     
 
     private int _iRoom = 0;
@@ -38,6 +41,43 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
             GameObject box = _objectsFactory.GetBox2Empties(position);
             //should save that box in a list or something similar
+
+
+            
+            if(x == 9 && y == 0)
+            {
+                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 90);
+                if (ammoOnBoxGO)
+                {
+                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
+                }
+            }else if (x == 3 && y == 2)
+            {
+                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 32);
+                if (ammoOnBoxGO)
+                {
+                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
+                }
+
+            }else if (x == 0 && y == 9)
+            {
+                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 9);
+                if (ammoOnBoxGO)
+                {
+                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
+                }
+
+            }else if (x == 6 && y == 6)
+            {
+                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 66);
+                if (ammoOnBoxGO)
+                {
+                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
+                }
+            }
+            //should save that box in a list or something similar
+
+
         }
 
 
