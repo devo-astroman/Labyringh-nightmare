@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
     [SerializeField] private List<AmmoOnBox> _allAmmoOnBox = new List<AmmoOnBox>();
     [SerializeField] private List<Spikes> _allSpikes = new List<Spikes>();
+
+    [SerializeField] private List<string> _roomProcessed = new List<string>();
     
 
     
@@ -111,22 +114,63 @@ public class LabyrinthObjectsManager : MonoBehaviour
     {
         RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
         roomPositionGO.HideAllCubePositions();
+        int[] tmp = new int[8];
 
-        if(x==0 & y == 1)
-        {
+        _roomProcessed.Add(x +" "+y);
+        int id = int.Parse(x.ToString() + y.ToString());
+        if(x==0 & y == 1 && !_roomProcessed.Contains(x +" "+y) )
+        {            
+            // per room:
+            int n = 3;
+            RandomRoomPositions.FillRandomIndexes(n, tmp);
+
+
             //place one box in the middle
-            Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[0]);
             GameObject box = _objectsFactory.GetBox2Empties(middlePosition);
+            Debug.Log("tmp " + tmp[0] + " " + tmp[1] + " " + tmp[2]);
 
             //place a spike in the upper right corner
-            Vector3 lowerLCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,2);
-            GameObject spikes = _objectsFactory.GetSpikes(lowerLCornerPosition,0);
+            Vector3 lowerLCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[1]);
+            GameObject spikes = _objectsFactory.GetSpikes(lowerLCornerPosition,id);
+
 
 
             //place other box in the lower corner with an ammo
-            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,6);
+            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[2]);
             GameObject box2 = _objectsFactory.GetBox2Empties(upperRCornerPosition);
-            GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,0);
+            GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,id);
+
+        }
+        else
+        {// rest of the rooms should be random
+
+            int n = 3;
+            RandomRoomPositions.FillRandomIndexes(n, tmp);
+
+            if (Random.Range(0, 10) == 0)
+            {
+                //place one box in the middle
+                Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[0]);
+                GameObject box = _objectsFactory.GetBox2Empties(middlePosition);
+            }
+
+            if (Random.Range(0, 1) == 0)
+            {
+                //place a spike in the upper right corner
+                Vector3 lowerLCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[1]);
+                GameObject spikes = _objectsFactory.GetSpikes(lowerLCornerPosition,id);
+            }
+
+            if (Random.Range(0, 10) == 0)
+            {
+                //place other box in the lower corner with an ammo
+                Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[2]);
+                GameObject box2 = _objectsFactory.GetBox2Empties(upperRCornerPosition);
+                GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,id);
+            }
+
+            
         }
 
 

@@ -29,6 +29,7 @@ public class RoomPositionsLayer : MonoBehaviour
 
     public Vector3 GetPosition(int iCube)
     {
+        Debug.Log("iCube "+ iCube);
         return _cubePositionsGO[iCube].transform.position;
     }
 
