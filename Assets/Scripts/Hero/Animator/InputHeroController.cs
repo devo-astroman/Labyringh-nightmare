@@ -45,6 +45,7 @@ public class InputHeroController : MonoBehaviour
 
         if (Input.GetKeyDown(interactKey))
         {
+            Debug.Log("E KEY PRESSED!!");
             interactKeyPressed?.Invoke();
         }
 

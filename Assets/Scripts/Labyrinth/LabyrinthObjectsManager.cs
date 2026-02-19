@@ -41,8 +41,6 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
             GameObject box = _objectsFactory.GetBox2Empties(position);
             //should save that box in a list or something similar
-
-
             
             if(x == 9 && y == 0)
             {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Hud : MonoBehaviour
 {
@@ -6,6 +7,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject _medCrosshair;
     [SerializeField] private GameObject _smallCrosshair;
     [SerializeField] private GameObject _hurtScreen;
+    [SerializeField] private TextMeshProUGUI _ammoText;
 
     public void SetCurrentSpeed(float speed){
 
@@ -42,6 +44,20 @@ public class Hud : MonoBehaviour
         _bigCrosshair.SetActive(false);
         _medCrosshair.SetActive(false);
         _smallCrosshair.SetActive(false);
+    }
+
+    public void SetAmmo(int ammo)
+    {
+        _ammoText.text = ammo + "";
+    }
+
+    public void ShowAmmo()
+    {
+        _ammoText.gameObject.SetActive(true);
+    }
+    public void HideAmmo()
+    {
+        _ammoText.gameObject.SetActive(false);
     }
 
     public void ShowHurtScreen()

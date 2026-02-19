@@ -23,6 +23,7 @@ public class HeroMovementController : MonoBehaviour
     
     public Action ChangeToAimAction;
     public Action ExitFromAimAction;
+    public Action InteractAction;
 	#endregion
 
 
@@ -54,6 +55,15 @@ public class HeroMovementController : MonoBehaviour
     public void DisableFireGun()
     {
         _inputHeroController.fireKeyPressed -= HandleFireKeyPressed;
+    }
+
+    public void AllowInteract() //E key
+    {
+        _inputHeroController.interactKeyPressed += HandleInteractKeyPressed;
+    }
+    public void DisableInteract() //E key
+    {
+        _inputHeroController.interactKeyPressed -= HandleInteractKeyPressed;
     }
 
     public void AllowChangeToAim()
@@ -125,11 +135,13 @@ public class HeroMovementController : MonoBehaviour
     public void ExecuteModeAim()
     {
         _animatorHeroController.SetAimMode();
+        _hud.ShowAmmo();
     }
 
     public void ExitModeAim()
     {
         _hud.HideCrosshair();
+        _hud.HideAmmo();
     }
     
     public void RefreshAim()
@@ -159,6 +171,11 @@ public class HeroMovementController : MonoBehaviour
         }
 
 
+    }
+
+    private void HandleInteractKeyPressed()
+    {
+        InteractAction?.Invoke();
     }
 
     private void HandleJumpKeyPressed()

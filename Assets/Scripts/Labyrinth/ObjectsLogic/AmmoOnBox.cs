@@ -7,6 +7,7 @@ public class AmmoOnBox : MonoBehaviour
 
     #region Fields
     [SerializeField] private GameObject[] _ammoBoxesGO;
+    [SerializeField] private HeroDetector _heroDetector;
     #endregion
 
     #region public properties    
@@ -14,11 +15,21 @@ public class AmmoOnBox : MonoBehaviour
 
     #region Private properties
     private int _id = 0;
+    private GameObject _activeAmmoBoxGO;
+    private HeroFSM _heroFSM;
     #endregion
     #region Unity Callbacks
     void Start()
     {
         ShowOneRandomAmmoBox();
+        _heroDetector.detectedAction += HandleDetected;
+        _heroDetector.undetectedAction += HandleUndetectedAction;
+    }
+
+    void OnDestroy()
+    {
+        _heroDetector.detectedAction -= HandleDetected;
+        _heroDetector.undetectedAction -= HandleUndetectedAction;
     }
     #endregion
 
@@ -52,11 +63,41 @@ public class AmmoOnBox : MonoBehaviour
 
         // Activate selected one
         if (_ammoBoxesGO[randomIndex] != null)
+        {
             _ammoBoxesGO[randomIndex].SetActive(true);
+            _activeAmmoBoxGO = _ammoBoxesGO[randomIndex];
+        }
     }
 
-    
-	#endregion
-    // Start is called before the first frame update
+    public void MakeGlowOn()
+    {
+        _activeAmmoBoxGO.GetComponent<GlowController>().EnableGlow();
+    }
 
+    public void MakeGlowOff()
+    {
+        _activeAmmoBoxGO.GetComponent<GlowController>().DisableGlow();
+    }
+
+
+	#endregion
+    
+    #region Private methods
+    private void HandleDetected(GameObject hero)
+    {
+        _heroFSM = hero.GetComponentInParent<HeroFSM>();
+        _heroFSM.DetectAmmoBox(_activeAmmoBoxGO);
+
+        MakeGlowOn();
+    }
+
+    private void HandleUndetectedAction()
+    {
+        _heroFSM.UnDetectAmmoBox();
+        MakeGlowOff();
+    }
+
+
+
+    #endregion
 }

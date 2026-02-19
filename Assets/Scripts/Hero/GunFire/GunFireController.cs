@@ -17,6 +17,8 @@ public class GunFireController : MonoBehaviour
     [SerializeField, Range(0f, 0.25f)]
     private float _spreadRadiusViewport = 0.01f;
 
+    private int _ammo = 5;
+
 
     public Action<Vector3,Vector3,RaycastHit> onFireAction;
 
@@ -26,7 +28,7 @@ public class GunFireController : MonoBehaviour
 
     public void Fire()
     {
-        if (_fireOrigin == null || _aimCamera == null) return;
+        if (_fireOrigin == null || _aimCamera == null || _ammo == 0) return;
 
         Vector2 offset = UnityEngine.Random.insideUnitCircle * _spreadRadiusViewport;
         Ray cameraRay = _aimCamera.ViewportPointToRay(new Vector3(0.5f + offset.x, 0.5f + offset.y, 0f));
@@ -54,6 +56,15 @@ public class GunFireController : MonoBehaviour
         }
     }
 
+    public void IncreaseAmmo(int many)
+    {
+        _ammo += many;
+    }
+
+    public int GetAmmo()
+    {
+        return _ammo;
+    }
 
     public void SetSpread(float radiusViewport) => _spreadRadiusViewport = Mathf.Clamp(radiusViewport, 0f, 0.25f);
 
@@ -93,6 +104,9 @@ public class GunFireController : MonoBehaviour
 
         // Example:
         // hit.collider.GetComponent<IDamageable>()?.TakeDamage(10);
+        _ammo--;
+
+        if(_ammo < 0) _ammo = 0;
 
         onFireAction?.Invoke(hit.point,hit.normal, hit);
     }
