@@ -36,7 +36,7 @@ public class LabWorld : MonoBehaviour
 
         _heroSpawnPoint = new Vector3(positionsRoom[0].x,_spawnPoint.position.y,positionsRoom[0].z);
 
-        Vector3 enemyRoom = _labyrinthCreator.GetRoomPosition(5,5);
+        Vector3 enemyRoom = _labyrinthCreator.GetRoomPosition(2,2);
         _enemySpawnPoint = new Vector3(enemyRoom.x,_enemySpawnPointTransform.position.y,enemyRoom.z);
 
         /* 
@@ -46,7 +46,7 @@ public class LabWorld : MonoBehaviour
         Debug.Log("LabWorld");
         
         SpawnPlayer();
-        //SpawnEnemy();
+        SpawnEnemy();
     }
 
     void Update()
