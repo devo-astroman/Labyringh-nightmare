@@ -13,6 +13,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
 
     [SerializeField] private List<AmmoOnBox> _allAmmoOnBox = new List<AmmoOnBox>();
+    [SerializeField] private List<Spikes> _allSpikes = new List<Spikes>();
+    
 
     
 
@@ -20,7 +22,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
     private int _iLayer = 0;
     private int _iCube = 0;
 
-    public void ProcessRoom(GameObject roomGO, int x, int y, int mask)
+    /* public void ProcessRoom(GameObject roomGO, int x, int y, int mask)
     {
         
         RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
@@ -34,10 +36,9 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
         if(_iLayer == roomPositionGO.LAYER_BELOW)
         {
-            Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
+            Debug.Log("x " + x + " y " + y + " iCube " + _iCube);
 
-            /* GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            cube.transform.position = position; */
+            Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
 
             GameObject box = _objectsFactory.GetBox2Empties(position);
             //should save that box in a list or something similar
@@ -73,6 +74,21 @@ public class LabyrinthObjectsManager : MonoBehaviour
                     _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
                 }
             }
+            else
+            {
+                int r =  Random.Range(0,5);
+                if(r == 0)
+                {
+                    //Improve here
+                    / * 
+                    Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
+
+                    int id = int.Parse(x.ToString() + y.ToString());
+                    GameObject spikesGO = _objectsFactory.GetSpikes(position, id);
+                    Debug.Log("spikesGO >>> " + spikesGO.GetComponent<Spikes>().GetId());
+                    _allSpikes.Add(spikesGO.GetComponent<Spikes>());  * /
+                }
+            }
             //should save that box in a list or something similar
 
 
@@ -89,6 +105,31 @@ public class LabyrinthObjectsManager : MonoBehaviour
                 _iLayer=0;
             }
         }
+    } */
+
+    public void ProcessRoom(GameObject roomGO, int x, int y, int mask)
+    {
+        RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
+        roomPositionGO.HideAllCubePositions();
+
+        if(x==0 & y == 1)
+        {
+            //place one box in the middle
+            Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            GameObject box = _objectsFactory.GetBox2Empties(middlePosition);
+
+            //place a spike in the upper right corner
+            Vector3 lowerLCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,2);
+            GameObject spikes = _objectsFactory.GetSpikes(lowerLCornerPosition,0);
+
+
+            //place other box in the lower corner with an ammo
+            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,6);
+            GameObject box2 = _objectsFactory.GetBox2Empties(upperRCornerPosition);
+            GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,0);
+        }
+
+
     }
 
     // Optional: if you still need an array (read-only snapshot)

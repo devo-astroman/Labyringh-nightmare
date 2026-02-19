@@ -14,20 +14,33 @@ public class HeroHurtController : MonoBehaviour
 
     #region Private properties
 	private string _ReceiveHitParam = "ReceiveHit";
+    private int _coolDownTime = 2;
+    private bool _coolDownEnded = true;
     private SetTimeoutUtility _timeout;
+    private SetTimeoutUtility _timeoutCoolDown;
 
     #endregion
     public void MakePlayerGetHurt()
     {
 
-        _animator.SetTrigger(_ReceiveHitParam);
+        if (_coolDownEnded)
+        {
+            _animator.SetTrigger(_ReceiveHitParam);
 
-        _hud.ShowHurtScreen();
-        _timeout.SetTimeout(() => {
-            _hud.HideHurtScreen();
-        }, .8f); 
+            _hud.ShowHurtScreen();
+            _timeout.SetTimeout(() => {
+                _hud.HideHurtScreen();
+            }, .8f); 
 
-        _heroSoundManager.PlayReceiveHit();
+            _heroSoundManager.PlayReceiveHit();
+
+            _coolDownEnded = false;
+            _timeoutCoolDown.SetTimeout(() => {
+                _coolDownEnded = true;
+            }, _coolDownTime);
+        }
+
+        
     }
 
     #region Unity Callbacks
@@ -35,6 +48,13 @@ public class HeroHurtController : MonoBehaviour
 	void Start()
     {
 		_timeout = new SetTimeoutUtility(this);
+        _timeoutCoolDown = new SetTimeoutUtility(this);
+    }
+
+	void OnDestroy()
+    {
+		_timeout.Dispose();
+        _timeoutCoolDown.Dispose();
     }
 	#endregion
 

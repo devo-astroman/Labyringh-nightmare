@@ -49,6 +49,8 @@ public class HeroFSM : AbstractFiniteStateMachine
     public Action<Vector3,Vector3,RaycastHit> onFireAction;
     public Action receiveHitFromEnemyAction;
 
+    public Action receiveDamageFromTrapAction;
+
     public Action<bool> hideStealthChangeAction;
 
     private GameObject _ammoDetected;
@@ -191,10 +193,18 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             //take that ammo
             ammoGO.SetActive(false);
-            _gunFireController.IncreaseAmmo(5);
+            _gunFireController.IncreaseAmmo(6);
             int currentAmmo = _gunFireController.GetAmmo();
             _hud.SetAmmo(currentAmmo);
         }
+
+        //GameObject health = GetInteractableHealthDetected()
+        //if(healthGO)// ....
+    }
+
+    public void TriggerReceiveDamageFromTrap()
+    {
+        receiveDamageFromTrapAction?.Invoke();
     }
 
 
@@ -229,6 +239,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.InteractAction += HandleInteractAction;
 
             _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction += HandleReceiveDamageFromTrap;
 
 
         }
@@ -250,6 +261,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.DisableInteract();
 
             _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction -= HandleReceiveDamageFromTrap;
         }
 
         private void HandleChangeToCrouch()
@@ -270,8 +282,14 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
 
+        private void HandleReceiveDamageFromTrap()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
+        }
+        
+
         private void HandleInteractAction()
-        {   Debug.Log("Run HandleInteractAction");
+        {   
             _dependencies.fsm.HandleInteractAction();
         }
         
@@ -300,7 +318,9 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.RunWalkSwitchPressedAction += HandleChangeToRun;
             _dependencies.fsm._heroMovementController.InteractAction += HandleInteractAction;
 
-            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;        
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction += HandleReceiveDamageFromTrap;
+
         }
 
         public override void OnExit()
@@ -319,6 +339,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.IgnoreWalkRunSwitchPressed();
 
             _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction -= HandleReceiveDamageFromTrap;        
         }
 
         private void HandleChangeToCrouch()
@@ -345,6 +366,10 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             _dependencies.fsm.HandleInteractAction();
         }
+        private void HandleReceiveDamageFromTrap()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
+        }
     }
 
     public class CrouchState : AbstractState
@@ -369,6 +394,7 @@ public class HeroFSM : AbstractFiniteStateMachine
 
 
             _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction += HandleReceiveDamageFromTrap;
         }
 
         public override void OnExit()
@@ -384,7 +410,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.ChangeToAimAction -= HandleChangeToAim;
             _dependencies.fsm._heroMovementController.InteractAction -= HandleInteractAction;        
 
-            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;        
+            _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction -= HandleReceiveDamageFromTrap;
         }
         private void HandleExitFromCrouch()
         {
@@ -402,8 +429,12 @@ public class HeroFSM : AbstractFiniteStateMachine
         }
 
         private void HandleInteractAction()
-        {   Debug.Log("Crouch HandleInteractAction");
+        {   
             _dependencies.fsm.HandleInteractAction();
+        }
+        private void HandleReceiveDamageFromTrap()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
     }
 
@@ -435,7 +466,8 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.InteractAction += HandleInteractAction;
 
 
-            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;        
+            _dependencies.fsm.receiveHitFromEnemyAction += HandleReceiveHitFromEnemy;
+            _dependencies.fsm.receiveDamageFromTrapAction += HandleReceiveDamageFromTrap;
         }
 
 
@@ -461,7 +493,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroMovementController.InteractAction -= HandleInteractAction;        
 
             _dependencies.fsm.receiveHitFromEnemyAction -= HandleReceiveHitFromEnemy;
-
+            _dependencies.fsm.receiveDamageFromTrapAction -= HandleReceiveDamageFromTrap;
            
         }
         private void HandleExitFromAim()
@@ -491,8 +523,12 @@ public class HeroFSM : AbstractFiniteStateMachine
             _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
         }
         private void HandleInteractAction()
-        {   Debug.Log("Aim HandleInteractAction");
+        {   
             _dependencies.fsm.HandleInteractAction();
-        }        
+        }
+        private void HandleReceiveDamageFromTrap()
+        {   
+            _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
+        }
     }
 }

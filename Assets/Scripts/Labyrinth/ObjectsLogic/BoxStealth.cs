@@ -35,7 +35,6 @@ public class BoxStealth : MonoBehaviour
     #region Private methods
     private void HandleDetected(GameObject go)
     {
-        Debug.Log("BOX STEALTH DETECTED Parent: " + go.transform.parent);
         _detectedHeroGO = go;
 
         GameObject heroFSMGO = go.transform.parent.gameObject;
