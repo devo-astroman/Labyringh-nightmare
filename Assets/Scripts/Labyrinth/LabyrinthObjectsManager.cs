@@ -116,9 +116,12 @@ public class LabyrinthObjectsManager : MonoBehaviour
         roomPositionGO.HideAllCubePositions();
         int[] tmp = new int[8];
 
-        _roomProcessed.Add(x +" "+y);
+        
         int id = int.Parse(x.ToString() + y.ToString());
-        if(x==0 & y == 1 && !_roomProcessed.Contains(x +" "+y) )
+
+        if(_roomProcessed.Contains(x +" "+y)) return;
+        
+        if(x==0 & y == 1)
         {            
             // per room:
             int n = 3;
@@ -142,7 +145,31 @@ public class LabyrinthObjectsManager : MonoBehaviour
             GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,id);
 
         }
-        else
+        //puzzle rooms
+        else  if(x==1 & y == 1)
+        {
+            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            
+
+        }else  if(x==2 & y == 2)
+        {
+
+        }else  if(x==3 & y == 3)
+        {
+
+        }else  if(x==4 & y == 4)
+        {
+
+        }else  if(x==5 & y == 5)
+        {
+
+        }else  if(x==6 & y == 6)
+        {
+
+
+            
+        }else 
         {// rest of the rooms should be random
 
             int n = 3;
@@ -173,7 +200,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
             
         }
 
-
+        _roomProcessed.Add(x +" "+y);
     }
 
     // Optional: if you still need an array (read-only snapshot)

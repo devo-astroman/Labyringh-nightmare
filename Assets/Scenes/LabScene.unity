@@ -3211,6 +3211,8 @@ MonoBehaviour:
     type: 3}
   _spikesPrefab: {fileID: 6616947326886192942, guid: 019d7766ec4708b49b70ca9fe48bd76c,
     type: 3}
+  _puzzle1Prefab: {fileID: 4023307652811894833, guid: 10c6430c4dea1cd40b082f05e7e2d3c3,
+    type: 3}
 --- !u!4 &1286949987
 Transform:
   m_ObjectHideFlags: 0
