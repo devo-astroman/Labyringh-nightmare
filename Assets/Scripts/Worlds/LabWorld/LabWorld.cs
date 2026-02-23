@@ -46,7 +46,7 @@ public class LabWorld : MonoBehaviour
         Debug.Log("LabWorld");
         
         SpawnPlayer();
-        //SpawnEnemy();
+        SpawnEnemy();
     }
 
     void Update()

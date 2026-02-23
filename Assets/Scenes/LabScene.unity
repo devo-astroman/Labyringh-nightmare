@@ -545,13 +545,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3021b4f6310ee4191eb51ba91e6596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridW: 20
-  _gridH: 20
+  _gridW: 10
+  _gridH: 10
   _gridPosition: {fileID: 479613646}
   _grid: {fileID: 1476819339}
   _roomGOPrefab: {fileID: 2237179420380776535, guid: 8913bed13f2523345852e9e051f5f638,
     type: 3}
-  _seed: 1234
+  _seed: 1231
   _addExtraLoops: 0
   _loopChance: 0.08
   _roomsParentGO: {fileID: 1105754063}
