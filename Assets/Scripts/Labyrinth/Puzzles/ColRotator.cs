@@ -9,6 +9,8 @@ public class ColRotator : MonoBehaviour
     [SerializeField] private GameObject _colRotatorGO;
     [SerializeField] private HeroDetector _heroDetector;
     [SerializeField] private InterpolatorRotator _interpolatorRotator;
+
+    [SerializeField] private IntValue _intValue;    
     #endregion
 
     #region public properties    
@@ -28,8 +30,7 @@ public class ColRotator : MonoBehaviour
 
     void OnDestroy()
     {
-        _heroDetector.detectedAction -= HandleDetected;
-        _heroDetector.undetectedAction -= HandleUndetectedAction;
+        Deactivate();
     }
     #endregion
 
@@ -58,6 +59,23 @@ public class ColRotator : MonoBehaviour
     {
         Debug.Log("Should rotate!!!");
         _interpolatorRotator.RotateDegrees(90f, 0.5f);
+        nRotation++;
+        if (nRotation >= 4)
+        {
+            nRotation = 0;
+        }
+
+        _intValue.SetValue(nRotation);
+    }
+    public void Deactivate()
+    {
+        if(_heroFSM)
+            _heroFSM.UndetectInteractable();
+
+        MakeGlowOff();
+
+        _heroDetector.detectedAction -= HandleDetected;
+        _heroDetector.undetectedAction -= HandleUndetectedAction;
     }
 	#endregion
     
@@ -74,6 +92,8 @@ public class ColRotator : MonoBehaviour
         _heroFSM.UndetectInteractable();
         MakeGlowOff();
     }
+
+    
 
 
 

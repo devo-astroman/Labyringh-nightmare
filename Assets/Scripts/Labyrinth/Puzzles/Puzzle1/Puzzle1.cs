@@ -6,98 +6,60 @@ public class Puzzle1 : MonoBehaviour
 {
 
     #region Fields
-    [SerializeField] private GameObject[] _ammoBoxesGO;
-    [SerializeField] private HeroDetector _heroDetector;
+    [SerializeField] private ColRotator _col1;
+    [SerializeField] private ColRotator _col2;
+    [SerializeField] private ColRotator _col3;
+    [SerializeField] private ColButton _colButton;
     #endregion
 
     #region public properties    
     #endregion
 
-    #region Private properties
-    private int _id = 0;
-    private GameObject _activeAmmoBoxGO;
-    private HeroFSM _heroFSM;
-    #endregion
-    #region Unity Callbacks
-    void Start()
-    {
-        ShowOneRandomAmmoBox();
-        _heroDetector.detectedAction += HandleDetected;
-        _heroDetector.undetectedAction += HandleUndetectedAction;
-    }
+    #region Private properties    
 
-    void OnDestroy()
-    {
-        _heroDetector.detectedAction -= HandleDetected;
-        _heroDetector.undetectedAction -= HandleUndetectedAction;
-    }
+    private int _col1Solution = 3;
+    private int _col2Solution = 0;
+    private int _col3Solution = 1;
+    #endregion
+    #region Unity Callbacks    
     #endregion
 
     #region Public methods
-    public void SetId(int id)
+    public void ColButtonPressed()
     {
-        _id = id;
-    }
+        int col1Value = _col1.GetComponent<IntValue>().GetValue();
+        int col2Value = _col2.GetComponent<IntValue>().GetValue();
+        int col3Value = _col3.GetComponent<IntValue>().GetValue();
 
-    public int GetId()
-    {
-        return _id;
-    }
-    public void ShowOneRandomAmmoBox()
-    {
-        if (_ammoBoxesGO == null || _ammoBoxesGO.Length == 0)
+        Debug.Log("col1Value " + col1Value + " !== " + _col1Solution);
+        Debug.Log("col2Value " + col2Value + " !== " + _col2Solution);
+        Debug.Log("col3Value " + col3Value + " !== " + _col3Solution);
+
+        if(_col1Solution == col1Value && _col2Solution == col2Value && _col3Solution == col3Value)
         {
-            Debug.LogWarning("No ammo boxes assigned.");
-            return;
+            Debug.Log("Success!!!");
+            _colButton.PressButton();
+            DeactivatePuzzle();
+        }
+        else
+        {
+            Debug.Log("-PressAndPull-");
+            _colButton.PressAndPull();
         }
 
-        // Deactivate all first
-        for (int i = 0; i < _ammoBoxesGO.Length; i++)
-        {
-            if (_ammoBoxesGO[i] != null)
-                _ammoBoxesGO[i].SetActive(false);
-        }
 
-        // Pick random index
-        int randomIndex = Random.Range(0, _ammoBoxesGO.Length);
-
-        // Activate selected one
-        if (_ammoBoxesGO[randomIndex] != null)
-        {
-            _ammoBoxesGO[randomIndex].SetActive(true);
-            _activeAmmoBoxGO = _ammoBoxesGO[randomIndex];
-        }
+        
     }
-
-    public void MakeGlowOn()
-    {
-        _activeAmmoBoxGO.GetComponent<GlowController>().EnableGlow();
-    }
-
-    public void MakeGlowOff()
-    {
-        _activeAmmoBoxGO.GetComponent<GlowController>().DisableGlow();
-    }
-
-
 	#endregion
     
     #region Private methods
-    private void HandleDetected(GameObject hero)
+    private void DeactivatePuzzle()
     {
-        _heroFSM = hero.GetComponentInParent<HeroFSM>();
-        _heroFSM.DetectAmmoBox(_activeAmmoBoxGO);
-
-        MakeGlowOn();
+        _colButton.Deactivate();
+        _col1.Deactivate();
+        _col2.Deactivate();
+        _col3.Deactivate();
     }
-
-    private void HandleUndetectedAction()
-    {
-        _heroFSM.UnDetectAmmoBox();
-        MakeGlowOff();
-    }
-
-
 
     #endregion
 }

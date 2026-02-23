@@ -1762,7 +1762,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &651860686
 Transform:
   m_ObjectHideFlags: 0
@@ -1772,7 +1772,7 @@ Transform:
   m_GameObject: {fileID: 651860685}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5133977, y: 1.01, z: 0.36462688}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25340447, y: 1, z: 0.25146735}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3211,7 +3211,7 @@ MonoBehaviour:
     type: 3}
   _spikesPrefab: {fileID: 6616947326886192942, guid: 019d7766ec4708b49b70ca9fe48bd76c,
     type: 3}
-  _puzzle1Prefab: {fileID: 4023307652811894833, guid: 10c6430c4dea1cd40b082f05e7e2d3c3,
+  _puzzle1Prefab: {fileID: 6574634348735454197, guid: fba74d5bab840a14594896c84e44bf2d,
     type: 3}
 --- !u!4 &1286949987
 Transform:
