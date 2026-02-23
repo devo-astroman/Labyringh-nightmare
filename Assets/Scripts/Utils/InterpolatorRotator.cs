@@ -16,6 +16,7 @@ public class InterpolatorRotator : MonoBehaviour
 
     #region Private properties
     private Coroutine _rotateRoutine;
+    private bool isRotating = false;
     #endregion
 
     #region Public API
@@ -30,6 +31,8 @@ public class InterpolatorRotator : MonoBehaviour
             return;
         }
 
+        if(isRotating) return;
+
         if (duration <= 0f)
         {
             // Instant rotation
@@ -43,6 +46,7 @@ public class InterpolatorRotator : MonoBehaviour
         if (_rotateRoutine != null)
             StopCoroutine(_rotateRoutine);
 
+        isRotating = true;
         _rotateRoutine = StartCoroutine(RotateRoutine(degrees, duration));
     }
 
@@ -81,6 +85,7 @@ public class InterpolatorRotator : MonoBehaviour
 
         _onRotationFinished?.Invoke();
         RotationFinished?.Invoke();
+        isRotating = false;
     }
     #endregion
 }
