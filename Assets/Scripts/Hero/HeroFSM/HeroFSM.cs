@@ -54,6 +54,9 @@ public class HeroFSM : AbstractFiniteStateMachine
     public Action<bool> hideStealthChangeAction;
 
     private GameObject _ammoDetected;
+    private GameObject _interactableDetected;
+
+    
 
     
 
@@ -180,11 +183,26 @@ public class HeroFSM : AbstractFiniteStateMachine
         //Should make the ammo glow
         _ammoDetected = null;
     }
-
     public GameObject GetInteractableAmmoDetected()
     {
         return _ammoDetected;
     }
+
+    public void DetectInteractable(GameObject interactable)
+    {
+        _interactableDetected = interactable;
+    }
+    public void UndetectInteractable()
+    {
+        _interactableDetected = null;
+    }
+    public GameObject GetInteractableDetected()
+    {
+        return _interactableDetected;
+    }
+    
+
+    
 
     private void HandleInteractAction()
     {
@@ -196,6 +214,18 @@ public class HeroFSM : AbstractFiniteStateMachine
             _gunFireController.IncreaseAmmo(6);
             int currentAmmo = _gunFireController.GetAmmo();
             _hud.SetAmmo(currentAmmo);
+
+        }else
+        {
+            GameObject interactableGO = GetInteractableDetected();
+
+            if (interactableGO)
+            {
+                //action that interactable
+                Actionable actionable = interactableGO.GetComponent<Actionable>();
+                actionable.MakeInteraction();
+            }
+            
         }
 
         //GameObject health = GetInteractableHealthDetected()

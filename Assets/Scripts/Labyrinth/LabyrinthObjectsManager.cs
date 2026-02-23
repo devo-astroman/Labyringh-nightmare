@@ -121,7 +121,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
         if(_roomProcessed.Contains(x +" "+y)) return;
         
-        if(x==0 & y == 1)
+        if(x==0 & y == 1)        
         {            
             // per room:
             int n = 3;
@@ -146,7 +146,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
         }
         //puzzle rooms
-        else  if(x==1 & y == 1)
+        //else  if(x==1 & y == 1)
+        else  if(x==1 & y == 0)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
