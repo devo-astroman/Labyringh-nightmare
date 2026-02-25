@@ -206,6 +206,7 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     private void HandleInteractAction()
     {
+        Debug.Log("HandleInteractAction - " + GetInteractableDetected());
         GameObject ammoGO = GetInteractableAmmoDetected();
         if (ammoGO)
         {
@@ -218,7 +219,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         }else
         {
             GameObject interactableGO = GetInteractableDetected();
-
+            Debug.Log("interactableGO " + interactableGO);
             if (interactableGO)
             {
                 //action that interactable

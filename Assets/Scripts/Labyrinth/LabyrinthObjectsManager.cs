@@ -150,7 +150,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         else  if(x==1 & y == 0)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
             
 
         }else  if(x==4 & y == 2)

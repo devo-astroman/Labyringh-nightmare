@@ -23,6 +23,7 @@ public class Actionable : MonoBehaviour
     #region Public methods
     public void MakeInteraction()
     {
+        Debug.Log("_MakeInteraction_");
         MakeInteractionUnityEvent.Invoke();
     }
 	#endregion

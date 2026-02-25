@@ -28,6 +28,24 @@ public class IntValue : MonoBehaviour
     {
         _intValue = value;
     }
+
+    public void IncreaseValue(int amount, int downLimit, int upLimit)
+    {
+        int newValue = _intValue += amount;
+        if(newValue >= upLimit)
+            newValue = downLimit;
+
+        _intValue = newValue;
+    }
+
+    public void DecreaseValue(int amount, int downLimit, int upLimit)
+    {
+        int newValue = _intValue -= amount;
+        if(newValue < downLimit)
+            newValue = upLimit-1;
+
+        _intValue = newValue;
+    }
 	#endregion
     
     #region Private methods

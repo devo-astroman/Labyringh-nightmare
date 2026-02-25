@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ColButton : MonoBehaviour
+public class ColButtonPusher : MonoBehaviour
 {
 
     #region Fields
@@ -17,7 +17,6 @@ public class ColButton : MonoBehaviour
     #region public properties
     public UnityEvent onPressed;
     public UnityEvent onPulled;
-
 
     
     #endregion
@@ -89,7 +88,7 @@ public class ColButton : MonoBehaviour
     {
         if(_heroFSM)
             _heroFSM.UndetectInteractable();
-
+            
         MakeGlowOff();
         _heroDetector.detectedAction -= HandleDetected;
         _heroDetector.undetectedAction -= HandleUndetectedAction;
