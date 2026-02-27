@@ -30,6 +30,17 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    public void DecreaseLife(float amount)
+    {
+        _life -= amount;
+        
+        if(_life <= 0)
+        {
+            _life = 0;
+            DeadAction?.Invoke();
+        }
+    }
+
     public float GetLife()
     {
         return _life;

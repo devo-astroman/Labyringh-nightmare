@@ -69,7 +69,14 @@ public class EnemyNavigatorManager : MonoBehaviour
 
     public void ResumeNavigation()
     {
+        Debug.Log("----ResumeNavigation----");
         _navMeshAgent.isStopped = false;
+    }
+
+    public void ResumeFollow()
+    {
+        _navMeshAgent.isStopped = false;
+        _follow = true;
     }
 
     public void StopNavigation()
