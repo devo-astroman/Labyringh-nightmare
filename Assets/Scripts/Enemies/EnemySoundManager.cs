@@ -33,19 +33,19 @@ public class EnemySoundManager : MonoBehaviour
     // PUBLIC API
     // -------------------------
 
-    public void PlayIdle()
+    public void PlayIdle(float pitch)
     {
+        _audioSource.Stop();
         if (_isDead || _audioSource == null || _idleSound == null)
             return;
 
         if (_audioSource.clip == _idleSound && _audioSource.isPlaying)
             return;
-
-        _audioSource.Stop();
+        
         _audioSource.loop = _loopIdle;
         _audioSource.clip = _idleSound;
         _audioSource.volume = .25f;
-        _audioSource.pitch = .5f;
+        _audioSource.pitch = pitch;
         _audioSource.Play();
     }
 

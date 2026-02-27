@@ -12,6 +12,7 @@ public class EB2 : MonoBehaviour
     [SerializeField] EB2Animator _eB2Animator;
     [SerializeField] EnemyHealth _enemyHealth;
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
+    [SerializeField] EnemySoundManager _enemySoundManager;
 
     
 
@@ -51,16 +52,20 @@ public class EB2 : MonoBehaviour
 
     public void FollowTarget()
     {
+        _enemySoundManager.PlayIdle(1f);
         _enemyNavigatorManager.StartFollow(_targetToFollow);
+
     }
 
     public void ResumeFollowTarget()
     {
+        _enemySoundManager.PlayIdle(1f);
         _enemyNavigatorManager.ResumeFollow();
     }
 
     public void ReceiveDamage(float amountDamage)
     {
+        _enemySoundManager.PlayReceiveHit();
         _enemyNavigatorManager.StopNavigation();
         _eB2Animator.NotifyWhenReceiveHitAnimationEnds();
         _eB2Animator.PlayReceiveHitAnimation();
@@ -69,6 +74,7 @@ public class EB2 : MonoBehaviour
 
     public void Die()
     {
+        _enemySoundManager.PlayDie();
         _eB2Animator.PlayDieAnimation();
         _enemyCollidersManager.DeactivatePainColliders();
     }

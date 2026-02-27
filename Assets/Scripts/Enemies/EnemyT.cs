@@ -35,7 +35,7 @@ public class EnemyT : MonoBehaviour
 
     void Start()
     {
-        _enemySoundManager.PlayIdle();
+        _enemySoundManager.PlayIdle(1f);
         _timeoutHitCoolDown = new SetTimeoutUtility(this);
 
         _enemyHealth.SetLife(_enemyLife);

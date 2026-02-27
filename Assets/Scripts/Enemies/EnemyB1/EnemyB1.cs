@@ -82,7 +82,7 @@ public class EnemyB1 : MonoBehaviour
     public void PlayPatrolAnimation()
     {
         _enemyAnimator.PlayPatrolAnimation();
-        _enemySoundManager.PlayIdle();
+        _enemySoundManager.PlayIdle(.5f);
     }
 
     public void AllowReceiveDamage()
