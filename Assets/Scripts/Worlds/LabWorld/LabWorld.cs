@@ -45,8 +45,9 @@ public class LabWorld : MonoBehaviour
 
         Debug.Log("LabWorld");
         
-        //SpawnPlayer();
+        SpawnPlayer();
         //SpawnEnemy();
+        SpawnEnemy2();
     }
 
     void Update()
@@ -105,6 +106,25 @@ public class LabWorld : MonoBehaviour
 
 
             _labyrinthCreator.ShowDebug(new Vector3[]{patrolPoint1,patrolPoint2,patrolPoint3});
+
+        }, 2f);
+    }
+
+    private void SpawnEnemy2()
+    {
+        _timeoutToSpawnEnemies.SetTimeout(() => {
+            Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
+            _enemyManager.WakeUpEnemyB2(enemySpawnPosition,_heroFSM.transform.Find("Hero"));
+
+            /* Vector3 enemy2SpawnPosition = _labyrinthCreator.GetRoomPosition(9,9);
+            _enemyManager.WakeUpEnemyB2(enemy2SpawnPosition,_heroFSM.transform);
+
+            Vector3 enemy3SpawnPosition = _labyrinthCreator.GetRoomPosition(9,8);
+            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform);
+
+
+            Vector3 enemy4SpawnPosition = _labyrinthCreator.GetRoomPosition(9,6);
+            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform); */
 
         }, 2f);
     }

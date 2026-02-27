@@ -69,8 +69,11 @@ public class EB2FSM : AbstractFiniteStateMachine
             ReceiveDamage(1);
             _testReceiveDamage = false;
         }
+    }
 
-        
+    public void SetTarget(Transform target)
+    {
+        _eB2.SetTargetToFollow(target);
     }
 
     public void GoToIdle()

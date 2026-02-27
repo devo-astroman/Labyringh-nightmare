@@ -50,6 +50,11 @@ public class EB2 : MonoBehaviour
         _eB2Animator.ReceiveHitEndsAction -= HandleReceiveHitEnds;
     }
 
+    public void SetTargetToFollow(Transform target)
+    {
+        _targetToFollow = target;
+    }
+
     public void FollowTarget()
     {
         _enemySoundManager.PlayIdle(1f);

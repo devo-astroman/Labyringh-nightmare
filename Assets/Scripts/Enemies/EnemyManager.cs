@@ -7,6 +7,7 @@ public class EnemyManager : MonoBehaviour
 {
     [SerializeField] private EnemyT _enemyT;
     [SerializeField] private GameObject _enemyB1Pref;
+    [SerializeField] private GameObject _enemyB2Pref;
     [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemyB1FSMGO;
 
@@ -36,6 +37,14 @@ public class EnemyManager : MonoBehaviour
         enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
 
         _enemyPool.AddEnemy(enemyB1FSMGO);
+    }
+
+    public void WakeUpEnemyB2(Vector3 enemyPosition, Transform target)
+    {
+        GameObject enemyB2FSMGO = Instantiate(_enemyB2Pref, enemyPosition, Quaternion.identity);
+        enemyB2FSMGO.GetComponent<EB2FSM>().SetTarget(target);
+
+        _enemyPool.AddEnemy(enemyB2FSMGO);
     }
 
     /* public void WakeUpEnemyB1(Vector3 enemyPosition)

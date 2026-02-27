@@ -60,11 +60,10 @@ public class EnemyNavigatorManager : MonoBehaviour
             if (_follow)
             {
                 Vector3 position = new Vector3(_targetToFollow.position.x,0,_targetToFollow.position.z);
-
                 //NavDebug.LogAgentState(_navMeshAgent,"AG-");
                 _navMeshAgent.SetDestination(position);
             }
-        }, .25f);
+        }, 1f);
     }
 
     public void ResumeNavigation()
