@@ -153,12 +153,16 @@ public class EB2FSM : AbstractFiniteStateMachine
 
 
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+           _dependencies.eB2.NearHeroDetectedAction += HandleNearHeroDetected;
+
+           
            
         }
 
         public override void OnExit()
         {
            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+           _dependencies.eB2.NearHeroDetectedAction -= HandleNearHeroDetected;
            _dependencies.fsm._following = true;
         }
 
@@ -167,6 +171,15 @@ public class EB2FSM : AbstractFiniteStateMachine
             Debug.Log("Patrol - OnExit - HandleReceiveDamage");
             _dependencies.fsm.GoToReceiveHit();
         }
+
+        private void HandleNearHeroDetected(GameObject hero)
+        {
+            Debug.Log("Make Attack");
+            _dependencies.eB2.DamageTarget();
+            
+        }
+
+        
         
     }
 

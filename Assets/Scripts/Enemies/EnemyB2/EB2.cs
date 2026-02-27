@@ -13,6 +13,7 @@ public class EB2 : MonoBehaviour
     [SerializeField] EnemyHealth _enemyHealth;
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] EnemySoundManager _enemySoundManager;
+    [SerializeField] HeroDetectorManager _heroDetectorManager;
 
     
 
@@ -21,10 +22,13 @@ public class EB2 : MonoBehaviour
 
 
     public Action ReceiveDamageEndsAction;
+    public Action<GameObject> NearHeroDetectedAction;
+    
 
     void Start()
     {
         _eB2Animator.ReceiveHitEndsAction += HandleReceiveHitEnds;
+        _heroDetectorManager.NearHeroDetectionAction += HandleNearHeroDetection;
     }
 
 
@@ -48,6 +52,7 @@ public class EB2 : MonoBehaviour
     void OnDestroy()
     {
         _eB2Animator.ReceiveHitEndsAction -= HandleReceiveHitEnds;
+        _heroDetectorManager.NearHeroDetectionAction -= HandleNearHeroDetection;
     }
 
     public void SetTargetToFollow(Transform target)
@@ -100,10 +105,26 @@ public class EB2 : MonoBehaviour
         return _enemyHealth.GetLife();
     }
 
+    public void DamageTarget()
+    {
+        GameObject parentGO = _targetToFollow.transform.parent?.gameObject;
+        if (parentGO)
+        {
+            parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();
+        }
+    }
+
     private void HandleReceiveHitEnds()
     {
         ReceiveDamageEndsAction?.Invoke();
     }
+
+    private void HandleNearHeroDetection(GameObject hero)
+    {
+        NearHeroDetectedAction?.Invoke(hero);
+    }
+
+    
 
 
 }
