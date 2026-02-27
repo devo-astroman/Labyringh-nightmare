@@ -174,7 +174,6 @@ public class EB2FSM : AbstractFiniteStateMachine
 
         private void HandleNearHeroDetected(GameObject hero)
         {
-            Debug.Log("Make Attack");
             _dependencies.eB2.DamageTarget();
             
         }

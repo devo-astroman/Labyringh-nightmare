@@ -116,7 +116,7 @@ public class LabWorld : MonoBehaviour
             Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
             _enemyManager.WakeUpEnemyB2(enemySpawnPosition,_heroFSM.transform.Find("Hero"));
 
-            /* Vector3 enemy2SpawnPosition = _labyrinthCreator.GetRoomPosition(9,9);
+            Vector3 enemy2SpawnPosition = _labyrinthCreator.GetRoomPosition(9,9);
             _enemyManager.WakeUpEnemyB2(enemy2SpawnPosition,_heroFSM.transform);
 
             Vector3 enemy3SpawnPosition = _labyrinthCreator.GetRoomPosition(9,8);
@@ -124,7 +124,7 @@ public class LabWorld : MonoBehaviour
 
 
             Vector3 enemy4SpawnPosition = _labyrinthCreator.GetRoomPosition(9,6);
-            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform); */
+            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform); 
 
         }, 2f);
     }
@@ -140,7 +140,21 @@ public class LabWorld : MonoBehaviour
 
             Debug.Log("shoot: " + hit.collider.gameObject.name);
             EnemyB1FSM enemyB1FSM = hit.collider.gameObject.GetComponentInParent<EnemyB1FSM>();
-            enemyB1FSM.ReceiveDamage(0);
+            if (enemyB1FSM)
+            {
+                enemyB1FSM.ReceiveDamage(0);
+            }
+            else            
+            {
+                EB2FSM eB2FSM = hit.collider.gameObject.GetComponentInParent<EB2FSM>();
+                if (eB2FSM)
+                {
+                    eB2FSM.ReceiveDamage(0);
+                }
+                
+            }
+
+
 
         }
         else
