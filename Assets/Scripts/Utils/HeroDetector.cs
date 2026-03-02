@@ -8,11 +8,23 @@ public class HeroDetector : MonoBehaviour
     [SerializeField] private string _heroTag = "HeroTag";
     [SerializeField] private string _heroLayerName = "HeroCollider";
 
+    [SerializeField] private bool _testDetectd = false;    
+    [SerializeField] private GameObject _testHeroDetecter;
+
     // Action to notify detection
     public Action<GameObject> detectedAction;
     public Action undetectedAction;
 
     private int _heroLayer;
+
+    void Update()
+    {
+        if (_testDetectd)
+        {
+            detectedAction?.Invoke(_testHeroDetecter);
+            _testDetectd = false;
+        }
+    }
 
     private void Awake()
     {

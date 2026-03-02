@@ -1,8 +1,6 @@
 using UnityEngine;
 using System;
 using UnityEngine.AI;
-using UnityEditorInternal;
-using Unity.VisualScripting;
 
 
 public class EB2Animator : MonoBehaviour

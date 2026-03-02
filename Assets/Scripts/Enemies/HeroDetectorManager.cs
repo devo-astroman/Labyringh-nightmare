@@ -13,6 +13,8 @@ public class HeroDetectorManager : MonoBehaviour
 
     public Action<int,GameObject> DetectionInfoAction;
 
+    public bool justNotify = false;
+
     void Start()
     {
         _farDetector.detectedAction += HandleFarDetected;
@@ -33,6 +35,14 @@ public class HeroDetectorManager : MonoBehaviour
 
     private void HandleFarDetected(GameObject go)
     {
+        if (justNotify)
+        {
+            FarHeroDetectionAction?.Invoke(go);
+            DetectionInfoAction?.Invoke(0,go);
+            return;
+        }
+
+
         GameObject heroFSMGO = go.transform.parent.gameObject;
         if (heroFSMGO)
         {
