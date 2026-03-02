@@ -22,7 +22,7 @@ public class EB2Animator : MonoBehaviour
     public void PlayDieAnimation()
     {
         //not really an animation for now
-        _meshRenderer.enabled = false;
+        _animator.SetTrigger("Die");
     }
 
     void Update()
