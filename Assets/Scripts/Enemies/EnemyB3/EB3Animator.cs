@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 public class EB3Animator : MonoBehaviour
 {
     [SerializeField] Animator _animator;
@@ -36,7 +37,18 @@ public class EB3Animator : MonoBehaviour
         _animator.SetTrigger("Die");
     }
 
+    public void LookToTarget(Vector3 target)
+    {
+        Transform t = _animator.transform;
 
+        Vector3 direction = target - t.position;
+        direction.y = 0f; // optional: ignore vertical rotation
+
+        if (direction != Vector3.zero)
+        {
+            t.rotation = Quaternion.LookRotation(direction);
+        }
+    }
 
     void Start()
     {

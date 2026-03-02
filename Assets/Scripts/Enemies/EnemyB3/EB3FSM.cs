@@ -135,9 +135,11 @@ public class EB3FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
-           Debug.Log("*Attack*");
-           _dependencies.eB3.AttackEndsAction += HandleAttackEnds;
-           _dependencies.eB3.Attack();
+           Debug.Log("*Attack*");           
+           _dependencies.eB3.AttackEndsAction += HandleAttackEnds;           
+           if(!_dependencies.eB3.Attack()){
+                _dependencies.fsm.GoToIdle();
+           }
         }
 
         public override void OnExit()

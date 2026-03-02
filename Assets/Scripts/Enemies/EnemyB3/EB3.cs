@@ -1,9 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.AI;
-using UnityEditorInternal;
-
-
 public class EB3 : MonoBehaviour
 {
     [SerializeField] EB3Animator _eB3Animator;
@@ -73,10 +69,23 @@ public class EB3 : MonoBehaviour
         _enemyHealth.DecreaseLife(amountDamage);
     }
 
-    public void Attack()
+    public bool Attack()
     {
-        //_enemySoundManager.PlayAttack();
-        _eB3Animator.PlayAttackAnimation();
+        if (heroDetected)
+        {
+            //_enemySoundManager.PlayAttack();
+            Vector3 target = heroDetected.transform.position;
+            _eB3Animator.LookToTarget(target);
+            _eB3Animator.PlayAttackAnimation();
+            return true;
+        }
+        else
+        {
+            Debug.Log("Warning there is no hero to attack");
+            return false;
+        }
+
+        
     }
 
     public void Die()
