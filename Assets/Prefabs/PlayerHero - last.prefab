@@ -1292,6 +1292,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2541418656474257893, guid: 31c71d4774be96c43ae3536a1cbabfb1,
+        type: 3}
+      propertyPath: CameraCollisionFilter.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 2692149087735219462, guid: 31c71d4774be96c43ae3536a1cbabfb1,
         type: 3}
       propertyPath: m_LocalPosition.x
