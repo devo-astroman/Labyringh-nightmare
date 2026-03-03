@@ -123,6 +123,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &514845210037873183
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,7 +137,6 @@ GameObject:
   - component: {fileID: 3179856082826577739}
   - component: {fileID: 6819016085355633018}
   - component: {fileID: 1854290761788447740}
-  - component: {fileID: 6360472634880075154}
   m_Layer: 8
   m_Name: PainCapsule
   m_TagString: Untagged
@@ -231,21 +232,6 @@ CapsuleCollider:
   m_Height: 2.6856263
   m_Direction: 1
   m_Center: {x: 0.02565836, y: 0, z: 0.13909659}
---- !u!114 &6360472634880075154
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514845210037873183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2820ffeb4d3c394a8d3e6ad49328b4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _useTag: 1
-  _heroTag: HeroTag
-  _heroLayerName: HeroCollider
 --- !u!1 &592800700939444867
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +600,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &2861144847384490855
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _farDetector: {fileID: 5991480838320217765}
   _nearDetector: {fileID: 1411445544770561859}
+  justNotify: 0
 --- !u!1 &6921419901305004054
 GameObject:
   m_ObjectHideFlags: 0

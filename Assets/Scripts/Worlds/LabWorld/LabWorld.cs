@@ -171,6 +171,15 @@ public class LabWorld : MonoBehaviour
                 {
                     eB2FSM.ReceiveDamage(0);
                 }
+                else
+                {
+                    EB3FSM eB3FSM = hit.collider.gameObject.GetComponentInParent<EB3FSM>();
+                    if (eB3FSM)
+                    {
+                        eB3FSM.ReceiveDamage(0);
+                    }
+                    
+                }
                 
             }
 

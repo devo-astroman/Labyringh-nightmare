@@ -105,6 +105,7 @@ public class EB3FSM : AbstractFiniteStateMachine
     }
     public void ReceiveDamage(int damageValue)
     {
+        Debug.Log("___ReceiveDamage___");
         ReceiveDamageAction?.Invoke(damageValue);
     }
 
@@ -172,16 +173,22 @@ public class EB3FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*Preattack*");
-
-            if (_dependencies.eB3.IsHeroDetected())
+            if(_dependencies.eB3.GetCurrentLife() <= 0)
             {
-                //go to attack
-                _dependencies.fsm.GoToAttack();
+                _dependencies.fsm.GoToDie();
             }
             else
             {
-                //go back to hide
-                _dependencies.fsm.GoToHide();
+                if (_dependencies.eB3.IsHeroDetected())
+                {
+                    //go to attack
+                    _dependencies.fsm.GoToAttack();
+                }
+                else
+                {
+                    //go back to hide
+                    _dependencies.fsm.GoToHide();
+                }
             }
         }
 
@@ -208,11 +215,14 @@ public class EB3FSM : AbstractFiniteStateMachine
             //the attack was not 
                 _dependencies.fsm.GoToPreattack();
            }
+
+           _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
         }
 
         public override void OnExit()
         {
             _dependencies.eB3.AttackEndsAction -= HandleAttackEnds;
+            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
         }
 
         private void HandleAttackEnds()
@@ -221,6 +231,12 @@ public class EB3FSM : AbstractFiniteStateMachine
             Debug.Log("should fire!!-- FIRE!");
             _dependencies.fsm.GoToPreattack();
         }
+
+        private void HandleReceiveDamage(int damageValue)
+        {
+            _dependencies.eB3.ReceiveDamage(1);
+        }
+        
     }
 
 
@@ -237,7 +253,7 @@ public class EB3FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*ReceiveHit*");
-            _dependencies.eB3.ReceiveDamageEndsAction += HandleReceiveDamageEnds;
+           _dependencies.eB3.ReceiveDamageEndsAction += HandleReceiveDamageEnds;
            _dependencies.eB3.ReceiveDamage(1);
         }
 
@@ -274,6 +290,7 @@ public class EB3FSM : AbstractFiniteStateMachine
 
         public override void OnEnter()
         {
+            Debug.Log("*Die*");
             _dependencies.eB3.Die();
         }
 

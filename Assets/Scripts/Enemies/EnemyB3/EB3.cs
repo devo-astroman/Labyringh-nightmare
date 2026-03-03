@@ -6,7 +6,9 @@ public class EB3 : MonoBehaviour
     [SerializeField] EnemyHealth _enemyHealth;
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] EnemySoundManager _enemySoundManager;
-    [SerializeField] HeroDetectorManager _heroDetectorManager;
+    [SerializeField] HeroDetectorManager _heroDetectorManager;    
+
+    
 
     [SerializeField] bool _receiveDamage;
     [SerializeField] bool _attack;
@@ -73,7 +75,7 @@ public class EB3 : MonoBehaviour
     public void ReceiveDamage(float amountDamage)
     {
         _enemySoundManager.PlayReceiveHit();
-        _eB3Animator.PlayReceiveHitAnimation();
+        //_eB3Animator.PlayReceiveHitAnimation();
         _enemyHealth.DecreaseLife(amountDamage);
     }
 
@@ -146,5 +148,6 @@ public class EB3 : MonoBehaviour
         heroDetected = null;
         FarHeroUndetectionAction?.Invoke();
     }
+
     
 }
