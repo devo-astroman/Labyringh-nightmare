@@ -23,7 +23,9 @@ public class EB3FSM : AbstractFiniteStateMachine
 
     public enum States
     {
-        IDLE_STATE,
+        HIDE_STATE,
+        SHOW_STATE,
+        PREATTACK_STATE,
         ATTACK_STATE,
         RECEIVE_HIT_STATE,
         DIE_STATE,
@@ -46,8 +48,14 @@ public class EB3FSM : AbstractFiniteStateMachine
         deps.eB3 = _eB3;
         deps.fsm = this;
 
-        IdleState idle = AbstractState.Create<IdleState, States>(States.IDLE_STATE, this);
-        idle.Setup(ref deps);
+        PreAttackState preattack = AbstractState.Create<PreAttackState, States>(States.PREATTACK_STATE, this);
+        preattack.Setup(ref deps);
+
+        HideState hide = AbstractState.Create<HideState, States>(States.HIDE_STATE, this);
+        hide.Setup(ref deps);
+
+        ShowState show = AbstractState.Create<ShowState, States>(States.SHOW_STATE, this);
+        show.Setup(ref deps);
 
         AttackState attack = AbstractState.Create<AttackState, States>(States.ATTACK_STATE, this);
         attack.Setup(ref deps);
@@ -58,7 +66,7 @@ public class EB3FSM : AbstractFiniteStateMachine
         DieState die = AbstractState.Create<DieState, States>(States.DIE_STATE, this);
         die.Setup(ref deps);
 
-        Init(States.IDLE_STATE, idle, attack, receiveHit, die);
+        Init(States.HIDE_STATE, hide, show, preattack, attack, receiveHit, die);
     }
 
     private void Update()
@@ -70,10 +78,17 @@ public class EB3FSM : AbstractFiniteStateMachine
         }
     }
     
-
-    public void GoToIdle()
+    public void GoToShow()
     {
-        TransitionToState(States.IDLE_STATE);
+        TransitionToState(States.SHOW_STATE);
+    }
+    public void GoToHide()
+    {
+        TransitionToState(States.HIDE_STATE);
+    }
+    public void GoToPreattack()
+    {
+        TransitionToState(States.PREATTACK_STATE);
     }
     public void GoToAttack()
     {
@@ -93,21 +108,20 @@ public class EB3FSM : AbstractFiniteStateMachine
         ReceiveDamageAction?.Invoke(damageValue);
     }
 
-
-    public class IdleState : AbstractState
+    public class HideState : AbstractState
     {
         private DepsEB3FSM _dependencies;
 
         public void Setup(ref DepsEB3FSM deps)
         {
-            Debug.Log("IdleSetup");
+            Debug.Log("HideSetup");
             _dependencies = deps;
         }
 
         public override void OnEnter()
         {
-           Debug.Log("*Idle*");
-           _dependencies.eB3.WaitForHero();
+           Debug.Log("*Hide* " + _dependencies.eB3);
+           _dependencies.eB3.WaitHideForHero();
            _dependencies.eB3.FarHeroDetectedAction += HandleFarHeroDetected;
         }
 
@@ -118,8 +132,61 @@ public class EB3FSM : AbstractFiniteStateMachine
 
         private void HandleFarHeroDetected(GameObject hero)
         {
-            _dependencies.eB3.SetHeroDetected(hero);
-            _dependencies.fsm.GoToAttack();
+            //_dependencies.eB3.SetHeroDetected(hero);
+            _dependencies.fsm.GoToShow();
+        }
+    }
+
+    public class ShowState : AbstractState
+    {
+        private DepsEB3FSM _dependencies;
+
+        public void Setup(ref DepsEB3FSM deps)
+        {
+            Debug.Log("ShowSetup");
+            _dependencies = deps;
+        }
+
+        public override void OnEnter()
+        {
+           Debug.Log("*Show*");
+           _dependencies.eB3.Show();
+           _dependencies.fsm.GoToPreattack();
+        }
+
+        public override void OnExit()
+        {
+        }
+    }
+
+    public class PreAttackState : AbstractState
+    {
+        private DepsEB3FSM _dependencies;
+
+        public void Setup(ref DepsEB3FSM deps)
+        {
+            Debug.Log("PreattackSetup");
+            _dependencies = deps;
+        }
+
+        public override void OnEnter()
+        {
+           Debug.Log("*Preattack*");
+
+            if (_dependencies.eB3.IsHeroDetected())
+            {
+                //go to attack
+                _dependencies.fsm.GoToAttack();
+            }
+            else
+            {
+                //go back to hide
+                _dependencies.fsm.GoToHide();
+            }
+        }
+
+        public override void OnExit()
+        {
         }
     }
 
@@ -138,7 +205,8 @@ public class EB3FSM : AbstractFiniteStateMachine
            Debug.Log("*Attack*");           
            _dependencies.eB3.AttackEndsAction += HandleAttackEnds;           
            if(!_dependencies.eB3.Attack()){
-                _dependencies.fsm.GoToIdle();
+            //the attack was not 
+                _dependencies.fsm.GoToPreattack();
            }
         }
 
@@ -151,7 +219,7 @@ public class EB3FSM : AbstractFiniteStateMachine
         {
             //should notify to fire the bullet fire
             Debug.Log("should fire!!-- FIRE!");
-            _dependencies.fsm.GoToIdle();
+            _dependencies.fsm.GoToPreattack();
         }
     }
 
@@ -184,7 +252,7 @@ public class EB3FSM : AbstractFiniteStateMachine
 
             if(life > 0)
             {
-                _dependencies.fsm.GoToIdle();
+                _dependencies.fsm.GoToPreattack();
             }
             else
             {

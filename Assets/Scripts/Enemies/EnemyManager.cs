@@ -8,6 +8,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private EnemyT _enemyT;
     [SerializeField] private GameObject _enemyB1Pref;
     [SerializeField] private GameObject _enemyB2Pref;
+    [SerializeField] private GameObject _enemyB3Pref;
     [SerializeField] private EnemyPool _enemyPool;
     private GameObject _enemyB1FSMGO;
 
@@ -47,18 +48,11 @@ public class EnemyManager : MonoBehaviour
         _enemyPool.AddEnemy(enemyB2FSMGO);
     }
 
-    /* public void WakeUpEnemyB1(Vector3 enemyPosition)
+    public void WakeUpEnemyB3(Vector3 enemyPosition)
     {
-        GameObject enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
-        _enemyPool.AddEnemy(enemyB1FSMGO);
+        GameObject enemyB3FSMGO = Instantiate(_enemyB3Pref, enemyPosition, Quaternion.identity);
+        _enemyPool.AddEnemy(enemyB3FSMGO);
     }
-
-    public void SetPatrolPoints(Vector3[] patrolPoints)
-    {
-        _enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
-    } */
-
-
 
     public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
     {

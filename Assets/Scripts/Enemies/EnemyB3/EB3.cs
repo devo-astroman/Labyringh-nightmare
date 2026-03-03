@@ -16,6 +16,9 @@ public class EB3 : MonoBehaviour
     public Action AttackEndsAction;
     
     public Action<GameObject> FarHeroDetectedAction;
+    public Action FarHeroUndetectionAction;
+
+    
 
     private GameObject heroDetected;
 
@@ -25,12 +28,11 @@ public class EB3 : MonoBehaviour
         _eB3Animator.AttackEndsAction += HandleAttackEnds;
 
         _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
+        _heroDetectorManager.FarHeroUndetectionAction += HandleFarHeroUndetection;
     }
 
     void Update()
     {
-
-
         if (_receiveDamage)
         {
             ReceiveDamage(1);
@@ -42,7 +44,6 @@ public class EB3 : MonoBehaviour
             
             _receiveDamage = false;
         }
-
     }
 
     void OnDestroy()
@@ -50,16 +51,23 @@ public class EB3 : MonoBehaviour
         _eB3Animator.ReceiveHitEndsAction -= HandleReceiveHitEnds;
         _eB3Animator.AttackEndsAction -= HandleAttackEnds;
         _heroDetectorManager.FarHeroDetectionAction -= HandleFarHeroDetection;
+        _heroDetectorManager.FarHeroUndetectionAction -= HandleFarHeroUndetection;
     }
 
-    public void WaitForHero() //idle
+    public void WaitHideForHero() //idle
     {
-        _eB3Animator.PlayIdleAnimation();
+        //_eB3Animator.PlayIdleAnimation();
+        _eB3Animator.PlayHideAnimation();
     }
 
     public void SetHeroDetected(GameObject hero)
     {
         heroDetected = hero;
+    }
+
+    public bool IsHeroDetected()
+    {
+        return heroDetected != null;
     }
 
     public void ReceiveDamage(float amountDamage)
@@ -81,7 +89,9 @@ public class EB3 : MonoBehaviour
         }
         else
         {
-            Debug.Log("Warning there is no hero to attack");
+            //maybe take the last place known of the hero
+            //to do save the last place known and make an attack to that point
+            Debug.Log("Hero is gone");
             return false;
         }
 
@@ -105,6 +115,16 @@ public class EB3 : MonoBehaviour
         return _enemyHealth.GetLife();
     }
 
+    public void Show()
+    {
+        _eB3Animator.PlayShowAnimation();
+    }
+
+    public void Hide()
+    {
+        _eB3Animator.PlayHideAnimation();
+    }
+
     private void HandleReceiveHitEnds()
     {
         ReceiveDamageEndsAction?.Invoke();
@@ -117,7 +137,14 @@ public class EB3 : MonoBehaviour
 
     private void HandleFarHeroDetection(GameObject hero)
     {
+        heroDetected = hero;
         FarHeroDetectedAction?.Invoke(hero);
+    }
+
+    private void HandleFarHeroUndetection()
+    {
+        heroDetected = null;
+        FarHeroUndetectionAction?.Invoke();
     }
     
 }

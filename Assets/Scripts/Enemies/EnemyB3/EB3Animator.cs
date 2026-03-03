@@ -12,6 +12,16 @@ public class EB3Animator : MonoBehaviour
     public Action ReceiveHitEndsAction;
     public Action AttackEndsAction;
 
+    public void PlayShowAnimation()
+    {
+        _animator.SetBool("Show",true);
+    }
+
+    public void PlayHideAnimation()
+    {
+        _animator.SetBool("Show",false);
+    }
+
     public void PlayIdleAnimation()
     {
         _animator.SetBool("Idle",true);
