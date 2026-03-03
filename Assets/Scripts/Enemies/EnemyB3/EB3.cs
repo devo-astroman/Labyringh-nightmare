@@ -169,7 +169,7 @@ public class EB3 : MonoBehaviour
             {
                 if (_enemyVision.CanSeePlayer(heroDetected.transform))
                 {
-                    EnemySawAction?.Invoke(heroDetected.transform.position);
+                    EnemySawAction?.Invoke(heroDetected.transform.position+ new Vector3(0,1.5f,0));
                 }
                 
             }
