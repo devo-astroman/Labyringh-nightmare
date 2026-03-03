@@ -24,7 +24,7 @@ public class EB3FSM : AbstractFiniteStateMachine
     public enum States
     {
         HIDE_STATE,
-        SHOW_STATE,
+        SCAN_STATE,
         PREATTACK_STATE,
         ATTACK_STATE,
         RECEIVE_HIT_STATE,
@@ -54,8 +54,8 @@ public class EB3FSM : AbstractFiniteStateMachine
         HideState hide = AbstractState.Create<HideState, States>(States.HIDE_STATE, this);
         hide.Setup(ref deps);
 
-        ShowState show = AbstractState.Create<ShowState, States>(States.SHOW_STATE, this);
-        show.Setup(ref deps);
+        ScanState scan = AbstractState.Create<ScanState, States>(States.SCAN_STATE, this);
+        scan.Setup(ref deps);
 
         AttackState attack = AbstractState.Create<AttackState, States>(States.ATTACK_STATE, this);
         attack.Setup(ref deps);
@@ -66,7 +66,7 @@ public class EB3FSM : AbstractFiniteStateMachine
         DieState die = AbstractState.Create<DieState, States>(States.DIE_STATE, this);
         die.Setup(ref deps);
 
-        Init(States.HIDE_STATE, hide, show, preattack, attack, receiveHit, die);
+        Init(States.HIDE_STATE, hide, scan, preattack, attack, receiveHit, die);
     }
 
     private void Update()
@@ -78,9 +78,9 @@ public class EB3FSM : AbstractFiniteStateMachine
         }
     }
     
-    public void GoToShow()
+    public void GoToScan()
     {
-        TransitionToState(States.SHOW_STATE);
+        TransitionToState(States.SCAN_STATE);
     }
     public void GoToHide()
     {
@@ -128,37 +128,69 @@ public class EB3FSM : AbstractFiniteStateMachine
 
         public override void OnExit()
         {
+           _dependencies.eB3.Show();
            _dependencies.eB3.FarHeroDetectedAction -= HandleFarHeroDetected;
         }
 
         private void HandleFarHeroDetected(GameObject hero)
         {
             //_dependencies.eB3.SetHeroDetected(hero);
-            _dependencies.fsm.GoToShow();
+            _dependencies.fsm.GoToScan();
         }
     }
 
-    public class ShowState : AbstractState
+    public class ScanState : AbstractState
     {
         private DepsEB3FSM _dependencies;
 
         public void Setup(ref DepsEB3FSM deps)
         {
-            Debug.Log("ShowSetup");
+            Debug.Log("ScanStateSetup");
             _dependencies = deps;
         }
 
         public override void OnEnter()
         {
-           Debug.Log("*Show*");
-           _dependencies.eB3.Show();
-           _dependencies.fsm.GoToPreattack();
+           Debug.Log("*ScanState*");
+           //_dependencies.eB3.Show();
+           //_dependencies.fsm.GoToPreattack();
+           _dependencies.eB3.FarHeroUndetectionAction += HandleFarHeroUndetection;
+           _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+
+           _dependencies.eB3.EnemySawAction += HandleEnemySaw;
+           _dependencies.eB3.ScanHero();
         }
 
         public override void OnExit()
         {
+            _dependencies.eB3.FarHeroUndetectionAction -= HandleFarHeroUndetection;
+            _dependencies.eB3.EnemySawAction -= HandleEnemySaw;
+            _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+            _dependencies.eB3.StopScanHero();
+        }
+
+        private void HandleEnemySaw(Vector3 position)
+        {
+            _dependencies.eB3.SetLastPlaceHeroWasSee(position);
+            _dependencies.fsm.GoToPreattack();
+        }
+
+        private void HandleFarHeroUndetection()
+        {
+            _dependencies.fsm.GoToHide();
+        }
+
+        private void HandleReceiveDamage(int damageValue)
+        {
+            _dependencies.eB3.ReceiveDamage(1);
+            if (_dependencies.eB3.GetCurrentLife() <= 0)
+            {
+                _dependencies.fsm.GoToDie();
+            }
         }
     }
+
+    
 
     public class PreAttackState : AbstractState
     {
@@ -229,12 +261,17 @@ public class EB3FSM : AbstractFiniteStateMachine
         {
             //should notify to fire the bullet fire
             Debug.Log("should fire!!-- FIRE!");
-            _dependencies.fsm.GoToPreattack();
+            _dependencies.eB3.MakeFireAttack();
+            _dependencies.fsm.GoToScan();
         }
-
+        
         private void HandleReceiveDamage(int damageValue)
         {
             _dependencies.eB3.ReceiveDamage(1);
+            if (_dependencies.eB3.GetCurrentLife() <= 0)
+            {
+                _dependencies.fsm.GoToDie();
+            }
         }
         
     }

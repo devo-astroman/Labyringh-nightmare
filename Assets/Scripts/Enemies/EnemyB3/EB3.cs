@@ -6,8 +6,9 @@ public class EB3 : MonoBehaviour
     [SerializeField] EnemyHealth _enemyHealth;
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] EnemySoundManager _enemySoundManager;
-    [SerializeField] HeroDetectorManager _heroDetectorManager;    
-
+    [SerializeField] HeroDetectorManager _heroDetectorManager;
+    [SerializeField] EnemyBulletFirer _enemyBulletFirer;
+    [SerializeField] EnemyVision _enemyVision;
     
 
     [SerializeField] bool _receiveDamage;
@@ -19,13 +20,20 @@ public class EB3 : MonoBehaviour
     
     public Action<GameObject> FarHeroDetectedAction;
     public Action FarHeroUndetectionAction;
-
+    public Action<Vector3> EnemySawAction;
     
+
+    private bool _checkIfIsHeroVisible = false;
+    private bool _isHeroVisible = false;
+    private Vector3 _lastPlaceHeroWasSee;
+    private SetIntervalUtility _intervalScan;
 
     private GameObject heroDetected;
 
     void Start()
     {
+        _intervalScan = new SetIntervalUtility(this);
+
         _eB3Animator.ReceiveHitEndsAction += HandleReceiveHitEnds;
         _eB3Animator.AttackEndsAction += HandleAttackEnds;
 
@@ -54,6 +62,10 @@ public class EB3 : MonoBehaviour
         _eB3Animator.AttackEndsAction -= HandleAttackEnds;
         _heroDetectorManager.FarHeroDetectionAction -= HandleFarHeroDetection;
         _heroDetectorManager.FarHeroUndetectionAction -= HandleFarHeroUndetection;
+        if (_intervalScan != null)
+        {
+            _intervalScan.Dispose();
+        }
     }
 
     public void WaitHideForHero() //idle
@@ -87,6 +99,7 @@ public class EB3 : MonoBehaviour
             Vector3 target = heroDetected.transform.position;
             _eB3Animator.LookToTarget(target);
             _eB3Animator.PlayAttackAnimation();
+
             return true;
         }
         else
@@ -95,9 +108,17 @@ public class EB3 : MonoBehaviour
             //to do save the last place known and make an attack to that point
             Debug.Log("Hero is gone");
             return false;
-        }
+        }        
+    }
 
-        
+    public void MakeFireAttack()
+    {
+        if (heroDetected)
+        {
+            //Vector3 target = heroDetected.transform.position;
+            Vector3 target = _lastPlaceHeroWasSee;
+            _enemyBulletFirer.FireBulletFromOringin(target);
+        }
     }
 
     public void Die()
@@ -105,6 +126,10 @@ public class EB3 : MonoBehaviour
         _enemySoundManager.PlayDie();
         _eB3Animator.PlayDieAnimation();
         _enemyCollidersManager.DeactivatePainColliders();
+        if (_intervalScan != null)
+        {
+            _intervalScan.Dispose();
+        }
     }
 
     public void SetHealthLife(int life)
@@ -125,6 +150,41 @@ public class EB3 : MonoBehaviour
     public void Hide()
     {
         _eB3Animator.PlayHideAnimation();
+    }
+
+/*     public void CheckHeroVisibility()
+    {
+        _checkIfIsHeroVisible =true;
+    }
+    public void IgnoreHeroVisibility()
+    {
+        _checkIfIsHeroVisible=false;
+    } */
+    public void ScanHero()
+    {
+        _checkIfIsHeroVisible =true;
+        _intervalScan.SetInterval(() =>
+        {
+            if (heroDetected && _checkIfIsHeroVisible)
+            {
+                if (_enemyVision.CanSeePlayer(heroDetected.transform))
+                {
+                    EnemySawAction?.Invoke(heroDetected.transform.position);
+                }
+                
+            }
+
+        },1f);
+    }
+
+    public void StopScanHero()
+    {
+        _checkIfIsHeroVisible =false;
+    }
+
+    public void SetLastPlaceHeroWasSee(Vector3 position)
+    {
+        _lastPlaceHeroWasSee = position;
     }
 
     private void HandleReceiveHitEnds()
