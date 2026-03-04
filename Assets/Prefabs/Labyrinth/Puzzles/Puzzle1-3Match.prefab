@@ -989,7 +989,7 @@ GameObject:
   - component: {fileID: 1755590326181190037}
   - component: {fileID: 2491881665172184650}
   m_Layer: 0
-  m_Name: Puzzle1
+  m_Name: Puzzle1-3Match
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

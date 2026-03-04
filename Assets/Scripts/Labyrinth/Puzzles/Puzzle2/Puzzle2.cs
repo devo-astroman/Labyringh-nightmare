@@ -61,6 +61,22 @@ public class Puzzle2 : MonoBehaviour
         Debug.Log("values " + col3RotatorValues[0] + " " + col3RotatorValues[1] + " " + col3RotatorValues[2]);
 
         //if success ...
+
+        if(col3RotatorValues[0] == col3RotatorValues[1] && col3RotatorValues[1] == col3RotatorValues[2])
+        {
+            Debug.Log("Success!");
+            _colButtonCheck.PressButton();
+            _colButtonCheck.Deactivate();
+            _colButtonRotateUp.Deactivate();
+            _colButtonRotateMiddle.Deactivate();
+            _colButtonRotateBottom.Deactivate();
+        }
+        else
+        {
+            Debug.Log("Wrong!");
+            _colButtonCheck.PressAndPull();
+        }
+
     }
     
     
