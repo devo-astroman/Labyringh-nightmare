@@ -17,6 +17,7 @@ public class AnimatorEventHandler : MonoBehaviour
 
     public void OnFireEvent1(int id)
     {
+        Debug.Log("OnFireEvent1");
         FireEvent1Action?.Invoke(id);
     }
 

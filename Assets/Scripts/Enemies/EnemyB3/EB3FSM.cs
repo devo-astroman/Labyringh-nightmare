@@ -152,8 +152,6 @@ public class EB3FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*ScanState*");
-           //_dependencies.eB3.Show();
-           //_dependencies.fsm.GoToPreattack();
            _dependencies.eB3.FarHeroUndetectionAction += HandleFarHeroUndetection;
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
 
@@ -242,26 +240,30 @@ public class EB3FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
            Debug.Log("*Attack*");           
-           _dependencies.eB3.AttackEndsAction += HandleAttackEnds;           
+           _dependencies.eB3.AttackEndsAction += HandleAttackEnds;
            if(!_dependencies.eB3.Attack()){
             //the attack was not 
                 _dependencies.fsm.GoToPreattack();
            }
 
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
+           _dependencies.eB3.AttackPrimeMomentReachedAction += HandleAttackPrimeMomentReached;
+
         }
 
         public override void OnExit()
         {
             _dependencies.eB3.AttackEndsAction -= HandleAttackEnds;
             _dependencies.fsm.ReceiveDamageAction -= HandleReceiveDamage;
+            _dependencies.eB3.AttackPrimeMomentReachedAction -= HandleAttackPrimeMomentReached;
+        }
+
+        private void HandleAttackPrimeMomentReached(){
+            _dependencies.eB3.MakeFireAttack();
         }
 
         private void HandleAttackEnds()
         {
-            //should notify to fire the bullet fire
-            Debug.Log("should fire!!-- FIRE!");
-            _dependencies.eB3.MakeFireAttack();
             _dependencies.fsm.GoToScan();
         }
         

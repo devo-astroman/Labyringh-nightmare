@@ -3,13 +3,15 @@ using System;
 
 public class EndStateBehaviour : StateMachineBehaviour
 {
-    public event Action StateExitAction;
+    public string stateName;
+    public event Action<string> StateExitAction;
 
     public override void OnStateExit(
         Animator animator,
         AnimatorStateInfo stateInfo,
         int layerIndex)
     {
-        StateExitAction?.Invoke();
+        Debug.Log("EndStateBeh");
+        StateExitAction?.Invoke(stateName);
     }
 }

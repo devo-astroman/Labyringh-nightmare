@@ -21,6 +21,8 @@ public class EB3 : MonoBehaviour
     public Action<GameObject> FarHeroDetectedAction;
     public Action FarHeroUndetectionAction;
     public Action<Vector3> EnemySawAction;
+    public Action AttackPrimeMomentReachedAction;
+    
     
 
     private bool _checkIfIsHeroVisible = false;
@@ -36,6 +38,9 @@ public class EB3 : MonoBehaviour
 
         _eB3Animator.ReceiveHitEndsAction += HandleReceiveHitEnds;
         _eB3Animator.AttackEndsAction += HandleAttackEnds;
+        _eB3Animator.AttackPrimeMomentReachedAction += HandleAttackPrimeMomentReached;
+
+        
 
         _heroDetectorManager.FarHeroDetectionAction += HandleFarHeroDetection;
         _heroDetectorManager.FarHeroUndetectionAction += HandleFarHeroUndetection;
@@ -60,6 +65,8 @@ public class EB3 : MonoBehaviour
     {
         _eB3Animator.ReceiveHitEndsAction -= HandleReceiveHitEnds;
         _eB3Animator.AttackEndsAction -= HandleAttackEnds;
+        _eB3Animator.AttackPrimeMomentReachedAction -= HandleAttackPrimeMomentReached;
+
         _heroDetectorManager.FarHeroDetectionAction -= HandleFarHeroDetection;
         _heroDetectorManager.FarHeroUndetectionAction -= HandleFarHeroUndetection;
         if (_intervalScan != null)
@@ -196,6 +203,13 @@ public class EB3 : MonoBehaviour
     {
         AttackEndsAction?.Invoke();
     }
+
+    private void HandleAttackPrimeMomentReached()
+    {
+        AttackPrimeMomentReachedAction?.Invoke();
+    }
+
+    
 
     private void HandleFarHeroDetection(GameObject hero)
     {

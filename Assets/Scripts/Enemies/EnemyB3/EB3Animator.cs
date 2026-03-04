@@ -5,12 +5,14 @@ public class EB3Animator : MonoBehaviour
 {
     [SerializeField] Animator _animator;
     [SerializeField] SkinnedMeshRenderer _meshRenderer;
+    [SerializeField] AnimatorEventHandler _animatorEventHandler;
 
-    private EndStateBehaviour _attackBehaviour;
-    private EndStateBehaviour _receiveHitBehaviour;
 
     public Action ReceiveHitEndsAction;
     public Action AttackEndsAction;
+    public Action AttackPrimeMomentReachedAction;
+
+    
 
     public void PlayShowAnimation()
     {
@@ -62,30 +64,29 @@ public class EB3Animator : MonoBehaviour
 
     void Start()
     {
-        _attackBehaviour = _animator.GetBehaviour<EndStateBehaviour>();
-        if (_attackBehaviour != null)
-        {
-            _attackBehaviour.StateExitAction += HandleAttackFinished;
-        }
 
-        _receiveHitBehaviour = _animator.GetBehaviour<EndStateBehaviour>();
-        if (_receiveHitBehaviour != null)
-        {
-            _receiveHitBehaviour.StateExitAction += HandleReceiveHitFinished;
-        }
-        
+        _animatorEventHandler.FireEvent1Action += HandleFireEvent1Action;
+
+        var behaviours = _animator.GetBehaviours<EndStateBehaviour>();
+        foreach (var b in behaviours)
+            b.StateExitAction += HandleAnimationFinished;
     }
 
     void OnDestroy()
     {
-        if (_attackBehaviour != null)
-        {
-            _attackBehaviour.StateExitAction -= HandleAttackFinished;
-        }
+        _animatorEventHandler.FireEvent1Action -= HandleFireEvent1Action;
 
-        if (_receiveHitBehaviour != null)
+        var behaviours = _animator.GetBehaviours<EndStateBehaviour>();
+        foreach (var b in behaviours)
+            b.StateExitAction -= HandleAnimationFinished;
+       
+    }
+
+    private void HandleAnimationFinished(string stateName)
+    {
+        if(stateName == "Attack_eventHandler")
         {
-            _receiveHitBehaviour.StateExitAction -= HandleReceiveHitFinished;
+            HandleAttackFinished();
         }
     }
 
@@ -94,8 +95,9 @@ public class EB3Animator : MonoBehaviour
         AttackEndsAction?.Invoke();
     }
 
-    private void HandleReceiveHitFinished()
+    private void HandleFireEvent1Action(int id)
     {
-        ReceiveHitEndsAction?.Invoke();
+        AttackPrimeMomentReachedAction?.Invoke();
     }
+
 }
