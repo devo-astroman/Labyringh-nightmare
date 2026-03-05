@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 56c2d6247a30b6b4db965b8b78032d46, type: 2}
+  - {fileID: 2100000, guid: ae9a6b15063cc7e46aea826d486ae508, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,6 +227,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &1193188422218773105
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +291,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 56c2d6247a30b6b4db965b8b78032d46, type: 2}
+  - {fileID: 2100000, guid: ae9a6b15063cc7e46aea826d486ae508, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -454,6 +456,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &1815130991152519467
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fc6e4e69257f6648b1788427686a249, type: 2}
+  - {fileID: 2100000, guid: 92cdd7d5be8708d45992a43e71b5eb37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -681,6 +685,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &3173941860635867936
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +749,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fc6e4e69257f6648b1788427686a249, type: 2}
+  - {fileID: 2100000, guid: 92cdd7d5be8708d45992a43e71b5eb37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -932,7 +938,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 56c2d6247a30b6b4db965b8b78032d46, type: 2}
+  - {fileID: 2100000, guid: ae9a6b15063cc7e46aea826d486ae508, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1081,6 +1087,9 @@ MonoBehaviour:
   _col2: {fileID: 6975641189438182767}
   _col3: {fileID: 2349820312531525943}
   _colButton: {fileID: 1127528784447588747}
+  _col1Solution: 3
+  _col2Solution: 0
+  _col3Solution: 1
 --- !u!1 &9014707696295448465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,7 +1152,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fc6e4e69257f6648b1788427686a249, type: 2}
+  - {fileID: 2100000, guid: 92cdd7d5be8708d45992a43e71b5eb37, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1474,7 +1483,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4bdfa4190fbaa564a8d68a67b36fb5cd, type: 2}
+      objectReference: {fileID: 2100000, guid: 8a20cb866121a3b4c8ae7363785366f7, type: 2}
     - target: {fileID: 2624964373077079919, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1514,7 +1523,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b1e03981b5132d5419c0581c0005f98d, type: 2}
+      objectReference: {fileID: 2100000, guid: ab58fb28a25e3644cbe3300e211608e0, type: 2}
     - target: {fileID: 6158659288567424202, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -1745,7 +1754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5671b99ead04892d86649fe44057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _intValue: 0
 --- !u!4 &5281485030742279866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6158659288567424202, guid: b2939016439b7954383a23f3c9ac760e,
@@ -1809,7 +1817,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 664ba69ce61ea3549a3f9b78f37af96b, type: 2}
+      objectReference: {fileID: 2100000, guid: 24d1a409c38664e4395e072d55e14978, type: 2}
     - target: {fileID: 2624964373077079919, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1849,7 +1857,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b1e03981b5132d5419c0581c0005f98d, type: 2}
+      objectReference: {fileID: 2100000, guid: ab58fb28a25e3644cbe3300e211608e0, type: 2}
     - target: {fileID: 6158659288567424202, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2080,7 +2088,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5671b99ead04892d86649fe44057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _intValue: 0
 --- !u!4 &7007328163296758362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 93223142159128100, guid: b2939016439b7954383a23f3c9ac760e,
@@ -2144,7 +2151,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a07aa8e3e42f3cc44b1ec8450abc6f3c, type: 2}
+      objectReference: {fileID: 2100000, guid: 20bed29c7b4da8847820f2560c02b980, type: 2}
     - target: {fileID: 2624964373077079919, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -2184,7 +2191,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b1e03981b5132d5419c0581c0005f98d, type: 2}
+      objectReference: {fileID: 2100000, guid: ab58fb28a25e3644cbe3300e211608e0, type: 2}
     - target: {fileID: 6158659288567424202, guid: b2939016439b7954383a23f3c9ac760e,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -2415,7 +2422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1e5671b99ead04892d86649fe44057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _intValue: 0
 --- !u!4 &9098929597973657174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 93223142159128100, guid: b2939016439b7954383a23f3c9ac760e,

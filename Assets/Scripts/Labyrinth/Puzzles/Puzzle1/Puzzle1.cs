@@ -17,9 +17,9 @@ public class Puzzle1 : MonoBehaviour
 
     #region Private properties    
 
-    private int _col1Solution = 3;
-    private int _col2Solution = 0;
-    private int _col3Solution = 1;
+    [SerializeField] private int _col1Solution = 3;
+    [SerializeField] private int _col2Solution = 0;
+    [SerializeField] private int _col3Solution = 1;
     #endregion
     #region Unity Callbacks    
     #endregion
@@ -31,9 +31,12 @@ public class Puzzle1 : MonoBehaviour
         int col2Value = _col2.GetComponent<IntValue>().GetValue();
         int col3Value = _col3.GetComponent<IntValue>().GetValue();
 
-        Debug.Log("col1Value " + col1Value + " !== " + _col1Solution);
+        Debug.Log("columns: " + col1Value + " " + col2Value + " " + col3Value  );
+        Debug.Log("solution: " + _col1Solution + " " + _col2Solution + " " + _col3Solution  );
+
+        /* Debug.Log("col1Value " + col1Value + " !== " + _col1Solution);
         Debug.Log("col2Value " + col2Value + " !== " + _col2Solution);
-        Debug.Log("col3Value " + col3Value + " !== " + _col3Solution);
+        Debug.Log("col3Value " + col3Value + " !== " + _col3Solution); */
 
         if(_col1Solution == col1Value && _col2Solution == col2Value && _col3Solution == col3Value)
         {
