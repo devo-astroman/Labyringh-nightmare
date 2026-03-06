@@ -37,6 +37,12 @@ public class BinaryEyeSymbol : MonoBehaviour
     {
         return _isOpen;
     }
+
+    public void SetIsOpen(bool isOpen)
+    {
+        _isOpen = isOpen;
+        UpdateSymbols();
+    }
 	#endregion
     
     #region Private methods

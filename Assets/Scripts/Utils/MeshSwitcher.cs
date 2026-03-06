@@ -40,6 +40,11 @@ public class MeshSwitcher : MonoBehaviour
     {
         return _isVisible;
     }
+    public void SetIsVisible(bool isVisible)
+    {
+        _isVisible = isVisible;
+        UpdateMesh();
+    }
 	#endregion
     
     #region Private methods
