@@ -3465,6 +3465,8 @@ MonoBehaviour:
     type: 3}
   _puzzle2Prefab: {fileID: 410543084029467724, guid: 248fa1fdfcaa6ce4294e3f4c94813e99,
     type: 3}
+  _puzzleCompassPrefab: {fileID: 277540770513368426, guid: 375731c0e2301f244ac087a2ef1cbe15,
+    type: 3}
 --- !u!4 &1286949987
 Transform:
   m_ObjectHideFlags: 0
@@ -5540,7 +5542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2057883675
 Transform:
   m_ObjectHideFlags: 0
@@ -6417,7 +6419,7 @@ PrefabInstance:
     - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.15
+      value: 25.53
       objectReference: {fileID: 0}
     - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
         type: 3}
@@ -6427,7 +6429,7 @@ PrefabInstance:
     - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 37.37
+      value: 44.2
       objectReference: {fileID: 0}
     - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
         type: 3}

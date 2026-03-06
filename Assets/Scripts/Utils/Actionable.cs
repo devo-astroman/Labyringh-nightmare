@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 
 public class Actionable : MonoBehaviour
@@ -12,6 +11,7 @@ public class Actionable : MonoBehaviour
 
     #region public properties
     public UnityEvent MakeInteractionUnityEvent;
+    public Action MakeInteractionAction;
 
     #endregion
 
@@ -23,8 +23,8 @@ public class Actionable : MonoBehaviour
     #region Public methods
     public void MakeInteraction()
     {
-        Debug.Log("_MakeInteraction_");
         MakeInteractionUnityEvent.Invoke();
+        MakeInteractionAction?.Invoke();
     }
 	#endregion
     

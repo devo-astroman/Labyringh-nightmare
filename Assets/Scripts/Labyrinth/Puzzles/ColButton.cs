@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using System;
 
 public class ColButton : MonoBehaviour
 {
@@ -15,8 +14,9 @@ public class ColButton : MonoBehaviour
     #endregion
 
     #region public properties
-    public UnityEvent onPressed;
+    public UnityEvent onPressed;    
     public UnityEvent onPulled;
+    public Action buttonIteractAction;
 
 
     
@@ -65,6 +65,7 @@ public class ColButton : MonoBehaviour
     {
         //_interpolatorMover.MoveFromTo(_originTransform.position,_destinyTransform.position,1f);
         onPressed?.Invoke();
+        buttonIteractAction?.Invoke();
     }
 
     public void PressButton()
