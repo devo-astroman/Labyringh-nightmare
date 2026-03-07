@@ -1,9 +1,6 @@
 using KevinCastejon.FiniteStateMachine;
 using UnityEngine;
 using System;
-using UnityEngine.AI;
-using UnityEditorInternal;
-using UnityEngine.Video;
 
 
 public class DependenciesEnemyB1FSM

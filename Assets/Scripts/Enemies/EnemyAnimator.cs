@@ -1,7 +1,5 @@
 using UnityEngine;
 using System;
-using UnityEngine.AI;
-using UnityEditorInternal;
 
 
 public class EnemyAnimator : MonoBehaviour

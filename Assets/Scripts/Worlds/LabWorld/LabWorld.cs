@@ -16,6 +16,8 @@ public class LabWorld : MonoBehaviour
 
     private SetTimeoutUtility _timeoutToStart;
     private SetTimeoutUtility _timeoutToSpawnEnemies;
+    private SetTimeoutUtility _timeoutToSpawnEnemies2;
+    private SetTimeoutUtility _timeoutToSpawnEnemies3;
     private Vector3 _heroSpawnPoint;
 
     [SerializeField] private Transform _enemySpawnPointTransform;
@@ -28,6 +30,8 @@ public class LabWorld : MonoBehaviour
     {   
         _timeoutToStart = new SetTimeoutUtility(this);
         _timeoutToSpawnEnemies = new SetTimeoutUtility(this);
+        _timeoutToSpawnEnemies2 = new SetTimeoutUtility(this);
+        _timeoutToSpawnEnemies3 = new SetTimeoutUtility(this);
 
         //_labyrinthCreator.GenerateLabyrinthTest();
 
@@ -46,9 +50,9 @@ public class LabWorld : MonoBehaviour
         Debug.Log("LabWorld");
         
         SpawnPlayer();
-        //SpawnEnemy();
-        //SpawnEnemy2();
-        SpawnEnemy3();
+/*         SpawnEnemy();
+        SpawnEnemy2();
+        SpawnEnemy3(); */
     }
 
     void Update()
@@ -113,7 +117,7 @@ public class LabWorld : MonoBehaviour
 
     private void SpawnEnemy2()
     {
-        _timeoutToSpawnEnemies.SetTimeout(() => {
+        _timeoutToSpawnEnemies2.SetTimeout(() => {
             Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
             _enemyManager.WakeUpEnemyB2(enemySpawnPosition,_heroFSM.transform.Find("Hero"));
 
@@ -132,7 +136,7 @@ public class LabWorld : MonoBehaviour
 
     private void SpawnEnemy3()
     {
-        _timeoutToSpawnEnemies.SetTimeout(() => {
+        _timeoutToSpawnEnemies3.SetTimeout(() => {
             Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(7,0);
             _enemyManager.WakeUpEnemyB3(enemySpawnPosition);
 
