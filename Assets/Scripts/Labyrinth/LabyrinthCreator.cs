@@ -26,7 +26,7 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private LabyrinthObjectsManager _labyrinthObjectsManager;
 
     
-
+    public Action<int> PuzzleSolved;
     
 
     // doors[x,y] bitmask: N=1, E=2, S=4, W=8
@@ -40,12 +40,22 @@ public class LabyrinthCreator : MonoBehaviour
 
     private Coroutine _generateRoutine;
 
+    void Start()
+    {
+        _labyrinthObjectsManager.PuzzleSolvedAction += HandlePuzzleSolved;
+    }
+
     public void GenerateLabyrinth()
     {
         if (_generateRoutine != null)
             StopCoroutine(_generateRoutine);
 
         _generateRoutine = StartCoroutine(GenerateLabyrinthRoutine());
+    }
+
+    void OnDestroy()
+    {
+        _labyrinthObjectsManager.PuzzleSolvedAction -= HandlePuzzleSolved;
     }
 
     private IEnumerator GenerateLabyrinthRoutine()
@@ -304,5 +314,10 @@ public class LabyrinthCreator : MonoBehaviour
             int j = _rng.Next(i + 1);
             (list[i], list[j]) = (list[j], list[i]);
         }
+    }
+
+    private void HandlePuzzleSolved(int id)
+    {
+        PuzzleSolved?.Invoke(id);
     }
 }

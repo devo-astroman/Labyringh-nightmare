@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatorDiscPuzzle : MonoBehaviour
+public class RotatorDisc3Puzzle : MonoBehaviour
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;

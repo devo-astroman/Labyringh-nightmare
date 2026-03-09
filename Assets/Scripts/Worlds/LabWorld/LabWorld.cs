@@ -12,7 +12,7 @@ public class LabWorld : MonoBehaviour
     
 
     [SerializeField] private EnemyManager _enemyManager;
-    [SerializeField] private LabyrinthCreator _labyrinthCreator;
+    [SerializeField] private LabyrinthCreator _labyrinthCreator;    
 
     private SetTimeoutUtility _timeoutToStart;
     private SetTimeoutUtility _timeoutToSpawnEnemies;
@@ -34,6 +34,9 @@ public class LabWorld : MonoBehaviour
         _timeoutToSpawnEnemies3 = new SetTimeoutUtility(this);
 
         //_labyrinthCreator.GenerateLabyrinthTest();
+
+        _labyrinthCreator.PuzzleSolved += HandlePuzzleSolved;
+
 
         _labyrinthCreator.GenerateLabyrinth();
         Vector3[] positionsRoom = _labyrinthCreator.GetStartAndEndPositions();
@@ -63,6 +66,8 @@ public class LabWorld : MonoBehaviour
     {
         if(_timeoutToStart != null)
             _timeoutToStart.Dispose();
+
+        _labyrinthCreator.PuzzleSolved -= HandlePuzzleSolved;
     }
 
     private void SpawnPlayer()
@@ -194,6 +199,19 @@ public class LabWorld : MonoBehaviour
             _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
         }
 
+    }
+
+    private void HandlePuzzleSolved(int id)
+    {
+        //should deactivate the puzzle
+        //should activate the corresponding enemy wave
+        Debug.Log("_______HandlePuzzleSolved_____ " + id);
+    }
+
+    private void HandleAllWaveEnemiesDied(int idWave)
+    {//from the subscription to the enemy manager
+        //should activate a new puzzle to be solved
+        //if is the last wave, should give a key to exit
     }
 
 }

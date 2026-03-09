@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using System.Data.Common;
-using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class LabyrinthObjectsManager : MonoBehaviour
 {
@@ -17,98 +16,18 @@ public class LabyrinthObjectsManager : MonoBehaviour
     [SerializeField] private List<Spikes> _allSpikes = new List<Spikes>();
 
     [SerializeField] private List<string> _roomProcessed = new List<string>();
-    
 
-    
+    [SerializeField] private PuzzlesManager _puzzleManager;
+    public Action<int> PuzzleSolvedAction;
 
     private int _iRoom = 0;
     private int _iLayer = 0;
     private int _iCube = 0;
 
-    /* public void ProcessRoom(GameObject roomGO, int x, int y, int mask)
+    void Start()
     {
-        
-        RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
-        //roomPositionGO.name = $"RoomPos_{x}_{y}";
-
-        roomPositionGO.HideAllCubePositions();
-        //roomPositionGO.ShowCubePosition(_iLayer,_iCube);
-
-        _allRoomPositions.Add(roomPositionGO);
-        _iRoom = _allRoomPositions.Count; // keeps it consistent
-
-        if(_iLayer == roomPositionGO.LAYER_BELOW)
-        {
-            Debug.Log("x " + x + " y " + y + " iCube " + _iCube);
-
-            Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
-
-            GameObject box = _objectsFactory.GetBox2Empties(position);
-            //should save that box in a list or something similar
-            
-            if(x == 9 && y == 0)
-            {
-                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 90);
-                if (ammoOnBoxGO)
-                {
-                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
-                }
-            }else if (x == 3 && y == 2)
-            {
-                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 32);
-                if (ammoOnBoxGO)
-                {
-                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
-                }
-
-            }else if (x == 0 && y == 9)
-            {
-                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 9);
-                if (ammoOnBoxGO)
-                {
-                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
-                }
-
-            }else if (x == 6 && y == 6)
-            {
-                GameObject ammoOnBoxGO = _objectsFactory.GetAmmoOnBox(position, 66);
-                if (ammoOnBoxGO)
-                {
-                    _allAmmoOnBox.Add(ammoOnBoxGO.GetComponent<AmmoOnBox>());    
-                }
-            }
-            else
-            {
-                int r =  Random.Range(0,5);
-                if(r == 0)
-                {
-                    //Improve here
-                    / * 
-                    Vector3 position = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,_iCube);
-
-                    int id = int.Parse(x.ToString() + y.ToString());
-                    GameObject spikesGO = _objectsFactory.GetSpikes(position, id);
-                    Debug.Log("spikesGO >>> " + spikesGO.GetComponent<Spikes>().GetId());
-                    _allSpikes.Add(spikesGO.GetComponent<Spikes>());  * /
-                }
-            }
-            //should save that box in a list or something similar
-
-
-        }
-
-
-        _iCube++;
-        if(_iCube >= 9)
-        {
-            _iCube=0;
-            _iLayer++;
-            if (_iLayer >= 3)
-            {
-                _iLayer=0;
-            }
-        }
-    } */
+        _puzzleManager.PuzzleSolvedAction += HandlePuzzleSolved;
+    }
 
     public void ProcessRoom(GameObject roomGO, int x, int y, int mask)
     {
@@ -151,6 +70,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(0,p1);
 
             //GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
             //GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
@@ -161,34 +81,40 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(1,p2);
 
         }else  if(x==1 & y == 6)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(2,p3);
 
         }else  if(x==3 & y == 5)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
+            GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(3,p4);
 
         }else  if(x==3 & y == 8)
         {
 
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,mask);
+            GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(4,p5);
 
         }else  if(x==6 & y == 6)
         {
 
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,mask);
+            GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(5,p6);
 
         }else  if(x==8 & y == 1)
         {
 
-            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            /* Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(6,p3); */
             
         }else 
         {// rest of the rooms should be random
@@ -196,21 +122,21 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int n = 3;
             RandomRoomPositions.FillRandomIndexes(n, tmp);
 
-            if (Random.Range(0, 10) == 0)
+            if (UnityEngine.Random.Range(0, 10) == 0)
             {
                 //place one box in the middle
                 Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[0]);
                 GameObject box = _objectsFactory.GetBox2Empties(middlePosition);
             }
 
-            if (Random.Range(0, 1) == 0)
+            if (UnityEngine.Random.Range(0, 1) == 0)
             {
                 //place a spike in the upper right corner
                 Vector3 lowerLCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[1]);
                 GameObject spikes = _objectsFactory.GetSpikes(lowerLCornerPosition,id);
             }
 
-            if (Random.Range(0, 10) == 0)
+            if (UnityEngine.Random.Range(0, 10) == 0)
             {
                 //place other box in the lower corner with an ammo
                 Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[2]);
@@ -228,5 +154,15 @@ public class LabyrinthObjectsManager : MonoBehaviour
     public RoomPositions[] GetAllRoomPositionsArray()
     {
         return _allRoomPositions.ToArray();
+    }
+
+    void OnDestroy()
+    {
+        _puzzleManager.PuzzleSolvedAction -= HandlePuzzleSolved;
+    }
+
+    private void HandlePuzzleSolved(int id)
+    {
+        PuzzleSolvedAction?.Invoke(id);
     }
 }
