@@ -101,26 +101,26 @@ public class CompassBinary : MonoBehaviour
         compassCoord.MeshSwitcher.Switch();
     }
 
-    private void HandleButtonNIteract()
+    private void HandleButtonNIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordN);
         CheckSolutionReached(_compassCoordN.ColButton);
     }
 
-        private void HandleButtonSIteract()
+        private void HandleButtonSIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordS);
         CheckSolutionReached(_compassCoordS.ColButton);
     }
 
-    private void HandleButtonEIteract()
+    private void HandleButtonEIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordE);
         CheckSolutionReached(_compassCoordE.ColButton);
     }
 
 
-    private void HandleButtonWIteract()
+    private void HandleButtonWIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordW);
         CheckSolutionReached(_compassCoordW.ColButton);

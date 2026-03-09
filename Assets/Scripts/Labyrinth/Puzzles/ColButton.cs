@@ -16,14 +16,14 @@ public class ColButton : MonoBehaviour
     #region public properties
     public UnityEvent onPressed;    
     public UnityEvent onPulled;
-    public Action buttonIteractAction;
+    public Action<int> buttonIteractAction;
 
 
     
     #endregion
 
     #region Private properties
-    private int _id = 0;    
+    private int _id = 0;
     private HeroFSM _heroFSM;
     #endregion
     #region Unity Callbacks
@@ -65,7 +65,7 @@ public class ColButton : MonoBehaviour
     {
         //_interpolatorMover.MoveFromTo(_originTransform.position,_destinyTransform.position,1f);
         onPressed?.Invoke();
-        buttonIteractAction?.Invoke();
+        buttonIteractAction?.Invoke(_id);
     }
 
     public void PressButton()

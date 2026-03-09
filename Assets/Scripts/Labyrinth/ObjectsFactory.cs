@@ -11,6 +11,7 @@ public class ObjectsFactory : MonoBehaviour
     [SerializeField] private GameObject _puzzle1Prefab;
     [SerializeField] private GameObject _puzzle2Prefab;
     [SerializeField] private GameObject _puzzleCompassPrefab;
+    [SerializeField] private GameObject _puzzleRowBinPrefab;
     
      
      private List<int> _allAmmoBoxIdsCreated = new List<int>();
@@ -113,6 +114,26 @@ public class ObjectsFactory : MonoBehaviour
         Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
 
         GameObject puzzle = Instantiate(_puzzleCompassPrefab, position, rot);
+        puzzle.name = "Puzzle_" + id;
+
+        Debug.Log($"MASK {mask} | closedSideBit {closedSideBit}");
+
+        _allPuzzlesIdsCreated.Add(id);
+        return puzzle;
+    }
+
+    public GameObject GetPuzzleRowBin(Vector3 position, int id, int mask)
+    {
+        if (_allPuzzlesIdsCreated.Contains(id))
+            return null;
+
+        // Pick a CLOSED side (empty wall) from the mask
+        int closedSideBit = PickRandomClosedSide(mask);
+
+        // Compute Y rotation so the puzzle faces into the room from that wall
+        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+
+        GameObject puzzle = Instantiate(_puzzleRowBinPrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
 
         Debug.Log($"MASK {mask} | closedSideBit {closedSideBit}");

@@ -151,7 +151,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             //GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
-            GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
+            //GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
+            GameObject puzzleCompass = _objectsFactory.GetPuzzleRowBin(upperRCornerPosition,id,mask);
             
 
         }else  if(x==4 & y == 2)
