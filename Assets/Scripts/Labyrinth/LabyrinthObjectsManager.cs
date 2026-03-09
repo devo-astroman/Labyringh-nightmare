@@ -150,43 +150,45 @@ public class LabyrinthObjectsManager : MonoBehaviour
         else  if(x==1 & y == 0)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            GameObject p1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+
             //GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
             //GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
-            GameObject puzzleCompass = _objectsFactory.GetPuzzleRowBin(upperRCornerPosition,id,mask);
+            //GameObject puzzleCompass = _objectsFactory.GetPuzzleRowBin(upperRCornerPosition,id,mask);
             
 
         }else  if(x==4 & y == 2)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
 
         }else  if(x==1 & y == 6)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
 
         }else  if(x==3 & y == 5)
         {
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
 
         }else  if(x==3 & y == 8)
         {
 
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,mask);
 
         }else  if(x==6 & y == 6)
         {
 
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,mask);
 
         }else  if(x==8 & y == 1)
         {
 
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject puzzle1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
+            GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
             
         }else 
         {// rest of the rooms should be random

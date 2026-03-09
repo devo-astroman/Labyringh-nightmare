@@ -142,6 +142,32 @@ public class PointerLookAtCycler : MonoBehaviour
         OnRotationFinished?.Invoke(currentIndex, target);
     }
 
+    public void RotateInstantSteps(int steps)
+    {
+        if (pointer == null || targets.Count == 0) return;
+
+        // Update index using wrap-around
+        currentIndex = (currentIndex + steps) % targets.Count;
+
+        if (currentIndex < 0)
+            currentIndex += targets.Count;
+
+        Transform target = targets[currentIndex];
+        if (target == null) return;
+
+        Vector3 dir = target.position - pointer.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.0001f) return;
+
+        pointer.rotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
+
+        isRotating = false;
+        finishedEventFiredForCurrent = true;
+
+        OnRotationFinished?.Invoke(currentIndex, target);
+    }
+
     private void MarkNeedsRotation()
     {
         // When we change target, we want rotation to start (or continue) and allow event to fire.
