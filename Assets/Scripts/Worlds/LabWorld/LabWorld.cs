@@ -145,6 +145,47 @@ public class LabWorld : MonoBehaviour
             heroTransform = null
         };
         _waveManager.PrepareWave(3,wd3);
+
+////
+        ePos1 = _labyrinthCreator.GetRoomPosition(0,1);
+        positions = new Vector3[]{ePos1};
+
+        WaveData wd4 = new WaveData
+        {
+            typeEnemies = new int[] { 0 },   // example types
+            bornPositions = positions,
+            patrolPoints = null,             // or provide patrol paths
+            heroTransform = heroTransform
+        };
+        _waveManager.PrepareWave(4,wd4);
+
+////
+        ePos1 = _labyrinthCreator.GetRoomPosition(7,7);
+        positions = new Vector3[]{ePos1};
+
+        WaveData wd5 = new WaveData
+        {
+            typeEnemies = new int[] { 0 },   // example types
+            bornPositions = positions,
+            patrolPoints = null,             // or provide patrol paths
+            heroTransform = heroTransform
+        };
+        _waveManager.PrepareWave(5,wd5);
+
+////
+        ePos1 = _labyrinthCreator.GetRoomPosition(3,3);
+        positions = new Vector3[]{ePos1};
+
+        WaveData wd6 = new WaveData
+        {
+            typeEnemies = new int[] { 0 },   // example types
+            bornPositions = positions,
+            patrolPoints = null,             // or provide patrol paths
+            heroTransform = heroTransform
+        };
+        _waveManager.PrepareWave(6,wd6);
+
+        
     }
     
 
@@ -196,26 +237,19 @@ public class LabWorld : MonoBehaviour
         //should activate the corresponding enemy wave
         Debug.Log("_______HandlePuzzleSolved_____ " + id);
         //id = 10;
-        if (id == 0)
+        if (id < 6)
         {
-            _waveManager.RunWave(1);
-        }else if (id == 1)
-        {
-           _waveManager.RunWave(2);
+            _waveManager.RunWave(id+1);
         }
         else
         {
-            _waveManager.RunWave(3);
+           Debug.Log("Last puzzle");
         }
-
-
     }
 
     private void HandleWaveFinished(int idWave)
     {
-        
-
-        if(idWave < 6)
+        if(idWave < 7)
         {
             _labyrinthCreator.ActivatePuzzle(idWave);
         }
@@ -223,8 +257,6 @@ public class LabWorld : MonoBehaviour
         {
             Debug.Log("OPEN THE EXIT");
         }
-        
-
     }
 
 }
