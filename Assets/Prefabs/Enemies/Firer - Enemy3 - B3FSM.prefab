@@ -120,8 +120,9 @@ GameObject:
   - component: {fileID: 4431016708195999309}
   - component: {fileID: 3819119019255055056}
   - component: {fileID: 4431895245909644661}
+  - component: {fileID: 8473162306258476265}
   m_Layer: 9
-  m_Name: Enemy3 - B3FSM
+  m_Name: Firer - Enemy3 - B3FSM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _eB3: {fileID: 6936243118782171066}
   _life: 2
+  _diedNotifier: {fileID: 8473162306258476265}
   _testReceiveDamage: 0
   _testAttack: 0
   _following: 0
@@ -330,6 +332,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8473162306258476265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644394296480915154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef55d85b480c024429ff4ad531d69e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &734029683796652308
 GameObject:
   m_ObjectHideFlags: 0

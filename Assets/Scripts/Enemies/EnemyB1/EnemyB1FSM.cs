@@ -14,7 +14,9 @@ public class DependenciesEnemyB1FSM
 
 public class EnemyB1FSM : AbstractFiniteStateMachine
 {
+    private int _id;
     [SerializeField] private EnemyB1 _enemyB1;
+    [SerializeField] private IntNotifier _intNotifier;
 
     public Action<int> ReceiveDamageAction;
 
@@ -69,6 +71,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
     public void SetId(int id)
     {
+        _id = id;
         _enemyB1.SetId(id);
     }
 
@@ -132,7 +135,10 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         _lastState = state;
     }
 
-    
+    public void NotifyDie()
+    {
+        _intNotifier.NotifyInt(_id);
+    }
 
     public class IdleState : AbstractState
     {
@@ -464,6 +470,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
             _dependencies.enemyB1.BlockReceiveDamage(); //this way will not receive more damage
            _dependencies.enemyB1.ExecuteDieEnemy();
+           _dependencies.fsm.NotifyDie();           
         }
 
         public override void OnExit()

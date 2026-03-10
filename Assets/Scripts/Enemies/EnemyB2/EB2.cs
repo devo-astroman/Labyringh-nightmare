@@ -12,7 +12,6 @@ public class EB2 : MonoBehaviour
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] EnemySoundManager _enemySoundManager;
     [SerializeField] HeroDetectorManager _heroDetectorManager;
-
     
 
     [SerializeField] bool _follow;

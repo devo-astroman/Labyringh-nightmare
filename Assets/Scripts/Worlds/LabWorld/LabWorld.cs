@@ -11,7 +11,8 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private VFXsManager _vFXsManager;
     
 
-    [SerializeField] private EnemyManager _enemyManager;
+//    [SerializeField] private EnemyManager _enemyManager;
+    [SerializeField] private WaveManager _waveManager;
     [SerializeField] private LabyrinthCreator _labyrinthCreator;    
 
     private SetTimeoutUtility _timeoutToStart;
@@ -46,9 +47,12 @@ public class LabWorld : MonoBehaviour
         Vector3 enemyRoom = _labyrinthCreator.GetRoomPosition(2,2);
         _enemySpawnPoint = new Vector3(enemyRoom.x,_enemySpawnPointTransform.position.y,enemyRoom.z);
 
-        /* 
-        Add _enemyManager.EnemyDeadAction += OnEnemyDeadAction(int id)
-         */
+        
+        _waveManager.WaveFinishedAction += HandleWaveFinished;
+
+
+
+
 
         Debug.Log("LabWorld");
         
@@ -78,20 +82,101 @@ public class LabWorld : MonoBehaviour
 
            var hero = Instantiate(_playerHeroPrefab, _heroSpawnPoint, _spawnPoint.rotation);
 
-            _heroFSM = hero.GetComponentInChildren<HeroFSM>();
-            _heroFSM.onFireAction+= HandleOnFireAction;
+           _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+           _heroFSM.onFireAction+= HandleOnFireAction;
+
+           PrepareWaves();
 
         }, .25f);
     }
 
-    private void SpawnEnemy()
+    private void PrepareWaves()
+    {
+        Vector3 ePos1 = _labyrinthCreator.GetRoomPosition(0,1);
+        Vector3 ePos2 = _labyrinthCreator.GetRoomPosition(9,9);
+        Vector3 ePos3 = _labyrinthCreator.GetRoomPosition(9,8);
+        Vector3 ePos4 = _labyrinthCreator.GetRoomPosition(9,6);
+        Transform heroTransform = _heroFSM.transform.Find("Hero");
+
+        Vector3[] positions = new Vector3[]{ePos1,ePos2,ePos3,ePos4};
+
+        WaveData wd = new WaveData
+        {
+            typeEnemies = new int[] { 0, 0, 0, 0 },   // example types
+            bornPositions = positions,
+            patrolPoints = null,             // or provide patrol paths
+            heroTransform = heroTransform
+        };
+        _waveManager.PrepareWave(1,wd);
+
+////
+        ePos1 = _labyrinthCreator.GetRoomPosition(7,0);
+        /* ePos2 = _labyrinthCreator.GetRoomPosition(9,9);
+        ePos3 = _labyrinthCreator.GetRoomPosition(9,8);
+        ePos4 = _labyrinthCreator.GetRoomPosition(9,6);
+        positions = new Vector3[]{ePos1,ePos2,ePos3,ePos4}; */
+        positions = new Vector3[]{ePos1};
+        
+        WaveData wd2 = new WaveData
+        {
+            typeEnemies = new int[] { 1 },
+            bornPositions = positions,
+            patrolPoints = null,             // or provide patrol paths
+            heroTransform = null
+        };
+        _waveManager.PrepareWave(2,wd2);
+            
+////
+        ePos1 = _labyrinthCreator.GetRoomPosition(0,1);
+        positions = new Vector3[]{ePos1};
+        Vector3 patrolP1 = _labyrinthCreator.GetRoomPosition(0,0);
+        Vector3 patrolP2 = _labyrinthCreator.GetRoomPosition(0,5);
+        Vector3 patrolP3 = _labyrinthCreator.GetRoomPosition(0,3);
+        Vector3[][] patrolPoints = new Vector3[][]
+        {
+            new Vector3[]{ patrolP1, patrolP2, patrolP3 },         
+        };
+
+        WaveData wd3 = new WaveData
+        {
+            typeEnemies = new int[] { 2 },
+            bornPositions = positions,
+            patrolPoints = patrolPoints,
+            heroTransform = null
+        };
+        _waveManager.PrepareWave(3,wd3);
+        
+        //ePos1 = _labyrinthCreator.GetRoomPosition(7,0);
+        /* ePos2 = _labyrinthCreator.GetRoomPosition(9,9);
+        ePos3 = _labyrinthCreator.GetRoomPosition(9,8);
+        ePos4 = _labyrinthCreator.GetRoomPosition(9,6);
+        positions = new Vector3[]{ePos1,ePos2,ePos3,ePos4}; */
+        //positions = new Vector3[]{ePos1};
+
+
+
+        /* 
+         Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
+            _enemyManager.WakeUpEnemyB2(enemySpawnPosition,_heroFSM.transform.Find("Hero"));
+
+            Vector3 enemy2SpawnPosition = _labyrinthCreator.GetRoomPosition(9,9);
+            _enemyManager.WakeUpEnemyB2(enemy2SpawnPosition,_heroFSM.transform.Find("Hero"));
+
+            Vector3 enemy3SpawnPosition = _labyrinthCreator.GetRoomPosition(9,8);
+            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform.Find("Hero"));
+
+            Vector3 enemy4SpawnPosition = _labyrinthCreator.GetRoomPosition(9,6);
+            _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform.Find("Hero")); 
+         */
+    }
+
+   /*  private void SpawnEnemy()
     {
         _timeoutToSpawnEnemies.SetTimeout(() => {
             Vector3 enemySpawnPosition = _labyrinthCreator.GetRoomPosition(0,1);
             Vector3 patrolPoint1 = _labyrinthCreator.GetRoomPosition(0,0);
             Vector3 patrolPoint2 = _labyrinthCreator.GetRoomPosition(0,5);
             Vector3 patrolPoint3 = _labyrinthCreator.GetRoomPosition(0,3);
-
             _enemyManager.WakeUpEnemyB1(enemySpawnPosition,new Vector3[]{patrolPoint1,patrolPoint2,patrolPoint3});
 
 
@@ -132,7 +217,6 @@ public class LabWorld : MonoBehaviour
             Vector3 enemy3SpawnPosition = _labyrinthCreator.GetRoomPosition(9,8);
             _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform.Find("Hero"));
 
-
             Vector3 enemy4SpawnPosition = _labyrinthCreator.GetRoomPosition(9,6);
             _enemyManager.WakeUpEnemyB2(enemy3SpawnPosition,_heroFSM.transform.Find("Hero")); 
 
@@ -155,7 +239,7 @@ public class LabWorld : MonoBehaviour
             _enemyManager.WakeUpEnemyB3(enemy4SpawnPosition);
 
         }, 2f);
-    }
+    } */
     
 
     private void HandleOnFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
@@ -192,7 +276,6 @@ public class LabWorld : MonoBehaviour
             }
 
 
-
         }
         else
         {
@@ -206,12 +289,32 @@ public class LabWorld : MonoBehaviour
         //should deactivate the puzzle
         //should activate the corresponding enemy wave
         Debug.Log("_______HandlePuzzleSolved_____ " + id);
+        //id = 10;
+        if (id == 0)
+        {
+            _waveManager.RunWave(1);
+        }else if (id == 1)
+        {
+           _waveManager.RunWave(2);
+        }
+        else
+        {
+            _waveManager.RunWave(3);
+        }
+
+
     }
 
-    private void HandleAllWaveEnemiesDied(int idWave)
-    {//from the subscription to the enemy manager
-        //should activate a new puzzle to be solved
-        //if is the last wave, should give a key to exit
+    private void HandleWaveFinished(int idWave)
+    {
+        Debug.Log("ªªªªªHandleWaveFinishedªªªªª " + idWave);
+        if(idWave == 1)
+        {
+            //should activate the next puzzle
+            
+
+        }
+
     }
 
 }

@@ -15,8 +15,12 @@ public class EB3FSM : AbstractFiniteStateMachine
     
     [SerializeField] private EB3 _eB3;
     [SerializeField] private int _life = 2;
+    [SerializeField] private IntNotifier _diedNotifier;
+
+    private int _id = 0;
 
     public Action<int> ReceiveDamageAction;
+    public Action<int> EnemyDiedAction;
 
     public bool _testReceiveDamage = false;
     public bool _testAttack = false;
@@ -77,7 +81,10 @@ public class EB3FSM : AbstractFiniteStateMachine
             _testReceiveDamage = false;
         }
     }
-    
+    public void SetId(int id)
+    {
+        _id = id;
+    }
     public void GoToScan()
     {
         TransitionToState(States.SCAN_STATE);
@@ -107,6 +114,12 @@ public class EB3FSM : AbstractFiniteStateMachine
     {
         Debug.Log("___ReceiveDamage___");
         ReceiveDamageAction?.Invoke(damageValue);
+    }
+
+    public void NotifyDie()
+    {
+        EnemyDiedAction?.Invoke(_id);
+        _diedNotifier.NotifyInt(_id);
     }
 
     public class HideState : AbstractState
@@ -331,6 +344,7 @@ public class EB3FSM : AbstractFiniteStateMachine
         {
             Debug.Log("*Die*");
             _dependencies.eB3.Die();
+            _dependencies.fsm.NotifyDie();
         }
 
         public override void OnExit()

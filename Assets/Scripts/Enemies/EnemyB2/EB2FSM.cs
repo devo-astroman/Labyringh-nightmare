@@ -15,8 +15,12 @@ public class EB2FSM : AbstractFiniteStateMachine
     
     [SerializeField] private EB2 _eB2;
     [SerializeField] private int _life = 2;
+    [SerializeField] IntNotifier _diedNotifier;
+
+    private int _id = 0;
 
     public Action<int> ReceiveDamageAction;
+    public Action<int> EnemyDiedAction;
 
     public bool _testReceiveDamage = false;
 
@@ -71,6 +75,10 @@ public class EB2FSM : AbstractFiniteStateMachine
         }
     }
 
+    public void SetId(int id)
+    {
+        _id = id;
+    }
     public void SetTarget(Transform target)
     {
         _eB2.SetTargetToFollow(target);
@@ -97,6 +105,12 @@ public class EB2FSM : AbstractFiniteStateMachine
     public void ReceiveDamage(int damageValue)
     {
         ReceiveDamageAction?.Invoke(damageValue);
+    }
+
+    public void NotifyDie()
+    {
+        EnemyDiedAction?.Invoke(_id);
+        _diedNotifier.NotifyInt(_id);
     }
 
     public class IdleState : AbstractState
@@ -234,6 +248,7 @@ public class EB2FSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             _dependencies.eB2.Die();
+            _dependencies.fsm.NotifyDie();
         }
 
         public override void OnExit()
