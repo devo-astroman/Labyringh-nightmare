@@ -29,8 +29,8 @@ public class ColButton : MonoBehaviour
     #region Unity Callbacks
     void Start()
     {
-        _heroDetector.detectedAction += HandleDetected;
-        _heroDetector.undetectedAction += HandleUndetectedAction;
+       /*  _heroDetector.detectedAction += HandleDetected;
+        _heroDetector.undetectedAction += HandleUndetectedAction; */
     }
 
     void OnDestroy()

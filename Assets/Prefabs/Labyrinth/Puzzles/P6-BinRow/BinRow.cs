@@ -19,7 +19,8 @@ public class BinRow : ActivatableBehaviour
     [SerializeField] private int _id;
     [SerializeField] PuzzleNotifier _puzzleNotifier;
     [SerializeField] private CompassCoord[] _leftRow;
-    [SerializeField] private CompassCoord[] _rightRow;    
+    [SerializeField] private CompassCoord[] _rightRow;
+    [SerializeField] GameObject _signalVfx;
 
     #endregion
     #region Unity Callbacks
@@ -167,6 +168,7 @@ public class BinRow : ActivatableBehaviour
             _rightRow[i].ColButton.PullButton();
             _rightRow[i].ColButton.Activate();
         }
+        _signalVfx.SetActive(true);
     }
 
     public override void Deactivate()
@@ -182,6 +184,7 @@ public class BinRow : ActivatableBehaviour
             _rightRow[i].ColButton.PressButton();
             _rightRow[i].ColButton.Deactivate();
         }
+        _signalVfx.SetActive(false);
     }
 
 

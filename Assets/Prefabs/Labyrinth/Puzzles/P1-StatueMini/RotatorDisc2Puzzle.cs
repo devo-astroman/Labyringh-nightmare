@@ -15,6 +15,7 @@ public class RotatorDisc2Puzzle : ActivatableBehaviour
     [SerializeField] ColButton _colButtonMiddle;
 
     [SerializeField] PuzzleNotifier _puzzleNotifier;
+    [SerializeField] GameObject _signalVfx;
 
     public Action<int> PuzzleSolvedAction;
 
@@ -49,15 +50,16 @@ public class RotatorDisc2Puzzle : ActivatableBehaviour
         _colButtonUp.Activate();
         _colButtonMiddle.PullButton();
         _colButtonMiddle.Activate();
+        _signalVfx.SetActive(true);
     }
 
     public override void Deactivate()
     {
-        Debug.Log("_*_Deactivate_*_");
         _colButtonUp.PressButton();
         _colButtonUp.Deactivate();
         _colButtonMiddle.PressButton();
         _colButtonMiddle.Deactivate();
+        _signalVfx.SetActive(false);
     }
 
     private void HandleRotationFinishedUp(int currentIndex, Transform target)

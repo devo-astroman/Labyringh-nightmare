@@ -1938,6 +1938,7 @@ Transform:
   m_Children:
   - {fileID: 3686639716576835549}
   - {fileID: 7352783706363499407}
+  - {fileID: 6118259081530918586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3404488283690270750
@@ -1957,6 +1958,7 @@ MonoBehaviour:
   _currentUp: 2
   _colButtonUp: {fileID: 6994679040859053037}
   _puzzleNotifier: {fileID: 5783677324420490252}
+  _signalVfx: {fileID: 8067113304765620947}
 --- !u!114 &5783677324420490252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2839,3 +2841,83 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1001 &2230450581806354862
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3425873026818730371}
+    m_Modifications:
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8142510547384955773, guid: 1846f838d48757a4f9609e276f45cfd2,
+        type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Magic Aura A (Runic)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1846f838d48757a4f9609e276f45cfd2, type: 3}
+--- !u!4 &6118259081530918586 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5340225495635384084, guid: 1846f838d48757a4f9609e276f45cfd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2230450581806354862}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8067113304765620947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8142510547384955773, guid: 1846f838d48757a4f9609e276f45cfd2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2230450581806354862}
+  m_PrefabAsset: {fileID: 0}

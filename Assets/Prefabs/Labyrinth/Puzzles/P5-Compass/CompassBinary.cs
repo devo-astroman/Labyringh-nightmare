@@ -26,6 +26,7 @@ public class CompassBinary : ActivatableBehaviour
     [SerializeField] private Compass _current;
     [SerializeField] private Compass _solution;
     [SerializeField] private int _id;
+    [SerializeField] GameObject _signalVfx;
     #endregion
 
     #region public properties
@@ -85,6 +86,7 @@ public class CompassBinary : ActivatableBehaviour
 
        _compassCoordW.ColButton.PullButton();
        _compassCoordW.ColButton.Activate();
+       _signalVfx.SetActive(true);
     }
 
     public override void Deactivate()
@@ -100,6 +102,7 @@ public class CompassBinary : ActivatableBehaviour
 
        _compassCoordW.ColButton.PressButton();
        _compassCoordW.ColButton.Deactivate();
+       _signalVfx.SetActive(false);
     }
     
 	#endregion

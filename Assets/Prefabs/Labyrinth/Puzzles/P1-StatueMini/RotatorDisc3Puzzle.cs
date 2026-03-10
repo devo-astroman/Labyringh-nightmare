@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatorDisc3Puzzle : MonoBehaviour
+public class RotatorDisc3Puzzle  : ActivatableBehaviour
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
@@ -14,6 +14,7 @@ public class RotatorDisc3Puzzle : MonoBehaviour
     [SerializeField] ColButton _colButtonUp;
     [SerializeField] ColButton _colButtonMiddle;
     [SerializeField] ColButton _colButtonBottom;
+    [SerializeField] GameObject _signalVfx;
 
     private int _solutionUp = 0;
     private int _solutionMiddle = 0;
@@ -48,6 +49,26 @@ public class RotatorDisc3Puzzle : MonoBehaviour
         _colButtonUp.buttonIteractAction -= HandleButtonIteractAction;
         _colButtonMiddle.buttonIteractAction -= HandleButtonIteractAction;
         _colButtonBottom.buttonIteractAction -= HandleButtonIteractAction;
+    }
+    public override void Activate()
+    {
+        _colButtonUp.PullButton();
+        _colButtonUp.Activate();
+        _colButtonMiddle.PullButton();
+        _colButtonMiddle.Activate();
+        _colButtonBottom.PullButton();
+        _colButtonBottom.Activate();
+        _signalVfx.SetActive(true);
+    }
+
+    public override void Deactivate()
+    {
+        Debug.Log("_*_Deactivate_*_");
+        _colButtonUp.PressButton();
+        _colButtonUp.Deactivate();
+        _colButtonBottom.PressButton();
+        _colButtonBottom.Deactivate();
+        _signalVfx.SetActive(false);
     }
 
     private void HandleRotationFinishedUp(int currentIndex, Transform target)

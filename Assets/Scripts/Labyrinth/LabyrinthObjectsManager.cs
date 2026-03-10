@@ -77,6 +77,9 @@ public class LabyrinthObjectsManager : MonoBehaviour
             GameObject p1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
             _puzzleManager.RegisterPuzzle(0,p1);
 
+            ActivatableBehaviour activatableBehaviour = p1.GetComponent<ActivatableBehaviour>();
+            activatableBehaviour.Activate();
+
             //GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
             //GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
             //GameObject puzzleCompass = _objectsFactory.GetPuzzleRowBin(upperRCornerPosition,id,mask);
