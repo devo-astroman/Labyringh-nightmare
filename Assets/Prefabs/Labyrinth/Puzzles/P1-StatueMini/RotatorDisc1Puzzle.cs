@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RotatorDisc1Puzzle : MonoBehaviour
+public class RotatorDisc1Puzzle : ActivatableBehaviour
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     
@@ -36,13 +36,13 @@ public class RotatorDisc1Puzzle : MonoBehaviour
         _colButtonUp.buttonIteractAction -= HandleButtonIteractAction;        
     }
 
-    public void Activate()
+    public override void Activate()
     {
         _colButtonUp.PullButton();
         _colButtonUp.Activate();
     }
 
-        public void Deactivate()
+    public override void Deactivate()
     {
         _colButtonUp.PressButton();
         _colButtonUp.Deactivate();

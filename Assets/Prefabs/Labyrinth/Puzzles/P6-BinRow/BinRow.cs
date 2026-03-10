@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class BinRow : MonoBehaviour
+public class BinRow : ActivatableBehaviour
 {
     #region Fields
     [SerializeField] private bool[] _currentLeft;    
@@ -154,7 +154,22 @@ public class BinRow : MonoBehaviour
         return true;
     }
 
-    private bool Deactivate()
+    public override void Activate()
+    {
+        for(int i = 0; i < _leftRow.Length; i++)
+        {
+            _leftRow[i].ColButton.PullButton();
+            _leftRow[i].ColButton.Activate();
+        }
+
+        for(int i = 0; i < _rightRow.Length; i++)
+        {
+            _rightRow[i].ColButton.PullButton();
+            _rightRow[i].ColButton.Activate();
+        }
+    }
+
+    public override void Deactivate()
     {
         for(int i = 0; i < _leftRow.Length; i++)
         {
@@ -167,9 +182,9 @@ public class BinRow : MonoBehaviour
             _rightRow[i].ColButton.PressButton();
             _rightRow[i].ColButton.Deactivate();
         }
-
-        return true;
     }
+
+
     
     #endregion
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RotatorDisc2Puzzle : MonoBehaviour
+public class RotatorDisc2Puzzle : ActivatableBehaviour
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
@@ -32,7 +32,6 @@ public class RotatorDisc2Puzzle : MonoBehaviour
 
         _colButtonMiddle.SetId(1);
         _colButtonMiddle.buttonIteractAction += HandleButtonIteractAction;
-                
     }
 
     void OnDestroy()
@@ -44,7 +43,7 @@ public class RotatorDisc2Puzzle : MonoBehaviour
         _colButtonMiddle.buttonIteractAction -= HandleButtonIteractAction;
     }
 
-    public void Activate()
+    public override void Activate()
     {
         _colButtonUp.PullButton();
         _colButtonUp.Activate();
@@ -52,8 +51,9 @@ public class RotatorDisc2Puzzle : MonoBehaviour
         _colButtonMiddle.Activate();
     }
 
-        public void Deactivate()
+    public override void Deactivate()
     {
+        Debug.Log("_*_Deactivate_*_");
         _colButtonUp.PressButton();
         _colButtonUp.Deactivate();
         _colButtonMiddle.PressButton();

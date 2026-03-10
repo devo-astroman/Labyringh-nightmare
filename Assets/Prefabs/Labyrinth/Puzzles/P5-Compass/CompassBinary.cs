@@ -20,7 +20,7 @@ public struct CompassCoord
 
 
 
-public class CompassBinary : MonoBehaviour
+public class CompassBinary : ActivatableBehaviour
 {
     #region Fields
     [SerializeField] private Compass _current;
@@ -70,6 +70,36 @@ public class CompassBinary : MonoBehaviour
         _solution = solution;
 
         SetInitialValues();
+    }
+
+    public override void Activate()
+    {
+       _compassCoordN.ColButton.PullButton();
+       _compassCoordN.ColButton.Activate();
+
+       _compassCoordE.ColButton.PullButton();
+       _compassCoordE.ColButton.Activate();
+
+       _compassCoordS.ColButton.PullButton();
+       _compassCoordS.ColButton.Activate();
+
+       _compassCoordW.ColButton.PullButton();
+       _compassCoordW.ColButton.Activate();
+    }
+
+    public override void Deactivate()
+    {
+       _compassCoordN.ColButton.PressButton();
+       _compassCoordN.ColButton.Deactivate();
+
+       _compassCoordE.ColButton.PressButton();
+       _compassCoordE.ColButton.Deactivate();
+
+       _compassCoordS.ColButton.PressButton();
+       _compassCoordS.ColButton.Deactivate();
+
+       _compassCoordW.ColButton.PressButton();
+       _compassCoordW.ColButton.Deactivate();
     }
     
 	#endregion
@@ -133,17 +163,7 @@ public class CompassBinary : MonoBehaviour
         if (IsSolutionReached())
         {
             Debug.Log("SOLUTION REACHED");
-            _compassCoordN.ColButton.PressButton();
-            _compassCoordN.ColButton.Deactivate();
-
-            _compassCoordE.ColButton.PressButton();
-            _compassCoordE.ColButton.Deactivate();
-
-            _compassCoordS.ColButton.PressButton();
-            _compassCoordS.ColButton.Deactivate();
-
-            _compassCoordW.ColButton.PressButton();
-            _compassCoordW.ColButton.Deactivate();
+            Deactivate();
             PuzzleSolvedAction?.Invoke(_id);
             _puzzleNotifier.NotifyPuzzleSolved(_id);
         }

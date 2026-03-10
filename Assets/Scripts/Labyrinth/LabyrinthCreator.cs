@@ -122,6 +122,11 @@ public class LabyrinthCreator : MonoBehaviour
         _generateRoutine = StartCoroutine(GenerateLabyrinthRoutineTest());
     }
 
+    public void ActivatePuzzle(int idPuzzle)
+    {
+        _labyrinthObjectsManager.ActivatePuzzle(idPuzzle);
+    }
+
     public void ShowDebug(Vector3[] positions)
     {
         _labyrinthDebugger.ShowRoomMarksAt(positions);

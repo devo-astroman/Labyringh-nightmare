@@ -307,13 +307,17 @@ public class LabWorld : MonoBehaviour
 
     private void HandleWaveFinished(int idWave)
     {
-        Debug.Log("ªªªªªHandleWaveFinishedªªªªª " + idWave);
-        if(idWave == 1)
-        {
-            //should activate the next puzzle
-            
+        
 
+        if(idWave < 6)
+        {
+            _labyrinthCreator.ActivatePuzzle(idWave);
         }
+        else
+        {
+            Debug.Log("OPEN THE EXIT");
+        }
+        
 
     }
 

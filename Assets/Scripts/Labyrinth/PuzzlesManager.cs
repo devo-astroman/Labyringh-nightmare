@@ -18,6 +18,19 @@ public class PuzzlesManager : MonoBehaviour
         }
     }
 
+    public void ActivatePuzzle(int idPuzzle)
+    {
+
+        GameObject puzzle = _allPuzzles[idPuzzle];
+        ActivatableBehaviour activatableBehaviour = puzzle.GetComponent<ActivatableBehaviour>();        
+        if (activatableBehaviour)
+        {
+            activatableBehaviour.Activate();
+        }
+    }
+
+    
+
     private void HandlePuzzleSolved(int id)
     {
         PuzzleSolvedAction?.Invoke(id);
