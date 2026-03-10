@@ -29,11 +29,15 @@ public class PuzzlesManager : MonoBehaviour
         {
             GameObject puzzle = _allPuzzles[i];
 
-            PuzzleNotifier puzzleNotifier = puzzle.GetComponent<PuzzleNotifier>();
-            if (puzzleNotifier)
+            if (puzzle)
             {
-                puzzleNotifier.PuzzleSolvedAction -= HandlePuzzleSolved;
+                PuzzleNotifier puzzleNotifier = puzzle.GetComponent<PuzzleNotifier>();
+                if (puzzleNotifier)
+                {
+                    puzzleNotifier.PuzzleSolvedAction -= HandlePuzzleSolved;
+                }    
             }
+            
         }
     }
 

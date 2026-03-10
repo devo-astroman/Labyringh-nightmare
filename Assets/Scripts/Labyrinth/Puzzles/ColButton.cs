@@ -86,6 +86,13 @@ public class ColButton : MonoBehaviour
         
     }
 
+    public void Activate()
+    {
+        MakeGlowOn();
+        _heroDetector.detectedAction += HandleDetected;
+        _heroDetector.undetectedAction += HandleUndetectedAction;        
+    }
+
     public void Deactivate()
     {
         if(_heroFSM)
@@ -96,6 +103,8 @@ public class ColButton : MonoBehaviour
         _heroDetector.undetectedAction -= HandleUndetectedAction;
         
     }
+
+    
 	#endregion
     
     #region Private methods

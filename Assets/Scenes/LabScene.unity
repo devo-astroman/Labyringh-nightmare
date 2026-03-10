@@ -653,6 +653,7 @@ Transform:
   - {fileID: 1194533037}
   - {fileID: 1140435464}
   - {fileID: 479613646}
+  - {fileID: 894676532}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &151787704
@@ -2420,6 +2421,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 418592779}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &894676530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894676532}
+  - component: {fileID: 894676531}
+  m_Layer: 0
+  m_Name: PuzzleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &894676531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894676530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb57701ee3142c42bb2fde84a8ad5ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &894676532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894676530}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 151787702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &900482412
 GameObject:
   m_ObjectHideFlags: 0
@@ -2803,6 +2848,7 @@ MonoBehaviour:
   _allAmmoOnBox: []
   _allSpikes: []
   _roomProcessed: []
+  _puzzleManager: {fileID: 894676531}
 --- !u!4 &1140435464
 Transform:
   m_ObjectHideFlags: 0
@@ -3325,12 +3371,13 @@ MonoBehaviour:
     type: 3}
   _spikesPrefab: {fileID: 6616947326886192942, guid: 019d7766ec4708b49b70ca9fe48bd76c,
     type: 3}
-  _p1SpyderPuzzlePrefab: {fileID: 0}
-  _p2FirerPuzzlePrefab: {fileID: 6066126453544113280, guid: a9c6c4949898fd2418ab404df2e03209,
+  _p1SpyderPuzzlePrefab: {fileID: 8895677981870031758, guid: 54a8c3427fe43784b98330516a3cef93,
     type: 3}
-  _p3BatPuzzlePrefab: {fileID: 919132149155446097, guid: 119f1334fd6e9974c9e5f86c7c91d4a0,
+  _p2FirerPuzzlePrefab: {fileID: 1336337433627508035, guid: 8202f522c9779d64e89cb0c9bc882239,
     type: 3}
-  _p4TrianglePuzzlePrefab: {fileID: 7517990487481829074, guid: 88be979b9b503a34fbbc947b4d08ad53,
+  _p3BatPuzzlePrefab: {fileID: 8199274156705062636, guid: 4a1437d98f3cbf94a804e3023ba6ea8f,
+    type: 3}
+  _p4TrianglePuzzlePrefab: {fileID: 5968220747356625704, guid: 8c3e988e305650e4ebbb266aa86549f3,
     type: 3}
   _p5CompassPuzzlePrefab: {fileID: 277540770513368426, guid: 375731c0e2301f244ac087a2ef1cbe15,
     type: 3}
@@ -6103,74 +6150,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6413627607030132321}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6432987216136970948
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 86.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.359
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137805451149005817, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6066126453544113280, guid: a9c6c4949898fd2418ab404df2e03209,
-        type: 3}
-      propertyPath: m_Name
-      value: EyeFirerStatue
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a9c6c4949898fd2418ab404df2e03209, type: 3}
 --- !u!1001 &7397270079294956642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6406,7 +6385,6 @@ SceneRoots:
   - {fileID: 3016459}
   - {fileID: 1845325044}
   - {fileID: 344160955}
-  - {fileID: 6432987216136970948}
   - {fileID: 6156080166770963393}
   - {fileID: 6070734016740141381}
   - {fileID: 3857600172419916210}

@@ -44,6 +44,22 @@ public class RotatorDisc2Puzzle : MonoBehaviour
         _colButtonMiddle.buttonIteractAction -= HandleButtonIteractAction;
     }
 
+    public void Activate()
+    {
+        _colButtonUp.PullButton();
+        _colButtonUp.Activate();
+        _colButtonMiddle.PullButton();
+        _colButtonMiddle.Activate();
+    }
+
+        public void Deactivate()
+    {
+        _colButtonUp.PressButton();
+        _colButtonUp.Deactivate();
+        _colButtonMiddle.PressButton();
+        _colButtonMiddle.Deactivate();
+    }
+
     private void HandleRotationFinishedUp(int currentIndex, Transform target)
     {
         _currentUp = currentIndex;
@@ -78,11 +94,14 @@ public class RotatorDisc2Puzzle : MonoBehaviour
             Debug.Log("Solution Reached!");
             PuzzleSolvedAction?.Invoke(_id);
             _puzzleNotifier.NotifyPuzzleSolved(_id);
+            Deactivate();
         }
         else
         {
             Debug.Log("Try again!");
         }
     }
+
+
 
 }

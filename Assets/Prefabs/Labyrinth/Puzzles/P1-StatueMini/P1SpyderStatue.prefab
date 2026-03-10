@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 2153290970863292847}
   - component: {fileID: 4859505374430136053}
   m_Layer: 0
-  m_Name: SpiderEyeMonsterStatue LAST
+  m_Name: P1SpyderStatue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
