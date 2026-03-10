@@ -1,7 +1,7 @@
 using UnityEngine;
+using System;
 
-
-public class BinBinary : MonoBehaviour
+public class BinRow : MonoBehaviour
 {
     #region Fields
     [SerializeField] private bool[] _currentLeft;    
@@ -12,9 +12,12 @@ public class BinBinary : MonoBehaviour
     #endregion
 
     #region public properties
+    public Action<int> PuzzleSolvedAction;
     #endregion
 
     #region Private properties
+    [SerializeField] private int _id;
+    [SerializeField] PuzzleNotifier _puzzleNotifier;
     [SerializeField] private CompassCoord[] _leftRow;
     [SerializeField] private CompassCoord[] _rightRow;    
 
@@ -118,6 +121,8 @@ public class BinBinary : MonoBehaviour
         {
             Debug.Log("SOLUTION REACHED");
             Deactivate();
+            PuzzleSolvedAction?.Invoke(_id);
+            _puzzleNotifier.NotifyPuzzleSolved(_id);
         }
         else
         {

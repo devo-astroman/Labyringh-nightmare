@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -26,12 +25,15 @@ public class CompassBinary : MonoBehaviour
     #region Fields
     [SerializeField] private Compass _current;
     [SerializeField] private Compass _solution;
+    [SerializeField] private int _id;
     #endregion
 
     #region public properties
+    public Action<int> PuzzleSolvedAction;
     #endregion
 
     #region Private properties
+    [SerializeField] PuzzleNotifier _puzzleNotifier;
     [SerializeField] private CompassCoord _compassCoordN;
     [SerializeField] private CompassCoord _compassCoordS;
     [SerializeField] private CompassCoord _compassCoordE;
@@ -107,7 +109,7 @@ public class CompassBinary : MonoBehaviour
         CheckSolutionReached(_compassCoordN.ColButton);
     }
 
-        private void HandleButtonSIteract(int id)
+    private void HandleButtonSIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordS);
         CheckSolutionReached(_compassCoordS.ColButton);
@@ -142,7 +144,8 @@ public class CompassBinary : MonoBehaviour
 
             _compassCoordW.ColButton.PressButton();
             _compassCoordW.ColButton.Deactivate();
-
+            PuzzleSolvedAction?.Invoke(_id);
+            _puzzleNotifier.NotifyPuzzleSolved(_id);
         }
         else
         {

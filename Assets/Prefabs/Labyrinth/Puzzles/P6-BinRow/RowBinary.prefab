@@ -604,6 +604,7 @@ GameObject:
   - component: {fileID: 7264768234020218150}
   - component: {fileID: 1212248859839840749}
   - component: {fileID: 971647141850620732}
+  - component: {fileID: 8643371736142007508}
   m_Layer: 3
   m_Name: RowBinary
   m_TagString: Untagged
@@ -718,6 +719,8 @@ MonoBehaviour:
   _solutionLeft: 010000
   _currentRight: 000100
   _solutionRight: 000101
+  _id: 5
+  _puzzleNotifier: {fileID: 8643371736142007508}
   _leftRow:
   - Sym: {fileID: 7124833483400649619}
     MeshSwitcher: {fileID: 625006038249028830}
@@ -738,6 +741,18 @@ MonoBehaviour:
   - Sym: {fileID: 2334101687697555348}
     MeshSwitcher: {fileID: 6060646759494314842}
     ColButton: {fileID: 436378977780879641}
+--- !u!114 &8643371736142007508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5303667715139569967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3226f97f5223ff342818335f6c8a0c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5728059623918292024
 GameObject:
   m_ObjectHideFlags: 0
