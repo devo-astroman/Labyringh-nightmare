@@ -52,6 +52,7 @@ MonoBehaviour:
   _heroDetectorManager: {fileID: 5888464366029377155}
   _enemyBulletFirer: {fileID: 1605685643409708838}
   _enemyVision: {fileID: 8610362640737534797}
+  _minimapIndicatorGO: {fileID: 5683847147317676054}
   _receiveDamage: 0
   _attack: 0
   _die: 0
@@ -1941,6 +1942,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2653d84df5d6e94f816b3551f8cf1d9, type: 3}
+--- !u!1 &5683847147317676054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4341913577725372049, guid: f2653d84df5d6e94f816b3551f8cf1d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8259750946322050695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6317734976360232882 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2669963626684340533, guid: f2653d84df5d6e94f816b3551f8cf1d9,

@@ -9,11 +9,13 @@ public class EB3 : MonoBehaviour
     [SerializeField] HeroDetectorManager _heroDetectorManager;
     [SerializeField] EnemyBulletFirer _enemyBulletFirer;
     [SerializeField] EnemyVision _enemyVision;
+    [SerializeField] GameObject _minimapIndicatorGO;
     
 
     [SerializeField] bool _receiveDamage;
     [SerializeField] bool _attack;
     [SerializeField] bool _die;
+    
 
     public Action ReceiveDamageEndsAction;
     public Action AttackEndsAction;
@@ -133,6 +135,7 @@ public class EB3 : MonoBehaviour
         _enemySoundManager.PlayDie();
         _eB3Animator.PlayDieAnimation();
         _enemyCollidersManager.DeactivatePainColliders();
+        _minimapIndicatorGO.SetActive(false);
         if (_intervalScan != null)
         {
             _intervalScan.Dispose();
@@ -192,6 +195,11 @@ public class EB3 : MonoBehaviour
     public void SetLastPlaceHeroWasSee(Vector3 position)
     {
         _lastPlaceHeroWasSee = position;
+    }
+
+    public void TurnOnMinimapIndicator()
+    {
+        _minimapIndicatorGO.SetActive(true);
     }
 
     private void HandleReceiveHitEnds()

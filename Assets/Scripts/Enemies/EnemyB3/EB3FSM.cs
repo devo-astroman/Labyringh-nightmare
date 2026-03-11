@@ -137,6 +137,7 @@ public class EB3FSM : AbstractFiniteStateMachine
            Debug.Log("*Hide* " + _dependencies.eB3);
            _dependencies.eB3.WaitHideForHero();
            _dependencies.eB3.FarHeroDetectedAction += HandleFarHeroDetected;
+           _dependencies.eB3.TurnOnMinimapIndicator();
         }
 
         public override void OnExit()

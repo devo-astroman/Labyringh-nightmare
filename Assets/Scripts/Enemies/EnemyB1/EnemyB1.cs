@@ -10,6 +10,7 @@ public class EnemyB1 : MonoBehaviour
     [SerializeField] private EnemySoundManager _enemySoundManager;
     [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] private EnemyAttackManager _enemyAttackManager;
+    [SerializeField] private GameObject _minimapIndicator;
     
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
@@ -179,6 +180,15 @@ public class EnemyB1 : MonoBehaviour
         _enemyAnimator.IgnoreEndOfReceiveHitAnimation();
     }
 //
+
+    public void TurnOffMinimapIndicator()
+    {
+        _minimapIndicator.SetActive(false);
+    }
+    public void TurnOnMinimapIndicator()
+    {
+        _minimapIndicator.SetActive(true);
+    }
     void OnDestroy()
     {
         _enemyAnimator.wakeUpAnimationEndsAction -= HandleWakeUpAnimationEndsAction;

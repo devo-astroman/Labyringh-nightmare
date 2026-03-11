@@ -12,6 +12,7 @@ public class EB2 : MonoBehaviour
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] EnemySoundManager _enemySoundManager;
     [SerializeField] HeroDetectorManager _heroDetectorManager;
+    [SerializeField] GameObject _minimapIndigactorGO;
     
 
     [SerializeField] bool _follow;
@@ -84,6 +85,7 @@ public class EB2 : MonoBehaviour
         _enemySoundManager.PlayDie();
         _eB2Animator.PlayDieAnimation();
         _enemyCollidersManager.DeactivatePainColliders();
+        _minimapIndigactorGO.SetActive(false);
     }
 
     public void CleanReceiveDamage()
@@ -109,6 +111,11 @@ public class EB2 : MonoBehaviour
         {
             parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();
         }
+    }
+
+    public void TurnOnMinimapIndicator()
+    {
+        _minimapIndigactorGO.SetActive(true);
     }
 
     private void HandleReceiveHitEnds()

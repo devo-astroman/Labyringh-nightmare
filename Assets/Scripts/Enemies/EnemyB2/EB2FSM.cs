@@ -127,12 +127,12 @@ public class EB2FSM : AbstractFiniteStateMachine
         {
            Debug.Log("*Idle*");
 
-        _dependencies.fsm._timeout.SetTimeout(() => {
-            _dependencies.fsm.GoToFollow();
+            _dependencies.fsm._timeout.SetTimeout(() => {
+                _dependencies.fsm.GoToFollow();
 
-        }, 2f); 
-
-           
+            }, 2f); 
+            
+            _dependencies.eB2.TurnOnMinimapIndicator();
         }
 
         public override void OnExit()

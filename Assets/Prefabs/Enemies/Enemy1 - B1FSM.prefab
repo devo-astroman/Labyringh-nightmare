@@ -2452,6 +2452,7 @@ MonoBehaviour:
   _enemySoundManager: {fileID: 2577205484398598973}
   _enemyCollidersManager: {fileID: 6229169713371735587}
   _enemyAttackManager: {fileID: 230251059445067298}
+  _minimapIndicator: {fileID: 4764189044970574774}
 --- !u!1 &8921417775419405336
 GameObject:
   m_ObjectHideFlags: 0
@@ -3277,6 +3278,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2653d84df5d6e94f816b3551f8cf1d9, type: 3}
+--- !u!1 &4764189044970574774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4341913577725372049, guid: f2653d84df5d6e94f816b3551f8cf1d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 9105257915765454119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6580253906993458194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2669963626684340533, guid: f2653d84df5d6e94f816b3551f8cf1d9,

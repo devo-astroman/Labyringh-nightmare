@@ -157,6 +157,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
            _dependencies.enemyB1.wakeUpAnimationEndsAction += HandleWakeUpAnimationEndsAction;
 
            _dependencies.enemyB1.gameObject.SetActive(true); //this will automatically run the idle wakeup animation
+           _dependencies.enemyB1.TurnOnMinimapIndicator();
         }
 
         public override void OnExit()
@@ -470,7 +471,8 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         {
             _dependencies.enemyB1.BlockReceiveDamage(); //this way will not receive more damage
            _dependencies.enemyB1.ExecuteDieEnemy();
-           _dependencies.fsm.NotifyDie();           
+           _dependencies.enemyB1.TurnOffMinimapIndicator();
+           _dependencies.fsm.NotifyDie();
         }
 
         public override void OnExit()
