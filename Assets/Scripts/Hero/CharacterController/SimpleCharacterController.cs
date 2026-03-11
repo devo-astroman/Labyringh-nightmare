@@ -43,6 +43,8 @@ public class SimpleCharacterController : MonoBehaviour
 
     [SerializeField] private Transform _playerRootToRotate;
 
+    private bool _isBlocked = false;
+
     
     public Vector3 GetVelocity() => _controller != null ? _controller.velocity : Vector3.zero;
 
@@ -85,103 +87,108 @@ public class SimpleCharacterController : MonoBehaviour
             
         } */
 
-/////
-/*         bool crouchKeyDown = Input.GetKeyDown(crouchKey);
+        /////
+        /*         bool crouchKeyDown = Input.GetKeyDown(crouchKey);
 
-        if (crouchKeyDown)
-        {
-            _isCrouch = !_isCrouch;
-
-            if (!_isCrouch && IsCeilingBlocked())
-            {
-                // try to stand up but there is a blocking ceiling
-                _isCrouch = true;
-            }
-
-            _controller.height = _isCrouch ? crouchHeight : standHeight;
-            float centerY = _isCrouch ? crouchCenter : standCenter;
-
-            _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
-        } */
-
-        float _x = Input.GetAxis("Horizontal");
-        float _z = Input.GetAxis("Vertical");
-
-        Vector3 _move = new Vector3(_x, 0f, _z);
-
-        if (_move.magnitude > 1f)
-            _move.Normalize();
-
-        //float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
-        float speed = _currentSpeed;
-
-        // Camera forward (flattened)
-        Vector3 camForward = cameraTarget != null ? cameraTarget.forward : Vector3.forward;
-        Vector3 camRight   = cameraTarget != null ? cameraTarget.right   : Vector3.right;
-
-        camForward.y = 0f;
-        camRight.y = 0f;
-        camForward.Normalize();
-        camRight.Normalize();
-
-        // Move direction relative to camera
-        Vector3 moveDir = camForward * _z + camRight * _x;
-        if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
-
-        // Player always faces camera yaw (forward)
-        if (cameraTarget != null)
-        {
-            Vector3 faceDir = camForward; // already flattened
-            if (faceDir.sqrMagnitude > 0.0001f)
-            {
-                Quaternion targetRot = Quaternion.LookRotation(faceDir);
-                _playerRootToRotate.rotation = Quaternion.Slerp(
-                    _playerRootToRotate.rotation,
-                    targetRot,
-                    rotationSpeed * Time.deltaTime
-                );
-
-            }
-        }
-
-        // Move in the intended direction (not necessarily transform.forward)
-        Vector3 worldMove = moveDir * speed;
-
-
-
-        // Ground check and is not crouching
-        /*         if (_controller.isGrounded && !_isCrouch)
+                if (crouchKeyDown)
                 {
-                    if (_verticalVelocity < 0)
-                        _verticalVelocity = -2f; // keeps grounded
+                    _isCrouch = !_isCrouch;
 
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    if (!_isCrouch && IsCeilingBlocked())
                     {
-                        // Jump velocity formula
-                        _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                        // try to stand up but there is a blocking ceiling
+                        _isCrouch = true;
                     }
+
+                    _controller.height = _isCrouch ? crouchHeight : standHeight;
+                    float centerY = _isCrouch ? crouchCenter : standCenter;
+
+                    _controller.center = new Vector3(_controller.center.x, centerY, _controller.center.z);
                 } */
 
-        if (_controller.isGrounded)
+        if (!_isBlocked)
         {
-            if (_verticalVelocity < 0)
-                _verticalVelocity = -2f; // keeps grounded
 
-            if (_shouldMakeJump)
+            float _x = Input.GetAxis("Horizontal");
+            float _z = Input.GetAxis("Vertical");
+
+            Vector3 _move = new Vector3(_x, 0f, _z);
+
+            if (_move.magnitude > 1f)
+                _move.Normalize();
+
+            //float speed = (isWalking || _isCrouch) ? walkSpeed : runSpeed;
+            float speed = _currentSpeed;
+
+            // Camera forward (flattened)
+            Vector3 camForward = cameraTarget != null ? cameraTarget.forward : Vector3.forward;
+            Vector3 camRight   = cameraTarget != null ? cameraTarget.right   : Vector3.right;
+
+            camForward.y = 0f;
+            camRight.y = 0f;
+            camForward.Normalize();
+            camRight.Normalize();
+
+            // Move direction relative to camera
+            Vector3 moveDir = camForward * _z + camRight * _x;
+            if (moveDir.sqrMagnitude > 1f) moveDir.Normalize();
+
+            // Player always faces camera yaw (forward)
+            if (cameraTarget != null)
             {
-                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                _shouldMakeJump = false;
-            }    
+                Vector3 faceDir = camForward; // already flattened
+                if (faceDir.sqrMagnitude > 0.0001f)
+                {
+                    Quaternion targetRot = Quaternion.LookRotation(faceDir);
+                    _playerRootToRotate.rotation = Quaternion.Slerp(
+                        _playerRootToRotate.rotation,
+                        targetRot,
+                        rotationSpeed * Time.deltaTime
+                    );
+
+                }
+            }
+
+            // Move in the intended direction (not necessarily transform.forward)
+            Vector3 worldMove = moveDir * speed;
+
+
+
+            // Ground check and is not crouching
+            /*         if (_controller.isGrounded && !_isCrouch)
+                    {
+                        if (_verticalVelocity < 0)
+                            _verticalVelocity = -2f; // keeps grounded
+
+                        if (Input.GetKeyDown(KeyCode.Space))
+                        {
+                            // Jump velocity formula
+                            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                        }
+                    } */
+
+            if (_controller.isGrounded)
+            {
+                if (_verticalVelocity < 0)
+                    _verticalVelocity = -2f; // keeps grounded
+
+                if (_shouldMakeJump)
+                {
+                    _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    _shouldMakeJump = false;
+                }    
+            }
+            
+
+            // Apply gravity
+            _verticalVelocity += gravity * Time.deltaTime;
+
+            // Combine horizontal + vertical
+            Vector3 _velocity = worldMove;
+            _velocity.y = _verticalVelocity;
+            _controller.Move(_velocity * Time.deltaTime);
+
         }
-        
-
-        // Apply gravity
-        _verticalVelocity += gravity * Time.deltaTime;
-
-        // Combine horizontal + vertical
-        Vector3 _velocity = worldMove;
-        _velocity.y = _verticalVelocity;
-        _controller.Move(_velocity * Time.deltaTime);
     }
 
     public bool IsCeilingBlocked()
@@ -256,6 +263,16 @@ public class SimpleCharacterController : MonoBehaviour
     public void ExitAim()
     {
         _isAim = false;
+    }
+
+    public void BlockMovement()
+    {
+        _isBlocked = true;
+    }
+
+    public void UnblockMovement()
+    {
+        _isBlocked = false;
     }
 
 

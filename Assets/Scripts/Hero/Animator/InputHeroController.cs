@@ -25,6 +25,8 @@ public class InputHeroController : MonoBehaviour
     public Action interactKeyPressed;
     public Action aimKeyPressed;
     public Action fireKeyPressed;
+
+    private bool _blockInputs = false;
     
 
     void Start()
@@ -33,36 +35,47 @@ public class InputHeroController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(walkKey))
+        if (!_blockInputs)
         {
-            walkKeyPressed?.Invoke();
-        }
+            if (Input.GetKeyDown(walkKey))
+            {
+                walkKeyPressed?.Invoke();
+            }
 
-        if (Input.GetKeyDown(crouchKey))
-        {
-            crouchKeyPressed?.Invoke();
-        }
+            if (Input.GetKeyDown(crouchKey))
+            {
+                crouchKeyPressed?.Invoke();
+            }
 
-        if (Input.GetKeyDown(interactKey))
-        {
-            Debug.Log("E KEY PRESSED!!");
-            interactKeyPressed?.Invoke();
-        }
+            if (Input.GetKeyDown(interactKey))
+            {                interactKeyPressed?.Invoke();
+            }
 
-        if (Input.GetKeyDown(aimKey))
-        {
-            aimKeyPressed?.Invoke();
-        }
+            if (Input.GetKeyDown(aimKey))
+            {
+                aimKeyPressed?.Invoke();
+            }
 
-        if (Input.GetKeyDown(spaceKey))
-        {
-            jumpKeyPressed?.Invoke();
-        }
+            if (Input.GetKeyDown(spaceKey))
+            {
+                jumpKeyPressed?.Invoke();
+            }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            fireKeyPressed?.Invoke();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                fireKeyPressed?.Invoke();
+            }
 
+        }
+    }
+
+    public void BlockInputs()
+    {
+        _blockInputs = true;
+    }
+
+    public void AllowInputs()
+    {
+        _blockInputs = false;
     }
 }

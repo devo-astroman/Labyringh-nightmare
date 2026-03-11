@@ -86,8 +86,15 @@ public class HeroMovementController : MonoBehaviour
         _inputHeroController.walkKeyPressed -= HandleWalkKeyPressed;
     }
 
+    public void BlockMovements()
+    {
+        _simpleCharacterController.BlockMovement();
+    }
 
-
+    public void UnblockMovements()
+    {
+        _simpleCharacterController.UnblockMovement();
+    }
 
     #endregion
 
@@ -142,6 +149,11 @@ public class HeroMovementController : MonoBehaviour
     {
         _hud.HideCrosshair();
         _hud.HideAmmo();
+    }
+
+    public void ExecuteModeDie()
+    {
+        _animatorHeroController.SetDeadMode();
     }
     
     public void RefreshAim()

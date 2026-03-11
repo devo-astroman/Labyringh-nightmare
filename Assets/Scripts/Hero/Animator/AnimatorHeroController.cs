@@ -11,6 +11,7 @@ public class AnimatorHeroController : MonoBehaviour
     private string _walkModeParamName = "WalkMode";
     private string _crouchModeParamName = "CrouchMode";
     private string _aimModeParamName = "AimMode";
+    private string _deadModeParamName = "DeadMode";
     
 
     public void SetBaseMode()
@@ -47,6 +48,12 @@ public class AnimatorHeroController : MonoBehaviour
         _layerHeroAnimatorController.SetAim();
     }
 
+    public void SetDeadMode()
+    {
+        SetModeTrue(_deadModeParamName);
+        _layerHeroAnimatorController.SetDie();
+    }
+
     private void SetModeTrue(string paramName)
     {
         SetBaseModeTrue();
@@ -58,5 +65,6 @@ public class AnimatorHeroController : MonoBehaviour
         _animator.SetBool(_walkModeParamName,false);
         _animator.SetBool(_crouchModeParamName,false);
         _animator.SetBool(_aimModeParamName,false);
+        _animator.SetBool(_deadModeParamName,false);
     }
 }

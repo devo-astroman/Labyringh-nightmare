@@ -90,6 +90,7 @@ MonoBehaviour:
   _walkLayerName: Walk
   _crouchLayerName: Crouch
   _aimLayerName: Aim
+  _dieLayerName: Die
   _layerBlendTime: 0.2
 --- !u!114 &6211640598120995720
 MonoBehaviour:
@@ -844,6 +845,50 @@ MonoBehaviour:
   _animatorHeroController: {fileID: 4537468810137382026}
   _hud: {fileID: 5054659221501645061}
   _gunFireController: {fileID: 542254830767979702}
+--- !u!1 &6496178236954043613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4832476629879886956}
+  - component: {fileID: 6054056386066193088}
+  m_Layer: 0
+  m_Name: HealthController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4832476629879886956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496178236954043613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5180737074399432878}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6054056386066193088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6496178236954043613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1320ae59ec408464b9f87faf4cace2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6537224998054628539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,6 +1126,7 @@ Transform:
   - {fileID: 3890556758203910624}
   - {fileID: 562375824318201002}
   - {fileID: 7059238377111501117}
+  - {fileID: 4832476629879886956}
   m_Father: {fileID: 7260720706514412309}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8129587588742401775
@@ -1584,6 +1630,7 @@ MonoBehaviour:
   _gunFireController: {fileID: 542254830767979702}
   _heroSoundManager: {fileID: 1582966243562841592}
   _heroVfxsManager: {fileID: 8342614399195687024}
+  _healthController: {fileID: 6054056386066193088}
   _heroMovementController: {fileID: 5955450096167556001}
   _hud: {fileID: 5054659221501645061}
   _heroHurtController: {fileID: 4746746736813446663}

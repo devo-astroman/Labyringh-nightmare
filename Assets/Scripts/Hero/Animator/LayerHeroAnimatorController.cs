@@ -12,6 +12,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     [SerializeField] private string _walkLayerName = "Walk";
     [SerializeField] private string _crouchLayerName = "Crouch";
     [SerializeField] private string _aimLayerName = "Aim";
+    [SerializeField] private string _dieLayerName = "Die";
 
     [Header("Blend Settings")]
     [SerializeField] private float _layerBlendTime = 0.2f;
@@ -21,6 +22,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     private int _walkLayerIndex;
     private int _crouchLayerIndex;
     private int _aimLayerIndex;
+    private int _dieLayerIndex;
 
     private int _currentLayer = -1;
     private Coroutine _blendRoutine;
@@ -35,12 +37,15 @@ public class LayerHeroAnimatorController : MonoBehaviour
         _walkLayerIndex = _animator.GetLayerIndex(_walkLayerName);
         _crouchLayerIndex = _animator.GetLayerIndex(_crouchLayerName);
         _aimLayerIndex = _animator.GetLayerIndex(_aimLayerName);
+        _dieLayerIndex = _animator.GetLayerIndex(_dieLayerName);
+
 
         ValidateLayer(_baseLayerIndex, _baseLayerName);
         ValidateLayer(_runLayerIndex, _runLayerName);
         ValidateLayer(_walkLayerIndex, _walkLayerName);
         ValidateLayer(_crouchLayerIndex, _crouchLayerName);
         ValidateLayer(_aimLayerIndex, _aimLayerName);
+        ValidateLayer(_dieLayerIndex, _dieLayerName);
 
         SetBaseInstant();
     }
@@ -60,6 +65,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     public void SetWalk()   => BlendToLayer(_walkLayerIndex);
     public void SetCrouch() => BlendToLayer(_crouchLayerIndex);
     public void SetAim() => BlendToLayer(_aimLayerIndex);
+    public void SetDie() => BlendToLayer(_dieLayerIndex);
 
     // -------------------------
     // PUBLIC API (Instant)
@@ -70,6 +76,7 @@ public class LayerHeroAnimatorController : MonoBehaviour
     public void SetWalkInstant()   => SetExclusiveLayerInstant(_walkLayerIndex);
     public void SetCrouchInstant() => SetExclusiveLayerInstant(_crouchLayerIndex);
     public void SetAimInstant() => SetExclusiveLayerInstant(_aimLayerIndex);
+    public void SetDieInstant() => SetExclusiveLayerInstant(_dieLayerIndex);
 
     // -------------------------
     // INTERNAL

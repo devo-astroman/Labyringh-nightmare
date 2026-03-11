@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroHurtController : MonoBehaviour
@@ -20,7 +17,7 @@ public class HeroHurtController : MonoBehaviour
     private SetTimeoutUtility _timeoutCoolDown;
 
     #endregion
-    public void MakePlayerGetHurt()
+    public bool MakePlayerGetHurt()
     {
 
         if (_coolDownEnded)
@@ -38,9 +35,11 @@ public class HeroHurtController : MonoBehaviour
             _timeoutCoolDown.SetTimeout(() => {
                 _coolDownEnded = true;
             }, _coolDownTime);
+
+            return true;
         }
 
-        
+        return false;        
     }
 
     #region Unity Callbacks
