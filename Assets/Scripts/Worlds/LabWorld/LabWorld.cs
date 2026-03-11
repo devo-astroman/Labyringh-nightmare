@@ -97,6 +97,9 @@ public class LabWorld : MonoBehaviour
 
            _heroFSM = hero.GetComponentInChildren<HeroFSM>();
            _heroFSM.onFireAction+= HandleOnFireAction;
+           _heroFSM.HeroDiedAction += HandleHeroDied;
+
+           
 
            PrepareWaves();
 
@@ -244,21 +247,35 @@ public class LabWorld : MonoBehaviour
 
     }
 
+    private void HandleHeroDied()
+    {
+        //Get position from the checkpoint manager
+        //Move player to the position
+        //Set hero fsm to Run
+
+        //Deactivate the last Checkpoint
+        //Deactivate the current wave of enemies
+
+
+
+
+    }
+
     private void HandlePuzzleSolved(int id)
     {
         //should deactivate the puzzle
         //should activate the corresponding enemy wave
         Debug.Log("_______HandlePuzzleSolved_____ " + id);
         //id = 10;
-        _labyrinthCreator.OpenExitFence();
-        /* if (id < 6)
+        //_labyrinthCreator.OpenExitFence(); //to test
+        if (id < 6)
         {
             _waveManager.RunWave(id+1);
         }
         else
         {
            Debug.Log("Last puzzle");
-        } */
+        }
     }
 
     private void HandleWaveFinished(int idWave)

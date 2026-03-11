@@ -155,6 +155,7 @@ public class HeroMovementController : MonoBehaviour
     {
         _animatorHeroController.SetDeadMode();
     }
+
     
     public void RefreshAim()
     {//Called from external script when needed to update the hud, probably from an Update

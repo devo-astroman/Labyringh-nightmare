@@ -58,6 +58,8 @@ public class HeroFSM : AbstractFiniteStateMachine
 
     public Action<bool> hideStealthChangeAction;
 
+    public Action HeroDiedAction;
+
     private GameObject _ammoDetected;
     private GameObject _interactableDetected;
 
@@ -652,11 +654,12 @@ public class HeroFSM : AbstractFiniteStateMachine
             Debug.Log("Die State");
             _dependencies.fsm._heroMovementController.BlockMovements();
             _dependencies.fsm._heroMovementController.ExecuteModeDie();
+            _dependencies.fsm.HeroDiedAction?.Invoke();
         }
 
         public override void OnExit()
         {
-            
+            _dependencies.fsm._heroMovementController.UnblockMovements();
         }        
     }
 }
