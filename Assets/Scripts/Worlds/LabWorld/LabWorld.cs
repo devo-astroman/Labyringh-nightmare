@@ -9,6 +9,7 @@ public class LabWorld : MonoBehaviour
 
     [SerializeField] private HeroFSM _heroFSM;
     [SerializeField] private VFXsManager _vFXsManager;
+    [SerializeField] private Minimap _minimap;
     
 
 //    [SerializeField] private EnemyManager _enemyManager;
@@ -81,6 +82,18 @@ public class LabWorld : MonoBehaviour
            // var hero = Instantiate(_playerHeroPrefab, _spawnPoint.position, _spawnPoint.rotation);
 
            var hero = Instantiate(_playerHeroPrefab, _heroSpawnPoint, _spawnPoint.rotation);
+
+            Camera camera = hero.GetComponentInChildren<Camera>();
+
+            if (camera)
+            {
+                _minimap.SetCameraHero(camera);
+            }
+            else
+            {
+                Debug.Log("Warning not camera found!!!");
+            }
+
 
            _heroFSM = hero.GetComponentInChildren<HeroFSM>();
            _heroFSM.onFireAction+= HandleOnFireAction;
@@ -249,13 +262,17 @@ public class LabWorld : MonoBehaviour
 
     private void HandleWaveFinished(int idWave)
     {
-        if(idWave < 7)
+
+        Debug.Log("_______HandleWaveFinished>>>> " + idWave);
+        if(idWave < 6)
         {
             _labyrinthCreator.ActivatePuzzle(idWave);
         }
         else
         {
             Debug.Log("OPEN THE EXIT");
+            Debug.Log("Throw the key");
+
         }
     }
 
