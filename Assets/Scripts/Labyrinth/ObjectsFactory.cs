@@ -7,7 +7,7 @@ public class ObjectsFactory : MonoBehaviour
     [SerializeField] private GameObject _boxAllFacesPrefab;
     [SerializeField] private GameObject _box2EmptiesPrefab;
     [SerializeField] private GameObject _ammoOnBoxPrefab;
-    [SerializeField] private GameObject _spikesPrefab;
+    [SerializeField] private GameObject _spikesPrefab;    
 
     [SerializeField] private GameObject _p1SpyderPuzzlePrefab;
     [SerializeField] private GameObject _p2FirerPuzzlePrefab;
@@ -59,6 +59,7 @@ public class ObjectsFactory : MonoBehaviour
         
         return null;
     }
+    
 
     // Use the same bit values you used when building _doors
     private const int DIR_N = 1;

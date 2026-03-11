@@ -20,10 +20,6 @@ public class LabyrinthObjectsManager : MonoBehaviour
     [SerializeField] private PuzzlesManager _puzzleManager;
     public Action<int> PuzzleSolvedAction;
 
-    private int _iRoom = 0;
-    private int _iLayer = 0;
-    private int _iCube = 0;
-
     void Start()
     {
         _puzzleManager.PuzzleSolvedAction += HandlePuzzleSolved;
@@ -128,12 +124,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             activatableBehaviour.Deactivate();
             _puzzleManager.RegisterPuzzle(5,p6);
 
-        }else  if(x==8 & y == 1)
+        }else  if(x==9 & y == 4)    
         {
-
-            /* Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
-            _puzzleManager.RegisterPuzzle(6,p3); */
             
         }else 
         {// rest of the rooms should be random

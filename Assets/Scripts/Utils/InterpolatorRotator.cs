@@ -11,7 +11,7 @@ public class InterpolatorRotator : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] private UnityEvent _onRotationStarted;
-    [SerializeField] private UnityEvent _onRotationFinished;
+    [SerializeField] private UnityEvent _onRotationFinished;    
     #endregion
 
     #region Private properties

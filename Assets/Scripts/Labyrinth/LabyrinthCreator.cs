@@ -13,6 +13,7 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private Grid _grid;
 
     [SerializeField] private GameObject _roomGOPrefab;
+    [SerializeField] private GameObject _exitPrefab;
 
     [SerializeField] private int _seed = 1234;
     [SerializeField] private bool _addExtraLoops = false;
@@ -24,6 +25,8 @@ public class LabyrinthCreator : MonoBehaviour
 
     [SerializeField] private LabyrinthDebugger _labyrinthDebugger;
     [SerializeField] private LabyrinthObjectsManager _labyrinthObjectsManager;
+
+    private ExitFence _exitFence;
 
     
     public Action<int> PuzzleSolved;
@@ -158,6 +161,11 @@ public class LabyrinthCreator : MonoBehaviour
         return _grid.GetPositionOfRoom(x, y);
     }
 
+    public void OpenExitFence()
+    {
+        _exitFence.OpenFence();
+    }
+
     private void CreateLabyrinth()
     {
         // 1) Build a perfect maze using DFS backtracker
@@ -201,25 +209,39 @@ public class LabyrinthCreator : MonoBehaviour
         {
             for (int x = 0; x < _gridW; x++)
             {
-                GameObject roomGO = Instantiate(_roomGOPrefab, parent);
-                roomGO.name = $"Room_{x}_{y}";
-
-                Room room = roomGO.GetComponent<Room>();
-                int mask = 0;
-                if (room != null)
+                if(x == 9 && y == 4)
                 {
-                    room.CloseAllEntrances();
+                    GameObject exitGO = Instantiate(_exitPrefab, parent);
+                    exitGO.name = $"Exit_{x}_{y}";
+                    _grid.PlaceObjectAt(exitGO, x, y);
 
-                    mask = _doors[x, y];
+                    _exitFence = exitGO.GetComponent<ExitFence>();
+                }
+                else
+                {
+                    GameObject roomGO = Instantiate(_roomGOPrefab, parent);
+                    roomGO.name = $"Room_{x}_{y}";
 
-                    if ((mask & DIR_N) != 0) room.OpenEntrances(RoomSides.NORTH_SIDE, new[] { 0 });
-                    if ((mask & DIR_E) != 0) room.OpenEntrances(RoomSides.EAST_SIDE, new[] { 0 });
-                    if ((mask & DIR_S) != 0) room.OpenEntrances(RoomSides.SOUTH_SIDE, new[] { 0 });
-                    if ((mask & DIR_W) != 0) room.OpenEntrances(RoomSides.WEST_SIDE, new[] { 0 });
+                    Room room = roomGO.GetComponent<Room>();
+                    int mask = 0;
+                    if (room != null)
+                    {
+                        room.CloseAllEntrances();
+
+                        mask = _doors[x, y];
+
+                        if ((mask & DIR_N) != 0) room.OpenEntrances(RoomSides.NORTH_SIDE, new[] { 0 });
+                        if ((mask & DIR_E) != 0) room.OpenEntrances(RoomSides.EAST_SIDE, new[] { 0 });
+                        if ((mask & DIR_S) != 0) room.OpenEntrances(RoomSides.SOUTH_SIDE, new[] { 0 });
+                        if ((mask & DIR_W) != 0) room.OpenEntrances(RoomSides.WEST_SIDE, new[] { 0 });
+                    }
+
+                    _grid.PlaceObjectAt(roomGO, x, y);
+                    ApplyFunction(roomGO, x, y, mask);
                 }
 
-                _grid.PlaceObjectAt(roomGO, x, y);
-                ApplyFunction(roomGO, x, y, mask);
+
+                
             }
         }
     }

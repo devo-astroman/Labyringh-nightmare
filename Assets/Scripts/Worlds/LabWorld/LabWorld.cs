@@ -250,14 +250,15 @@ public class LabWorld : MonoBehaviour
         //should activate the corresponding enemy wave
         Debug.Log("_______HandlePuzzleSolved_____ " + id);
         //id = 10;
-        if (id < 6)
+        _labyrinthCreator.OpenExitFence();
+        /* if (id < 6)
         {
             _waveManager.RunWave(id+1);
         }
         else
         {
            Debug.Log("Last puzzle");
-        }
+        } */
     }
 
     private void HandleWaveFinished(int idWave)
@@ -272,6 +273,7 @@ public class LabWorld : MonoBehaviour
         {
             Debug.Log("OPEN THE EXIT");
             Debug.Log("Throw the key");
+            _labyrinthCreator.OpenExitFence();
 
         }
     }
