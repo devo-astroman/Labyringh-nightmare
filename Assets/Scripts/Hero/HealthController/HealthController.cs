@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour
     #endregion
 
     #region Private properties	
-    private int _life = 100;
+    private int _life = 2;
     #endregion
     public void DecreaseLife(int amount)
     {

@@ -161,6 +161,16 @@ public class LabyrinthCreator : MonoBehaviour
         return _grid.GetPositionOfRoom(x, y);
     }
 
+    public void SolvePuzzle(int idPuzzle)
+    {
+        _labyrinthObjectsManager.SetCurrentCheckpointFromSolvedPuzzleId(idPuzzle);
+    }
+
+    public Vector3 GetCheckpointPosition()
+    {
+        return _labyrinthObjectsManager.GetCurrentCheckpointPosition();
+    }
+
     public void OpenExitFence()
     {
         _exitFence.OpenFence();
@@ -238,7 +248,7 @@ public class LabyrinthCreator : MonoBehaviour
 
                     _grid.PlaceObjectAt(roomGO, x, y);
 
-                    
+
 
                     ApplyFunction(roomGO, x, y, mask);
                 }

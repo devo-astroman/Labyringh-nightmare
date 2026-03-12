@@ -18,6 +18,10 @@ public class LabyrinthObjectsManager : MonoBehaviour
     [SerializeField] private List<string> _roomProcessed = new List<string>();
 
     [SerializeField] private PuzzlesManager _puzzleManager;
+    [SerializeField] private CheckpointManager _checkpointManager;
+
+
+    
     
     public Action<int> PuzzleSolvedAction;
 
@@ -80,6 +84,10 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
             GameObject checkpoint1 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint1.transform.position);
+
+            //initializing
+            _checkpointManager.SetCurrentCheckpointIdFromPuzzleId(idPuzzle);
 
         }else  if(x==0 & y == 9) //P2
         {
@@ -92,7 +100,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             _puzzleManager.RegisterPuzzle(idPuzzle,p2);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,3);
-            GameObject checkpoint2 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            GameObject checkpoint2 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);            
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint2.transform.position);
 
         }else  if(x==3 & y == 6)  //P3
         {
@@ -105,6 +114,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
             GameObject checkpoint3 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint3.transform.position);
 
         }else  if(x==7 & y == 8) //P4
         {
@@ -117,7 +127,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,0);
-            GameObject checkpoint3 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            GameObject checkpoint4 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint4.transform.position);
 
         }else  if(x==8 & y == 0) //P5
         {
@@ -129,7 +140,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             _puzzleManager.RegisterPuzzle(idPuzzle,p5);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,6);
-            GameObject checkpoint4 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            GameObject checkpoint5 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint5.transform.position);
 
         }else  if(x==5 & y == 3) //P6
         {
@@ -141,7 +153,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             _puzzleManager.RegisterPuzzle(idPuzzle,p6);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,5);
-            GameObject checkpoint5 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            GameObject checkpoint6 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+            _checkpointManager.RegisterCheckpoint(idPuzzle,idPuzzle,checkpoint6.transform.position);
 
         }else  if(x==9 & y == 4)    
         {
@@ -184,6 +197,16 @@ public class LabyrinthObjectsManager : MonoBehaviour
     public RoomPositions[] GetAllRoomPositionsArray()
     {
         return _allRoomPositions.ToArray();
+    }
+
+    public void SetCurrentCheckpointFromSolvedPuzzleId(int puzzleId)
+    {
+        _checkpointManager.SetCurrentCheckpointIdFromPuzzleId(puzzleId);
+    }  
+
+    public Vector3 GetCurrentCheckpointPosition()
+    {
+        return _checkpointManager.GetCurrentCheckpointPosition();
     }
 
     void OnDestroy()

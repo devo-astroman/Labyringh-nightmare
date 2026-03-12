@@ -51,6 +51,11 @@ public class EnemyManager : MonoBehaviour
         return enemySpyderFSMGO;
     }
 
+    public void UpdateSpyderTarget(GameObject enemySpyder, Transform target)
+    {
+        enemySpyder.GetComponent<EB2FSM>().SetTarget(target);
+    }
+
     public GameObject CreateFirerEnemy(Vector3 enemyPosition)
     {
         GameObject enemyFirerFSMGO = Instantiate(_enemyFirerPref, enemyPosition, Quaternion.identity);

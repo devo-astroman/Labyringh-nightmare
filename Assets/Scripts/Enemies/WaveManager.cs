@@ -33,6 +33,11 @@ public class WEnemy
     {
         Go = go;
     }
+
+    public void SetHeroTransform(Transform heroTransform)
+    {
+        HeroTransform = heroTransform;
+    }
 }
 
 public class Wave
@@ -142,6 +147,46 @@ public class WaveManager : MonoBehaviour
             {
                 dieIntNotifier.IntNotifyAction += HandleIntNotify;
             }
+        }
+    }
+
+    public void UpdateHeroTransform(Transform newHeroTransform)
+    {
+        foreach (Wave wave in _allWaves)
+        {
+            foreach (WEnemy wEnemy in wave.WEnemies)
+            {
+                if (wEnemy.TypeEnemy == 0) // Spyder
+                {
+                    wEnemy.SetHeroTransform(newHeroTransform);                    
+                    _enemyManager.UpdateSpyderTarget(wEnemy.Go,newHeroTransform);
+                }
+            }
+        }
+    }
+
+    public void ResetWave()
+    {
+        Wave wave = _allWaves.Find(w => w.IdWave == waveRunning);
+
+        if (wave == null)
+        {
+            Debug.LogWarning($"Wave with id {waveRunning} was not found.");
+            return;
+        }
+
+        // Avoid duplicated subscriptions if the wave is run again later
+        UnsubscribeWave(waveRunning);
+
+        wave.NDeads = 0;
+
+        foreach (WEnemy wEnemy in wave.WEnemies)
+        {
+            if (wEnemy.Go == null)
+                continue;
+
+            wEnemy.Go.transform.position = wEnemy.BornPoint;
+            wEnemy.Go.SetActive(false);
         }
     }
 

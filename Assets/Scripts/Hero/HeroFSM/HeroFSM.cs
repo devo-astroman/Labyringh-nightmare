@@ -253,6 +253,16 @@ public class HeroFSM : AbstractFiniteStateMachine
         receiveDamageFromTrapAction?.Invoke();
     }
 
+    public void SetHeroPosition(Vector3 position)
+    {
+        Transform hero = gameObject.transform.Find("Hero");
+        Debug.Log("hero " + hero);
+        if (hero != null)
+        {
+            hero.position = position;
+        }
+    }
+
 
     private void OnDestroy()
     {
