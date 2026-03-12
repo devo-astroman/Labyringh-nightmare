@@ -10,6 +10,7 @@ public class LabWorld : MonoBehaviour
     [SerializeField] private HeroFSM _heroFSM;
     [SerializeField] private VFXsManager _vFXsManager;
     [SerializeField] private Minimap _minimap;
+    [SerializeField] private CheckpointManager _checkpointManager;
     
 
 //    [SerializeField] private EnemyManager _enemyManager;

@@ -18,6 +18,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
     [SerializeField] private List<string> _roomProcessed = new List<string>();
 
     [SerializeField] private PuzzlesManager _puzzleManager;
+    
     public Action<int> PuzzleSolvedAction;
 
     void Start()
@@ -65,64 +66,82 @@ public class LabyrinthObjectsManager : MonoBehaviour
             GameObject ammo = _objectsFactory.GetAmmoOnBox(upperRCornerPosition,id);
 
         }
-        //puzzle rooms
-        //else  if(x==1 & y == 1)
-        else  if(x==1 & y == 0)
+        //------puzzle rooms //P1
+        else  if(x==1 & y == 2)        
         {
-            Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p1 = _objectsFactory.GetPuzzle1(upperRCornerPosition,id,mask);
-            _puzzleManager.RegisterPuzzle(0,p1);
+            int idPuzzle = 0;
+            Vector3 centerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
+            GameObject p1 = _objectsFactory.GetPuzzle1(centerPosition,id,mask);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p1);
 
             ActivatableBehaviour activatableBehaviour = p1.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Activate();
 
-            //GameObject puzzle2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
-            //GameObject puzzleCompass = _objectsFactory.GetPuzzleCompass(upperRCornerPosition,id,mask);
-            //GameObject puzzleCompass = _objectsFactory.GetPuzzleRowBin(upperRCornerPosition,id,mask);
-            
 
-        }else  if(x==4 & y == 2)
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
+            GameObject checkpoint1 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+
+        }else  if(x==0 & y == 9) //P2
         {
+            int idPuzzle = 1;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
             ActivatableBehaviour activatableBehaviour = p2.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
 
-            _puzzleManager.RegisterPuzzle(1,p2);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p2);
 
-        }else  if(x==1 & y == 6)
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,3);
+            GameObject checkpoint2 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+
+        }else  if(x==3 & y == 6)  //P3
         {
+            int idPuzzle = 2;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
             ActivatableBehaviour activatableBehaviour = p3.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
-            _puzzleManager.RegisterPuzzle(2,p3);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p3);
 
-        }else  if(x==3 & y == 5)
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
+            GameObject checkpoint3 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+
+        }else  if(x==7 & y == 8) //P4
         {
+            int idPuzzle = 3;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,mask);
             ActivatableBehaviour activatableBehaviour = p4.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
-            _puzzleManager.RegisterPuzzle(3,p4);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p4);
 
-        }else  if(x==3 & y == 8)
+
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,0);
+            GameObject checkpoint3 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+
+        }else  if(x==8 & y == 0) //P5
         {
-
+            int idPuzzle = 4;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,mask);
             ActivatableBehaviour activatableBehaviour = p5.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
-            _puzzleManager.RegisterPuzzle(4,p5);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p5);
 
-        }else  if(x==6 & y == 6)
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,6);
+            GameObject checkpoint4 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
+
+        }else  if(x==5 & y == 3) //P6
         {
-
+            int idPuzzle = 5;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
             ActivatableBehaviour activatableBehaviour = p6.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
-            _puzzleManager.RegisterPuzzle(5,p6);
+            _puzzleManager.RegisterPuzzle(idPuzzle,p6);
+
+            Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,5);
+            GameObject checkpoint5 = _objectsFactory.GetCheckpoint(centerLeftPosition,idPuzzle);
 
         }else  if(x==9 & y == 4)    
         {

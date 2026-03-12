@@ -15,6 +15,10 @@ public class ObjectsFactory : MonoBehaviour
     [SerializeField] private GameObject _p4TrianglePuzzlePrefab;
     [SerializeField] private GameObject _p5CompassPuzzlePrefab;
     [SerializeField] private GameObject _p6RowbinPuzzlePrefab;
+
+    [SerializeField] private GameObject _checkpointPrefab;
+
+
     
     
      
@@ -59,6 +63,12 @@ public class ObjectsFactory : MonoBehaviour
         
         return null;
     }
+
+    public GameObject GetCheckpoint(Vector3 position, int id)
+    {
+        GameObject checkpoint = Instantiate(_checkpointPrefab,position,Quaternion.identity);
+        return checkpoint;
+    }
     
 
     // Use the same bit values you used when building _doors
@@ -71,12 +81,8 @@ public class ObjectsFactory : MonoBehaviour
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
-
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+        
+        Quaternion rot = RotationFacingSouth();
 
         GameObject puzzle = Instantiate(_p1SpyderPuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -89,12 +95,8 @@ public class ObjectsFactory : MonoBehaviour
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
-
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+        
+        Quaternion rot = RotationFacingEast();
 
         GameObject puzzle = Instantiate(_p2FirerPuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -107,12 +109,8 @@ public class ObjectsFactory : MonoBehaviour
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
-
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+       
+        Quaternion rot = RotationFacingSouth();
 
         GameObject puzzle = Instantiate(_p3BatPuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -126,11 +124,7 @@ public class ObjectsFactory : MonoBehaviour
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+        Quaternion rot = RotationFacingSouth();
 
         GameObject puzzle = Instantiate(_p4TrianglePuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -144,11 +138,7 @@ public class ObjectsFactory : MonoBehaviour
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+        Quaternion rot = RotationFacingNorth();
 
         GameObject puzzle = Instantiate(_p5CompassPuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -162,11 +152,7 @@ public class ObjectsFactory : MonoBehaviour
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
-        // Pick a CLOSED side (empty wall) from the mask
-        int closedSideBit = PickRandomClosedSide(mask);
-
-        // Compute Y rotation so the puzzle faces into the room from that wall
-        Quaternion rot = RotationFacingIntoRoomFromWall(closedSideBit);
+        Quaternion rot = RotationFacingEast();
 
         GameObject puzzle = Instantiate(_p6RowbinPuzzlePrefab, position, rot);
         puzzle.name = "Puzzle_" + id;
@@ -193,6 +179,18 @@ public class ObjectsFactory : MonoBehaviour
         return open[UnityEngine.Random.Range(0, open.Count)];
     }
 
+    private int PickClosedSides(bool N, bool S, bool E, bool W)
+    {
+        int mask = 0;
+
+        if (N) mask |= DIR_N;
+        if (E) mask |= DIR_E;
+        if (S) mask |= DIR_S;
+        if (W) mask |= DIR_W;
+
+        return mask;
+    }
+
     private Quaternion RotationFacingIntoRoomFromWall(int wallBit)
     {
         // Rotation so the object faces into the room when placed on that wall.
@@ -209,6 +207,26 @@ public class ObjectsFactory : MonoBehaviour
         else y = 0f;
 
         return Quaternion.Euler(0f, y, 0f);
+    }
+
+    private Quaternion RotationFacingNorth()
+    {
+        return Quaternion.Euler(0,0,0);
+    }
+
+    private Quaternion RotationFacingEast()
+    {
+        return Quaternion.Euler(0,90,0);
+    }
+
+    private Quaternion RotationFacingSouth()
+    {
+        return Quaternion.Euler(0,180,0);
+    }
+
+    private Quaternion RotationFacingWest()
+    {
+        return Quaternion.Euler(0,270,0);
     }
 
 }

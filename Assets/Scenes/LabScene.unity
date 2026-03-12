@@ -8074,6 +8074,8 @@ MonoBehaviour:
     type: 3}
   _p6RowbinPuzzlePrefab: {fileID: 5303667715139569967, guid: 383e61190d91d624ea2fa12fb305486a,
     type: 3}
+  _checkpointPrefab: {fileID: 6929689235194544200, guid: fec652bf524fff240872187c5ed7d12e,
+    type: 3}
 --- !u!4 &1286949987
 Transform:
   m_ObjectHideFlags: 0
@@ -13071,6 +13073,7 @@ MonoBehaviour:
   _heroFSM: {fileID: 0}
   _vFXsManager: {fileID: 1434536538}
   _minimap: {fileID: 648464163}
+  _checkpointManager: {fileID: 0}
   _waveManager: {fileID: 683289292}
   _labyrinthCreator: {fileID: 151787701}
   _enemySpawnPointTransform: {fileID: 651860686}
@@ -14191,74 +14194,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6413627607030132321}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7397270079294956642
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 277540770513368426, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_Name
-      value: CompassFloor
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 25.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 44.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1738808190844876996, guid: 375731c0e2301f244ac087a2ef1cbe15,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 375731c0e2301f244ac087a2ef1cbe15, type: 3}
 --- !u!1001 &9200777633440077279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14417,7 +14352,6 @@ SceneRoots:
   - {fileID: 90667445}
   - {fileID: 671173815}
   - {fileID: 53830936}
-  - {fileID: 7397270079294956642}
   - {fileID: 1171557659}
   - {fileID: 1098502388230294767}
   - {fileID: 3016459}

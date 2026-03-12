@@ -237,6 +237,9 @@ public class LabyrinthCreator : MonoBehaviour
                     }
 
                     _grid.PlaceObjectAt(roomGO, x, y);
+
+                    
+
                     ApplyFunction(roomGO, x, y, mask);
                 }
 
