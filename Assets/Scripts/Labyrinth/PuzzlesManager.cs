@@ -1,18 +1,21 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+
+
 
 public class PuzzlesManager : MonoBehaviour
 {
-    private GameObject[] _allPuzzles = new GameObject[6]{null,null,null,null,null,null};
+    private List<PuzzleData> _allPuzzles = new List<PuzzleData>();
 
     public Action<int> PuzzleSolvedAction;
     private int _lastPuzzleSolved = 0;
 
-    public void RegisterPuzzle(int idPuzzle, GameObject puzzle)
+    public void RegisterPuzzle(PuzzleData pData)
     {
-        _allPuzzles[idPuzzle] = puzzle;
+        _allPuzzles.Add(pData);
 
-        PuzzleNotifier puzzleNotifier = puzzle.GetComponent<PuzzleNotifier>();
+        PuzzleNotifier puzzleNotifier = pData.Puzzle.GetComponent<PuzzleNotifier>();
         if (puzzleNotifier)
         {
             puzzleNotifier.PuzzleSolvedAction += HandlePuzzleSolved;            
@@ -22,11 +25,47 @@ public class PuzzlesManager : MonoBehaviour
     public void ActivatePuzzle(int idPuzzle)
     {
 
-        GameObject puzzle = _allPuzzles[idPuzzle];
-        ActivatableBehaviour activatableBehaviour = puzzle.GetComponent<ActivatableBehaviour>();        
+        PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
+        {
+            return p.id == idPuzzle;
+        });
+
+
+        GameObject puzzle = puzzleDataToActivate.Puzzle;
+        Puzzle activatableBehaviour = puzzle.GetComponent<Puzzle>();        
         if (activatableBehaviour)
         {
             activatableBehaviour.Activate();
+        }
+    }
+
+    public void DeactivatePuzzle(int idPuzzle)
+    {
+        PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
+        {
+            return p.id == idPuzzle;
+        });
+
+        GameObject puzzleGo = puzzleDataToActivate.Puzzle;
+        Puzzle puzzle = puzzleGo.GetComponent<Puzzle>();        
+        if (puzzle)
+        {
+            puzzle.Deactivate();
+        }
+    }
+
+    public void ResetPuzzle(int idPuzzle)
+    {
+        PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
+        {
+            return p.id == idPuzzle;
+        });
+
+        GameObject puzzleGo = puzzleDataToActivate.Puzzle;
+        Puzzle puzzle = puzzleGo.GetComponent<Puzzle>();        
+        if (puzzle)
+        {
+            puzzle.Reset();            
         }
     }
 
@@ -35,28 +74,32 @@ public class PuzzlesManager : MonoBehaviour
         ActivatePuzzle(_lastPuzzleSolved);
     }
 
+    public void DeactivateAllPuzzles()
+    {
+        _allPuzzles.ForEach(p =>
+        {
+            DeactivatePuzzle(p.id);
+        });
+    }
+
+    void OnDestroy()
+    {
+        _allPuzzles.ForEach(p =>
+        {
+            PuzzleNotifier puzzleNotifier = p.Puzzle.GetComponent<PuzzleNotifier>();
+            if (puzzleNotifier)
+            {
+                puzzleNotifier.PuzzleSolvedAction -= HandlePuzzleSolved;
+            }   
+        });
+    }
+
     private void HandlePuzzleSolved(int id)
     {
         _lastPuzzleSolved = id;
         PuzzleSolvedAction?.Invoke(id);
     }
 
-    void OnDestroy()
-    {
-        for(int i =0; i<_allPuzzles.Length; i++)
-        {
-            GameObject puzzle = _allPuzzles[i];
 
-            if (puzzle)
-            {
-                PuzzleNotifier puzzleNotifier = puzzle.GetComponent<PuzzleNotifier>();
-                if (puzzleNotifier)
-                {
-                    puzzleNotifier.PuzzleSolvedAction -= HandlePuzzleSolved;
-                }    
-            }
-            
-        }
-    }
 
 }

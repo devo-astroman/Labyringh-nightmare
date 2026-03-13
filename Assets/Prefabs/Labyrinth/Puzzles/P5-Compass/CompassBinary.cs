@@ -20,7 +20,7 @@ public struct CompassCoord
 
 
 
-public class CompassBinary : ActivatableBehaviour
+public class CompassBinary : Puzzle
 {
     #region Fields
     [SerializeField] private Compass _current;
@@ -40,12 +40,21 @@ public class CompassBinary : ActivatableBehaviour
     [SerializeField] private CompassCoord _compassCoordE;
     [SerializeField] private CompassCoord _compassCoordW;
 
+    private bool _originalMeshSwitcherN;
+    private bool _originalMeshSwitcherS;
+    private bool _originalMeshSwitcherE;
+    private bool _originalMeshSwitcherW;
+
     #endregion
     #region Unity Callbacks
     void Start()
     {
-
-        SetInitialValues();
+        _originalMeshSwitcherN = _compassCoordN.MeshSwitcher.GetIsVisible();
+        _originalMeshSwitcherS = _compassCoordS.MeshSwitcher.GetIsVisible();
+        _originalMeshSwitcherE = _compassCoordE.MeshSwitcher.GetIsVisible();
+        _originalMeshSwitcherW = _compassCoordW.MeshSwitcher.GetIsVisible();
+        
+        SetSymbolValues();
 
         _compassCoordN.ColButton.buttonIteractAction += HandleButtonNIteract;
         _compassCoordS.ColButton.buttonIteractAction += HandleButtonSIteract;
@@ -70,7 +79,7 @@ public class CompassBinary : ActivatableBehaviour
         _current = current;
         _solution = solution;
 
-        SetInitialValues();
+        SetSymbolValues();
     }
 
     public override void Activate()
@@ -104,11 +113,19 @@ public class CompassBinary : ActivatableBehaviour
        _compassCoordW.ColButton.Deactivate();
        _signalVfx.SetActive(false);
     }
+
+    public override void Reset()
+    {
+        _compassCoordN.MeshSwitcher.SetIsVisible(_originalMeshSwitcherN);
+        _compassCoordS.MeshSwitcher.SetIsVisible(_originalMeshSwitcherS);
+        _compassCoordE.MeshSwitcher.SetIsVisible(_originalMeshSwitcherE);
+        _compassCoordW.MeshSwitcher.SetIsVisible(_originalMeshSwitcherW); 
+    }
     
 	#endregion
     
     #region Private methods
-    private void SetInitialValues()
+    private void SetSymbolValues()
     {
         SetSymbolsCoordValue(_compassCoordN, _solution.North);
         SetSymbolsCoordValue(_compassCoordS, _solution.South);

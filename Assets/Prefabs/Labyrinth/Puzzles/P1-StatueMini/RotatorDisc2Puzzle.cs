@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RotatorDisc2Puzzle : ActivatableBehaviour
+public class RotatorDisc2Puzzle : Puzzle
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
@@ -9,7 +9,9 @@ public class RotatorDisc2Puzzle : ActivatableBehaviour
     [SerializeField] private int _id;
 
     [SerializeField] private int _currentUp;
-    [SerializeField] private int _currentMiddle;   
+    [SerializeField] private int _currentMiddle; 
+    private int _originalUp;
+    private int _originalMiddle;   
 
     [SerializeField] ColButton _colButtonUp;
     [SerializeField] ColButton _colButtonMiddle;
@@ -22,8 +24,11 @@ public class RotatorDisc2Puzzle : ActivatableBehaviour
 
     void Start()
     {
+        _originalUp=_currentUp;
+        _originalMiddle=_currentMiddle;
+
         _pointerLookAtCyclerUp.RotateInstantSteps(_currentUp);
-        _pointerLookAtCyclerMiddle.RotateInstantSteps(_currentMiddle);        
+        _pointerLookAtCyclerMiddle.RotateInstantSteps(_currentMiddle);
 
         _pointerLookAtCyclerUp.OnRotationFinished += HandleRotationFinishedUp;
         _pointerLookAtCyclerMiddle.OnRotationFinished += HandleRotationFinishedMiddle;        
@@ -60,6 +65,12 @@ public class RotatorDisc2Puzzle : ActivatableBehaviour
         _colButtonMiddle.PressButton();
         _colButtonMiddle.Deactivate();
         _signalVfx.SetActive(false);
+    }
+
+    public override void Reset()
+    {
+        _pointerLookAtCyclerUp.RotateInstantSteps(_originalUp);
+        _pointerLookAtCyclerMiddle.RotateInstantSteps(_originalMiddle);
     }
 
     private void HandleRotationFinishedUp(int currentIndex, Transform target)

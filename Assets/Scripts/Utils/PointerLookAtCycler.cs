@@ -142,7 +142,7 @@ public class PointerLookAtCycler : MonoBehaviour
         OnRotationFinished?.Invoke(currentIndex, target);
     }
 
-    public void RotateInstantSteps(int steps)
+    public void RotateInstantSteps(int steps, bool notify=true)
     {
         if (pointer == null || targets.Count == 0) return;
 
@@ -165,8 +165,13 @@ public class PointerLookAtCycler : MonoBehaviour
         isRotating = false;
         finishedEventFiredForCurrent = true;
 
-        OnRotationFinished?.Invoke(currentIndex, target);
+        if (notify)
+        {
+            OnRotationFinished?.Invoke(currentIndex, target);
+            
+        }
     }
+
 
     private void MarkNeedsRotation()
     {

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RotatorDisc1Puzzle : ActivatableBehaviour
+public class RotatorDisc1Puzzle : Puzzle
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     
@@ -9,6 +9,7 @@ public class RotatorDisc1Puzzle : ActivatableBehaviour
     [SerializeField] private int _id;
 
     [SerializeField] private int _currentUp;
+    private int _originalUp;
     
 
     [SerializeField] ColButton _colButtonUp;    
@@ -22,7 +23,8 @@ public class RotatorDisc1Puzzle : ActivatableBehaviour
 
     void Start()
     {
-        _pointerLookAtCyclerUp.RotateInstantSteps(_currentUp);        
+        _originalUp = _currentUp;
+        _pointerLookAtCyclerUp.RotateInstantSteps(_currentUp);
 
         _pointerLookAtCyclerUp.OnRotationFinished += HandleRotationFinishedUp;        
 
@@ -50,6 +52,11 @@ public class RotatorDisc1Puzzle : ActivatableBehaviour
         _colButtonUp.PressButton();
         _colButtonUp.Deactivate();
         _signalVfx.SetActive(false);
+    }
+
+    public override void Reset()
+    {
+        _pointerLookAtCyclerUp.RotateInstantSteps(_originalUp);        
     }
 
     private void HandleRotationFinishedUp(int currentIndex, Transform target)

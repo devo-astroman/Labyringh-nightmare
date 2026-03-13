@@ -7,6 +7,9 @@ public class Main : MonoBehaviour
     [SerializeField] World _world;
     [SerializeField] HeroManager _heroManager;
     [SerializeField] CheckpointManager _checkpointManager;
+    [SerializeField] PuzzlesManager _puzzlesManager;
+
+    
     
     #endregion
 
@@ -15,6 +18,8 @@ public class Main : MonoBehaviour
 
     #region Properties
     public int test = -1;
+    public int testDeactivate = -1;
+    public int reset = -1;
     #endregion
 
     #region Unity Callbacks
@@ -30,10 +35,31 @@ public class Main : MonoBehaviour
     {
         if (test != -1)
         {
-            AssignNewCurrentCheckpoint(test);
+            //AssignNewCurrentCheckpoint(test);
             //RestartHeroAtCheckpoint();
+            ActivatePuzzle(test);
             test = -1;
         }
+
+        if (testDeactivate != -1)
+        {
+            //AssignNewCurrentCheckpoint(test);
+            //RestartHeroAtCheckpoint();
+            DeactivatePuzzle(test);
+            testDeactivate = -1;
+        }
+
+        if (reset != -1)
+        {
+            //AssignNewCurrentCheckpoint(test);
+            //RestartHeroAtCheckpoint();
+            ResetPuzzle(reset);
+            reset = -1;
+        }
+
+        
+
+        
     }
 
     void OnDestroy()
@@ -49,17 +75,20 @@ public class Main : MonoBehaviour
     #region Private Methods
     private void HandleWorldCreationFinished()
     {
-
         _checkpointManager.AddCheckpoint(0,_world.GetStartPoint());
-        List<PuzzleData> list = _world.GetPuzzleDataList();        
-        list.ForEach(pData =>
+        List<PuzzleData> puzzlesDataList = _world.GetPuzzleDataList();        
+        puzzlesDataList.ForEach(pData =>
         {
             _checkpointManager.AddCheckpoint(pData.id,pData.Checkpoint.transform.position);
+
+            _puzzlesManager.RegisterPuzzle(pData);
+
         });
 
+        _puzzlesManager.DeactivateAllPuzzles();
 
         _heroManager.CreateHero( _checkpointManager.GetCurrentCheckpointPosition());
- 
+
     }
 
     private void HandleHeroDied()
@@ -77,6 +106,20 @@ public class Main : MonoBehaviour
         Vector3 checkpointPosition = _checkpointManager.GetCurrentCheckpointPosition();
 
         _heroManager.ResetHeroAt(checkpointPosition);
+    }
+
+    private void ActivatePuzzle(int idPuzzle)
+    {
+        _puzzlesManager.ActivatePuzzle(idPuzzle);
+    }
+
+    private void DeactivatePuzzle(int idPuzzle)
+    {
+        _puzzlesManager.DeactivatePuzzle(idPuzzle);
+    }
+    private void ResetPuzzle(int idPuzzle)
+    {
+        _puzzlesManager.ResetPuzzle(idPuzzle);
     }
     #endregion
 }

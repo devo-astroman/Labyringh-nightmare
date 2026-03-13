@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatorDisc3Puzzle  : ActivatableBehaviour
+public class RotatorDisc3Puzzle  : Puzzle
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
@@ -16,12 +16,15 @@ public class RotatorDisc3Puzzle  : ActivatableBehaviour
     [SerializeField] ColButton _colButtonBottom;
     [SerializeField] GameObject _signalVfx;
 
-    private int _solutionUp = 0;
-    private int _solutionMiddle = 0;
-    private int _solutionBottom = 0;
+    private int _originalUp;
+    private int _originalMiddle;
+    private int _originalBottom;
 
     void Start()
     {
+        _originalUp = _currentUp;
+        _originalMiddle = _currentMiddle;
+        _originalBottom = _currentBottom;
         _pointerLookAtCyclerUp.RotateInstantSteps(_currentUp);
         _pointerLookAtCyclerMiddle.RotateInstantSteps(_currentMiddle);
         _pointerLookAtCyclerBottom.RotateInstantSteps(_currentBottom);
@@ -69,6 +72,14 @@ public class RotatorDisc3Puzzle  : ActivatableBehaviour
         _colButtonBottom.PressButton();
         _colButtonBottom.Deactivate();
         _signalVfx.SetActive(false);
+    }
+
+    public override void Reset()
+    {
+        _pointerLookAtCyclerUp.RotateInstantSteps(_originalUp);
+        _pointerLookAtCyclerMiddle.RotateInstantSteps(_originalMiddle);
+        _pointerLookAtCyclerBottom.RotateInstantSteps(_originalBottom);
+        Activate();
     }
 
     private void HandleRotationFinishedUp(int currentIndex, Transform target)
