@@ -31,7 +31,7 @@ public class Main : MonoBehaviour
         if (test != -1)
         {
             AssignNewCurrentCheckpoint(test);
-            RestartHeroAtCheckpoint();
+            //RestartHeroAtCheckpoint();
             test = -1;
         }
     }
@@ -64,7 +64,8 @@ public class Main : MonoBehaviour
 
     private void HandleHeroDied()
     {
-        //get current checkpoint 
+        //get current checkpoint
+        RestartHeroAtCheckpoint(); 
 
     }
     private void AssignNewCurrentCheckpoint(int checkpointId)

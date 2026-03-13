@@ -662,14 +662,22 @@ public class HeroFSM : AbstractFiniteStateMachine
         public override void OnEnter()
         {
             Debug.Log("Die State");
+            _dependencies.fsm._heroMovementController.DeadAnimationFinshedAction += HandleDeadAnimationFinshed;
+
             _dependencies.fsm._heroMovementController.BlockMovements();
-            _dependencies.fsm._heroMovementController.ExecuteModeDie();
-            _dependencies.fsm.HeroDiedAction?.Invoke();
+            _dependencies.fsm._heroMovementController.ExecuteModeDie();            
         }
 
         public override void OnExit()
         {
+            _dependencies.fsm._heroMovementController.DeadAnimationFinshedAction -= HandleDeadAnimationFinshed;
+
             _dependencies.fsm._heroMovementController.UnblockMovements();
-        }        
+        }
+        
+        private void HandleDeadAnimationFinshed()
+        {
+            _dependencies.fsm.HeroDiedAction?.Invoke();
+        }
     }
 }

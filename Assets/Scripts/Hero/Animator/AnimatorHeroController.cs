@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class AnimatorHeroController : MonoBehaviour
 {
@@ -12,7 +13,28 @@ public class AnimatorHeroController : MonoBehaviour
     private string _crouchModeParamName = "CrouchMode";
     private string _aimModeParamName = "AimMode";
     private string _deadModeParamName = "DeadMode";
+
+    private bool _checkEndOfDeadAnimation = false;
+    public Action DeadAnimationFinishedAction;
+
+    void Update()
+    {
+        if(_checkEndOfDeadAnimation && DeadAnimationFinishedAction != null && AnimationFinished.IsAnimationFinished(_animator, "Die",8))
+        {
+            DeadAnimationFinishedAction.Invoke();
+            _checkEndOfDeadAnimation = false;   
+        }
+    }
     
+    public void CheckEndOfDeadAnimation()
+    {
+        _checkEndOfDeadAnimation = true;
+    }
+
+    public void UncheckEndOfDeadAnimation()
+    {
+        _checkEndOfDeadAnimation = false;
+    }
 
     public void SetBaseMode()
     {

@@ -24,9 +24,22 @@ public class HeroMovementController : MonoBehaviour
     public Action ChangeToAimAction;
     public Action ExitFromAimAction;
     public Action InteractAction;
+
+    public Action DeadAnimationFinshedAction;
 	#endregion
 
+    #region Public Methods
+    void Start()
+    {
+        _animatorHeroController.DeadAnimationFinishedAction += HandleDeadAnimationFinished;
+    }
 
+    void OnDestroy()
+    {
+        _animatorHeroController.DeadAnimationFinishedAction -= HandleDeadAnimationFinished;
+    }
+
+	#endregion
 
     #region Public Methods    
     public void AllowCrouch()
@@ -154,6 +167,12 @@ public class HeroMovementController : MonoBehaviour
     public void ExecuteModeDie()
     {
         _animatorHeroController.SetDeadMode();
+        _animatorHeroController.CheckEndOfDeadAnimation();
+    }
+
+    public void ExitModeDie()
+    {
+        _animatorHeroController.UncheckEndOfDeadAnimation();
     }
 
     
@@ -218,6 +237,11 @@ public class HeroMovementController : MonoBehaviour
     private void HandleWalkKeyPressed()
     {
         RunWalkSwitchPressedAction?.Invoke();
+    }
+
+    private void HandleDeadAnimationFinished()
+    {
+        DeadAnimationFinshedAction?.Invoke();
     }
 
 
