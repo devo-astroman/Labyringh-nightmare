@@ -1,29 +1,45 @@
 using UnityEngine;
 using System.Collections.Generic;
+
 public class Main : MonoBehaviour
 {
     #region Fields
     [SerializeField] World _world;
     [SerializeField] HeroManager _heroManager;
+    [SerializeField] CheckpointManager _checkpointManager;
+    
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
     #endregion
 
     #region Properties
+    public int test = -1;
     #endregion
 
     #region Unity Callbacks
     void Start()
     {
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
+        _heroManager.HeroDiedAction += HandleHeroDied;
 
-        _world.GenerateWorld();        
+        _world.GenerateWorld();
+    }
+
+    void Update()
+    {
+        if (test != -1)
+        {
+            AssignNewCurrentCheckpoint(test);
+            RestartHeroAtCheckpoint();
+            test = -1;
+        }
     }
 
     void OnDestroy()
     {
         _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
+        _heroManager.HeroDiedAction -= HandleHeroDied;
     }
     #endregion
 
@@ -34,24 +50,32 @@ public class Main : MonoBehaviour
     private void HandleWorldCreationFinished()
     {
 
-        GameObject hero = _heroManager.CrateHero(_world.GetStartPoint());
-
-
-
-        /* Debug.Log("start point " + _world.GetStartPoint());
-
-        List<PuzzleData> list = _world.GetPuzzleDataList();
-        Debug.Log("puzzles data " + _world.GetPuzzleDataList());
+        _checkpointManager.AddCheckpoint(0,_world.GetStartPoint());
+        List<PuzzleData> list = _world.GetPuzzleDataList();        
         list.ForEach(pData =>
         {
-            Debug.Log("__");
-            Debug.Log(pData.id);
-            Debug.Log(pData.Checkpoint.transform.position);
-            Debug.Log(pData.Puzzle.transform.position);
-            Debug.Log("__");
-            
+            _checkpointManager.AddCheckpoint(pData.id,pData.Checkpoint.transform.position);
         });
-        Debug.Log("flag "); */
+
+
+        _heroManager.CreateHero( _checkpointManager.GetCurrentCheckpointPosition());
+ 
+    }
+
+    private void HandleHeroDied()
+    {
+        //get current checkpoint 
+
+    }
+    private void AssignNewCurrentCheckpoint(int checkpointId)
+    {
+        _checkpointManager.SetCurrentCheckpoint(checkpointId);
+    }
+    private void RestartHeroAtCheckpoint()
+    {
+        Vector3 checkpointPosition = _checkpointManager.GetCurrentCheckpointPosition();
+
+        _heroManager.ResetHeroAt(checkpointPosition);
     }
     #endregion
 }

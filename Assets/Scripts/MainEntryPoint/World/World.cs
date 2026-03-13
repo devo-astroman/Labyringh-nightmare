@@ -31,6 +31,8 @@ public class World : MonoBehaviour
     void Start()
     {
         _labyrinthCreator.LabyrinthCreationFinishedAction += HandleLabyrinthCreationFinished;
+
+        
     }
 
     void OnDestroy()
@@ -55,7 +57,7 @@ public class World : MonoBehaviour
         _labyrinthCreator.GenerateLabyrinth((roomGO, x, y, mask) =>
         {
             
-            Debug.Log($"Room {roomGO.name} at {x},{y} mask:{mask}");
+            //Debug.Log($"Room {roomGO.name} at {x},{y} mask:{mask}");
 
             RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
             roomPositionGO.HideAllCubePositions();

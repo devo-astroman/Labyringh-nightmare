@@ -18,7 +18,28 @@ public class CheckpointManager : MonoBehaviour
     private int _currentCheckpointId = 0;
     private CheckpointData _currentCheckpointData;
     private Dictionary<int, CheckpointData> _checkpoints = new Dictionary<int, CheckpointData>();
+
+    private Dictionary<int, Vector3> _allCheckpoints = new Dictionary<int, Vector3>();
+    private int _currentCheckpoint;
     #endregion
+
+
+    public void AddCheckpoint(int checkpointId, Vector3 position)
+    {
+        _allCheckpoints[checkpointId] = position;
+    }
+
+    public void SetCurrentCheckpoint(int checkpointId)
+    {
+        _currentCheckpoint = checkpointId;
+    }
+
+    public Vector3 GetCurrentCheckpointPosition()
+    {
+        return _allCheckpoints[_currentCheckpoint];
+    }
+
+
 
     public void RegisterCheckpoint(int puzzleId, int checkpointId, Vector3 checkpointPosition)
     {
@@ -48,10 +69,10 @@ public class CheckpointManager : MonoBehaviour
         _currentCheckpointId = idCheckpoint;
     }
 
-    public Vector3 GetCurrentCheckpointPosition()
+    /* public Vector3 GetCurrentCheckpointPosition()
     {
         return _currentCheckpointData.CheckpointPosition;
-    }
+    } */
 
     #region Unity Callbacks
     #endregion
