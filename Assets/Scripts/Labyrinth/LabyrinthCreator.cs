@@ -171,6 +171,11 @@ public class LabyrinthCreator : MonoBehaviour
         return _labyrinthObjectsManager.GetCurrentCheckpointPosition();
     }
 
+    public void ActivateLastPuzzle()
+    {
+        _labyrinthObjectsManager.ActivateLastPuzzle();
+    }
+
     public void OpenExitFence()
     {
         _exitFence.OpenFence();

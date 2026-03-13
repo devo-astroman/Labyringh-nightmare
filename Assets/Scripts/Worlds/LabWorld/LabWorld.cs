@@ -295,9 +295,11 @@ public class LabWorld : MonoBehaviour
 
         //_heroFSM.SetHeroPosition(_checkpointPosition);
         DestroyPlayer();
-        _waveManager.ResetWave();
+        _waveManager.ResetWave();        
         SpawnPlayer(5);
         UpdateWaves(6);
+        _labyrinthCreator.ActivateLastPuzzle();
+        
 
 
         //Set hero fsm to Run

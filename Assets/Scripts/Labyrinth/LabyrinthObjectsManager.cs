@@ -209,6 +209,12 @@ public class LabyrinthObjectsManager : MonoBehaviour
         return _checkpointManager.GetCurrentCheckpointPosition();
     }
 
+    public void ActivateLastPuzzle()
+    {
+        _puzzleManager.ActivateLastPuzzle();
+    }
+
+
     void OnDestroy()
     {
         _puzzleManager.PuzzleSolvedAction -= HandlePuzzleSolved;

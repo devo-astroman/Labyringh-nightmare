@@ -6,6 +6,7 @@ public class PuzzlesManager : MonoBehaviour
     private GameObject[] _allPuzzles = new GameObject[6]{null,null,null,null,null,null};
 
     public Action<int> PuzzleSolvedAction;
+    private int _lastPuzzleSolved = 0;
 
     public void RegisterPuzzle(int idPuzzle, GameObject puzzle)
     {
@@ -29,10 +30,14 @@ public class PuzzlesManager : MonoBehaviour
         }
     }
 
-    
+    public void ActivateLastPuzzle()
+    {
+        ActivatePuzzle(_lastPuzzleSolved);
+    }
 
     private void HandlePuzzleSolved(int id)
     {
+        _lastPuzzleSolved = id;
         PuzzleSolvedAction?.Invoke(id);
     }
 
