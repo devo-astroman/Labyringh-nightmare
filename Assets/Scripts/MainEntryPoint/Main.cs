@@ -4,6 +4,7 @@ public class Main : MonoBehaviour
 {
     #region Fields
     [SerializeField] World _world;
+    [SerializeField] HeroManager _heroManager;
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -32,7 +33,12 @@ public class Main : MonoBehaviour
     #region Private Methods
     private void HandleWorldCreationFinished()
     {
-        Debug.Log("start point " + _world.GetStartPoint());
+
+        GameObject hero = _heroManager.CrateHero(_world.GetStartPoint());
+
+
+
+        /* Debug.Log("start point " + _world.GetStartPoint());
 
         List<PuzzleData> list = _world.GetPuzzleDataList();
         Debug.Log("puzzles data " + _world.GetPuzzleDataList());
@@ -45,7 +51,7 @@ public class Main : MonoBehaviour
             Debug.Log("__");
             
         });
-        Debug.Log("flag ");
+        Debug.Log("flag "); */
     }
     #endregion
 }
