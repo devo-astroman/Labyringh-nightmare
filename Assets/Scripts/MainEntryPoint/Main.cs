@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 public class Main : MonoBehaviour
 {
     #region Fields
@@ -12,11 +13,39 @@ public class Main : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
+    void Start()
+    {
+        _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
+
+        _world.GenerateWorld();        
+    }
+
+    void OnDestroy()
+    {
+        _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
+    }
     #endregion
 
     #region Public Methods
     #endregion
 
     #region Private Methods
+    private void HandleWorldCreationFinished()
+    {
+        Debug.Log("start point " + _world.GetStartPoint());
+
+        List<PuzzleData> list = _world.GetPuzzleDataList();
+        Debug.Log("puzzles data " + _world.GetPuzzleDataList());
+        list.ForEach(pData =>
+        {
+            Debug.Log("__");
+            Debug.Log(pData.id);
+            Debug.Log(pData.Checkpoint.transform.position);
+            Debug.Log(pData.Puzzle.transform.position);
+            Debug.Log("__");
+            
+        });
+        Debug.Log("flag ");
+    }
     #endregion
 }

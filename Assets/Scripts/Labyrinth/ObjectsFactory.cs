@@ -104,6 +104,12 @@ public class ObjectsFactory : MonoBehaviour
         GameObject checkpoint = Instantiate(_checkpointPrefab,position,Quaternion.identity);
         return checkpoint;
     }
+
+    public GameObject GetCheckpoint(Vector3 position, Transform parent)
+    {
+        GameObject checkpoint = Instantiate(_checkpointPrefab,position,Quaternion.identity, parent);
+        return checkpoint;
+    }
     
 
     // Use the same bit values you used when building _doors
@@ -112,84 +118,84 @@ public class ObjectsFactory : MonoBehaviour
     private const int DIR_S = 4;
     private const int DIR_W = 8;
 
-    public GameObject GetPuzzle1(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle1(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
         
         Quaternion rot = RotationFacingSouth();
 
-        GameObject puzzle = Instantiate(_p1SpyderPuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p1SpyderPuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);
         return puzzle;
     }
 
-    public GameObject GetPuzzle2(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle2(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
         
         Quaternion rot = RotationFacingEast();
 
-        GameObject puzzle = Instantiate(_p2FirerPuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p2FirerPuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);
         return puzzle;
     }
 
-    public GameObject GetPuzzle3(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle3(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
        
         Quaternion rot = RotationFacingSouth();
 
-        GameObject puzzle = Instantiate(_p3BatPuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p3BatPuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);
         return puzzle;
     }
 
-    public GameObject GetPuzzle4(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle4(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
         Quaternion rot = RotationFacingSouth();
 
-        GameObject puzzle = Instantiate(_p4TrianglePuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p4TrianglePuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);
         return puzzle;
     }
 
-    public GameObject GetPuzzle5(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle5(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
         Quaternion rot = RotationFacingNorth();
 
-        GameObject puzzle = Instantiate(_p5CompassPuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p5CompassPuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);
         return puzzle;
     }
 
-    public GameObject GetPuzzle6(Vector3 position, int id, int mask)
+    public GameObject GetPuzzle6(Vector3 position, int id, Transform parent)
     {
         if (_allPuzzlesIdsCreated.Contains(id))
             return null;
 
         Quaternion rot = RotationFacingEast();
 
-        GameObject puzzle = Instantiate(_p6RowbinPuzzlePrefab, position, rot);
+        GameObject puzzle = Instantiate(_p6RowbinPuzzlePrefab, position, rot, parent);
         puzzle.name = "Puzzle_" + id;
 
         _allPuzzlesIdsCreated.Add(id);

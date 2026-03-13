@@ -27,10 +27,13 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private LabyrinthObjectsManager _labyrinthObjectsManager;
 
     private Action<GameObject, int, int, int> ProcessRoomFn;
+    
+    
 
     private ExitFence _exitFence;
 
     
+    public Action LabyrinthCreationFinishedAction;
     public Action<int> PuzzleSolved;
     
 
@@ -126,6 +129,8 @@ public class LabyrinthCreator : MonoBehaviour
             _navMeshMazeBaker.Rebuild();
 
         _generateRoutine = null;
+
+        LabyrinthCreationFinishedAction?.Invoke();
     }
 
     public void GenerateLabyrinthTest()
@@ -266,7 +271,6 @@ public class LabyrinthCreator : MonoBehaviour
 
 
                     ProcessRoomFn(roomGO, x, y, mask);
-                    //ApplyFunction(roomGO, x, y, mask);
                 }
 
 
@@ -275,27 +279,6 @@ public class LabyrinthCreator : MonoBehaviour
         }
     }
 
-    private void ApplyFunction(GameObject roomGO, int x, int y, int mask)
-    {
-
-        _labyrinthObjectsManager.ProcessRoom(roomGO,x,y,mask);
-
-        // Example: store coords on a component
-/*         var room = roomGO.GetComponent<Room>();
-        if (room != null)
-        {
-            room.GridX = x;
-            room.GridY = y;
-            room.DoorMask = mask;
-        }
-
-        // Example: spawn something depending on mask, distance, etc.
-         */
-
-        _labyrinthObjectsManager.ProcessRoom(roomGO, x, y, mask);
-
-
-    }
 
     // -------------------------
     // Helpers

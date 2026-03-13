@@ -75,7 +75,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 0;
             Vector3 centerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p1 = _objectsFactory.GetPuzzle1(centerPosition,id,mask);
+            GameObject p1 = _objectsFactory.GetPuzzle1(centerPosition,id,null);
             _puzzleManager.RegisterPuzzle(idPuzzle,p1);
 
             ActivatableBehaviour activatableBehaviour = p1.GetComponent<ActivatableBehaviour>();
@@ -93,7 +93,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 1;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,mask);
+            GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,null);
             ActivatableBehaviour activatableBehaviour = p2.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
 
@@ -107,7 +107,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 2;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,mask);
+            GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,null);
             ActivatableBehaviour activatableBehaviour = p3.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
             _puzzleManager.RegisterPuzzle(idPuzzle,p3);
@@ -120,7 +120,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 3;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,mask);
+            GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,null);
             ActivatableBehaviour activatableBehaviour = p4.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
             _puzzleManager.RegisterPuzzle(idPuzzle,p4);
@@ -134,7 +134,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 4;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,mask);
+            GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,null);
             ActivatableBehaviour activatableBehaviour = p5.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
             _puzzleManager.RegisterPuzzle(idPuzzle,p5);
@@ -147,7 +147,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
         {
             int idPuzzle = 5;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
-            GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,mask);
+            GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,null);
             ActivatableBehaviour activatableBehaviour = p6.GetComponent<ActivatableBehaviour>();
             activatableBehaviour.Deactivate();
             _puzzleManager.RegisterPuzzle(idPuzzle,p6);
