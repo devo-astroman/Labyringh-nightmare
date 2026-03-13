@@ -4,12 +4,12 @@ using System;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private EnemyT _enemyT;
-    [SerializeField] private GameObject _enemyB1Pref;
+    //[SerializeField] private EnemyT _enemyT;
+    [SerializeField] private GameObject _enemyBatPref;
     [SerializeField] private GameObject _enemySpyderPref;
     [SerializeField] private GameObject _enemyFirerPref;
     [SerializeField] private EnemyPool _enemyPool;
-    private GameObject _enemyB1FSMGO;
+    //private GameObject _enemyB1FSMGO;
 
     private SetTimeoutUtility _timeout;
     public Action<int> EnemyDeadAction;
@@ -33,7 +33,17 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject CreateBatEnemy(Vector3 enemyPosition, Vector3[] patrolPoints)
     {
-        GameObject enemyB1FSMGO = Instantiate(_enemyB1Pref, enemyPosition, Quaternion.identity);
+        GameObject enemyB1FSMGO = Instantiate(_enemyBatPref, enemyPosition, Quaternion.identity);
+        enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
+
+        _enemyPool.AddEnemy(enemyB1FSMGO);
+        
+        return enemyB1FSMGO;
+    }
+
+    public GameObject CreateBatEnemy(Vector3 enemyPosition, Vector3[] patrolPoints, Transform parent)
+    {
+        GameObject enemyB1FSMGO = Instantiate(_enemyBatPref, enemyPosition, Quaternion.identity, parent);
         enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
 
         _enemyPool.AddEnemy(enemyB1FSMGO);
@@ -44,6 +54,16 @@ public class EnemyManager : MonoBehaviour
     public GameObject CreateSpyderEnemy(Vector3 enemyPosition, Transform target)
     {
         GameObject enemySpyderFSMGO = Instantiate(_enemySpyderPref, enemyPosition, Quaternion.identity);
+        enemySpyderFSMGO.GetComponent<EB2FSM>().SetTarget(target);
+
+        _enemyPool.AddEnemy(enemySpyderFSMGO);
+
+        return enemySpyderFSMGO;
+    }
+
+    public GameObject CreateSpyderEnemy(Vector3 enemyPosition, Transform target, Transform parent)
+    {
+        GameObject enemySpyderFSMGO = Instantiate(_enemySpyderPref, enemyPosition, Quaternion.identity,parent);
         enemySpyderFSMGO.GetComponent<EB2FSM>().SetTarget(target);
 
         _enemyPool.AddEnemy(enemySpyderFSMGO);
@@ -64,7 +84,15 @@ public class EnemyManager : MonoBehaviour
         return enemyFirerFSMGO;
     }
 
-    public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
+    public GameObject CreateFirerEnemy(Vector3 enemyPosition, Transform parent)
+    {
+        GameObject enemyFirerFSMGO = Instantiate(_enemyFirerPref, enemyPosition, Quaternion.identity, parent);
+        _enemyPool.AddEnemy(enemyFirerFSMGO);
+
+        return enemyFirerFSMGO;
+    }
+
+    /* public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
     {
 
         _enemyT.transform.position = enemyPosition;
@@ -81,25 +109,25 @@ public class EnemyManager : MonoBehaviour
             _enemyT.gameObject.SetActive(true);
             //_enemyT.StartFollow();
         }, 2f); 
-    }
+    } */
 
     public void ProcessDamage(int enemyId)
     {
-        if(enemyId == 0)
+        /* if(enemyId == 0)
         {
             //_enemyHealth.MakeDamage(20);
             //_enemyT.MakeHit(1);
             Debug.Log("Should Make Damage");
             _enemyB1FSMGO.GetComponent<EnemyB1FSM>().ReceiveDamage(0);
-        }
+        } */
     }
 
 
     private void OnEnemyDeadAction(int id)
     {
         Debug.Log("Enemy is Dead");
-        _enemyT.StopEnemy();
-        _enemyT.DeactivateEnemyCollisions();
+        /* _enemyT.StopEnemy();
+        _enemyT.DeactivateEnemyCollisions(); */
         EnemyDeadAction.Invoke(id);
     }
 

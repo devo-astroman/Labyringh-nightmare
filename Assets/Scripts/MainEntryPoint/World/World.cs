@@ -8,6 +8,10 @@ public struct PuzzleData
     public GameObject Puzzle;
     public GameObject Checkpoint;
 }
+
+
+
+
 public class World : MonoBehaviour
 {
     #region Fields
@@ -18,6 +22,8 @@ public class World : MonoBehaviour
     #region Private Fields
     private Vector3 _startPoint;
     private List<PuzzleData> _puzzleDataList = new List<PuzzleData>();
+
+    private Vector3[] _wave1;
     #endregion
 
     #region Properties
@@ -31,8 +37,6 @@ public class World : MonoBehaviour
     void Start()
     {
         _labyrinthCreator.LabyrinthCreationFinishedAction += HandleLabyrinthCreationFinished;
-
-        
     }
 
     void OnDestroy()
@@ -50,6 +54,11 @@ public class World : MonoBehaviour
     public List<PuzzleData> GetPuzzleDataList()
     {
         return _puzzleDataList;
+    }
+
+    public Vector3 GetPosition(int x, int y)
+    {        
+        return _labyrinthCreator.GetRoomPosition(x,y);
     }
 
     public void GenerateWorld()
@@ -201,6 +210,8 @@ public class World : MonoBehaviour
     #endregion
 
     #region Private Methods
+
+    
     private int[] Get3RandomIndexes()
     {
         int n = 3;

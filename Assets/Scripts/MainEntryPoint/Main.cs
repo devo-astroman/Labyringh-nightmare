@@ -4,13 +4,12 @@ using System.Collections.Generic;
 public class Main : MonoBehaviour
 {
     #region Fields
-    [SerializeField] World _world;
-    [SerializeField] HeroManager _heroManager;
-    [SerializeField] CheckpointManager _checkpointManager;
-    [SerializeField] PuzzlesManager _puzzlesManager;
-
-    
-    
+    [SerializeField] private World _world;
+    [SerializeField] private HeroManager _heroManager;
+    [SerializeField] private CheckpointManager _checkpointManager;
+    [SerializeField] private PuzzlesManager _puzzlesManager;
+    //[SerializeField] private WaveManager _waveManager;
+    [SerializeField] private EnemyWaveManager _enemyWaveManager;
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -27,8 +26,9 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
         _heroManager.HeroDiedAction += HandleHeroDied;
+        //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
-        _world.GenerateWorld();
+        _world.GenerateWorld();        
     }
 
     void Update()
@@ -66,6 +66,8 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
         _heroManager.HeroDiedAction -= HandleHeroDied;
+        //_waveManager.WaveFinishedAction -= HandleWaveFinished;
+        
     }
     #endregion
 
@@ -86,17 +88,51 @@ public class Main : MonoBehaviour
         });
 
         _puzzlesManager.DeactivateAllPuzzles();
-
         _heroManager.CreateHero( _checkpointManager.GetCurrentCheckpointPosition());
 
+        PrepareWaves();
+    }
+
+    private void PrepareWaves()
+    {   
+        Transform heroTransform = _heroManager.GetHeroTransform();
+        _enemyWaveManager.SetHeroTransform(heroTransform);
+
+        _enemyWaveManager.CreateInfoWaves();
+        _enemyWaveManager.ConvertPositions((x, y) =>
+        {
+            return _world.GetPosition(x,y);
+        });
+
+        _enemyWaveManager.PrepareEnemies();
+        
+
+        //_enemyWaveManager.DebugWaves();
     }
 
     private void HandleHeroDied()
     {
         //get current checkpoint
-        RestartHeroAtCheckpoint(); 
-
+        RestartHeroAtCheckpoint();
     }
+
+    private void HandleWaveFinished(int idWave)
+    {
+        if(idWave < 6)
+        {
+            _puzzlesManager.ActivatePuzzle(idWave);
+        }
+        else
+        {
+            Debug.Log("OPEN THE EXIT");
+            Debug.Log("Throw the key");
+            //_labyrinthCreator.OpenExitFence();
+
+        }
+        
+    }
+
+    
     private void AssignNewCurrentCheckpoint(int checkpointId)
     {
         _checkpointManager.SetCurrentCheckpoint(checkpointId);

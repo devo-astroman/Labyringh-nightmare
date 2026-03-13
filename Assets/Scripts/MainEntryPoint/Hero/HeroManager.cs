@@ -11,6 +11,7 @@ public class HeroManager : MonoBehaviour
     #region Private Fields  //private variables not SerializeFields
     private GameObject hero;
     private Transform _heroParent;
+    private Transform _heroTransform;
     #endregion
 
     #region Properties
@@ -39,6 +40,8 @@ public class HeroManager : MonoBehaviour
 
         //Camera camera = hero.GetComponentInChildren<Camera>();
         HeroFSM _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+        _heroTransform = _heroFSM.transform.Find("Hero");
+
         //_heroFSM.onFireAction+= HandleOnFireAction;
         _heroFSM.HeroDiedAction += HandleHeroDied;
            // PrepareWaves();
@@ -50,6 +53,11 @@ public class HeroManager : MonoBehaviour
         _heroFSM.HeroDiedAction -= HandleHeroDied;
         Destroy(hero);
         CreateHero(position);
+    }
+
+    public Transform GetHeroTransform()
+    {
+        return _heroTransform;
     }
     #endregion
 
