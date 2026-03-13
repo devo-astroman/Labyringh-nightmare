@@ -26,6 +26,8 @@ public class LabyrinthCreator : MonoBehaviour
     [SerializeField] private LabyrinthDebugger _labyrinthDebugger;
     [SerializeField] private LabyrinthObjectsManager _labyrinthObjectsManager;
 
+    private Action<GameObject, int, int, int> ProcessRoomFn;
+
     private ExitFence _exitFence;
 
     
@@ -48,7 +50,16 @@ public class LabyrinthCreator : MonoBehaviour
         _labyrinthObjectsManager.PuzzleSolvedAction += HandlePuzzleSolved;
     }
 
-    public void GenerateLabyrinth()
+    public void GenerateLabyrinth(Action<GameObject, int, int, int> callback)
+    {
+        ProcessRoomFn = callback;
+        if (_generateRoutine != null)
+            StopCoroutine(_generateRoutine);
+
+        _generateRoutine = StartCoroutine(GenerateLabyrinthRoutine());
+    }
+
+    public void GenerateLabyrinth() //soon delete it
     {
         if (_generateRoutine != null)
             StopCoroutine(_generateRoutine);
@@ -254,8 +265,8 @@ public class LabyrinthCreator : MonoBehaviour
                     _grid.PlaceObjectAt(roomGO, x, y);
 
 
-
-                    ApplyFunction(roomGO, x, y, mask);
+                    ProcessRoomFn(roomGO, x, y, mask);
+                    //ApplyFunction(roomGO, x, y, mask);
                 }
 
 

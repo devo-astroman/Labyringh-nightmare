@@ -34,11 +34,32 @@ public class ObjectsFactory : MonoBehaviour
         return box;
     }
 
+    public GameObject GetBox2Empties(Vector3 position, Transform parent)
+    {
+        GameObject box = Instantiate(_box2EmptiesPrefab,position,Quaternion.identity, parent);
+        return box;
+    }
+
     public GameObject GetAmmoOnBox(Vector3 position, int id)
     {
         if (!_allAmmoBoxIdsCreated.Contains(id))
         {
             GameObject ammoOnBox = Instantiate(_ammoOnBoxPrefab,position,Quaternion.identity);
+            ammoOnBox.GetComponent<AmmoOnBox>().SetId(id);
+
+            _allAmmoBoxIdsCreated.Add(id);
+            return ammoOnBox;
+
+        }
+        
+        return null;
+    }
+
+    public GameObject GetAmmoOnBox(Vector3 position, int id, Transform parent)
+    {
+        if (!_allAmmoBoxIdsCreated.Contains(id))
+        {
+            GameObject ammoOnBox = Instantiate(_ammoOnBoxPrefab,position,Quaternion.identity,parent);
             ammoOnBox.GetComponent<AmmoOnBox>().SetId(id);
 
             _allAmmoBoxIdsCreated.Add(id);
@@ -61,6 +82,20 @@ public class ObjectsFactory : MonoBehaviour
 
         }
         
+        return null;
+    }
+
+    public GameObject GetSpikes(Vector3 position, int id, Transform parent)
+    {
+        if (!_allSpikesIdsCreated.Contains(id))
+        {
+            GameObject spikes = Instantiate(_spikesPrefab,position,Quaternion.identity,parent);
+            spikes.GetComponent<Spikes>().SetId(id);
+
+            _allSpikesIdsCreated.Add(id);
+            return spikes;
+        }
+
         return null;
     }
 

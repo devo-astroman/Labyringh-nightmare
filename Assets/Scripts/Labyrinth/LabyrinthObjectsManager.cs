@@ -46,7 +46,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
         if(_roomProcessed.Contains(x +" "+y)) return;
         
-        if(x==0 & y == 1)        
+        if(x==0 & y == 1)
         {            
             // per room:
             int n = 3;
@@ -167,7 +167,7 @@ public class LabyrinthObjectsManager : MonoBehaviour
 
             if (UnityEngine.Random.Range(0, 10) == 0)
             {
-                //place one box in the middle
+                //place one box
                 Vector3 middlePosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,tmp[0]);
                 GameObject box = _objectsFactory.GetBox2Empties(middlePosition);
             }
