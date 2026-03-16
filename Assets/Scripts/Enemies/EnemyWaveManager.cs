@@ -151,6 +151,17 @@ public class EnemyWaveManager : MonoBehaviour
         InstantiateEnemies(wave6);
     }
 
+    public void RunWave(int idWave)
+    {
+        if (idWave == 1)
+        {
+            foreach(EnemyInfo eInfo in wave1)
+            {
+                eInfo.Go.SetActive(true);
+            }
+        }
+    }
+
     public void DebugWaves()
     {
         DebugWave(wave1);

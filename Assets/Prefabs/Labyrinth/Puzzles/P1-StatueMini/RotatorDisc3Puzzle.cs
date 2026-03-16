@@ -16,6 +16,8 @@ public class RotatorDisc3Puzzle  : Puzzle
     [SerializeField] ColButton _colButtonBottom;
     [SerializeField] GameObject _signalVfx;
 
+    private int _id;
+
     private int _originalUp;
     private int _originalMiddle;
     private int _originalBottom;
@@ -52,6 +54,11 @@ public class RotatorDisc3Puzzle  : Puzzle
         _colButtonUp.buttonIteractAction -= HandleButtonIteractAction;
         _colButtonMiddle.buttonIteractAction -= HandleButtonIteractAction;
         _colButtonBottom.buttonIteractAction -= HandleButtonIteractAction;
+    }
+    
+    public override void SetId(int id)
+    {
+        _id = id;
     }
     public override void Activate()
     {

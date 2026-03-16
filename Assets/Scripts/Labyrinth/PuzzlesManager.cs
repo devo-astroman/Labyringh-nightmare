@@ -20,6 +20,12 @@ public class PuzzlesManager : MonoBehaviour
         {
             puzzleNotifier.PuzzleSolvedAction += HandlePuzzleSolved;            
         }
+
+        Puzzle puzzle = pData.Puzzle.GetComponent<Puzzle>();        
+        if (puzzle)
+        {
+            puzzle.SetId(pData.id);
+        }
     }
 
     public void ActivatePuzzle(int idPuzzle)

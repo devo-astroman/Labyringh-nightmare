@@ -6,7 +6,7 @@ public class RotatorDisc2Puzzle : Puzzle
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
 
-    [SerializeField] private int _id;
+    private int _id;
 
     [SerializeField] private int _currentUp;
     [SerializeField] private int _currentMiddle; 
@@ -47,6 +47,11 @@ public class RotatorDisc2Puzzle : Puzzle
 
         _colButtonUp.buttonIteractAction -= HandleButtonIteractAction;
         _colButtonMiddle.buttonIteractAction -= HandleButtonIteractAction;
+    }
+
+    public override void SetId(int id)
+    {
+        _id = id;
     }
 
     public override void Activate()

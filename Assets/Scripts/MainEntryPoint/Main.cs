@@ -26,6 +26,7 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
         _heroManager.HeroDiedAction += HandleHeroDied;
+        _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
         //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
         _world.GenerateWorld();        
@@ -66,6 +67,7 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
         _heroManager.HeroDiedAction -= HandleHeroDied;
+        _puzzlesManager.PuzzleSolvedAction -= HandlePuzzleSolved;
         //_waveManager.WaveFinishedAction -= HandleWaveFinished;
         
     }
@@ -162,5 +164,14 @@ public class Main : MonoBehaviour
     {
         _puzzlesManager.ResetPuzzle(idPuzzle);
     }
+
+    private void HandlePuzzleSolved(int idPuzzle)
+    {
+        Debug.Log("Puzzle solved " + idPuzzle);
+
+        _enemyWaveManager.RunWave(idPuzzle);
+    }
+
+    
     #endregion
 }

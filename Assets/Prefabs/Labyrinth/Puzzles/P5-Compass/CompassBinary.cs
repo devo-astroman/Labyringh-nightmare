@@ -25,7 +25,7 @@ public class CompassBinary : Puzzle
     #region Fields
     [SerializeField] private Compass _current;
     [SerializeField] private Compass _solution;
-    [SerializeField] private int _id;
+    private int _id;
     [SerializeField] GameObject _signalVfx;
     #endregion
 
@@ -81,7 +81,10 @@ public class CompassBinary : Puzzle
 
         SetSymbolValues();
     }
-
+    public override void SetId(int id)
+    {
+        _id = id;
+    }
     public override void Activate()
     {
        _compassCoordN.ColButton.PullButton();

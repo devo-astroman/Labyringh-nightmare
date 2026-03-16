@@ -10,7 +10,7 @@ public class BinRow : Puzzle
     [SerializeField] private bool[] _currentRight;
     [SerializeField] private bool[] _solutionRight;
 
-    [SerializeField] private int _id;
+    private int _id;
     [SerializeField] private PuzzleNotifier _puzzleNotifier;
     [SerializeField] private CompassCoord[] _leftRow;
     [SerializeField] private CompassCoord[] _rightRow;
@@ -80,6 +80,11 @@ public class BinRow : Puzzle
         _solutionLeft = solution;
 
         SetInitialValues();
+    }
+
+    public override void SetId(int id)
+    {
+        _id = id;
     }
 
     public override void Activate()

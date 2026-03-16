@@ -71,7 +71,8 @@ public class World : MonoBehaviour
             RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
             roomPositionGO.HideAllCubePositions();
 
-            if(x==0 && y== 0) //start room so should be clean
+            //if(x==0 && y== 0) //start room so should be clean
+            if(x==1 && y== 1) //start room so should be clean to test
             {
                 _startPoint = roomPositionGO.GetPosition(roomPositionGO.LAYER_UP,4);                
             }
