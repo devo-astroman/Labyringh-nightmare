@@ -62,6 +62,8 @@ public class EnemyWaveManager : MonoBehaviour
 
     private Transform _heroTransform;
     private Transform _enemiesParent;
+
+    private int _currentWave = -1;
     #endregion 
 
     #region Unity Callbacks
@@ -153,11 +155,23 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void RunWave(int idWave)
     {
+        _currentWave = idWave;
         if (idWave == 1)
         {
             foreach(EnemyInfo eInfo in wave1)
             {
                 eInfo.Go.SetActive(true);
+            }
+        }
+    }
+
+    public void StopCurrentWave()
+    {
+        if (_currentWave == 1)
+        {
+            foreach(EnemyInfo eInfo in wave1)
+            {
+                eInfo.Go.SetActive(false);
             }
         }
     }

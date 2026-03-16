@@ -75,6 +75,23 @@ public class PuzzlesManager : MonoBehaviour
         }
     }
 
+    public void ResetLastPuzzleSolved()
+    {
+        int idPuzzle = _lastPuzzleSolved;
+        PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
+        {
+            return p.id == idPuzzle;
+        });
+
+        GameObject puzzleGo = puzzleDataToActivate.Puzzle;
+        Puzzle puzzle = puzzleGo.GetComponent<Puzzle>();        
+        if (puzzle)
+        {
+            puzzle.Reset();
+            puzzle.Activate();
+        }
+    }
+
     public void ActivateLastPuzzle()
     {
         ActivatePuzzle(_lastPuzzleSolved);

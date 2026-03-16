@@ -120,7 +120,18 @@ public class Main : MonoBehaviour
     private void HandleHeroDied()
     {
         //get current checkpoint
-        RestartHeroAtCheckpoint();
+        //RestartHeroAtCheckpoint();
+        Vector3 checkpointPosition = _checkpointManager.GetCurrentCheckpointPosition();
+        _heroManager.ResetHeroAt(checkpointPosition);
+
+        //StopCurrentEnemyWave();
+        _enemyWaveManager.StopCurrentWave();
+        Transform heroTransform = _heroManager.GetHeroTransform();
+        _enemyWaveManager.SetHeroTransform(heroTransform);
+
+
+        //RestartLastSolvedPuzzle();
+        _puzzlesManager.ResetLastPuzzleSolved();
     }
 
     private void HandleWaveFinished(int idWave)
@@ -149,6 +160,17 @@ public class Main : MonoBehaviour
         Vector3 checkpointPosition = _checkpointManager.GetCurrentCheckpointPosition();
 
         _heroManager.ResetHeroAt(checkpointPosition);
+
+    }
+
+    private void StopCurrentEnemyWave()
+    {
+        _enemyWaveManager.StopCurrentWave();
+    }
+
+    private void RestartLastSolvedPuzzle()
+    {
+        _puzzlesManager.ResetLastPuzzleSolved();
     }
 
     private void ActivatePuzzle(int idPuzzle)
@@ -167,8 +189,6 @@ public class Main : MonoBehaviour
 
     private void HandlePuzzleSolved(int idPuzzle)
     {
-        Debug.Log("Puzzle solved " + idPuzzle);
-
         _enemyWaveManager.RunWave(idPuzzle);
     }
 
