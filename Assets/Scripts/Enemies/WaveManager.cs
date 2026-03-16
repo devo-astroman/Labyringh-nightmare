@@ -1,3 +1,4 @@
+//this will be deleted
 using UnityEngine;
 using System.Collections.Generic;
 using System;
@@ -90,7 +91,7 @@ public class WaveManager : MonoBehaviour
             switch (we.TypeEnemy)
             {
                 case 0:
-                    g = _enemyManager.CreateSpyderEnemy(we.BornPoint, we.HeroTransform);
+                    //g = _enemyManager.CreateSpyderEnemy(we.BornPoint, we.HeroTransform);
 
                     break;
 
@@ -159,7 +160,7 @@ public class WaveManager : MonoBehaviour
                 if (wEnemy.TypeEnemy == 0) // Spyder
                 {
                     wEnemy.SetHeroTransform(newHeroTransform);                    
-                    _enemyManager.UpdateSpyderTarget(wEnemy.Go,newHeroTransform);
+                    //_enemyManager.UpdateSpyderTarget(wEnemy.Go,newHeroTransform);
                 }
             }
         }

@@ -51,6 +51,7 @@ public class EnemyWaveManager : MonoBehaviour
     #region Fields
     [SerializeField] private EnemyManager _enemyManager;
     [SerializeField] private Transform _generatedTransform;
+    [SerializeField] private EnemyHeroTarget _enemyHeroTarget;
     #endregion 
     #region Private Fields
     private EnemyInfo[] wave1;
@@ -140,7 +141,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void SetHeroTransform(Transform heroTransform)
     {
-        _heroTransform = heroTransform;
+        _enemyHeroTarget.SetCurrentTransform(heroTransform);
     }
 
     public void PrepareEnemies()
@@ -153,9 +154,17 @@ public class EnemyWaveManager : MonoBehaviour
         InstantiateEnemies(wave6);
     }
 
+    public void RestartWave()
+    {   
+        if(_currentWave == 1)
+            ReinstantiateEnemies(wave1);
+        else if(_currentWave == 2)
+            ReinstantiateEnemies(wave2);
+            //todo
+    }
+
     public void RunWave(int idWave)
     {
-        _currentWave = idWave;
         if (idWave == 1)
         {
             foreach(EnemyInfo eInfo in wave1)
@@ -163,6 +172,7 @@ public class EnemyWaveManager : MonoBehaviour
                 eInfo.Go.SetActive(true);
             }
         }
+        _currentWave = idWave;
     }
 
     public void StopCurrentWave()
@@ -172,9 +182,11 @@ public class EnemyWaveManager : MonoBehaviour
             foreach(EnemyInfo eInfo in wave1)
             {
                 eInfo.Go.SetActive(false);
+                eInfo.Go.transform.position = eInfo.BornPoint;
             }
         }
     }
+
 
     public void DebugWaves()
     {
@@ -209,7 +221,7 @@ public class EnemyWaveManager : MonoBehaviour
             switch (wave[i].EnemyType)
             {
                 case 0:
-                    g = _enemyManager.CreateSpyderEnemy(wave[i].BornPoint, _heroTransform,_enemiesParent);
+                    g = _enemyManager.CreateSpyderEnemy(wave[i].BornPoint, _enemyHeroTarget,_enemiesParent);
                     break;
                 case 1:
                     g = _enemyManager.CreateFirerEnemy(wave[i].BornPoint,_enemiesParent);
@@ -223,8 +235,34 @@ public class EnemyWaveManager : MonoBehaviour
                 wave[i].Go = g;
                 g.SetActive(false);
             }
-            
+        }
+    }
 
+    private void ReinstantiateEnemies(EnemyInfo[] wave)
+    {
+        for (int i = 0; i < wave.Length; i++)
+        {
+            GameObject newG = null;
+            switch (wave[i].EnemyType)
+            {
+                case 0:
+                    newG = _enemyManager.CreateSpyderEnemy(wave[i].BornPoint, _enemyHeroTarget,_enemiesParent);
+                    break;
+                case 1:
+                    newG = _enemyManager.CreateFirerEnemy(wave[i].BornPoint,_enemiesParent);
+                    break;
+                case 2:
+                    newG = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemiesParent);
+                    break;
+            }
+            if (newG != null)
+            {
+                //destroy the current
+                Destroy(wave[i].Go);
+                //substitute
+                wave[i].Go = newG;
+                newG.SetActive(false);
+            }
         }
     }
 

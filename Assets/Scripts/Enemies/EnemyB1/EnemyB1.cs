@@ -143,7 +143,7 @@ public class EnemyB1 : MonoBehaviour
         return _life;
     }
 
-    public void StartFollow(Transform target)
+    public void StartFollow(EnemyHeroTarget target)
     {
         _enemyNavigatorManager.StartFollow(target);
         _enemyNavigatorManager.ResumeNavigation();

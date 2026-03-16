@@ -6,7 +6,7 @@ public class EB2 : MonoBehaviour
 {
     
     [SerializeField] EnemyNavigatorManager _enemyNavigatorManager;
-    [SerializeField] Transform _targetToFollow;
+    [SerializeField] EnemyHeroTarget _targetToFollow;
     [SerializeField] EB2Animator _eB2Animator;
     [SerializeField] EnemyHealth _enemyHealth;
     [SerializeField] EnemyCollidersManager _enemyCollidersManager;
@@ -53,9 +53,9 @@ public class EB2 : MonoBehaviour
         _heroDetectorManager.NearHeroDetectionAction -= HandleNearHeroDetection;
     }
 
-    public void SetTargetToFollow(Transform target)
+    public void SetTargetToFollow(EnemyHeroTarget target)
     {
-        _targetToFollow = target;
+       _targetToFollow = target;
     }
 
     public void FollowTarget()

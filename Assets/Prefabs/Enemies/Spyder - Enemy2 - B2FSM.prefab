@@ -371,7 +371,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.23
-  m_Speed: 3
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1084,6 +1084,7 @@ MonoBehaviour:
   _enemySoundManager: {fileID: 2730613077294650516}
   _heroDetectorManager: {fileID: 8875409827143114816}
   _minimapIndigactorGO: {fileID: 7902579025684130265}
+  _Target: {fileID: 0}
   _follow: 0
   _receiveDamage: 0
 --- !u!1001 &2657901027251953807

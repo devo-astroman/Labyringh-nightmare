@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
         return enemyB1FSMGO;
     }
 
-    public GameObject CreateSpyderEnemy(Vector3 enemyPosition, Transform target)
+    public GameObject CreateSpyderEnemy(Vector3 enemyPosition, EnemyHeroTarget target)
     {
         GameObject enemySpyderFSMGO = Instantiate(_enemySpyderPref, enemyPosition, Quaternion.identity);
         enemySpyderFSMGO.GetComponent<EB2FSM>().SetTarget(target);
@@ -61,7 +61,7 @@ public class EnemyManager : MonoBehaviour
         return enemySpyderFSMGO;
     }
 
-    public GameObject CreateSpyderEnemy(Vector3 enemyPosition, Transform target, Transform parent)
+    public GameObject CreateSpyderEnemy(Vector3 enemyPosition, EnemyHeroTarget target, Transform parent)
     {
         GameObject enemySpyderFSMGO = Instantiate(_enemySpyderPref, enemyPosition, Quaternion.identity,parent);
         enemySpyderFSMGO.GetComponent<EB2FSM>().SetTarget(target);
@@ -71,10 +71,6 @@ public class EnemyManager : MonoBehaviour
         return enemySpyderFSMGO;
     }
 
-    public void UpdateSpyderTarget(GameObject enemySpyder, Transform target)
-    {
-        enemySpyder.GetComponent<EB2FSM>().SetTarget(target);
-    }
 
     public GameObject CreateFirerEnemy(Vector3 enemyPosition)
     {
@@ -91,25 +87,6 @@ public class EnemyManager : MonoBehaviour
 
         return enemyFirerFSMGO;
     }
-
-    /* public void WakeUpEnemyT(Vector3 enemyPosition, Transform target)
-    {
-
-        _enemyT.transform.position = enemyPosition;
-
-
-        _enemyT.SetTarget(target);
-        //_enemyHealth = _enemyT.GetComponent<EnemyHealth>();
-
-        //_enemyHealth.DeadAction += HandleOnDead;
-
-        
-        //_enemyT.StartFollow();
-         _timeout.SetTimeout(() => {
-            _enemyT.gameObject.SetActive(true);
-            //_enemyT.StartFollow();
-        }, 2f); 
-    } */
 
     public void ProcessDamage(int enemyId)
     {

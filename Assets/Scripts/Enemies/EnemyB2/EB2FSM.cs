@@ -46,6 +46,11 @@ public class EB2FSM : AbstractFiniteStateMachine
 
     private void Awake()
     {   
+        Debug.Log("Awake");           
+    }
+
+    private void OnEnable()
+    {//for test
         _timeout = new SetTimeoutUtility(this);
         _eB2.SetHealthLife(_life);
         deps.eB2 = _eB2;
@@ -75,11 +80,17 @@ public class EB2FSM : AbstractFiniteStateMachine
         }
     }
 
+    private void OnDisable()
+    {
+        if(_timeout != null)
+            _timeout.Dispose();
+    }
+
     public void SetId(int id)
     {
         _id = id;
     }
-    public void SetTarget(Transform target)
+    public void SetTarget(EnemyHeroTarget target)
     {
         _eB2.SetTargetToFollow(target);
     }
@@ -168,9 +179,6 @@ public class EB2FSM : AbstractFiniteStateMachine
 
            _dependencies.fsm.ReceiveDamageAction += HandleReceiveDamage;
            _dependencies.eB2.NearHeroDetectedAction += HandleNearHeroDetected;
-
-           
-           
         }
 
         public override void OnExit()

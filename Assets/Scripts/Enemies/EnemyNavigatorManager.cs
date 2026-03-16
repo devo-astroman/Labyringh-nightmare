@@ -51,9 +51,9 @@ public class EnemyNavigatorManager : MonoBehaviour
         _navMeshAgent.SetDestination(nextPoint);
     }
 
-    public void StartFollow(Transform target)
+    public void StartFollow(EnemyHeroTarget target)
     {
-        _targetToFollow = target;
+        _targetToFollow = target.CurrentTransform;
         _follow = true;
         _patrolling = false;
         _intervalToMove.SetInterval(() => {

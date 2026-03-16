@@ -125,10 +125,9 @@ public class Main : MonoBehaviour
         _heroManager.ResetHeroAt(checkpointPosition);
 
         //StopCurrentEnemyWave();
-        _enemyWaveManager.StopCurrentWave();
         Transform heroTransform = _heroManager.GetHeroTransform();
         _enemyWaveManager.SetHeroTransform(heroTransform);
-
+        _enemyWaveManager.RestartWave();
 
         //RestartLastSolvedPuzzle();
         _puzzlesManager.ResetLastPuzzleSolved();
