@@ -78,8 +78,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             GameObject p1 = _objectsFactory.GetPuzzle1(centerPosition,id,null);
             //_puzzleManager.RegisterPuzzle(idPuzzle,p1);
 
-            Puzzle activatableBehaviour = p1.GetComponent<Puzzle>();
-            activatableBehaviour.Activate();
+            /* Puzzle activatableBehaviour = p1.GetComponent<Puzzle>();
+            activatableBehaviour.Activate(); */
 
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
@@ -94,8 +94,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int idPuzzle = 1;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p2 = _objectsFactory.GetPuzzle2(upperRCornerPosition,id,null);
-            Puzzle activatableBehaviour = p2.GetComponent<Puzzle>();
-            activatableBehaviour.Deactivate();
+            /* Puzzle activatableBehaviour = p2.GetComponent<Puzzle>();
+            activatableBehaviour.Deactivate(); */
 
             //_puzzleManager.RegisterPuzzle(idPuzzle,p2);
 
@@ -108,8 +108,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int idPuzzle = 2;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p3 = _objectsFactory.GetPuzzle3(upperRCornerPosition,id,null);
-            Puzzle activatableBehaviour = p3.GetComponent<Puzzle>();
-            activatableBehaviour.Deactivate();
+            /* Puzzle activatableBehaviour = p3.GetComponent<Puzzle>();
+            activatableBehaviour.Deactivate(); */
             //_puzzleManager.RegisterPuzzle(idPuzzle,p3);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,1);
@@ -121,8 +121,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int idPuzzle = 3;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p4 = _objectsFactory.GetPuzzle4(upperRCornerPosition,id,null);
-            Puzzle activatableBehaviour = p4.GetComponent<Puzzle>();
-            activatableBehaviour.Deactivate();
+            /* Puzzle activatableBehaviour = p4.GetComponent<Puzzle>();
+            activatableBehaviour.Deactivate(); */
             //_puzzleManager.RegisterPuzzle(idPuzzle,p4);
 
 
@@ -135,8 +135,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int idPuzzle = 4;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p5 = _objectsFactory.GetPuzzle5(upperRCornerPosition,id,null);
-            Puzzle activatableBehaviour = p5.GetComponent<Puzzle>();
-            activatableBehaviour.Deactivate();
+            /* Puzzle activatableBehaviour = p5.GetComponent<Puzzle>();
+            activatableBehaviour.Deactivate(); */
             //_puzzleManager.RegisterPuzzle(idPuzzle,p5);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,6);
@@ -148,8 +148,8 @@ public class LabyrinthObjectsManager : MonoBehaviour
             int idPuzzle = 5;
             Vector3 upperRCornerPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,4);
             GameObject p6 = _objectsFactory.GetPuzzle6(upperRCornerPosition,id,null);
-            Puzzle activatableBehaviour = p6.GetComponent<Puzzle>();
-            activatableBehaviour.Deactivate();
+            /* Puzzle activatableBehaviour = p6.GetComponent<Puzzle>();
+            activatableBehaviour.Deactivate(); */
             //_puzzleManager.RegisterPuzzle(idPuzzle,p6);
 
             Vector3 centerLeftPosition = roomPositionGO.GetPosition(roomPositionGO.LAYER_BELOW,5);

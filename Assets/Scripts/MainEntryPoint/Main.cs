@@ -33,7 +33,7 @@ public class Main : MonoBehaviour
 
     void Update()
     {
-        if (test != -1)
+        /* if (test != -1)
         {
             //AssignNewCurrentCheckpoint(test);
             //RestartHeroAtCheckpoint();
@@ -55,7 +55,7 @@ public class Main : MonoBehaviour
             //RestartHeroAtCheckpoint();
             ResetPuzzle(reset);
             reset = -1;
-        }
+        } */
 
         
 
@@ -78,17 +78,22 @@ public class Main : MonoBehaviour
     private void HandleWorldCreationFinished()
     {
         _checkpointManager.AddCheckpoint(0,_world.GetStartPoint());
-        List<PuzzleData> puzzlesDataList = _world.GetPuzzleDataList();        
+        List<PuzzleData> puzzlesDataList = _world.GetPuzzleDataList();
+        PuzzleData firstPuzzle = new PuzzleData();
         puzzlesDataList.ForEach(pData =>
         {
             _checkpointManager.AddCheckpoint(pData.id,pData.Checkpoint.transform.position);
 
             _puzzlesManager.RegisterPuzzle(pData);
+            if(pData.id == 1) //getting the first puzzle
+            {
+                firstPuzzle = pData;
+            }
 
         });
 
-        _puzzlesManager.DeactivateAllPuzzles();
-        _heroManager.CreateHero( _checkpointManager.GetCurrentCheckpointPosition());
+        _puzzlesManager.DeactivateAllPuzzlesBut(firstPuzzle.id);
+        _heroManager.CreateHero(_checkpointManager.GetCurrentCheckpointPosition());
 
         PrepareWaves();
     }

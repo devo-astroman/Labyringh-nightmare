@@ -82,6 +82,17 @@ public class PuzzlesManager : MonoBehaviour
         });
     }
 
+    public void DeactivateAllPuzzlesBut(int id)
+    {
+        _allPuzzles.ForEach(p =>
+        {
+            if(id != p.id)
+                DeactivatePuzzle(p.id);
+            else
+                ActivatePuzzle(p.id);
+        });
+    }
+
     void OnDestroy()
     {
         _allPuzzles.ForEach(p =>

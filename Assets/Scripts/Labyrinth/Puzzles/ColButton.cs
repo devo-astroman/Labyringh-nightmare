@@ -70,12 +70,13 @@ public class ColButton : MonoBehaviour
 
     public void PressButton()
     {
+        Debug.Log("PressButton");
         _interpolatorMover.MoveFromTo(_originTransform.position,_destinyTransform.position,1f);
         //onPressed?.Invoke();
     }
 
     public void PullButton()
-    {        
+    {
         _interpolatorMover.MoveFromTo(_destinyTransform.position,_originTransform.position,1f);
         onPulled?.Invoke();
     }
