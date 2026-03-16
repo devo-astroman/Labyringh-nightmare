@@ -9,9 +9,6 @@ public struct PuzzleData
     public GameObject Checkpoint;
 }
 
-
-
-
 public class World : MonoBehaviour
 {
     #region Fields

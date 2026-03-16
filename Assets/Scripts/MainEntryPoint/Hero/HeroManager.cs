@@ -19,6 +19,9 @@ public class HeroManager : MonoBehaviour
 
     #region Events
     public Action HeroDiedAction;
+    public Action<Vector3, Vector3, RaycastHit> FireAction;
+
+    
     #endregion
 
     #region Unity Callbacks
@@ -27,7 +30,8 @@ public class HeroManager : MonoBehaviour
         if (hero)
         {
             HeroFSM _heroFSM = hero.GetComponentInChildren<HeroFSM>();
-            _heroFSM.HeroDiedAction -= HandleHeroDied;    
+            _heroFSM.HeroDiedAction -= HandleHeroDied;
+            _heroFSM.onFireAction -= HandleFireAction;
         }
         
     }
@@ -44,6 +48,7 @@ public class HeroManager : MonoBehaviour
 
         //_heroFSM.onFireAction+= HandleOnFireAction;
         _heroFSM.HeroDiedAction += HandleHeroDied;
+        _heroFSM.onFireAction += HandleFireAction;
            // PrepareWaves();
     }
 
@@ -66,5 +71,12 @@ public class HeroManager : MonoBehaviour
     {
         HeroDiedAction?.Invoke();
     }
+
+    private void HandleFireAction(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
+    {
+        FireAction?.Invoke(hitPoint, hitNormal,hit);
+    }
+
+    
     #endregion
 }

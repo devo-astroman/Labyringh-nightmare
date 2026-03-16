@@ -10,6 +10,7 @@ public class Main : MonoBehaviour
     [SerializeField] private PuzzlesManager _puzzlesManager;
     //[SerializeField] private WaveManager _waveManager;
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
+    [SerializeField] private VFXsManager _vFXsManager;
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -26,6 +27,7 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
         _heroManager.HeroDiedAction += HandleHeroDied;
+        _heroManager.FireAction += HandleFire;
         _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
         //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
@@ -67,6 +69,7 @@ public class Main : MonoBehaviour
     {
         _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
         _heroManager.HeroDiedAction -= HandleHeroDied;
+        _heroManager.FireAction -= HandleFire;
         _puzzlesManager.PuzzleSolvedAction -= HandlePuzzleSolved;
         //_waveManager.WaveFinishedAction -= HandleWaveFinished;
         
@@ -132,6 +135,52 @@ public class Main : MonoBehaviour
         //RestartLastSolvedPuzzle();
         _puzzlesManager.ResetLastPuzzleSolved();
     }
+
+    private void HandleFire(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
+    {
+        Debug.Log("gun fired!!!");
+        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyCollider"))
+        {
+            //Here should detect who is the enemy using the id of the EnemyT
+            _vFXsManager.ShowBloodVFXs(hitPoint,hitNormal);
+            //_enemyManager.ProcessDamage(0);
+
+            Debug.Log("shoot: " + hit.collider.gameObject.name);
+            EnemyB1FSM enemyB1FSM = hit.collider.gameObject.GetComponentInParent<EnemyB1FSM>();
+            if (enemyB1FSM)
+            {
+                enemyB1FSM.ReceiveDamage(0);
+            }
+            else            
+            {
+                EB2FSM eB2FSM = hit.collider.gameObject.GetComponentInParent<EB2FSM>();
+                if (eB2FSM)
+                {
+                    eB2FSM.ReceiveDamage(0);
+                }
+                else
+                {
+                    EB3FSM eB3FSM = hit.collider.gameObject.GetComponentInParent<EB3FSM>();
+                    if (eB3FSM)
+                    {
+                        eB3FSM.ReceiveDamage(0);
+                    }
+                    
+                }
+                
+            }
+
+
+        }
+        else
+        {
+            _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
+        }
+
+
+    }
+    
+    
 
     private void HandleWaveFinished(int idWave)
     {
