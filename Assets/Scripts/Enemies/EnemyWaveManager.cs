@@ -3,6 +3,7 @@ using System;
 
 public struct EnemyInfo
 {
+    public int Id;
     public int EnemyType;
     public Vector3 BornPoint;
     public Vector3 PatrolPoint;
@@ -15,6 +16,7 @@ public static class EnemyInfoFactory
     {
         return new EnemyInfo()
         {
+            Id=0,
             EnemyType = 0,
             BornPoint = bornPoint,
             PatrolPoint = Vector3.zero,
@@ -26,6 +28,7 @@ public static class EnemyInfoFactory
     {
         return new EnemyInfo()
         {
+            Id=0,
             EnemyType = 1,
             BornPoint = bornPoint,
             PatrolPoint = Vector3.zero,
@@ -36,6 +39,7 @@ public static class EnemyInfoFactory
     {
         return new EnemyInfo()
         {
+            Id=0,
             EnemyType = 2,
             BornPoint = bornPoint,
             PatrolPoint = patrolPoint,
@@ -44,7 +48,15 @@ public static class EnemyInfoFactory
     }
 }
 
+public struct WaveInfo
+{
+    public int Id;
+    public bool allDead;
+    public int nEnemies;
+    public int nDeads;
+    
 
+}
 
 public class EnemyWaveManager : MonoBehaviour
 {
@@ -53,13 +65,19 @@ public class EnemyWaveManager : MonoBehaviour
     [SerializeField] private Transform _generatedTransform;
     [SerializeField] private EnemyHeroTarget _enemyHeroTarget;
     #endregion 
+    #region Public Fields
+    public Action<int> waveAllDeadAction;
+    #endregion 
+
     #region Private Fields
-    private EnemyInfo[] wave1;
-    private EnemyInfo[] wave2;
-    private EnemyInfo[] wave3;
-    private EnemyInfo[] wave4;
-    private EnemyInfo[] wave5;
-    private EnemyInfo[] wave6;
+    private EnemyInfo[] _wave1;
+    private EnemyInfo[] _wave2;
+    private EnemyInfo[] _wave3;
+    private EnemyInfo[] _wave4;
+    private EnemyInfo[] _wave5;
+    private EnemyInfo[] _wave6;
+
+    private WaveInfo[] _wavesInfo;
 
     private Transform _heroTransform;
     private Transform _enemiesParent;
@@ -77,47 +95,54 @@ public class EnemyWaveManager : MonoBehaviour
     #region Public Methods
     public void CreateInfoWaves()
     {
+        _wavesInfo = new WaveInfo[6];
+
         //wave1
-        wave1 = new EnemyInfo[]
+        _wave1 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,3,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,5,0)),
         };
+        RegisterWaveInfo(_wave1,1);        
 
         //wave2
-        wave2 = new EnemyInfo[]
+        _wave2 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(1,6,0)),
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(2,7,0)),
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(5,4,0)),
         };
+        RegisterWaveInfo(_wave2,2);
 
         //wave3
-        wave3 = new EnemyInfo[]
+        _wave3 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateBatEnemy(new Vector3(6,9,0),new Vector3(6,5,0)),
             EnemyInfoFactory.CreateBatEnemy(new Vector3(4,4,0),new Vector3(3,2,0)),
         };
+        RegisterWaveInfo(_wave3,3);
 
         //wave4
-        wave4 = new EnemyInfo[]
+        _wave4 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(8,7,0)),
             EnemyInfoFactory.CreateBatEnemy(new Vector3(9,8,0),new Vector3(9,4,0)),
         };
+        RegisterWaveInfo(_wave4,4);
 
         //wave5
-        wave5 = new EnemyInfo[]
+        _wave5 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(8,3,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(8,4,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,4,0)),
             EnemyInfoFactory.CreateBatEnemy(new Vector3(8,5,0),new Vector3(8,1,0)),
         };
+        RegisterWaveInfo(_wave5,5);
 
         //wave6
-        wave6 = new EnemyInfo[]
+        _wave6 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,5,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,6,0)),
@@ -127,16 +152,18 @@ public class EnemyWaveManager : MonoBehaviour
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(9,8,0)),
             EnemyInfoFactory.CreateBatEnemy(new Vector3(0,4,0),new Vector3(7,7,0)),
         };
+        RegisterWaveInfo(_wave6,6);
     }
+
 
     public void ConvertPositions(Func<int, int, Vector3> callback)
     {
-        ConvertWavePositions(wave1, callback);
-        ConvertWavePositions(wave2, callback);
-        ConvertWavePositions(wave3, callback);
-        ConvertWavePositions(wave4, callback);
-        ConvertWavePositions(wave5, callback);
-        ConvertWavePositions(wave6, callback);
+        ConvertWavePositions(_wave1, callback);
+        ConvertWavePositions(_wave2, callback);
+        ConvertWavePositions(_wave3, callback);
+        ConvertWavePositions(_wave4, callback);
+        ConvertWavePositions(_wave5, callback);
+        ConvertWavePositions(_wave6, callback);
     }
 
     public void SetHeroTransform(Transform heroTransform)
@@ -146,20 +173,20 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void PrepareEnemies()
     {
-        InstantiateEnemies(wave1);
-        InstantiateEnemies(wave2);
-        InstantiateEnemies(wave3);
-        InstantiateEnemies(wave4);
-        InstantiateEnemies(wave5);
-        InstantiateEnemies(wave6);
+        InstantiateEnemies(_wave1);
+        InstantiateEnemies(_wave2);
+        InstantiateEnemies(_wave3);
+        InstantiateEnemies(_wave4);
+        InstantiateEnemies(_wave5);
+        InstantiateEnemies(_wave6);
     }
 
     public void RestartWave()
     {   
         if(_currentWave == 1)
-            ReinstantiateEnemies(wave1);
+            ReinstantiateEnemies(_wave1);
         else if(_currentWave == 2)
-            ReinstantiateEnemies(wave2);
+            ReinstantiateEnemies(_wave2);
             //todo
     }
 
@@ -167,15 +194,22 @@ public class EnemyWaveManager : MonoBehaviour
     {
         if (idWave == 1)
         {
-            foreach(EnemyInfo eInfo in wave1)
+            foreach(EnemyInfo eInfo in _wave1)
             {
                 eInfo.Go.SetActive(true);
             }
+        }else if (idWave == 2)
+        {
+            foreach(EnemyInfo eInfo in _wave2)
+            {
+                eInfo.Go.SetActive(true);
+            }
+            
         }
         _currentWave = idWave;
     }
 
-    public void StopCurrentWave()
+/*     public void StopCurrentWave()
     {
         if (_currentWave == 1)
         {
@@ -185,12 +219,12 @@ public class EnemyWaveManager : MonoBehaviour
                 eInfo.Go.transform.position = eInfo.BornPoint;
             }
         }
-    }
+    } */
 
 
     public void DebugWaves()
     {
-        DebugWave(wave1);
+        DebugWave(_wave1);
         /* DebugWave(wave2);
         DebugWave(wave3);
         DebugWave(wave4);
@@ -200,6 +234,16 @@ public class EnemyWaveManager : MonoBehaviour
 
     #endregion
     #region Private Methods
+    private void RegisterWaveInfo(EnemyInfo[] wave, int id)
+    {
+        _wavesInfo[id-1] = new WaveInfo()
+        {
+            Id=id,
+            nDeads = 0,
+            nEnemies= wave.Length,
+            allDead = false, 
+        };
+    }
     private void ConvertWavePositions(EnemyInfo[] wave, Func<int, int, Vector3> converterFn)
     {
         for (int i = 0; i < wave.Length; i++)
@@ -222,16 +266,21 @@ public class EnemyWaveManager : MonoBehaviour
             {
                 case 0:
                     g = _enemyManager.CreateSpyderEnemy(wave[i].BornPoint, _enemyHeroTarget,_enemiesParent);
+                    g.GetComponent<EB2FSM>().SetId(i);
                     break;
                 case 1:
                     g = _enemyManager.CreateFirerEnemy(wave[i].BornPoint,_enemiesParent);
+                    g.GetComponent<EB3FSM>().SetId(i);
                     break;
                 case 2:
                     g = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemiesParent);
+                    g.GetComponent<EnemyB1FSM>().SetId(i);
                     break;
             }
             if (g != null)
             {
+                wave[i].Id = i;
+                g.GetComponent<IntNotifier>().IntNotifyAction += HandleDieIntNotify;
                 wave[i].Go = g;
                 g.SetActive(false);
             }
@@ -258,12 +307,43 @@ public class EnemyWaveManager : MonoBehaviour
             if (newG != null)
             {
                 //destroy the current
+                wave[i].Go.GetComponent<IntNotifier>().IntNotifyAction -= HandleDieIntNotify;
                 Destroy(wave[i].Go);
                 //substitute
                 wave[i].Go = newG;
+                newG.GetComponent<IntNotifier>().IntNotifyAction += HandleDieIntNotify;
                 newG.SetActive(false);
             }
         }
+    }
+    
+    private void HandleDieIntNotify(int enemyId)
+    {
+        Debug.Log("Enemy die " + enemyId);
+
+        for (int i = 0; i < _wavesInfo.Length; i++)
+        {
+            if (_wavesInfo[i].Id == _currentWave)
+            {
+                RegisterEnemyDie(ref _wavesInfo[i], enemyId);
+                break;
+            }
+        }
+    }
+
+    private void RegisterEnemyDie(ref WaveInfo  waveInfo, int enemyId)
+    {
+        Debug.Log("before waveInfo.nDeads "+ waveInfo.nDeads);
+        waveInfo.nDeads++;
+        Debug.Log("after waveInfo.nDeads "+ waveInfo.nDeads);
+
+        waveInfo.allDead = waveInfo.nDeads == waveInfo.nEnemies;
+        if (waveInfo.allDead)
+        {
+            Debug.Log("Invoking "+ waveInfo.Id);
+            waveAllDeadAction?.Invoke(waveInfo.Id);
+        }
+
     }
 
     private void DebugWave(EnemyInfo[] wave)

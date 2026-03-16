@@ -29,6 +29,7 @@ public class Main : MonoBehaviour
         _heroManager.HeroDiedAction += HandleHeroDied;
         _heroManager.FireAction += HandleFire;
         _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
+        _enemyWaveManager.waveAllDeadAction += HandleWaveFinished;
         //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
         _world.GenerateWorld();        
@@ -71,6 +72,7 @@ public class Main : MonoBehaviour
         _heroManager.HeroDiedAction -= HandleHeroDied;
         _heroManager.FireAction -= HandleFire;
         _puzzlesManager.PuzzleSolvedAction -= HandlePuzzleSolved;
+        _enemyWaveManager.waveAllDeadAction -= HandleWaveFinished;
         //_waveManager.WaveFinishedAction -= HandleWaveFinished;
         
     }
@@ -186,7 +188,7 @@ public class Main : MonoBehaviour
     {
         if(idWave < 6)
         {
-            _puzzlesManager.ActivatePuzzle(idWave);
+            _puzzlesManager.ActivatePuzzle(idWave+1);
         }
         else
         {
@@ -209,11 +211,6 @@ public class Main : MonoBehaviour
 
         _heroManager.ResetHeroAt(checkpointPosition);
 
-    }
-
-    private void StopCurrentEnemyWave()
-    {
-        _enemyWaveManager.StopCurrentWave();
     }
 
     private void RestartLastSolvedPuzzle()
