@@ -335,13 +335,18 @@ public class HeroFSM : AbstractFiniteStateMachine
            
         private void HandleReceiveHitFromEnemy()
         {   
+
             bool hurtMade = _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
 
-            bool isDead = _dependencies.fsm._healthController.IsDead();
-
-            if (hurtMade && isDead)
+            if (hurtMade)
             {
-                _dependencies.fsm.GoDie();
+                _dependencies.fsm._healthController.DecreaseLife(1);
+                bool isDead = _dependencies.fsm._healthController.IsDead();
+
+                if (isDead)
+                {
+                    _dependencies.fsm.GoDie();
+                }
             }
         }
 
@@ -434,13 +439,18 @@ public class HeroFSM : AbstractFiniteStateMachine
         
         private void HandleReceiveHitFromEnemy()
         {   
+
             bool hurtMade = _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
 
-            bool isDead = _dependencies.fsm._healthController.IsDead();
-
-            if (hurtMade && isDead)
+            if (hurtMade)
             {
-                _dependencies.fsm.GoDie();
+                _dependencies.fsm._healthController.DecreaseLife(1);
+                bool isDead = _dependencies.fsm._healthController.IsDead();
+
+                if (isDead)
+                {
+                    _dependencies.fsm.GoDie();
+                }
             }
         }
 
@@ -515,13 +525,18 @@ public class HeroFSM : AbstractFiniteStateMachine
 
         private void HandleReceiveHitFromEnemy()
         {   
+
             bool hurtMade = _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
 
-            bool isDead = _dependencies.fsm._healthController.IsDead();
-
-            if (hurtMade && isDead)
+            if (hurtMade)
             {
-                _dependencies.fsm.GoDie();
+                _dependencies.fsm._healthController.DecreaseLife(1);
+                bool isDead = _dependencies.fsm._healthController.IsDead();
+
+                if (isDead)
+                {
+                    _dependencies.fsm.GoDie();
+                }
             }
         }
 
@@ -623,14 +638,19 @@ public class HeroFSM : AbstractFiniteStateMachine
         }
         
         private void HandleReceiveHitFromEnemy()
-        {
+        {   
+
             bool hurtMade = _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
 
-            bool isDead = _dependencies.fsm._healthController.IsDead();
-
-            if (hurtMade && isDead)
+            if (hurtMade)
             {
-                _dependencies.fsm.GoDie();
+                _dependencies.fsm._healthController.DecreaseLife(1);
+                bool isDead = _dependencies.fsm._healthController.IsDead();
+
+                if (isDead)
+                {
+                    _dependencies.fsm.GoDie();
+                }
             }
         }
         private void HandleInteractAction()

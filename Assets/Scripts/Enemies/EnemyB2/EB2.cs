@@ -104,9 +104,10 @@ public class EB2 : MonoBehaviour
         return _enemyHealth.GetLife();
     }
 
-    public void DamageTarget()
+    public void DamageTarget(GameObject hero)
     {
-        GameObject parentGO = _targetToFollow.transform.parent?.gameObject;
+        GameObject parentGO = hero.transform.parent?.gameObject;
+        
         if (parentGO)
         {
             parentGO.GetComponent<HeroFSM>().TriggerReceiveHitFromEnemy();

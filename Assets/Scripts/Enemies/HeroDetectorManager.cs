@@ -73,10 +73,10 @@ public class HeroDetectorManager : MonoBehaviour
     }
 
     private void HandleNearDetected(GameObject go)
-    {
+    {        
         GameObject heroFSMGO = go.transform.parent.gameObject;
         if (heroFSMGO)
-        {
+        {            
             HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
 
             if (heroFSM)

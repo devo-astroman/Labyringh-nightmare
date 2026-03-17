@@ -234,6 +234,7 @@ public class Main : MonoBehaviour
 
     private void HandlePuzzleSolved(int idPuzzle)
     {
+        _checkpointManager.SetCurrentCheckpoint(idPuzzle);
         _enemyWaveManager.RunWave(idPuzzle);
     }
 

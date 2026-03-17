@@ -101,8 +101,8 @@ public class EnemyWaveManager : MonoBehaviour
         _wave1 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,3,0)),
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,5,0)),
+            /* EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,3,0)),
+            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,5,0)), */
         };
         RegisterWaveInfo(_wave1,1);        
 
@@ -184,10 +184,38 @@ public class EnemyWaveManager : MonoBehaviour
     public void RestartWave()
     {   
         if(_currentWave == 1)
+        {
             ReinstantiateEnemies(_wave1);
+            ResetWaveInfo(1);
+            
+        }
         else if(_currentWave == 2)
+        {
             ReinstantiateEnemies(_wave2);
-            //todo
+            ResetWaveInfo(2);
+        }
+        else if(_currentWave == 3)
+        {
+            ReinstantiateEnemies(_wave3);
+            ResetWaveInfo(3);
+        }
+        else if(_currentWave == 4)
+        {
+            ReinstantiateEnemies(_wave4);
+            ResetWaveInfo(4);
+        }
+        else if(_currentWave == 5)
+        {
+            ReinstantiateEnemies(_wave5);
+            ResetWaveInfo(5);
+        }
+        else if(_currentWave == 6)
+        {
+            ReinstantiateEnemies(_wave6);
+            ResetWaveInfo(6);
+        }
+            
+
     }
 
     public void RunWave(int idWave)
@@ -316,7 +344,23 @@ public class EnemyWaveManager : MonoBehaviour
             }
         }
     }
-    
+
+    private void ResetWaveInfo(int idWave)
+    {
+        for(int i=0; i<_wavesInfo.Length; i++)
+        {
+            WaveInfo wInfo = _wavesInfo[i];
+
+            if(wInfo.Id == idWave)
+            {
+                wInfo.allDead = false;
+                wInfo.nDeads = 0;
+
+                _wavesInfo[i] = wInfo;
+            }
+        }
+    }
+
     private void HandleDieIntNotify(int enemyId)
     {
         Debug.Log("Enemy die " + enemyId);

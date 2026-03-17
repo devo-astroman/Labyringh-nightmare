@@ -104,10 +104,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.617238
-  m_Height: 2.6856263
+  m_Radius: 1.3488474
+  m_Height: 4.569442
   m_Direction: 1
-  m_Center: {x: 0.02565836, y: 0, z: 0.13909659}
+  m_Center: {x: 0.02565836, y: 0, z: 0.87070596}
 --- !u!114 &1411445544770561859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,10 +595,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.1557076
-  m_Height: 3.915149
+  m_Radius: 2.0940769
+  m_Height: 7.094029
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0.6557074}
+  m_Center: {x: 0, y: 0, z: 1.5940763}
 --- !u!114 &5991480838320217765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,7 +1084,6 @@ MonoBehaviour:
   _enemySoundManager: {fileID: 2730613077294650516}
   _heroDetectorManager: {fileID: 8875409827143114816}
   _minimapIndigactorGO: {fileID: 7902579025684130265}
-  _Target: {fileID: 0}
   _follow: 0
   _receiveDamage: 0
 --- !u!1001 &2657901027251953807
