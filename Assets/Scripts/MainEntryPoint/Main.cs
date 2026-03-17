@@ -156,6 +156,7 @@ public class Main : MonoBehaviour
             Debug.Log("OPEN THE EXIT");
             Debug.Log("Throw the key");
             //_labyrinthCreator.OpenExitFence();
+            _world.OpenExitFence();
 
         }
         

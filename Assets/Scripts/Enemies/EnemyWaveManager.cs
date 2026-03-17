@@ -119,7 +119,7 @@ public class EnemyWaveManager : MonoBehaviour
         _wave3 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateBatEnemy(new Vector3(6,9,0),new Vector3(6,5,0)),
-            EnemyInfoFactory.CreateBatEnemy(new Vector3(4,4,0),new Vector3(3,2,0)),
+            /* EnemyInfoFactory.CreateBatEnemy(new Vector3(4,4,0),new Vector3(3,2,0)), */
         };
         RegisterWaveInfo(_wave3,3);
 
@@ -127,7 +127,7 @@ public class EnemyWaveManager : MonoBehaviour
         _wave4 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(8,7,0)),
-            EnemyInfoFactory.CreateBatEnemy(new Vector3(9,8,0),new Vector3(9,4,0)),
+            /* EnemyInfoFactory.CreateBatEnemy(new Vector3(9,8,0),new Vector3(9,4,0)), */
         };
         RegisterWaveInfo(_wave4,4);
 
@@ -135,9 +135,9 @@ public class EnemyWaveManager : MonoBehaviour
         _wave5 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(8,3,0)),
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(8,4,0)),
+            /* EnemyInfoFactory.CreateSpyderEnemy(new Vector3(8,4,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,4,0)),
-            EnemyInfoFactory.CreateBatEnemy(new Vector3(8,5,0),new Vector3(8,1,0)),
+            EnemyInfoFactory.CreateBatEnemy(new Vector3(8,5,0),new Vector3(8,1,0)), */
         };
         RegisterWaveInfo(_wave5,5);
 
@@ -145,12 +145,12 @@ public class EnemyWaveManager : MonoBehaviour
         _wave6 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,5,0)),
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,6,0)),
+            /* EnemyInfoFactory.CreateSpyderEnemy(new Vector3(7,6,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,4,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,4,0)),
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(9,5,0)),
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(9,8,0)),
-            EnemyInfoFactory.CreateBatEnemy(new Vector3(0,4,0),new Vector3(7,7,0)),
+            EnemyInfoFactory.CreateBatEnemy(new Vector3(0,4,0),new Vector3(7,7,0)), */
         };
         RegisterWaveInfo(_wave6,6);
     }
@@ -220,21 +220,6 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void RunWave(int idWave)
     {
-        /* if (idWave == 1)
-        {
-            foreach(EnemyInfo eInfo in _wave1)
-            {
-                eInfo.Go.SetActive(true);
-            }
-        }else if (idWave == 2)
-        {
-            foreach(EnemyInfo eInfo in _wave2)
-            {
-                eInfo.Go.SetActive(true);
-            }
-            
-        } */
-
         switch (idWave)
         {
             case 1:

@@ -58,6 +58,11 @@ public class World : MonoBehaviour
         return _labyrinthCreator.GetRoomPosition(x,y);
     }
 
+    public void OpenExitFence()
+    {        
+        _labyrinthCreator.OpenExitFence();
+    }
+
     public void GenerateWorld()
     {
         _labyrinthCreator.GenerateLabyrinth((roomGO, x, y, mask) =>
