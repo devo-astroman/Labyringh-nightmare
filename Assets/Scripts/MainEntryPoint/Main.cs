@@ -195,13 +195,15 @@ public class Main : MonoBehaviour
                 }
                 
             }
-
-
         }
         else
         {
             _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
         }
+
+        _world.IncreaseNFires();
+        _world.UpdateAmmo();
+
     }
     
     private void AssignNewCurrentCheckpoint(int checkpointId)

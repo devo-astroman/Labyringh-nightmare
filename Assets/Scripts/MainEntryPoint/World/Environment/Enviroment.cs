@@ -3,7 +3,7 @@ public class Enviroment : MonoBehaviour
 {
     #region Fields
     [SerializeField] private ObjectsFactory _objectsFactory;
-    [SerializeField] private Transform _generatedTransform;
+    [SerializeField] private Transform _generatedTransform;    
     #endregion
 
     #region Private Fields
@@ -34,9 +34,10 @@ public class Enviroment : MonoBehaviour
         GameObject box = _objectsFactory.GetBox2Empties(position,_boxesParent);
     }
 
-    public void PlaceAmmo(Vector3 position, int id)
+    public GameObject PlaceAmmo(Vector3 position, int id)
     {
         GameObject ammo = _objectsFactory.GetAmmoOnBox(position, id,_ammosParent);
+        return ammo;
     }
 
     public void PlaceSpike(Vector3 position, int id)

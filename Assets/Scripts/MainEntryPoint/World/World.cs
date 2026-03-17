@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using Unity.VisualScripting;
 
 public struct PuzzleData
 {
@@ -13,7 +14,8 @@ public class World : MonoBehaviour
 {
     #region Fields
     [SerializeField] private LabyrinthCreator _labyrinthCreator; 
-    [SerializeField] private Enviroment _enviroment;    
+    [SerializeField] private Enviroment _enviroment;
+    [SerializeField] private BulletManager _bulletManager;
     #endregion
 
     #region Private Fields
@@ -21,6 +23,7 @@ public class World : MonoBehaviour
     private List<PuzzleData> _puzzleDataList = new List<PuzzleData>();
 
     private Vector3[] _wave1;
+    private int _nFires;
     #endregion
 
     #region Properties
@@ -61,6 +64,37 @@ public class World : MonoBehaviour
     public void OpenExitFence()
     {        
         _labyrinthCreator.OpenExitFence();
+    }
+
+    public int GetNBulletsActive()
+    {        
+        return _bulletManager.GetNBulletsActive();
+    }
+
+    public int GetNTotalBullets()
+    {        
+        return _bulletManager.GetNBulletsActive();
+    }
+
+    public void IncreaseNFires()
+    {
+        _nFires++;
+    }
+    
+    public void UpdateAmmo()
+    {
+        int nTotalBullets = GetNTotalBullets();
+        Debug.Log("nTotalBullets " + nTotalBullets);
+        Debug.Log("_nFires " + _nFires);
+        if(_nFires >= nTotalBullets)
+        {
+            //Add 5 more ammo boxes
+            _bulletManager.ActivateRandomBulletsAmmo(5);
+        }
+        else
+        {
+            Debug.Log("There are still ammo in the maze");
+        }
     }
 
     public void GenerateWorld()
@@ -191,7 +225,8 @@ public class World : MonoBehaviour
                     _enviroment.PlaceBox(boxPosition);
                     if (UnityEngine.Random.Range(0, 10) >= 4)
                     {
-                        _enviroment.PlaceAmmo(boxPosition,int.Parse(x+""+y));
+                        GameObject ammo = _enviroment.PlaceAmmo(boxPosition,int.Parse(x+""+y));
+                        _bulletManager.RegisterBulletAmmo(ammo);
                     }
                 }
 

@@ -228,7 +228,10 @@ public class HeroFSM : AbstractFiniteStateMachine
         {
             //take that ammo
             ammoGO.SetActive(false);
-            _gunFireController.IncreaseAmmo(6);
+            Debug.Log("ammoGO " + ammoGO.name);
+            Debug.Log("ammoGO parent " + ammoGO.transform.parent.name);
+            int nBulletInBox = ammoGO.transform.parent.GetComponent<Bullet>().GetNBulletsByAmmoBox();
+            _gunFireController.IncreaseAmmo(nBulletInBox);
             int currentAmmo = _gunFireController.GetAmmo();
             _hud.SetAmmo(currentAmmo);
 

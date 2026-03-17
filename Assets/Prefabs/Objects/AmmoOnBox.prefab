@@ -398,6 +398,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &3322383011241169252
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2809246259702840187}
   - component: {fileID: 6968548530742391885}
+  - component: {fileID: 3607569067923723408}
   m_Layer: 0
   m_Name: AmmoOnBox
   m_TagString: Untagged
@@ -779,6 +782,18 @@ MonoBehaviour:
   - {fileID: 6602064845720282610}
   - {fileID: 8438522033791592686}
   _heroDetector: {fileID: 4911305423105982148}
+--- !u!114 &3607569067923723408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6616947326886192942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743889e58bae2164594688aa518f71c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7141324601647937613
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +863,8 @@ MonoBehaviour:
   _useTag: 1
   _heroTag: HeroTag
   _heroLayerName: HeroCollider
+  _testDetectd: 0
+  _testHeroDetecter: {fileID: 0}
 --- !u!1 &7403863694359602564
 GameObject:
   m_ObjectHideFlags: 0
