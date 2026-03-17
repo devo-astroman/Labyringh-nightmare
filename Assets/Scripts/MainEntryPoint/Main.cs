@@ -137,6 +137,29 @@ public class Main : MonoBehaviour
         //RestartLastSolvedPuzzle();
         _puzzlesManager.ResetLastPuzzleSolved();
     }
+    
+    private void HandlePuzzleSolved(int idPuzzle)
+    {
+        Debug.Log("finished puzzle " + idPuzzle);
+        _checkpointManager.SetCurrentCheckpoint(idPuzzle);
+        _enemyWaveManager.RunWave(idPuzzle);
+    }
+
+    private void HandleWaveFinished(int idWave)
+    {
+        if(idWave < 6)
+        {
+            _puzzlesManager.ActivatePuzzle(idWave+1);
+        }
+        else
+        {
+            Debug.Log("OPEN THE EXIT");
+            Debug.Log("Throw the key");
+            //_labyrinthCreator.OpenExitFence();
+
+        }
+        
+    }
 
     private void HandleFire(Vector3 hitPoint, Vector3 hitNormal,RaycastHit hit)
     {
@@ -178,28 +201,7 @@ public class Main : MonoBehaviour
         {
             _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
         }
-
-
     }
-    
-    
-
-    private void HandleWaveFinished(int idWave)
-    {
-        if(idWave < 6)
-        {
-            _puzzlesManager.ActivatePuzzle(idWave+1);
-        }
-        else
-        {
-            Debug.Log("OPEN THE EXIT");
-            Debug.Log("Throw the key");
-            //_labyrinthCreator.OpenExitFence();
-
-        }
-        
-    }
-
     
     private void AssignNewCurrentCheckpoint(int checkpointId)
     {
@@ -232,11 +234,7 @@ public class Main : MonoBehaviour
         _puzzlesManager.ResetPuzzle(idPuzzle);
     }
 
-    private void HandlePuzzleSolved(int idPuzzle)
-    {
-        _checkpointManager.SetCurrentCheckpoint(idPuzzle);
-        _enemyWaveManager.RunWave(idPuzzle);
-    }
+
 
     
     #endregion

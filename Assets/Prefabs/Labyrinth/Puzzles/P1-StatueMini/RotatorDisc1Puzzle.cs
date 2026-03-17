@@ -81,7 +81,7 @@ public class RotatorDisc1Puzzle : Puzzle
     {
         if( _currentUp == 0)
         {
-            Debug.Log("Solution Reached!");
+            Debug.Log("Solution Reached! RotatorDisc1Puzzle");
             PuzzleSolvedAction?.Invoke(_id);
             _puzzleNotifier.NotifyPuzzleSolved(_id);
             Deactivate();

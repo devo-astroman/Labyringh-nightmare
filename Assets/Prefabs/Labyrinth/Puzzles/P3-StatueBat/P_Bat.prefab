@@ -5091,7 +5091,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4333150029686386793}
-  - component: {fileID: 8058616346054234956}
   m_Layer: 0
   m_Name: RotatorStatue
   m_TagString: Untagged
@@ -5118,21 +5117,6 @@ Transform:
   - {fileID: 8842923524909110381}
   m_Father: {fileID: 7914537306119683878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8058616346054234956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7871979754637188943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115ba7c04374eb64ca6e4e8665ae53d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointerLookAtCyclerTester: {fileID: 6519196425713653296}
-  _testNext: 0
-  _testPrev: 0
 --- !u!1 &7952267598119396053
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,7 +5332,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pointerLookAtCyclerUp: {fileID: 6519196425713653296}
   _pointerLookAtCyclerMiddle: {fileID: 4214120077377705086}
-  _id: 2
   _currentUp: 2
   _currentMiddle: 2
   _colButtonUp: {fileID: 7415337753982366053}

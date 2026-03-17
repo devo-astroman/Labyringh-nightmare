@@ -110,8 +110,8 @@ public class EnemyWaveManager : MonoBehaviour
         _wave2 = new EnemyInfo[]
         {
             EnemyInfoFactory.CreateFirerEnemy(new Vector3(1,6,0)),
-            EnemyInfoFactory.CreateFirerEnemy(new Vector3(2,7,0)),
-            EnemyInfoFactory.CreateFirerEnemy(new Vector3(5,4,0)),
+            /* EnemyInfoFactory.CreateFirerEnemy(new Vector3(2,7,0)),
+            EnemyInfoFactory.CreateFirerEnemy(new Vector3(5,4,0)), */
         };
         RegisterWaveInfo(_wave2,2);
 
@@ -220,7 +220,7 @@ public class EnemyWaveManager : MonoBehaviour
 
     public void RunWave(int idWave)
     {
-        if (idWave == 1)
+        /* if (idWave == 1)
         {
             foreach(EnemyInfo eInfo in _wave1)
             {
@@ -233,21 +233,31 @@ public class EnemyWaveManager : MonoBehaviour
                 eInfo.Go.SetActive(true);
             }
             
+        } */
+
+        switch (idWave)
+        {
+            case 1:
+                ActiveEnemiesOfWave(_wave1);
+            break;
+            case 2:
+                ActiveEnemiesOfWave(_wave2);
+            break;
+            case 3:
+                ActiveEnemiesOfWave(_wave3);
+            break;
+            case 4:
+                ActiveEnemiesOfWave(_wave4);
+            break;
+            case 5:
+                ActiveEnemiesOfWave(_wave5);
+            break;
+            case 6:
+                ActiveEnemiesOfWave(_wave6);
+            break;
         }
         _currentWave = idWave;
     }
-
-/*     public void StopCurrentWave()
-    {
-        if (_currentWave == 1)
-        {
-            foreach(EnemyInfo eInfo in wave1)
-            {
-                eInfo.Go.SetActive(false);
-                eInfo.Go.transform.position = eInfo.BornPoint;
-            }
-        }
-    } */
 
 
     public void DebugWaves()
@@ -358,6 +368,14 @@ public class EnemyWaveManager : MonoBehaviour
 
                 _wavesInfo[i] = wInfo;
             }
+        }
+    }
+
+    private void ActiveEnemiesOfWave(EnemyInfo[] wave)
+    {
+        foreach(EnemyInfo eInfo in wave)
+        {
+            eInfo.Go.SetActive(true);
         }
     }
 

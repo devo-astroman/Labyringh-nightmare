@@ -673,7 +673,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3686639716576835549}
-  - component: {fileID: 7412087574667890689}
   m_Layer: 0
   m_Name: TriangleStatues
   m_TagString: Untagged
@@ -699,21 +698,6 @@ Transform:
   - {fileID: 1512669056311560450}
   m_Father: {fileID: 8366408713184892560}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7412087574667890689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2309502008991610725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 115ba7c04374eb64ca6e4e8665ae53d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pointerLookAtCyclerTester: {fileID: 6752040966443206599}
-  _testNext: 0
-  _testPrev: 0
 --- !u!1 &2345505266491581863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2093,7 +2077,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pointerLookAtCyclerUp: {fileID: 6752040966443206599}
-  _id: 3
   _currentUp: 2
   _colButtonUp: {fileID: 6994679040859053037}
   _puzzleNotifier: {fileID: 5783677324420490252}

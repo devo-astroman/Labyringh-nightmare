@@ -10,6 +10,7 @@ public class PuzzlesManager : MonoBehaviour
 
     public Action<int> PuzzleSolvedAction;
     private int _lastPuzzleSolved = 0;
+    private int _lastPuzzleActivated = 0;
 
     public void RegisterPuzzle(PuzzleData pData)
     {
@@ -43,6 +44,7 @@ public class PuzzlesManager : MonoBehaviour
         {
             activatableBehaviour.Activate();
         }
+        _lastPuzzleActivated = idPuzzle;
     }
 
     public void DeactivatePuzzle(int idPuzzle)
@@ -77,6 +79,7 @@ public class PuzzlesManager : MonoBehaviour
 
     public void ResetLastPuzzleSolved()
     {
+        DeactivateAllPuzzlesBut(_lastPuzzleSolved);
         int idPuzzle = _lastPuzzleSolved;
         PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
         {
@@ -89,7 +92,14 @@ public class PuzzlesManager : MonoBehaviour
         {
             puzzle.Reset();
             puzzle.Activate();
+            _lastPuzzleActivated = _lastPuzzleSolved;
         }
+        _lastPuzzleSolved--;
+        
+        if(_lastPuzzleSolved<0)
+            _lastPuzzleSolved = 0;
+
+
     }
 
     public void ActivateLastPuzzle()
