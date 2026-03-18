@@ -79,6 +79,9 @@ public class PuzzlesManager : MonoBehaviour
 
     public void ResetLastPuzzleSolved()
     {
+        if(_lastPuzzleSolved == 0)
+            return;
+
         DeactivateAllPuzzlesBut(_lastPuzzleSolved);
         int idPuzzle = _lastPuzzleSolved;
         PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
@@ -87,7 +90,7 @@ public class PuzzlesManager : MonoBehaviour
         });
 
         GameObject puzzleGo = puzzleDataToActivate.Puzzle;
-        Puzzle puzzle = puzzleGo.GetComponent<Puzzle>();        
+        Puzzle puzzle = puzzleGo.GetComponent<Puzzle>();
         if (puzzle)
         {
             puzzle.Reset();

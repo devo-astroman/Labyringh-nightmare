@@ -218,7 +218,10 @@ public class HeroFSM : AbstractFiniteStateMachine
         return _interactableDetected;
     }
     
-
+    public int GetAmmoInpocket()
+    {
+        return _gunFireController.GetAmmo();
+    }
     
 
     private void HandleInteractAction()
@@ -227,10 +230,8 @@ public class HeroFSM : AbstractFiniteStateMachine
         if (ammoGO)
         {
             //take that ammo
-            ammoGO.SetActive(false);
-            Debug.Log("ammoGO " + ammoGO.name);
-            Debug.Log("ammoGO parent " + ammoGO.transform.parent.name);
             int nBulletInBox = ammoGO.transform.parent.GetComponent<Bullet>().GetNBulletsByAmmoBox();
+            ammoGO.transform.parent.GetComponent<Bullet>().DeactivateBullet();            
             _gunFireController.IncreaseAmmo(nBulletInBox);
             int currentAmmo = _gunFireController.GetAmmo();
             _hud.SetAmmo(currentAmmo);

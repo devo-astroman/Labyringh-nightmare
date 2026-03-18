@@ -81,19 +81,16 @@ public class World : MonoBehaviour
         _nFires++;
     }
     
-    public void UpdateAmmo()
+    public void UpdateAmmo(int ammoInPocket)
     {
-        int nTotalBullets = GetNTotalBullets();
-        Debug.Log("nTotalBullets " + nTotalBullets);
-        Debug.Log("_nFires " + _nFires);
-        if(_nFires >= nTotalBullets)
+        if(ammoInPocket == 0)
         {
-            //Add 5 more ammo boxes
-            _bulletManager.ActivateRandomBulletsAmmo(5);
-        }
-        else
-        {
-            Debug.Log("There are still ammo in the maze");
+            int nActiveAmmoBoxes = _bulletManager.GetNBulletsActive();
+            if(nActiveAmmoBoxes < 5)
+            {
+                //Add extra bullets 5 and show them in the minimap                
+                _bulletManager.ActivateRandomBulletsAmmo(5 - nActiveAmmoBoxes, true);
+            }
         }
     }
 
@@ -216,7 +213,6 @@ public class World : MonoBehaviour
             else
             {
                 int[] randomIndexes = Get3RandomIndexes();
-                
                 if (UnityEngine.Random.Range(0, 10) >= 4)
                 {
                     int boxIndex = randomIndexes[0];

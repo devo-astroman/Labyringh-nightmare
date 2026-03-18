@@ -9,7 +9,7 @@ public class HeroManager : MonoBehaviour
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
-    private GameObject hero;
+    private GameObject _hero;
     private Transform _heroParent;
     private Transform _heroTransform;
     #endregion
@@ -27,9 +27,9 @@ public class HeroManager : MonoBehaviour
     #region Unity Callbacks
     void OnDestroy()
     {
-        if (hero)
+        if (_hero)
         {
-            HeroFSM _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+            HeroFSM _heroFSM = _hero.GetComponentInChildren<HeroFSM>();
             _heroFSM.HeroDiedAction -= HandleHeroDied;
             _heroFSM.onFireAction -= HandleFireAction;
         }
@@ -40,10 +40,10 @@ public class HeroManager : MonoBehaviour
     #region Public Methods
     public void CreateHero(Vector3 position)
     {
-        hero = Instantiate(_heroPrefab, position, Quaternion.identity,_heroParent);
+        _hero = Instantiate(_heroPrefab, position, Quaternion.identity,_heroParent);
 
         //Camera camera = hero.GetComponentInChildren<Camera>();
-        HeroFSM _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+        HeroFSM _heroFSM = _hero.GetComponentInChildren<HeroFSM>();
         _heroTransform = _heroFSM.transform.Find("Hero");
 
         //_heroFSM.onFireAction+= HandleOnFireAction;
@@ -54,15 +54,21 @@ public class HeroManager : MonoBehaviour
 
     public void ResetHeroAt(Vector3 position)
     {
-        HeroFSM _heroFSM = hero.GetComponentInChildren<HeroFSM>();
+        HeroFSM _heroFSM = _hero.GetComponentInChildren<HeroFSM>();
         _heroFSM.HeroDiedAction -= HandleHeroDied;
-        Destroy(hero);
+        Destroy(_hero);
         CreateHero(position);
     }
 
     public Transform GetHeroTransform()
     {
         return _heroTransform;
+    }
+
+    public int GetHeroAmmoInPocket()
+    {
+        HeroFSM _heroFSM = _hero.GetComponentInChildren<HeroFSM>();
+        return _heroFSM.GetAmmoInpocket();
     }
     #endregion
 

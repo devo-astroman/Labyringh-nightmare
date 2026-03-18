@@ -191,18 +191,15 @@ public class Main : MonoBehaviour
                     {
                         eB3FSM.ReceiveDamage(0);
                     }
-                    
                 }
-                
             }
         }
         else
         {
             _vFXsManager.ShowHitWallVFXs(hitPoint,hitNormal);
         }
-
-        _world.IncreaseNFires();
-        _world.UpdateAmmo();
+        int ammoInPocket =  _heroManager.GetHeroAmmoInPocket();
+        _world.UpdateAmmo(ammoInPocket);
 
     }
     

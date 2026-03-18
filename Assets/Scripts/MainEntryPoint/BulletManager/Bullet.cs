@@ -3,6 +3,7 @@ using System;
 public class Bullet : MonoBehaviour
 {
     #region Fields
+    [SerializeField] private GameObject _minimapIndicator;
     #endregion
 
     #region Private Fields
@@ -18,16 +19,6 @@ public class Bullet : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
-    void OnEnable()
-    {
-        
-    }
-
-    void OnDisable()
-    {
-        Debug.Log("OnDisable " + _id);
-        BulletDeactivatedAction?.Invoke(_id);   
-    }
     #endregion
 
     #region Public Methods
@@ -45,6 +36,20 @@ public class Bullet : MonoBehaviour
         return _nBulletsByAmmoBox;
     }
 
+    public void DeactivateBullet()
+    {
+        BulletDeactivatedAction?.Invoke(_id);
+    }
+
+    public void ShowInMinimap()
+    {
+        _minimapIndicator.SetActive(true);
+    }
+
+    public void HideInMinimap()
+    {
+        _minimapIndicator.SetActive(false);
+    }
 
     #endregion
 

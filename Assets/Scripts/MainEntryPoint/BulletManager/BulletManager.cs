@@ -15,7 +15,7 @@ public class BulletManager : MonoBehaviour
     #region Private Fields
     //private List<GameObject> _allAmmoBullets = new List<GameObject>();
     private List<BulletInfo> _allBulletsInfo = new List<BulletInfo>();
-    [SerializeField] private int _nBulletsByAmmoBox = 6;
+    [SerializeField] private int _nBulletsByAmmoBox = 2;
     [SerializeField] private int _nTotalBullets = 0;
     [SerializeField] private int _nTotalInactiveBullets = 0;
     #endregion
@@ -24,9 +24,6 @@ public class BulletManager : MonoBehaviour
     #endregion
 
     #region Unity Callbacks
-    void OnDestroy()
-    {
-    }
     #endregion
 
     #region Public Methods
@@ -47,23 +44,63 @@ public class BulletManager : MonoBehaviour
         _nTotalBullets++;
     }
 
-    public void ActivateRandomBulletsAmmo(int nBulletsToActive)
+    public void ActivateRandomBulletsAmmo(int nBulletsToActive, bool showInMinimap)
     {
+        List<int> inactiveIndexes = new List<int>();
 
-        for (int i = 0; i < _allBulletsInfo.Count && nBulletsToActive > 0; i++)
+        for (int i = 0; i < _allBulletsInfo.Count; i++)
         {
             if (!_allBulletsInfo[i].IsActive)
             {
-                BulletInfo bInfo = _allBulletsInfo[i];
-                bInfo.IsActive = true;
-                bInfo.Go.transform.parent.gameObject.SetActive(true);
-                _allBulletsInfo[i] = bInfo;
-
-                _nTotalInactiveBullets--;
-                nBulletsToActive--;
+                inactiveIndexes.Add(i);
             }
         }
-        
+
+        if (inactiveIndexes.Count == 0)
+        {
+            return;
+        }
+
+        int amountToActivate = Mathf.Min(nBulletsToActive, inactiveIndexes.Count);
+
+        for (int i = 0; i < amountToActivate; i++)
+        {
+            int randomListIndex = Random.Range(0, inactiveIndexes.Count);
+            int bulletIndex = inactiveIndexes[randomListIndex];
+
+            BulletInfo bInfo = _allBulletsInfo[bulletIndex];
+            bInfo.IsActive = true;
+            bInfo.Go.SetActive(true);
+
+            if (showInMinimap)
+            {
+                Bullet bullet = bInfo.Go.GetComponent<Bullet>();
+                if (bullet != null)
+                {
+                    bullet.ShowInMinimap();
+                }
+            }
+
+            _allBulletsInfo[bulletIndex] = bInfo;
+
+            _nTotalInactiveBullets--;
+
+            inactiveIndexes.RemoveAt(randomListIndex);
+        }
+    }
+
+    public BulletInfo GetBulletInfo(int id)
+    {
+        BulletInfo bInfo = new BulletInfo();
+        for (int i = 0; i < _allBulletsInfo.Count; i++)
+        {
+            if(_allBulletsInfo[i].Id == id)
+            {
+                bInfo = _allBulletsInfo[i];                
+            }
+        }
+
+        return bInfo;
     }
 
     public int GetNBulletsActive()
@@ -96,6 +133,9 @@ public class BulletManager : MonoBehaviour
                 _allBulletsInfo[i] = bInfo;
 
                 _nTotalInactiveBullets++;
+                //bInfo.Go.transform.parent.gameObject.SetActive(false);
+                bInfo.Go.GetComponent<AmmoOnBox>().MakeGlowOff();
+                bInfo.Go.SetActive(false);
                 break;
             }
         }
