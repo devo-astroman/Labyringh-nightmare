@@ -48,7 +48,7 @@ public class Hud : MonoBehaviour
 
     public void SetAmmo(int ammo)
     {
-        _ammoText.text = ammo + "";
+        _ammoText.text = "Ammo: " + ammo;
     }
 
     public void ShowAmmo()

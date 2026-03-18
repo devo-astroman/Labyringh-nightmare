@@ -235,6 +235,7 @@ public class HeroFSM : AbstractFiniteStateMachine
             _gunFireController.IncreaseAmmo(nBulletInBox);
             int currentAmmo = _gunFireController.GetAmmo();
             _hud.SetAmmo(currentAmmo);
+            UnDetectAmmoBox();
 
         }else
         {
@@ -338,8 +339,7 @@ public class HeroFSM : AbstractFiniteStateMachine
         }
            
         private void HandleReceiveHitFromEnemy()
-        {   
-
+        {
             bool hurtMade = _dependencies.fsm._heroHurtController.MakePlayerGetHurt();
 
             if (hurtMade)
