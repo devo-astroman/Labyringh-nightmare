@@ -1070,7 +1070,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2502536649844873314}
   m_Father: {fileID: 5180737074399432878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5054659221501645061
@@ -1090,6 +1091,7 @@ MonoBehaviour:
   _smallCrosshair: {fileID: 6586653456735897947}
   _hurtScreen: {fileID: 8498580440673274329}
   _ammoText: {fileID: 7526847506899568455}
+  _filledLifeBar: {fileID: 5280298303837180380}
 --- !u!1 &6586653456735897947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1242,51 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7376187495040692754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2502536649844873314}
+  - component: {fileID: 5280298303837180380}
+  m_Layer: 0
+  m_Name: FilledHealthBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2502536649844873314
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376187495040692754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1873512805188892979}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5280298303837180380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376187495040692754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab81855f5b9bf04481b6dcf1f050061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _filledImage: {fileID: 8368458756799131274}
 --- !u!1 &7807459546817546693
 GameObject:
   m_ObjectHideFlags: 0

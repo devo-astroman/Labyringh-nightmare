@@ -8,6 +8,8 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject _smallCrosshair;
     [SerializeField] private GameObject _hurtScreen;
     [SerializeField] private TextMeshProUGUI _ammoText;
+    [SerializeField] private FilledLifeBar _filledLifeBar;
+    
 
     public void SetCurrentSpeed(float speed){
 
@@ -68,6 +70,16 @@ public class Hud : MonoBehaviour
     public void HideHurtScreen()
     {
         _hurtScreen.SetActive(false);
+    }
+
+    public void SetMaxLife(int max)
+    {
+        _filledLifeBar.SetMax(max);
+    }
+
+    public void SetCurrentLife(float value)
+    {
+        _filledLifeBar.SetCurrentLife(value);
     }
 
 }
