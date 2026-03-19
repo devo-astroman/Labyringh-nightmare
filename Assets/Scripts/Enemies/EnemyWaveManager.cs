@@ -100,7 +100,8 @@ public class EnemyWaveManager : MonoBehaviour
         //wave1
         _wave1 = new EnemyInfo[]
         {
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
+            EnemyInfoFactory.CreateFirerEnemy(new Vector3(5,2,0)),//to test
+            //EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
             /* EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,3,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,5,0)), */
         };
