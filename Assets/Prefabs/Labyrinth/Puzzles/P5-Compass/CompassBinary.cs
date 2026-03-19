@@ -27,6 +27,7 @@ public class CompassBinary : Puzzle
     [SerializeField] private Compass _solution;
     private int _id;
     [SerializeField] GameObject _signalVfx;
+    [SerializeField] SfxManager _sfxManager;
     #endregion
 
     #region public properties
@@ -160,18 +161,21 @@ public class CompassBinary : Puzzle
     {
         SwitchCompassCoordValue(_compassCoordN);
         CheckSolutionReached(_compassCoordN.ColButton);
+        _sfxManager.PlayClip1();
     }
 
     private void HandleButtonSIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordS);
         CheckSolutionReached(_compassCoordS.ColButton);
+        _sfxManager.PlayClip1();
     }
 
     private void HandleButtonEIteract(int id)
     {
         SwitchCompassCoordValue(_compassCoordE);
         CheckSolutionReached(_compassCoordE.ColButton);
+        _sfxManager.PlayClip1();
     }
 
 
@@ -179,6 +183,7 @@ public class CompassBinary : Puzzle
     {
         SwitchCompassCoordValue(_compassCoordW);
         CheckSolutionReached(_compassCoordW.ColButton);
+        _sfxManager.PlayClip1();
     }
 
     private void CheckSolutionReached(ColButton colButton)

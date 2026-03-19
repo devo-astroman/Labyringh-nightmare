@@ -4,7 +4,7 @@ using UnityEngine;
 public class RotatorDisc1Puzzle : Puzzle
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
-    
+    [SerializeField] SfxManager _sfxManager;
 
     private int _id;
 
@@ -72,6 +72,7 @@ public class RotatorDisc1Puzzle : Puzzle
     private void HandleButtonIteractAction(int idColButton)
     {
         _pointerLookAtCyclerUp.Next();
+        _sfxManager.PlayClip1();
 
     }
 

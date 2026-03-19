@@ -9,6 +9,7 @@ public class BinRow : Puzzle
 
     [SerializeField] private bool[] _currentRight;
     [SerializeField] private bool[] _solutionRight;
+    [SerializeField] SfxManager _sfxManager;
 
     private int _id;
     [SerializeField] private PuzzleNotifier _puzzleNotifier;
@@ -172,12 +173,14 @@ public class BinRow : Puzzle
     {
         SwitchCompassCoordValue(_leftRow[id]);
         CheckSolutionReached(_leftRow[id].ColButton);
+        _sfxManager.PlayClip1();
     }
 
     private void HandleRightButtonInteract(int id)
     {
         SwitchCompassCoordValue(_rightRow[id]);
         CheckSolutionReached(_rightRow[id].ColButton);
+        _sfxManager.PlayClip1();
     }
 
     private void CheckSolutionReached(ColButton colButton)

@@ -11,6 +11,7 @@ public class Main : MonoBehaviour
     //[SerializeField] private WaveManager _waveManager;
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
     [SerializeField] private VFXsManager _vFXsManager;
+    [SerializeField] private SoundsManager _soundsManager;
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -103,6 +104,9 @@ public class Main : MonoBehaviour
         _heroManager.CreateHero(_checkpointManager.GetCurrentCheckpointPosition());
 
         PrepareWaves();
+
+        _soundsManager.PlayExploreMusic();
+
     }
 
     private void PrepareWaves()
@@ -143,6 +147,7 @@ public class Main : MonoBehaviour
         Debug.Log("finished puzzle " + idPuzzle);
         _checkpointManager.SetCurrentCheckpoint(idPuzzle);
         _enemyWaveManager.RunWave(idPuzzle);
+        _soundsManager.CrossfadeToWaveMusic();
     }
 
     private void HandleWaveFinished(int idWave)
@@ -159,6 +164,11 @@ public class Main : MonoBehaviour
             _world.OpenExitFence();
 
         }
+
+        _soundsManager.FadeMusicToStop();
+        //_soundsManager.CrossfadeToWaveFinishedMusic();
+        _soundsManager.PlayExploreMusicWithDelay(3f);
+
         
     }
 

@@ -5,6 +5,7 @@ public class RotatorDisc2Puzzle : Puzzle
 {
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerUp;
     [SerializeField] PointerLookAtCycler _pointerLookAtCyclerMiddle;
+    [SerializeField] SfxManager _sfxManager;
 
     private int _id;
 
@@ -97,10 +98,10 @@ public class RotatorDisc2Puzzle : Puzzle
             _pointerLookAtCyclerUp.Next();
         }else if(idColButton == 1)
         {
-
             _pointerLookAtCyclerMiddle.Prev();
-
         }
+
+        _sfxManager.PlayClip1();
     }
 
     
