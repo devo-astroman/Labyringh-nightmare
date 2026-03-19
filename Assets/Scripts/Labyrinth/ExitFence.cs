@@ -6,6 +6,7 @@ public class ExitFence : MonoBehaviour
     [SerializeField] private Transform _leftDoor;
     [SerializeField] private Transform _rightDoor;
     [SerializeField] private GameObject _minimapIndicatorIsOpenGO;
+    [SerializeField] SfxManager _sfxManager;
     #endregion
 
     #region Private properties
@@ -38,6 +39,7 @@ public class ExitFence : MonoBehaviour
     {
         _interpolatorRotatorL.RotateDegreesY(90,2);
         _interpolatorRotatorR.RotateDegreesY(-90,2);
+        _sfxManager.PlayClip1();
     }
     #endregion
     #region Private methods

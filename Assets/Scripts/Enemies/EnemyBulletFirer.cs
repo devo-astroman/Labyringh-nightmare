@@ -36,6 +36,8 @@ public class EnemyBulletFirer : MonoBehaviour
         {
             Debug.LogWarning("Bullet prefab has no Rigidbody.");
         }
+
+        Destroy(bullet, 1f);
     }
 
     public void FireBullet(Vector3 origin, Vector3 destiny)

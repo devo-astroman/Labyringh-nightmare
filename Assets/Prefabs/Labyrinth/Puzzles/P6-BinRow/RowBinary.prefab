@@ -718,7 +718,7 @@ MonoBehaviour:
   _solutionLeft: 010000
   _currentRight: 000100
   _solutionRight: 000101
-  _sfxManager: {fileID: 0}
+  _sfxManager: {fileID: 2445354848934706683}
   _puzzleNotifier: {fileID: 8643371736142007508}
   _leftRow:
   - Sym: {fileID: 7124833483400649619}
@@ -2658,6 +2658,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f96b449f5d186864981ccaa6f0d4a44c, type: 3}
+--- !u!114 &2445354848934706683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7257056504408612740, guid: f96b449f5d186864981ccaa6f0d4a44c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4997195924296868479}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b95aab7f2b534d44b11b9fa13519303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2721543110965321002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6961797830101008213, guid: f96b449f5d186864981ccaa6f0d4a44c,
