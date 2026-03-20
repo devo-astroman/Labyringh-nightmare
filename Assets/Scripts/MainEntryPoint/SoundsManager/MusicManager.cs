@@ -8,6 +8,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip _exploreMusic;
     [SerializeField] private AudioClip _waveMusic;
     [SerializeField] private AudioClip _waveFinishedMusic;
+    [SerializeField] private AudioClip _menuMusic;
     [SerializeField] private float _defaultVolume = 1f;
     #endregion
 
@@ -54,13 +55,12 @@ public class MusicManager : MonoBehaviour
             return;
         }
 
-        /* if (_fadeCoroutine != null)
-        {
-            StopCoroutine(_fadeCoroutine);
-            _fadeCoroutine = null;
-        } */
-
         StartCoroutine(PlayExploreWithDelayCoroutine(delay));
+    }
+
+    public void PlayMenuMusic()
+    {
+        PlayClip(_menuMusic, false,_aSource);
     }
 
     public void FadeToStop(float duration = 2f)

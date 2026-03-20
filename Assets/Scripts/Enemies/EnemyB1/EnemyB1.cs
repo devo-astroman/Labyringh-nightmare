@@ -11,6 +11,7 @@ public class EnemyB1 : MonoBehaviour
     [SerializeField] private EnemyCollidersManager _enemyCollidersManager;
     [SerializeField] private EnemyAttackManager _enemyAttackManager;
     [SerializeField] private GameObject _minimapIndicator;
+    [SerializeField] private EnemyHeroTarget _enemyHeroTarget;
     
     public Action wakeUpAnimationEndsAction;
     public Action tailAttackAnimationEndsAction;
@@ -143,9 +144,16 @@ public class EnemyB1 : MonoBehaviour
         return _life;
     }
 
-    public void StartFollow(EnemyHeroTarget target)
+   /*  public void StartFollow(EnemyHeroTarget target)
     {
         _enemyNavigatorManager.StartFollow(target);
+        _enemyNavigatorManager.ResumeNavigation();
+    } */
+
+    public void StartFollow(Transform target)
+    {
+        _enemyHeroTarget.SetCurrentTransform(target);
+        _enemyNavigatorManager.StartFollow(_enemyHeroTarget);
         _enemyNavigatorManager.ResumeNavigation();
     }
 

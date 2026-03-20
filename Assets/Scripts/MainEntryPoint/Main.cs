@@ -12,6 +12,7 @@ public class Main : MonoBehaviour
     [SerializeField] private EnemyWaveManager _enemyWaveManager;
     [SerializeField] private VFXsManager _vFXsManager;
     [SerializeField] private SoundsManager _soundsManager;
+    [SerializeField] private Steps _steps;
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -31,6 +32,7 @@ public class Main : MonoBehaviour
         _heroManager.FireAction += HandleFire;
         _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
         _enemyWaveManager.waveAllDeadAction += HandleWaveFinished;
+        _steps.triggerReachedAction += HandleTriggerReached;
         //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
         _world.GenerateWorld();        
@@ -74,6 +76,7 @@ public class Main : MonoBehaviour
         _heroManager.FireAction -= HandleFire;
         _puzzlesManager.PuzzleSolvedAction -= HandlePuzzleSolved;
         _enemyWaveManager.waveAllDeadAction -= HandleWaveFinished;
+        _steps.triggerReachedAction += HandleTriggerReached;
         //_waveManager.WaveFinishedAction -= HandleWaveFinished;
         
     }
@@ -211,6 +214,11 @@ public class Main : MonoBehaviour
         int ammoInPocket =  _heroManager.GetHeroAmmoInPocket();
         _world.UpdateAmmo(ammoInPocket);
 
+    }
+
+    private void HandleTriggerReached()
+    {
+        Debug.Log("Go to ending");
     }
     
     private void AssignNewCurrentCheckpoint(int checkpointId)

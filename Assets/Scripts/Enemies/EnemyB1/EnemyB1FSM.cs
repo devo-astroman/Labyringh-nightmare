@@ -257,10 +257,10 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
                 _dependencies.enemyB1.farUndetectedHeroAction += HandleUndetectedHero;
                 _dependencies.enemyB1.nearDetectedHeroAction += HandleNearDetectedHero;
 
-                EnemyHeroTarget enemyHeroTarget = new EnemyHeroTarget();
-                enemyHeroTarget.SetCurrentTransform(_dependencies.heroDetected.transform);
+                /* EnemyHeroTarget enemyHeroTarget = new EnemyHeroTarget();
+                enemyHeroTarget.SetCurrentTransform(_dependencies.heroDetected.transform); */
 
-                _dependencies.enemyB1.StartFollow(enemyHeroTarget);
+                _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
 
                 GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;
                 HeroFSM heroFSM = heroFSMGO.GetComponent<HeroFSM>();
