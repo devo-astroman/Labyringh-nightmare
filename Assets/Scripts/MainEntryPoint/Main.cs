@@ -13,6 +13,9 @@ public class Main : MonoBehaviour
     [SerializeField] private VFXsManager _vFXsManager;
     [SerializeField] private SoundsManager _soundsManager;
     [SerializeField] private Steps _steps;
+    [SerializeField] private PauseManager _pauseManager;
+    [SerializeField] private GameSceneManager _gameSceneManager;
+
     #endregion
 
     #region Private Fields  //private variables not SerializeFields
@@ -30,15 +33,16 @@ public class Main : MonoBehaviour
         Debug.Log("Should set " + AllGameData.musicVolumen);
         _soundsManager.SetVolume(AllGameData.musicVolumen);
 
+        _pauseManager.MainMenuButtonClickedAction += HandleMainMenuButtonClicked;
+
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
         _heroManager.HeroDiedAction += HandleHeroDied;
         _heroManager.FireAction += HandleFire;
         _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
         _enemyWaveManager.waveAllDeadAction += HandleWaveFinished;
         _steps.triggerReachedAction += HandleTriggerReached;
-        //_waveManager.WaveFinishedAction += HandleWaveFinished;
 
-        _world.GenerateWorld();        
+        _world.GenerateWorld();
     }
 
     void Update()
@@ -74,6 +78,8 @@ public class Main : MonoBehaviour
 
     void OnDestroy()
     {
+        _pauseManager.MainMenuButtonClickedAction -= HandleMainMenuButtonClicked;
+
         _world.WorldCreationFinishedAction -= HandleWorldCreationFinished;
         _heroManager.HeroDiedAction -= HandleHeroDied;
         _heroManager.FireAction -= HandleFire;
@@ -255,7 +261,11 @@ public class Main : MonoBehaviour
         _puzzlesManager.ResetPuzzle(idPuzzle);
     }
 
-
+    private void HandleMainMenuButtonClicked()
+    {   
+        _pauseManager.UnPauseToGo();
+        _gameSceneManager.GoMainMenu();
+    }
 
     
     #endregion
