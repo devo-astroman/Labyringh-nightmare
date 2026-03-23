@@ -12,7 +12,8 @@ public class EnemySoundManager : MonoBehaviour
     [SerializeField] private AudioClip _dieSound;
 
     [Header("Settings")]
-    [SerializeField, Range(0f, 1f)] private float _volume = 1f;
+    //[SerializeField, Range(0f, 1f)] private float _volume = 1f;
+    private float _volume = 1f;
     [SerializeField] private bool _loopIdle = true;
 
     private bool _isDead;
@@ -26,6 +27,7 @@ public class EnemySoundManager : MonoBehaviour
         }
 
         _audioSource.playOnAwake = false;
+        _volume = AllGameData.sfxVolumen;        
         _audioSource.volume = _volume;
     }
 
@@ -44,7 +46,7 @@ public class EnemySoundManager : MonoBehaviour
         
         _audioSource.loop = _loopIdle;
         _audioSource.clip = _idleSound;
-        _audioSource.volume = .25f;
+        _audioSource.volume = _volume * .25f;
         _audioSource.pitch = pitch;
         _audioSource.Play();
     }
@@ -55,7 +57,7 @@ public class EnemySoundManager : MonoBehaviour
             return;
 
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume =  _volume;
         _audioSource.pitch = 1f;
         _audioSource.PlayOneShot(_receiveHitSound, _volume);
     }
@@ -66,7 +68,7 @@ public class EnemySoundManager : MonoBehaviour
             return;
 
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume =  _volume;
         _audioSource.pitch = 1f;
         _audioSource.PlayOneShot(_wakeUpSound, _volume);
     }
@@ -80,7 +82,7 @@ public class EnemySoundManager : MonoBehaviour
 
         _audioSource.Stop();
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume =  _volume;
         _audioSource.pitch = 1f;
         _audioSource.PlayOneShot(_dieSound, _volume);
     }

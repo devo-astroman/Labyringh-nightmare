@@ -18,6 +18,11 @@ public class SoundsManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void SetVolume(float value)
+    {
+        _musicManager.SetVolume(value);
+    }
     public void PlayExploreMusic()
     {
         _musicManager.PlayExploreMusic();

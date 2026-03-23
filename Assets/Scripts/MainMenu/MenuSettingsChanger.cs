@@ -17,16 +17,12 @@ public class MenuSettingsChanger : MonoBehaviour
     {
         _menuUI.SetActive(false);
         _settingsUI.SetActive(true);
-        Debug.Log("Should see the settings");
-        
     }
 
     public void ChangeToMenu()
     {
         _menuUI.SetActive(true);
         _settingsUI.SetActive(false);
-        Debug.Log("Should see the main menu");
-        
     }
     
     #endregion

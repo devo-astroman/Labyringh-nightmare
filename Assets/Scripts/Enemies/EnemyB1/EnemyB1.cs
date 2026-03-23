@@ -150,6 +150,11 @@ public class EnemyB1 : MonoBehaviour
         _enemyNavigatorManager.ResumeNavigation();
     } */
 
+    public void SetEnemyHeroTarget(EnemyHeroTarget enemyHeroTarget)
+    {
+        _enemyHeroTarget = enemyHeroTarget;
+    }
+
     public void StartFollow(Transform target)
     {
         _enemyHeroTarget.SetCurrentTransform(target);

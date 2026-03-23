@@ -12,7 +12,8 @@ public class HeroSoundManager : MonoBehaviour
     [SerializeField] private AudioClip _fireGunSound;
 
     [Header("Settings")]
-    [SerializeField, Range(0f, 1f)] private float _volume = 1f;
+    //[SerializeField, Range(0f, 1f)] private float _volume = 1f;
+    private float _volume = 1f;
     [SerializeField] private bool _loopIdle = true;
 
     private bool _isDead;
@@ -26,6 +27,7 @@ public class HeroSoundManager : MonoBehaviour
         }
 
         _audioSource.playOnAwake = false;
+        _volume = AllGameData.sfxVolumen;
         _audioSource.volume = _volume;
     }
 
@@ -44,7 +46,7 @@ public class HeroSoundManager : MonoBehaviour
         _audioSource.Stop();
         _audioSource.loop = _loopIdle;
         _audioSource.clip = _idleSound;
-        _audioSource.volume = .25f;
+        _audioSource.volume = _volume * .25f;
         _audioSource.Play();
     }
 
@@ -53,7 +55,7 @@ public class HeroSoundManager : MonoBehaviour
         if (_isDead || _audioSource == null || _receiveHitSound == null)
             return;
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume = _volume;
         _audioSource.PlayOneShot(_receiveHitSound, _volume);
     }
 
@@ -66,7 +68,7 @@ public class HeroSoundManager : MonoBehaviour
 
         _audioSource.Stop();
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume = _volume;
         _audioSource.PlayOneShot(_dieSound, _volume);
     }
 
@@ -76,7 +78,7 @@ public class HeroSoundManager : MonoBehaviour
             return;
 
         _audioSource.loop = false;
-        _audioSource.volume = 1f;
+        _audioSource.volume = _volume;
         _audioSource.PlayOneShot(_fireGunSound, _volume);
     }
 }

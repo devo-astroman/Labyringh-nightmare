@@ -1,15 +1,22 @@
 using UnityEngine;
-using System.Collections;
 
 public class SfxManager : MonoBehaviour
 {
     #region Fields
     [SerializeField] private AudioSource _aSource;
     [SerializeField] private AudioClip _clip1Sfx;    
-    [SerializeField] private float _defaultVolume = 1f;
+    private float _defaultVolume = 1f;
     #endregion
 
-    #region Private Fields     
+    #region Private Fields
+    #endregion
+    #region Unity callbacks
+    void Start()
+    {
+        Debug.Log("setting sfx Volumen" + AllGameData.sfxVolumen);
+        _aSource.volume = AllGameData.sfxVolumen;
+        _defaultVolume = AllGameData.sfxVolumen;
+    }
     #endregion
 
     #region Public Methods

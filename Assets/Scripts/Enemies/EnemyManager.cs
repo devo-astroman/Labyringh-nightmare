@@ -51,6 +51,17 @@ public class EnemyManager : MonoBehaviour
         return enemyB1FSMGO;
     }
 
+    public GameObject CreateBatEnemy(Vector3 enemyPosition, Vector3[] patrolPoints, EnemyHeroTarget target, Transform parent)
+    {
+        GameObject enemyB1FSMGO = Instantiate(_enemyBatPref, enemyPosition, Quaternion.identity, parent);
+        enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetPatrolPoints(patrolPoints);
+        enemyB1FSMGO.GetComponent<EnemyB1FSM>().SetEnemyHeroTarget(target);
+
+        _enemyPool.AddEnemy(enemyB1FSMGO);
+        
+        return enemyB1FSMGO;
+    }
+
     public GameObject CreateSpyderEnemy(Vector3 enemyPosition, EnemyHeroTarget target)
     {
         GameObject enemySpyderFSMGO = Instantiate(_enemySpyderPref, enemyPosition, Quaternion.identity);

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {   
@@ -13,9 +12,15 @@ public class MainMenu : MonoBehaviour
     private Camera _cameraHero;
     #endregion
     #region Unity callbacks
+    void Awake()
+    {
+        //load settings preferences
+        Debug.Log("Setting Music volume " + AllGameData.musicVolumen);
+        _musicManager.SetVolume(AllGameData.musicVolumen);
+        _musicManager.PlayMenuMusic();
+    }
     void Start()
     {
-        _musicManager.PlayMenuMusic();
     }
     #endregion
 
@@ -26,14 +31,11 @@ public class MainMenu : MonoBehaviour
         _gameSceneManager.GoPlay();
     }
     public void SettingsButtonClicked()
-    {
-        Debug.Log("SettingsButtonClicked");
+    {        
         _menuSettingsChanger.ChangeToSettings();
     }
     public void QuitButtonClicked()
     {
-        Debug.Log("QuitButtonClicked");
-
         Application.Quit();
 
         #if UNITY_EDITOR

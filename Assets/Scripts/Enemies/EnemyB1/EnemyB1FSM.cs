@@ -75,6 +75,11 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
         _enemyB1.SetId(id);
     }
 
+    public void SetEnemyHeroTarget(EnemyHeroTarget target)
+    {
+        _enemyB1.SetEnemyHeroTarget(target);
+    }
+
     public int GetId()
     {
         return _enemyB1.GetId();
@@ -259,7 +264,7 @@ public class EnemyB1FSM : AbstractFiniteStateMachine
 
                 /* EnemyHeroTarget enemyHeroTarget = new EnemyHeroTarget();
                 enemyHeroTarget.SetCurrentTransform(_dependencies.heroDetected.transform); */
-
+                Debug.Log("_dependencies.heroDetected " + _dependencies.heroDetected);
                 _dependencies.enemyB1.StartFollow(_dependencies.heroDetected.transform);
 
                 GameObject heroFSMGO = _dependencies.heroDetected.transform.parent.gameObject;

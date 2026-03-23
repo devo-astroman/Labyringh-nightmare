@@ -100,8 +100,9 @@ public class EnemyWaveManager : MonoBehaviour
         //wave1
         _wave1 = new EnemyInfo[]
         {
+            EnemyInfoFactory.CreateBatEnemy(new Vector3(5,2,0),new Vector3(6,5,0)),//to test
             //EnemyInfoFactory.CreateFirerEnemy(new Vector3(5,2,0)),//to test
-            EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
+            //EnemyInfoFactory.CreateSpyderEnemy(new Vector3(5,2,0)),
             /* EnemyInfoFactory.CreateSpyderEnemy(new Vector3(2,3,0)),
             EnemyInfoFactory.CreateSpyderEnemy(new Vector3(1,5,0)), */
         };
@@ -297,7 +298,7 @@ public class EnemyWaveManager : MonoBehaviour
                     g.GetComponent<EB3FSM>().SetId(i);
                     break;
                 case 2:
-                    g = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemiesParent);
+                    g = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemyHeroTarget,_enemiesParent);
                     g.GetComponent<EnemyB1FSM>().SetId(i);
                     break;
             }
@@ -325,7 +326,7 @@ public class EnemyWaveManager : MonoBehaviour
                     newG = _enemyManager.CreateFirerEnemy(wave[i].BornPoint,_enemiesParent);
                     break;
                 case 2:
-                    newG = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemiesParent);
+                    newG = _enemyManager.CreateBatEnemy(wave[i].BornPoint, new Vector3[]{wave[i].BornPoint, wave[i].PatrolPoint},_enemyHeroTarget,_enemiesParent);
                     break;
             }
             if (newG != null)

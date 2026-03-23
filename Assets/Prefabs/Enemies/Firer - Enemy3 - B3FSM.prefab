@@ -642,7 +642,6 @@ MonoBehaviour:
   _receiveHitSound: {fileID: 8300000, guid: a29ac164f9955dd43b70cb98c6cfba12, type: 3}
   _wakeUpSound: {fileID: 8300000, guid: 8d41cf0b92de62b4c812090ed12c829c, type: 3}
   _dieSound: {fileID: 8300000, guid: b9bff4280f724124e863b68625958229, type: 3}
-  _volume: 1
   _loopIdle: 1
 --- !u!1 &2399647650183445689
 GameObject:
@@ -1647,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7020638099524621394
 Transform:
   m_ObjectHideFlags: 0
@@ -1670,7 +1669,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8260598520367471077}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 1e1b9ead1e8136a419ae9afd9ef5f95d, type: 3}

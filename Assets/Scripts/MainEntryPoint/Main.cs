@@ -27,6 +27,8 @@ public class Main : MonoBehaviour
     #region Unity Callbacks
     void Start()
     {
+        _soundsManager.SetVolume(AllGameData.musicVolumen);
+
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
         _heroManager.HeroDiedAction += HandleHeroDied;
         _heroManager.FireAction += HandleFire;
