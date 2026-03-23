@@ -17,7 +17,7 @@ public class Settings : MonoBehaviour
     {
         Debug.Log("music " + AllGameData.defaultMusicVolumen);
         _musicSlider.value = AllGameData.defaultMusicVolumen;
-        
+
         Debug.Log("sfx " + AllGameData.sfxVolumen);
         _sfxSlider.value = AllGameData.sfxVolumen;
     }
@@ -63,7 +63,7 @@ public class Settings : MonoBehaviour
     {
         Debug.Log("OnMusicValueChanged");
         Debug.Log(_musicSlider.value);
-        AllGameData.sfxVolumen = _musicSlider.value;
+        AllGameData.musicVolumen = _musicSlider.value;
         _musicManager.SetVolume(_musicSlider.value);
     }
 

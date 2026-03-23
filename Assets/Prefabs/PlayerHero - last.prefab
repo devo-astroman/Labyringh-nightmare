@@ -630,7 +630,6 @@ MonoBehaviour:
   _receiveHitSound: {fileID: 8300000, guid: 5e2820431dcd1d6498ae45b593743234, type: 3}
   _dieSound: {fileID: 0}
   _fireGunSound: {fileID: 8300000, guid: aed61b4fcbd42ea45a51fa2e8d3cc0e1, type: 3}
-  _volume: 1
   _loopIdle: 1
 --- !u!1 &4574215492659350971
 GameObject:
@@ -1403,7 +1402,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0.61960787, g: 0.27058825, b: 0.04705883, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

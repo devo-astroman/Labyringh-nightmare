@@ -27,6 +27,7 @@ public class Main : MonoBehaviour
     #region Unity Callbacks
     void Start()
     {
+        Debug.Log("Should set " + AllGameData.musicVolumen);
         _soundsManager.SetVolume(AllGameData.musicVolumen);
 
         _world.WorldCreationFinishedAction += HandleWorldCreationFinished;
