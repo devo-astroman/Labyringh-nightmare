@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour
     #region Fields
     [SerializeField] private GameSceneManager _gameSceneManager;
     [SerializeField] private MusicManager _musicManager;
+    [SerializeField] private MenuSettingsChanger _menuSettingsChanger;    
     #endregion
 
     #region Private properties
@@ -27,6 +28,7 @@ public class MainMenu : MonoBehaviour
     public void SettingsButtonClicked()
     {
         Debug.Log("SettingsButtonClicked");
+        _menuSettingsChanger.ChangeToSettings();
     }
     public void QuitButtonClicked()
     {
