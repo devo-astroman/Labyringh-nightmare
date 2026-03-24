@@ -19,16 +19,13 @@ public class MainMenu : MonoBehaviour
         _musicManager.SetVolume(AllGameData.musicVolumen);
         _musicManager.PlayMenuMusic();
     }
-    void Start()
-    {
-    }
     #endregion
 
     #region Public methods
     public void StartButtonClicked()
     {
         Debug.Log("StartButtonClicked");
-        _gameSceneManager.GoPlay();
+        _gameSceneManager.GoIntro();
     }
     public void SettingsButtonClicked()
     {        

@@ -15,6 +15,7 @@ public class Main : MonoBehaviour
     [SerializeField] private Steps _steps;
     [SerializeField] private PauseManager _pauseManager;
     [SerializeField] private GameSceneManager _gameSceneManager;
+    [SerializeField] private HeroDetector _stepsLaddersHeroDetector;
 
     #endregion
 
@@ -41,6 +42,8 @@ public class Main : MonoBehaviour
         _puzzlesManager.PuzzleSolvedAction += HandlePuzzleSolved;
         _enemyWaveManager.waveAllDeadAction += HandleWaveFinished;
         _steps.triggerReachedAction += HandleTriggerReached;
+
+        _stepsLaddersHeroDetector.detectedAction += HandleDetected;
 
         _world.GenerateWorld();
     }
@@ -87,6 +90,7 @@ public class Main : MonoBehaviour
         _enemyWaveManager.waveAllDeadAction -= HandleWaveFinished;
         _steps.triggerReachedAction += HandleTriggerReached;
         //_waveManager.WaveFinishedAction -= HandleWaveFinished;
+        _stepsLaddersHeroDetector.detectedAction -= HandleDetected;
         
     }
     #endregion
@@ -267,6 +271,10 @@ public class Main : MonoBehaviour
         _gameSceneManager.GoMainMenu();
     }
 
-    
+    private void HandleDetected(GameObject hero)
+    {   
+        Debug.Log("HandleDetected");
+        _gameSceneManager.GoOutro();
+    }
     #endregion
 }
