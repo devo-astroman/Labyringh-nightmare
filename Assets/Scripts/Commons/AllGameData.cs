@@ -7,6 +7,9 @@ public static class AllGameData
     public static float musicVolumen;
     public static float defaultMusicVolumen = 1f;
 
+    public static float cutsceneVolumen;
+    public static float defaultCutsceneVolumen = 1f;
+
 
 
 }
