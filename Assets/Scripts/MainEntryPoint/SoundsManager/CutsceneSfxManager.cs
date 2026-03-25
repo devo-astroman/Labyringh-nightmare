@@ -24,6 +24,7 @@ public class CutsceneSfxManager : MonoBehaviour
 
     void Start()
     {
+        AllGameData.cutsceneVolumen = 1f;
         _defaultVolume = AllGameData.cutsceneVolumen;
 
         if (_aSource != null)

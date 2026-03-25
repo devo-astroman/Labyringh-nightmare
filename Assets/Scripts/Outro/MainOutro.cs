@@ -33,9 +33,10 @@ public class MainOutro : MonoBehaviour
     #endregion
 
     #region Public methods
-    public void OnSkipButtonClicked()
+
+    public void OnMainMenuButtonClicked()
     {
-         _gameSceneManager.GoCredits();
+         _gameSceneManager.GoMainMenu();
     }
     #endregion
 
@@ -55,7 +56,8 @@ public class MainOutro : MonoBehaviour
 
     private void HandleClip1Finished()
     {
-        _gameSceneManager.GoCredits();
+        //_gameSceneManager.GoCredits();
+        _animationManager.PlayShowThanks();
     }
     #endregion
 }
