@@ -6,8 +6,8 @@ public class MainOutro : MonoBehaviour
     [SerializeField] AnimationManager _animationManager;
     [SerializeField] ScreenFader _screenFader;
     [SerializeField] HeroDetector _heroDetector;
-
-    
+    [SerializeField] CutsceneSfxManager _cutsceneSfxManager;    
+    [SerializeField] GameSceneManager _gameSceneManager;    
     #endregion
 
     #region Private properties
@@ -17,18 +17,26 @@ public class MainOutro : MonoBehaviour
     #region Public methods    
     void Start()
     {
-        _animationManager.PlayHeroAnimation();
-        //_heroDetector.detectedAction += HandleDetected;
+        _cutsceneSfxManager.Clip1FinishedAction += HandleClip1Finished;
+        
+        _cutsceneSfxManager.PlayClip2();
+        _screenFader.OnFadeFinished += HandleFadeFinished;
+        _animationManager.PlayHeroAnimation();        
         Invoke(nameof(StartFade), 7f);
     }
 
     void OnDestroy()
-    {
-        //_heroDetector.detectedAction -= HandleDetected;
+    {        
+        _screenFader.OnFadeFinished -= HandleFadeFinished;
+        _cutsceneSfxManager.Clip1FinishedAction -= HandleClip1Finished;
     }
     #endregion
 
     #region Public methods
+    public void OnSkipButtonClicked()
+    {
+         _gameSceneManager.GoCredits();
+    }
     #endregion
 
     #region Private methods
@@ -39,6 +47,15 @@ public class MainOutro : MonoBehaviour
     private void StartFade()
     {
         _screenFader.FadeToBlack(.25f);
+    }
+    private void HandleFadeFinished()
+    {
+        _cutsceneSfxManager.PlayClip1();
+    }
+
+    private void HandleClip1Finished()
+    {
+        _gameSceneManager.GoCredits();
     }
     #endregion
 }

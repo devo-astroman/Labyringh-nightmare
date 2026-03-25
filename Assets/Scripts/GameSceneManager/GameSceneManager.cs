@@ -8,6 +8,7 @@ public class GameSceneManager : MonoBehaviour
     [SerializeField] private string sceneIntro = "Intro";
     [SerializeField] private string sceneGameplay = "Gameplay";
     [SerializeField] private string sceneOutro = "Outro";
+    [SerializeField] private string sceneCredits = "Credits";
 
     public void GoMainMenu()
     {
@@ -27,6 +28,11 @@ public class GameSceneManager : MonoBehaviour
     public void GoOutro()
     {
         LoadScene(sceneOutro);
+    }
+
+    public void GoCredits()
+    {
+        LoadScene(sceneCredits);
     }
 
     private void LoadScene(string sceneName)

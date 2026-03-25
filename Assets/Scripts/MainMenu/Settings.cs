@@ -6,8 +6,10 @@ public class Settings : MonoBehaviour
     #region Fields
     [SerializeField] private MenuSettingsChanger _menuSettingsChanger;
     [SerializeField] private Slider _sfxSlider;
-    [SerializeField] private Slider _musicSlider;
     [SerializeField] private AudioSource _sfxAudioSource;
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _cutsceneSlider;
+    [SerializeField] private AudioSource _cutsceneAudioSource;
     [SerializeField] private MusicManager _musicManager;
     #endregion
     #region Private properties
@@ -19,7 +21,10 @@ public class Settings : MonoBehaviour
         _musicSlider.value = AllGameData.defaultMusicVolumen;
 
         Debug.Log("sfx " + AllGameData.sfxVolumen);
-        _sfxSlider.value = AllGameData.sfxVolumen;
+        _sfxSlider.value = AllGameData.defaultSfxVolumen;
+
+        Debug.Log("cutscenes " + AllGameData.sfxVolumen);
+        _cutsceneSlider.value = AllGameData.defaultCutsceneVolumen;
     }
     #endregion
 
@@ -71,6 +76,27 @@ public class Settings : MonoBehaviour
     {
         Debug.Log("OnMusicPointerUp");
         //_sfxAudioSource.Stop();
+    }
+
+    public void OnCutscenePointerDown()
+    {
+        Debug.Log("OnCutscenePointerDown");
+        _cutsceneAudioSource.Play();
+    }
+
+
+    public void OnCutsceneValueChanged()
+    {
+        Debug.Log("OnCutsceneValueChanged");
+        Debug.Log(_cutsceneSlider.value);
+        AllGameData.cutsceneVolumen = _cutsceneSlider.value;
+        _cutsceneAudioSource.volume = _cutsceneSlider.value;
+    }
+
+    public void OnCutscenePointerUp()
+    {
+        Debug.Log("OnCutscenePointerUp");
+        _cutsceneAudioSource.Stop();
     }
 
     #endregion

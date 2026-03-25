@@ -36,6 +36,7 @@ public class ScreenFader : MonoBehaviour
             .OnComplete(() =>
             {
                 onComplete?.Invoke();
+                Debug.Log("Invoke OnFadeFinished");
                 OnFadeFinished?.Invoke();
             });
     }
