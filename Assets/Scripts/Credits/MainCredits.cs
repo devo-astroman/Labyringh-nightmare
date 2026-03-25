@@ -9,7 +9,12 @@ public class MainCredits : MonoBehaviour
     #region Private properties
     #endregion
 
-    #region Public methods
+    #region Unity callbacks
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     #endregion
 
     #region Public methods
