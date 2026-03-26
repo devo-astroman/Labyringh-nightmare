@@ -6,6 +6,7 @@ public class PauseManager : MonoBehaviour
     #region Fields
     [SerializeField] private Pauser _pauser;
     [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _controlsMenu;
     #endregion
 
     #region Private Fields 
@@ -52,6 +53,16 @@ public class PauseManager : MonoBehaviour
         Cursor.visible = true;
         _pauser.ResumeGame();
     }
+    public void ControlsButtonClicked()
+    {
+        _pauseMenu.SetActive(false);
+        _controlsMenu.SetActive(true);
+    }
+    public void ExitControlsButtonClicked()
+    {
+        _pauseMenu.SetActive(true);
+        _controlsMenu.SetActive(false);
+    }
     #endregion
 
     #region Private Methods
@@ -82,6 +93,7 @@ public class PauseManager : MonoBehaviour
 
             _pauser.ResumeGame();
             _pauseMenu.SetActive(false);
+            _controlsMenu.SetActive(false);
         }
 
         //Time.timeScale = 1f; // resumes gameplay
