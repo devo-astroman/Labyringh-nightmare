@@ -20,7 +20,6 @@ The walls whisper secrets, and danger lurks around every corner. Strange one-eye
 To escape, he must:
 
 - Solve puzzles hidden throughout the labyrinth
-- Unlock sealed paths
 - Survive attacks from deadly one-eyed monsters
 - Master the labyrinth before it masters him
 
