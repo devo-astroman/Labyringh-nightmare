@@ -31,6 +31,16 @@ public class MainMenu : MonoBehaviour
     {        
         _menuSettingsChanger.ChangeToSettings();
     }
+
+    public void ControlsButtonClicked()
+    {        
+        _menuSettingsChanger.ChangeToControls();
+    }
+
+    public void ControlsBackButtonClicked()
+    {        
+        _menuSettingsChanger.ChangeToMenu();
+    }
     public void QuitButtonClicked()
     {
         Application.Quit();
