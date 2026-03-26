@@ -215,6 +215,14 @@ public class World : MonoBehaviour
                 });
 
             }
+            else if((x==1 & y == 6)||(x==2 & y == 7)||(x==5 & y == 4)) //used to spawn firer enemies
+            {
+                
+            }
+            else if((x==8 & y == 7)||(x==9 & y == 5)||(x==9 & y == 8)) //used to spawn firer enemies
+            {
+                
+            }
             else
             {
                 int[] randomIndexes = Get3RandomIndexes();

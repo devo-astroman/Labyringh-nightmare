@@ -170,8 +170,8 @@ public class Main : MonoBehaviour
 
     private void HandleWaveFinished(int idWave)
     {
-        //if(idWave < 6)
-        if(idWave < 2)
+        if(idWave < 6)
+        //if(idWave < 2)
         {
             _puzzlesManager.ActivatePuzzle(idWave+1);
         }
