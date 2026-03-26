@@ -166,11 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f07082348ce3e7428f2f21525b1ecd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _intensity: 0.25
-  _usePulse: 0
-  _pulseSpeed: 2
-  _pulseAmplitude: 1.5
+  GlowMaterial: {fileID: 2100000, guid: 9a176b3571921264fb9b3a046db98a57, type: 2}
 --- !u!1 &224309136433202355
 GameObject:
   m_ObjectHideFlags: 0
@@ -2912,11 +2908,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f07082348ce3e7428f2f21525b1ecd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  _intensity: 0.25
-  _usePulse: 0
-  _pulseSpeed: 2
-  _pulseAmplitude: 1.5
+  GlowMaterial: {fileID: 2100000, guid: 9a176b3571921264fb9b3a046db98a57, type: 2}
 --- !u!1 &4656886933154526621
 GameObject:
   m_ObjectHideFlags: 0

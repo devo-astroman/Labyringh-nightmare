@@ -3,52 +3,61 @@ using UnityEngine;
 [RequireComponent(typeof(Renderer))]
 public class GlowController : MonoBehaviour
 {
-    [Header("Glow Settings")]
-    [SerializeField] private Color _glowColor = Color.yellow;
-    [SerializeField, Range(0f, 10f)] private float _intensity = 3f;
+    #region Fields
 
-    [Header("Optional Pulse")]
-    [SerializeField] private bool _usePulse = false;
-    [SerializeField] private float _pulseSpeed = 2f;
-    [SerializeField] private float _pulseAmplitude = 1.5f;
+    [Header("Glow Settings")]
+    [SerializeField] private Material GlowMaterial;
+
+    #endregion
+
+    #region Private Fields
 
     private Renderer _renderer;
-    private Material _materialInstance;
+    private Material _originalMaterial;
     private bool _isGlowing;
 
-    void Awake()
+    #endregion
+
+    #region Unity Callbacks
+
+    private void Awake()
     {
         _renderer = GetComponent<Renderer>();
 
-        // IMPORTANT: create material instance so we don’t modify shared material
-        _materialInstance = _renderer.material;
-        _materialInstance.EnableKeyword("_EMISSION");
-
-        DisableGlow(); // start off
-    }
-
-    void Update()
-    {
-        if (_isGlowing && _usePulse)
+        if (_renderer != null)
         {
-            float pulse = _intensity + Mathf.PingPong(Time.time * _pulseSpeed, _pulseAmplitude);
-            _materialInstance.SetColor("_EmissionColor", _glowColor * pulse);
+            // Store original material
+            _originalMaterial = _renderer.material;
         }
     }
 
-    // --------------------------------------------------
-    // PUBLIC API
-    // --------------------------------------------------
+    #endregion
+
+    #region Public Methods
 
     public void EnableGlow()
     {
+        if (_renderer == null || GlowMaterial == null)
+            return;
+
+        if (_isGlowing)
+            return;
+
+        _renderer.material = GlowMaterial;
         _isGlowing = true;
-        _materialInstance.SetColor("_EmissionColor", _glowColor * _intensity);
     }
 
     public void DisableGlow()
     {
+        if (_renderer == null)
+            return;
+
+        if (!_isGlowing)
+            return;
+
+        _renderer.material = _originalMaterial;
         _isGlowing = false;
-        _materialInstance.SetColor("_EmissionColor", Color.black);
     }
+
+    #endregion
 }
