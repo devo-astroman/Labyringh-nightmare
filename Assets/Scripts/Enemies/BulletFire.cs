@@ -5,6 +5,7 @@ public class BulletFire : MonoBehaviour
 
     #region Fields    
     [SerializeField] private HeroDetector _heroDetector;
+    [SerializeField] private SfxManager _sfxManager;
     #endregion
 
     #region public properties    
@@ -16,6 +17,7 @@ public class BulletFire : MonoBehaviour
     #region Unity Callbacks
     void Start()
     {    
+        _sfxManager.PlayClip1(true);
         _heroDetector.detectedAction += HandleDetected;
         _heroDetector.undetectedAction += HandleUndetectedAction;
     }

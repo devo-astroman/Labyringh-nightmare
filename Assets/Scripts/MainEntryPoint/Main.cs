@@ -146,6 +146,7 @@ public class Main : MonoBehaviour
     {
         //get current checkpoint
         //RestartHeroAtCheckpoint();
+        _world.ResetFence();
         Vector3 checkpointPosition = _checkpointManager.GetCurrentCheckpointPosition();
         _heroManager.ResetHeroAt(checkpointPosition);
 
@@ -156,6 +157,7 @@ public class Main : MonoBehaviour
 
         //RestartLastSolvedPuzzle();
         _puzzlesManager.ResetLastPuzzleSolved();
+        _soundsManager.CrossfadeToExploreMusic();
     }
     
     private void HandlePuzzleSolved(int idPuzzle)
@@ -168,7 +170,8 @@ public class Main : MonoBehaviour
 
     private void HandleWaveFinished(int idWave)
     {
-        if(idWave < 6)
+        //if(idWave < 6)
+        if(idWave < 2)
         {
             _puzzlesManager.ActivatePuzzle(idWave+1);
         }

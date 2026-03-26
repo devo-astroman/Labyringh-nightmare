@@ -56,8 +56,9 @@ public class MainOutro : MonoBehaviour
 
     private void HandleClip1Finished()
     {
-        //_gameSceneManager.GoCredits();
         _animationManager.PlayShowThanks();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true; 
     }
     #endregion
 }

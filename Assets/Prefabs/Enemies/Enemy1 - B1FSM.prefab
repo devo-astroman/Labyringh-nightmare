@@ -642,7 +642,6 @@ MonoBehaviour:
   _receiveHitSound: {fileID: 8300000, guid: ec965568f88191040a06b41599c5c7ad, type: 3}
   _wakeUpSound: {fileID: 8300000, guid: 452ddda897fe0e448aeb6f2e0cd116f6, type: 3}
   _dieSound: {fileID: 8300000, guid: 2ca622cb812fb404193c66a189cba6a0, type: 3}
-  _volume: 1
   _loopIdle: 1
 --- !u!1 &1994811677350564004
 GameObject:
@@ -2159,7 +2158,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2453,6 +2452,7 @@ MonoBehaviour:
   _enemyCollidersManager: {fileID: 6229169713371735587}
   _enemyAttackManager: {fileID: 230251059445067298}
   _minimapIndicator: {fileID: 4764189044970574774}
+  _enemyHeroTarget: {fileID: 0}
 --- !u!1 &8921417775419405336
 GameObject:
   m_ObjectHideFlags: 0

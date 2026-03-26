@@ -84,7 +84,7 @@ public class PuzzlesManager : MonoBehaviour
 
         DeactivateAllPuzzlesBut(_lastPuzzleSolved);
         int idPuzzle = _lastPuzzleSolved;
-        PuzzleData puzzleDataToActivate =  _allPuzzles.Find(p =>
+        PuzzleData puzzleDataToActivate = _allPuzzles.Find(p =>
         {
             return p.id == idPuzzle;
         });
@@ -94,14 +94,12 @@ public class PuzzlesManager : MonoBehaviour
         if (puzzle)
         {
             puzzle.Reset();
-            puzzle.Activate();
             _lastPuzzleActivated = _lastPuzzleSolved;
         }
-        _lastPuzzleSolved--;
+        //_lastPuzzleSolved--;
         
         if(_lastPuzzleSolved<0)
             _lastPuzzleSolved = 0;
-
 
     }
 

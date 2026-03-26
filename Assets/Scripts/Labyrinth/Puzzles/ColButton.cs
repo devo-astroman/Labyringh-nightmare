@@ -90,7 +90,7 @@ public class ColButton : MonoBehaviour
     {
         //MakeGlowOn();
         _heroDetector.detectedAction += HandleDetected;
-        _heroDetector.undetectedAction += HandleUndetectedAction;        
+        _heroDetector.undetectedAction += HandleUndetectedAction;
     }
 
     public void Deactivate()

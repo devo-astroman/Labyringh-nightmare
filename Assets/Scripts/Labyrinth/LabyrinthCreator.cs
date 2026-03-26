@@ -197,6 +197,11 @@ public class LabyrinthCreator : MonoBehaviour
         _exitFence.OpenFence();
     }
 
+    public void ResetFence()
+    {
+        _exitFence.Reset();
+    }
+
     private void CreateLabyrinth()
     {
         // 1) Build a perfect maze using DFS backtracker

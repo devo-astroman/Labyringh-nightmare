@@ -37,11 +37,9 @@ public class HeroDetector : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("OnTriggerEnter");
+    {        
         if (IsHero(other.gameObject))
-        {
-            Debug.Log("OnTriggerEnter2");
+        {            
             detectedAction?.Invoke(other.gameObject);
         }
     }

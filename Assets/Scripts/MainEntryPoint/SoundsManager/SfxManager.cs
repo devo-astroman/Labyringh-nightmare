@@ -14,6 +14,7 @@ public class SfxManager : MonoBehaviour
     void Start()
     {
         Debug.Log("setting sfx Volumen" + AllGameData.sfxVolumen);
+        AllGameData.sfxVolumen = 1f;
         _aSource.volume = AllGameData.sfxVolumen;
         _defaultVolume = AllGameData.sfxVolumen;
     }
@@ -23,6 +24,10 @@ public class SfxManager : MonoBehaviour
     public void PlayClip1()
     {
         PlayClip(_clip1Sfx, false,_aSource);
+    }
+    public void PlayClip1(bool loop)
+    {
+        PlayClip(_clip1Sfx, loop,_aSource);
     }
     #endregion
 

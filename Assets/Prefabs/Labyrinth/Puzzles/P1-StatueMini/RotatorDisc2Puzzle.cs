@@ -66,6 +66,7 @@ public class RotatorDisc2Puzzle : Puzzle
 
     public override void Deactivate()
     {
+        Debug.Log("Calling deactivate");
         _colButtonUp.PressButton();
         _colButtonUp.Deactivate();
         _colButtonMiddle.PressButton();

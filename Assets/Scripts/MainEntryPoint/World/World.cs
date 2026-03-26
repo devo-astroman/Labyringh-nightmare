@@ -66,6 +66,11 @@ public class World : MonoBehaviour
         _labyrinthCreator.OpenExitFence();
     }
 
+    public void ResetFence()
+    {        
+        _labyrinthCreator.ResetFence();
+    }
+
     public int GetNBulletsActive()
     {        
         return _bulletManager.GetNBulletsActive();
@@ -104,8 +109,8 @@ public class World : MonoBehaviour
             RoomPositions roomPositionGO = roomGO.GetComponent<Room>().GetRoomPositions();
             roomPositionGO.HideAllCubePositions();
 
-            //if(x==0 && y== 0) //start room so should be clean
             if(x==1 && y== 1) //start room so should be clean to test
+            //if(x==0 && y== 0) //start room so should be clean
             {
                 _startPoint = roomPositionGO.GetPosition(roomPositionGO.LAYER_UP,4);                
             }

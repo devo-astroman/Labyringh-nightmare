@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _heroDetector: {fileID: 2982361672028252835}
+  _sfxManager: {fileID: 3677790298896155120}
 --- !u!114 &2982361672028252835
 MonoBehaviour:
   m_ObjectHideFlags: 0
